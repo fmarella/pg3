@@ -1,0 +1,40 @@
+<style>
+@page {
+size: A4 portrait;
+margin: 1cm;
+}
+</style>
+
+        <div align="float-left"><img src="gui/gp.png" width="120" alt="" /></div>
+       <br>
+        <table cellpadding="3" cellspacing="3" border="0" align="left" valign="middle" bgcolor="#FFA500" width="50%">
+            <tr>
+                <td class="report-header" ><b>Cliente:</b> <h2>{{dao.ragione_sociale}}</h2></td>
+            </tr>
+        </table>
+
+<p>Storico delle pesate:</p>
+<table cellpadding="3" cellspacing="1" border="0.2" align="center" valign="middle" style="border-style: dotted; ">
+        <tr style="background-color: #E5E5E5; ">
+            <th>Data Registrazione</th>
+            <th>Peso</th>
+            <th>Differenza Peso</th>
+            <th>Trattamento</th>
+            <th>Note</th>
+
+        </tr>
+{% for a in pageData["infopeso_righe"]|reverse %}
+<tr>
+<td align="center"><b>{{utils.dateToString(a[1]|nonone)}}</b></td>
+				<td align="center">{{a[2]|nonone}}</td>
+				{% if a[3]|float > 0 %}
+					<td align="center" style="background-color: #FFD7D7; ">{{a[3]|nonone}}</td>
+				{% else %}
+				<td align="center" style="background-color: #CCFFAA; ">{{a[3]|nonone}}</td>
+				{% endif %}
+				<td align="center">{{a[7]|nonone}}</td>
+				<td>{{a[8]|nonone}}</td>
+</tr>
+{% endfor %}
+</table>
+

@@ -1,0 +1,83 @@
+<style>
+
+
+    table {
+/*
+        width: 100%;
+*/
+/*
+        border : 1px solid #c0c0c0;
+*/
+    }
+
+    td.odd-detail {
+        text-align: left;
+        color :black;
+/*
+        border-bottom : 1px solid #c0c0c0;
+*/
+    }
+
+    td.even-detail {
+        text-align: left;
+        color :black;
+/*
+        background: #efefef;
+*/
+        border-bottom : 1px solid #FFFFFF;
+    }
+
+    td.odd-number {
+        text-align: right;
+        color :black;
+/*
+        border-bottom : 1px solid #c0c0c0;
+*/
+    }
+
+    td.even-number {
+        text-align: right;
+        color :black;
+        background: #c0c0c0;
+    }
+
+    tr.even-detail {
+        text-align: left;
+        color :black;
+/*
+        border : 1px solid #000000;
+*/
+    }
+
+    th {
+        padding-left: 0px;
+        font-weight: normal;
+/*        font-style: italic;*/
+/*        font-size: 1.1em;*/
+    }
+
+    th.left {
+        font-weight: normal;
+    }
+
+
+    .table-header {
+        color: #000000;
+/*        font-weight : bold;*/
+/*
+        border-width: 1px 0px 1px 0px;
+*/
+/*
+        border-style: solid;
+*/
+/*
+        border-color: #000000;
+*/
+        padding: 1px;
+        margin: 5px;
+/*        font-size: 1.2em;*/
+        background : #c0c0c0;
+    }
+
+
+</style>

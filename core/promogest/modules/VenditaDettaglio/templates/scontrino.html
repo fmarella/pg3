@@ -1,0 +1,82 @@
+{% include 'vendita_dettaglio_style.css' with context %}
+<h4> Dettaglio scontrino</h4>
+<table style="width:500px;">
+    <tr>
+        <td  style="width:350px;">Data Emissione :{{utils.dateToString(dao.data_inserimento)}}</td>
+        </tr>
+        <tr>
+        <td  style="width:400px;">Cliente: {{dao.cliente_testata_scontrino.ragione_sociale}}</td>
+</tr>
+<br/>
+</table>
+<h4>Righe</h4>
+<table cellpadding="0" cellspacing="4" border="0">
+    <tr>
+        <td class="table-header" style="width:100px;">Articolo</td>
+        <td class="table-header" style="width:200px;">C barre</td>
+        <td class="table-header" style="width:500px;">Descrizione</td>
+        <td class="table-header" style="width:80px;">Q.a'</td>
+        <td class="table-header" style="width:100px;">Prezzo</td>
+        <td class="table-header" style="width:100px;">Sconto</td>
+        <td class="table-header" style="width:100px;">Netto</td>
+        <td class="table-header" style="width:100px;">TOTALE</td>
+        </tr>
+            {% for riga in dao.righe %}
+            <tr class="row">
+            <td class="odd-detail">{{riga.codice_articolo}}</td>
+            <td class="odd-detail">{{riga.codice_a_barre}}</td>
+            <td class="odd-detail">{{riga.descrizione[:20]}}</td>
+            <td class="odd-number">{{utils.mN(riga.quantita or 0,1)}}</td>
+            <td class="odd-number">{{utils.mNLC(riga.prezzo or 0,2)}}</td>
+            {% if riga.tipo_sconto == 'percentuale' %}
+            <td class="odd-number">
+                {{utils.number_format() % (riga.valore_sconto or 0) + "%"}}
+            </td>
+            {% else%}
+            <td class="odd-number">
+                {{utils.number_format() % (riga.valore_sconto or 0) + " "}}
+            </td>
+            {% endif %}
+            <td class="odd-number">{{utils.mNLC(riga.prezzo_scontato or 0,2)}}</td>
+            <td class="odd-number"><strong>{{utils.mNLC((riga.quantita * riga.prezzo_scontato ) or 0,2)}}</strong></td>
+        </tr>
+            {% endfor %}
+        </table>
+{% if pageData["tutto"] == True %}
+<h5>Informazioni accessorie</h5>
+<table>
+    <tr>
+        <td class="table-header">Punto Vendita</td>
+        <td class="table-header">Punto Cassa</td>
+        <td class="table-header">Operatore</td>
+        <td class="table-header">Tipo Carta di credito</td>
+</tr>
+<tr>
+            <td class="odd-detail">{{dao.mag.denominazione}}</td>
+            <td class="odd-detail">{{dao.poss.denominazione}}</td>
+            <td class="odd-detail">{{dao.operatore}}</td>
+            <td class="odd-detail"><b>{{dao.cctypee.denominazione}}</b></td>
+</tr>
+</table>
+{% endif %}
+<h2> Totali</h2>
+<table style="width:800px;">
+    <tr>
+        <td class="table-header" style="width:200px;">Sconto su Tot</td>
+        <td class="table-header" style="width:200px;">Tot assegni</td>
+        <td class="table-header" style="width:200px;">Tot c di credito</td>
+        <td class="table-header" style="width:200px;">Tot contanti</td>
+        <td class="table-header" style="width:300px;">Totale</td>
+</tr>
+<tr class="row">
+            {% if dao.sconti %}
+                <td class="odd-number" style="height:50px">{{utils.mNLC(dao.sconti[0].valore or 0,2)}}{{utils.scontiTipo(dao.sconti[0].tipo_sconto)}}</td>
+            {% else %}
+                <td class="odd-number" style="height:50px">0</td>
+            {% endif %}
+            <td class="odd-number" style="height:50px">{{utils.mNLC(dao.totale_assegni or 0,2)}}</td>
+            <td class="odd-number" style="height:50px">{{utils.mNLC(dao.totale_carta_credito or 0,2)}}</td>
+            <td class="odd-number" style="height:50px">{{utils.mNLC(dao.totale_contanti or 0,2)}}</td>
+            <td class="odd-number" style="font-size:1.6em;height:50px"><b>{{utils.mNLC(dao.totale_scontrino or 0,2)}}</b></td>
+</tr>
+</table>
