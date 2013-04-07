@@ -30,7 +30,7 @@ from promogest.ui.gtk_compat import *
 
 
 class AnagraficaRuoli(Anagrafica):
-    """ Anagrafica categorie degli articoli """
+    """ Anagrafica dei ruoli """
 
     def __init__(self):
         Anagrafica.__init__(self, 'Promogest - Anagrafica Ruoli',
@@ -40,40 +40,7 @@ class AnagraficaRuoli(Anagrafica):
 
 
     def draw(self):
-        # Colonne della Treeview per il filtro/modifica
-        treeview = self.anagrafica_treeview
-
-        renderer = gtk.CellRendererText()
-        renderer.set_property('editable', False)
-        renderer.connect('edited', self.on_column_edited, treeview, True)
-        renderer.set_data('column', 0)
-        renderer.set_data('max_length', 50)
-        column = gtk.TreeViewColumn('Nome', renderer, text=1)
-        #column.set_sizing(GTK_COLUMN_GROWN_ONLY)
-        column.set_clickable(True)
-        column.connect("clicked", self._changeOrderBy, (None, 'denominazione'))
-        column.set_resizable(True)
-        column.set_expand(True)
-        treeview.append_column(column)
-
-        renderer = gtk.CellRendererText()
-        renderer.set_property('editable', False)
-        renderer.connect('edited', self.on_column_edited, treeview, False)
-        renderer.set_data('column', 1)
-        renderer.set_data('max_length', 250)
-        column = gtk.TreeViewColumn('Descrizione', renderer, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
-        column.set_clickable(True)
-        column.connect("clicked", self._changeOrderBy, 'Descrizione')
-        column.set_resizable(True)
-        column.set_expand(False)
-        treeview.append_column(column)
-
-        treeview.set_search_column(1)
-
-        self._treeViewModel = gtk.ListStore(object, str, str)
-        treeview.set_model(self._treeViewModel)
-
+        self._treeViewModel = self.filter.filter_listore
         self.refresh()
 
 
@@ -104,7 +71,7 @@ class AnagraficaRuoli(Anagrafica):
 
 
 class AnagraficaRuoliFilter(AnagraficaFilter):
-    """ Filtro per la ricerca nell'anagrafica delle categorie articoli """
+    """ Filtro per la ricerca nell'anagrafica dei ruoli """
 
     def __init__(self, anagrafica):
         AnagraficaFilter.__init__(self,
@@ -123,12 +90,13 @@ class AnagraficaRuoliFilter(AnagraficaFilter):
 
 
 class AnagraficaRuoliDetail(AnagraficaDetail):
-    """ Dettaglio dell'anagrafica delle categorie articoli """
+    """ Dettaglio dell'anagrafica dei ruoli """
 
     def __init__(self, anagrafica):
         AnagraficaDetail.__init__(self,
                                   anagrafica,
-                                  path='RuoliAzioni/gui/_anagrafica_ruoli_elements.glade')
+                                  path='RuoliAzioni/gui/_anagrafica_ruoli_elements.glade',
+                                  isModule=True)
 
 
     def setDao(self, dao):
@@ -136,31 +104,36 @@ class AnagraficaRuoliDetail(AnagraficaDetail):
         if dao is None:
             self.dao = Role()
             self._anagrafica._newRow((self.dao, '', ''))
-            self._refresh()
-
+        return self.dao
 
     def updateDao(self):
         self.dao = Role().getRecord(id=self.dao.id)
         self._refresh()
 
-
     def _refresh(self):
+        if not self.dao:
+            return
         sel = self._anagrafica.anagrafica_treeview.get_selection()
         (model, iterator) = sel.get_selected()
+        if not iterator:
+            return
         model.set_value(iterator, 0, self.dao)
         model.set_value(iterator, 1, self.dao.name)
         model.set_value(iterator, 2, self.dao.descrizione)
 
-
     def saveDao(self):
         sel = self._anagrafica.anagrafica_treeview.get_selection()
         (model, iterator) = sel.get_selected()
+
         name = model.get_value(iterator, 1) or ''
         descrizione = model.get_value(iterator, 2) or ''
         if (name == ''):
-            obligatoryField(self._anagrafica.getTopLevel(), self._anagrafica.anagrafica_treeview)
+            obligatoryField(self._anagrafica.getTopLevel(),
+                            self._anagrafica.anagrafica_treeview)
         if (descrizione == ''):
-            obligatoryField(self._anagrafica.getTopLevel(), self._anagrafica.anagrafica_treeview)
+            obligatoryField(self._anagrafica.getTopLevel(),
+                            self._anagrafica.anagrafica_treeview)
+
         self.dao.name = name
         self.dao.descrizione = descrizione
         self.dao.persist()

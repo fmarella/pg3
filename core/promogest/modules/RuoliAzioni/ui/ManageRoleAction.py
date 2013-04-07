@@ -40,63 +40,15 @@ class ManageRuoloAzioni(GladeWidget):
         self.placeWindow(self.getTopLevel())
         self.getTopLevel().set_modal(True)
         self.getTopLevel().show_all()
-        self.titolo.set_markup("""
-        Questa finestra permette di abbinare ad un ruolo
-        precedentemente creato una delle
-        azioni possibili. Seleziona un Ruolo e poi premi abbina
-        seleziona le azioni cliccando sulla checkbox e premi salva.
-                                    """)
         self.draw()
         self.refresh()
 
     def draw(self):
+        self._treeViewModel = self.liststore1
 
-        # Colonne della Treeview per il filtro/modifica
-        treeview = self.anagrafica_treeview_role
-
-        renderer = gtk.CellRendererText()
-        renderer.set_property('editable', False)
-        #renderer.connect('edited', self.on_column_edited, treeview, False)
-        renderer.set_data('column', 0)
-        renderer.set_data('max_length', 5)
-        column = gtk.TreeViewColumn('Den. breve', renderer, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
-        #column.set_clickable(True)
-        column.set_resizable(True)
-        column.set_expand(True)
-        treeview.append_column(column)
-
-        renderer = gtk.CellRendererText()
-        renderer.set_property('editable', False)
-        #renderer.connect('edited', self.on_column_edited, treeview, False)
-        renderer.set_data('column', 0)
-        renderer.set_data('max_length', 200)
-        column = gtk.TreeViewColumn('Denominazione', renderer, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
-        #column.set_clickable(True)
-        column.set_resizable(True)
-        column.set_expand(True)
-        treeview.append_column(column)
-
-        renderer = gtk.CellRendererToggle()
-        renderer.set_property('activatable',True)
-        renderer.connect('toggled', self.on_column_edited, None, treeview)
-        #renderer.set_active(False)
-        column = gtk.TreeViewColumn('Attiva/Disattiva', renderer, active=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
-        column.set_clickable(False)
-        column.set_resizable(True)
-        column.set_expand(False)
-        treeview.append_column(column)
-
-        self._treeViewModel = gtk.ListStore(object, str, str, bool)
-        treeview.set_model(self._treeViewModel)
-
-        treeview.set_search_column(1)
-
-    def on_column_edited(self, cell, path, value, treeview, editNext=True):
+    def on_column_edited(self, cell, path):
         """ Gestisce l'immagazzinamento dei valori nelle celle """
-        model = treeview.get_model()
+        model = self.anagrafica_treeview_role.get_model()
         iterator = model.get_iter(path)
         row = model[iterator]
         row[3]= not row[3]
@@ -139,4 +91,3 @@ class ManageRuoloAzioni(GladeWidget):
                 if self.idRole != 1:
                     riga= RoleAction().select(id_role=self.idRole,id_action=row[0].id)[0]
                     riga.delete()
-        return
