@@ -35,11 +35,6 @@ class AnagraficaCategorieFornitori(Anagrafica):
                             AnagraficaCategorieFornitoriDetail(self))
 
     def draw(self):
-        """ Facoltativo ma suggerito per indicare la lunghezza
-        massima della cella di testo
-        """
-        self.filter.descrizione_column.get_cells()[0].set_data(
-                                                            'max_length', 200)
         self._treeViewModel = self.filter.filter_listore
         self.refresh()
 
