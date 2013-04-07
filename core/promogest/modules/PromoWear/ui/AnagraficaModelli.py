@@ -40,45 +40,8 @@ class AnagraficaModelli(Anagrafica):
                             AnagraficaModelliDetail(self))
 
     def draw(self):
-        # Colonne della Treeview per il filtro
-
-        treeview = self.anagrafica_treeview
-
-        renderer = gtk.CellRendererText()
-        renderer.set_property('editable', False)
-        renderer.connect('edited', self.on_column_edited, treeview, True)
-        renderer.set_data('column', 0)
-        renderer.set_data('max_length', 200)
-        column = gtk.TreeViewColumn('Denominazione', renderer, text=1,
-                                    sensitive=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
-        column.set_clickable(True)
-        column.connect("clicked", self._changeOrderBy, (None, 'denominazione'))
-        column.set_resizable(True)
-        column.set_expand(True)
-        treeview.append_column(column)
-
-        renderer = gtk.CellRendererText()
-        renderer.set_property('editable', False)
-        renderer.connect('edited', self.on_column_edited, treeview, False)
-        renderer.set_data('column', 1)
-        renderer.set_data('max_length', 10)
-        column = gtk.TreeViewColumn('Descrizione breve', renderer, text=2,
-                                    sensitive=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
-        column.set_clickable(True)
-        column.connect("clicked", self._changeOrderBy,
-                                        (None, 'denominazione_breve'))
-        column.set_resizable(True)
-        column.set_expand(False)
-        treeview.append_column(column)
-
-        treeview.set_search_column(1)
-
-        # Model: Dao, denominazione, denominazione_breve, sensitive
-        self._treeViewModel = gtk.ListStore(object, str, str, bool)
-        treeview.set_model(self._treeViewModel)
-
+        self._treeViewModel = self.filter.filter_liststore
+        self.filter.anagrafica_semplice_treeview.set_model(self._treeViewModel)
         self.refresh()
 
     def refresh(self):
@@ -169,3 +132,6 @@ class AnagraficaModelliDetail(AnagraficaDetail):
         if self.dao.denominazione_breve == '' or self.dao.denominazione_breve == None:
             obligatoryField(self._anagrafica.getTopLevel(), self._anagrafica.anagrafica_treeview)
         self.dao.persist()
+
+    def deleteDao(self):
+        self.dao.delete()
