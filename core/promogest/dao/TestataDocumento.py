@@ -465,7 +465,7 @@ class TestataDocumento(Dao):
         # Gestione anche della prima nota abbinata al pagamento
         # agganciare qui con dei controlli, le cancellazioni preventive ed i
         # reinserimenti.
-        self.testataDocumentoScadenzaDel(dao=self)
+        #self.testataDocumentoScadenzaDel(dao=self)
 
         #print "check testataDocumentoScadenzaSave"
 
@@ -485,6 +485,12 @@ class TestataDocumento(Dao):
 
         # n (>=1) scadenze associate al documento
         num_scadenze = len(self.testata_documento_scadenza)
+
+        if num_scadenze == 0:
+            print "**** NESSUNNNAAAAAAA SCADENZA"
+        else:
+            print "**** {0} SCADENZEEEEE".format(num_scadenze)
+
         for scad in self.testata_documento_scadenza:
             #scad.id_testata_documento = self.id
             #Environment.session.add(scad)

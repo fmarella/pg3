@@ -137,7 +137,7 @@
         {% for scadenza in dao.testata_documento_scadenza %}
             <tr>
                 <td width="140px" class="even-detail">Pagamento</td>
-                <td class="odd-detail"><strong>{{ scadenza.pagamento }}</strong></td>
+                <td class="odd-detail"><strong>{{ scadenza.id_pagamento|nonone }}</strong></td>
             </tr>
             <tr>
                 <td width="140px" class="even-detail">Data</td>

@@ -36,14 +36,21 @@ class PagamentoWidget(GladeWidget):
     """
 
     label = 'rata generica'
+    model = None
 
-    def __init__(self, owner, label=None):
+    def __init__(self, owner, label=None, model=None):
         GladeWidget.__init__(self, root='pagamento_box',
                              path='Pagamenti/gui/_pagamento_elements.glade',
                              isModule=True)
 
         if label:
             self.label = label
+
+        if model:
+            self.model = model
+        else:
+            self.model = TestataDocumentoScadenza()
+
         self.id_pagamento_scadenza_ccb.connect('clicked',
                                                on_id_pagamento_customcombobox_clicked)
         self.id_banca_scadenza_ccb.connect('clicked',
@@ -58,30 +65,37 @@ class PagamentoWidget(GladeWidget):
         fillComboboxBanche(self.id_banca_scadenza_ccb.combobox, short=20)
         self._owner = owner
         self.show_all()
+        self.__fill()
 
-    def fill(self, scadenza):
+    def __fill(self):
         """ Riempie i campi con i dati della scadenza
         """
-        self.data_scadenza_entry.set_text(dateToString(scadenza.data) or '')
-        self.importo_scadenza_entry.set_text(str(scadenza.importo or '0'))
-        findComboboxRowFromId(self.id_pagamento_scadenza_ccb.combobox, scadenza.id_pagamento)
-        if scadenza.id_banca:
-            findComboboxRowFromStr(self.id_banca_scadenza_ccb.combobox, scadenza.id_banca, 1)
-        textview_set_text(self.note_scadenza_textview, scadenza.note_per_primanota or '')
-        self.data_pagamento_scadenza_entry.set_text(dateToString(scadenza.data_pagamento or ''))
+        self.data_scadenza_entry.set_text(dateToString(self.model.data) or '')
+        self.importo_scadenza_entry.set_text(str(self.model.importo or '0'))
+        if self.model.id_pagamento:
+            findComboboxRowFromId(self.id_pagamento_scadenza_ccb.combobox,
+                                  self.model.id_pagamento)
+        if self.model.id_banca:
+            findComboboxRowFromStr(self.id_banca_scadenza_ccb.combobox,
+                                   self.model.id_banca, 1)
+        textview_set_text(self.note_scadenza_textview, self.model.note_per_primanota or '')
+        self.data_pagamento_scadenza_entry.set_text(dateToString(self.model.data_pagamento or ''))
 
-    def get(self):
+    def set_model(self, model):
+        self.model = model
+        self.__fill()
+
+    def get_model(self):
         """ Ritorna i dati della scadenza
         """
-        tds = TestataDocumentoScadenza()
-        tds.id_testata_documento = self._owner.dao.id
-        tds.data = stringToDate(self.data_scadenza_entry.get_text())
-        tds.importo = float(self.importo_scadenza_entry.get_text() or '0')
-        tds.id_pagamento = findIdFromCombobox(self.id_pagamento_scadenza_ccb.combobox)
-        tds.data_pagamento = stringToDate(self.data_pagamento_scadenza_entry.get_text())
-        tds.id_banca = findIdFromCombobox(self.id_banca_scadenza_ccb.combobox)
-        tds.note_per_primanota = textview_get_text(self.note_scadenza_textview) or ''
-        return tds
+        self.model.id_testata_documento = self._owner.dao.id
+        self.model.data = stringToDate(self.data_scadenza_entry.get_text())
+        self.model.importo = float(self.importo_scadenza_entry.get_text() or '0')
+        self.model.id_pagamento = findIdFromCombobox(self.id_pagamento_scadenza_ccb.combobox)
+        self.model.data_pagamento = stringToDate(self.data_pagamento_scadenza_entry.get_text())
+        self.model.id_banca = findIdFromCombobox(self.id_banca_scadenza_ccb.combobox)
+        self.model.note_per_primanota = textview_get_text(self.note_scadenza_textview) or ''
+        return self.model
 
     def on_pulisci_rata_button_clicked(self, button):
         """ Pulizia dei campi relativi alla rata
@@ -90,7 +104,7 @@ class PagamentoWidget(GladeWidget):
         self.id_pagamento_scadenza_ccb.combobox.set_active(-1)
         self.id_banca_scadenza_ccb.combobox.set_active(-1)
         self.data_pagamento_scadenza_entry.set_text("")
-        self.importo_scadenza_entry.set_text("")
+        self.importo_scadenza_entry.set_text("0")
         textview_set_text(self.note_scadenza_textview, "")
 
     def on_data_pagamento_scadenza_entry_changed(self, entry):

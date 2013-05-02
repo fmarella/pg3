@@ -94,15 +94,15 @@ class PagamentiNotebookPage(GladeWidget):
             for i in self.rate:
                 self.scadenze_notebook.remove_page(0)
             self.rate = []
+            # devono essere rimosse tutta una serie di dati collegati alle scadenze
+            # come ad esempio prima nota
+            self.ana.dao.testataDocumentoScadenzaDel()
 
     def on_aggiungi_rate_button_clicked(self, button):
         '''
         '''
         numero = len(self.rate) + 1
         pag_w = PagamentoWidget(self.ana, 'rata ' + str(numero))
-        dao = pag_w.get()
-        dao.data = datetime.datetime.now()
-        pag_w.fill(dao)
         self.rate.append(pag_w)
         self.scadenze_notebook.insert_page(pag_w.getTopLevel(), gtk.Label(pag_w.label), -1)
         self.scadenze_notebook.set_current_page(-1)
@@ -112,7 +112,10 @@ class PagamentiNotebookPage(GladeWidget):
         '''
         if len(self.rate) > 0:
             if YesNoDialog(msg=_('Rimuovere la rata?\n\nAlcune informazioni andranno perse per sempre.')):
-                self.rate.pop()
+                scadenza = self.rate.pop()
+                #TODO: rimuovere la scadenza da testata_documento_scadenza
+                #scadenza.get_model().delete()
+
                 self.scadenze_notebook.remove_page(-1)
         else:
             messageInfo('Non ci sono altre scadenze da rimuovere.')
@@ -212,11 +215,11 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         acconto = 0
         importo_immesso = 0
         for rata in self.rate:
-            daoTDS = rata.get()
+            daoTDS = rata.get_model()
             importo_immesso += daoTDS.importo
 
         if self.acconto:
-            daoAcconto = self.acconto.get()
+            daoAcconto = self.acconto.get_model()
             acconto = daoAcconto.importo
 
         if acconto == 0 or importo_immesso == 0 or importo_immesso < float(self.totale_in_pagamenti_label.get_text()):
@@ -244,9 +247,9 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         if not self.acconto:
             self.acconto_scheda_togglebutton.set_label(_('Acconto'))
             self.acconto = PagamentoWidget(self.ana, 'Acconto')
-            dao = self.acconto.get()
+            dao = self.acconto.get_model()
             dao.data = datetime.datetime.now()
-            self.acconto.fill(dao)
+            self.acconto.set_model(dao)
             self.scadenze_notebook.insert_page(self.acconto.getTopLevel(), gtk.Label(self.acconto.label), 0)
             self.scadenze_notebook.set_current_page(0)
         else:
@@ -274,10 +277,10 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
                 if scadenza.numero_scadenza == 0:
                     self.acconto = None
                     self.acconto_scheda_togglebutton.set_active(True)
-                    self.acconto.fill(scadenza)
+                    self.acconto.set_model(scadenza)
                 else:
                     self.on_aggiungi_rate_button_clicked(None)
-                    self.rate[-1].fill(scadenza)
+                    self.rate[-1].set_model(scadenza)
 
             if self.ana.dao.ripartire_importo is None:
                 self.ana.dao.ripartire_importo = True
@@ -336,7 +339,7 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         #scadenze = []
 
         if self.acconto:
-            daoTestataDocumentoScadenza = self.acconto.get()
+            daoTestataDocumentoScadenza = self.acconto.get_model()
             daoTestataDocumentoScadenza.id_testata_documento = self.ana.dao.id
             daoTestataDocumentoScadenza.numero_scadenza = 0
             if not daoTestataDocumentoScadenza.importo:
@@ -350,7 +353,7 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
             Environment.session.add(daoTestataDocumentoScadenza)
         i = 1
         for rata in self.rate:
-            daoTestataDocumentoScadenza = rata.get()
+            daoTestataDocumentoScadenza = rata.get_model()
             daoTestataDocumentoScadenza.id_testata_documento = self.ana.dao.id
             daoTestataDocumentoScadenza.numero_scadenza = i
             if not daoTestataDocumentoScadenza.importo:
@@ -416,7 +419,7 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         for j in range(numeroscadenze):
             daoTDS = None
             try:
-                daoTDS = self.rate[j].get()
+                daoTDS = self.rate[j].get_model()
             except IndexError:
                 daoTDS = TestataDocumentoScadenza()
                 daoTDS.id_testata_documento = self.ana.dao.id
@@ -430,10 +433,10 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
             else:
                 daoTDS.data = data_doc
             try:
-                self.rate[j].fill(daoTDS)
+                self.rate[j].set_model(daoTDS)
             except IndexError:
                 self.on_aggiungi_rate_button_clicked(None)
-                self.rate[-1].fill(daoTDS)
+                self.rate[-1].set_model(daoTDS)
         return True
 
     def dividi_importo(self):
@@ -448,7 +451,7 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
 
         acconto = float(0)
         if self.acconto:
-            daoAcconto = self.acconto.get()
+            daoAcconto = self.acconto.get_model()
             acconto = float(daoAcconto.importo or 0)
 
         importo_primo_doc = float(self.importo_primo_documento_entry.get_text() or 0)
@@ -467,13 +470,13 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
 
         i = 0
         for rata in self.rate:
-            daoTDS = rata.get()
+            daoTDS = rata.get_model()
             if type(importorate) == list:
                 daoTDS.importo = importorate[i]
                 i += 1
             else:
                 daoTDS.importo = importorate
-            rata.fill(daoTDS)
+            rata.set_model(daoTDS)
 
         #TODO: mostrare o nascondere l'acconto ?
 
@@ -502,11 +505,11 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         spese = float(0)
         # Controllo l'acconto e le rate
         if self.acconto:
-            dao = self.acconto.get()
+            dao = self.acconto.get_model()
             spese += getSpesePagamento(dao.pagamento)
         if len(self.rate) > 0:
             for rata in self.rate:
-                dao = rata.get()
+                dao = rata.get_model()
                 spese += getSpesePagamento(dao.pagamento)
         return spese
 
@@ -529,11 +532,11 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
 
         importo_immesso = float(0)
         for rata in self.rate:
-            daoTDS = rata.get()
+            daoTDS = rata.get_model()
             importo_immesso += daoTDS.importo
 
         if self.acconto:
-            daoAcconto = self.acconto.get()
+            daoAcconto = self.acconto.get_model()
             importo_immesso += daoAcconto.importo
 
         importo_primo_riferimento = float(self.ana.importo_primo_documento_entry.get_text() or 0)
@@ -572,14 +575,14 @@ Per l'esattezza, l'errore e` di %.2f""" % differenza_importi)
 
         acconto = float(0)
         if self.acconto:
-            daoAcconto = self.acconto.get()
+            daoAcconto = self.acconto.get_model()
             acconto = daoAcconto.importo
 
         totalepagato = acconto
         totalesospeso = float(0)
 
         for rata in self.rate:
-            daoTDS = rata.get()
+            daoTDS = rata.get_model()
             if daoTDS.data_pagamento:
                 totalepagato += daoTDS.importo
             else:
