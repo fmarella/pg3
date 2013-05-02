@@ -28,6 +28,7 @@ from promogest.Environment import *
 from promogest.dao.Dao import Dao
 from promogest.dao.DaoUtils import get_columns
 
+
 class TestataDocumentoScadenza(Dao):
 
     def __init__(self, req=None):
@@ -50,6 +51,10 @@ colonne = get_columns(tesdocsca)
 if "id_banca" not in colonne:
     col = Column('id_banca', Integer, nullable=True)
     # ForeignKey(bancaFK, onupdate="CASCADE", ondelete="RESTRICT"),
+    col.create(tesdocsca)
+
+if "id_pagamento" not in colonne:
+    col = Column('id_pagamento', Integer, ForeignKey(fk_prefix + 'pagamento.id'), nullable=True)
     col.create(tesdocsca)
 
 if "note_per_primanota" not in colonne:

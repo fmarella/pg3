@@ -20,12 +20,12 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
+import datetime
 from promogest.ui.gtk_compat import *
 from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-
 from promogest.dao.Pagamento import Pagamento
 from promogest.modules.Pagamenti.dao.TestataDocumentoScadenza import TestataDocumentoScadenza
 
@@ -63,40 +63,25 @@ class PagamentoWidget(GladeWidget):
         """ Riempie i campi con i dati della scadenza
         """
         self.data_scadenza_entry.set_text(dateToString(scadenza.data) or '')
-        self.importo_scadenza_entry.set_text(str(scadenza.importo or ''))
-        if scadenza.pagamento != 'n/a':
-            findComboboxRowFromStr(self.id_pagamento_scadenza_ccb.combobox, scadenza.pagamento, 2)
-        else:
-            self.id_pagamento_scadenza_ccb.combobox.set_active(-1)
-        findComboboxRowFromStr(self.id_banca_scadenza_ccb.combobox, scadenza.id_banca, 1)
-        textview_set_text(self.note_scadenza_textview, scadenza.note_per_primanota)
-        self.data_pagamento_scadenza_entry.set_text(dateToString
-                                                    (scadenza.data_pagamento or ''))
+        self.importo_scadenza_entry.set_text(str(scadenza.importo or '0'))
+        findComboboxRowFromId(self.id_pagamento_scadenza_ccb.combobox, scadenza.id_pagamento)
+        if scadenza.id_banca:
+            findComboboxRowFromStr(self.id_banca_scadenza_ccb.combobox, scadenza.id_banca, 1)
+        textview_set_text(self.note_scadenza_textview, scadenza.note_per_primanota or '')
+        self.data_pagamento_scadenza_entry.set_text(dateToString(scadenza.data_pagamento or ''))
+
     def get(self):
         """ Ritorna i dati della scadenza
         """
-        daoTestataDocumentoScadenza = TestataDocumentoScadenza()
-#        if stringToDate(self.data_scadenza_entry.get_text()) == "":
-#            obligatoryField(self._owner.dialogTopLevel,
-#                self.data_scadenza_entry, 'Inserire una data!')
-        daoTestataDocumentoScadenza.data = stringToDate(self.data_scadenza_entry.get_text())
-        daoTestataDocumentoScadenza.importo = float(self.importo_scadenza_entry.get_text() or '0')
-        idpag = findIdFromCombobox(self.id_pagamento_scadenza_ccb.combobox)
-        if idpag:
-            p = Pagamento().getRecord(id=idpag)
-            daoTestataDocumentoScadenza.pagamento = p.denominazione
-        else:
-            # Nel caso di una fattura emessa o ricevuta il tipo di pagamento
-            # non è noto a priori. Dato che `pagamento` è un campo obbligatorio
-            # assegnamo la stringa 'n/a'.
-            daoTestataDocumentoScadenza.pagamento = 'n/a'
-        daoTestataDocumentoScadenza.data_pagamento = stringToDate(self.data_pagamento_scadenza_entry.get_text())
-        idbanca = findIdFromCombobox(self.id_banca_scadenza_ccb.combobox)
-        if idbanca:
-            daoTestataDocumentoScadenza.id_banca = idbanca
-        note = textview_get_text(self.note_scadenza_textview)
-        daoTestataDocumentoScadenza.note_per_primanota = note or ''
-        return daoTestataDocumentoScadenza
+        tds = TestataDocumentoScadenza()
+        tds.id_testata_documento = self._owner.dao.id
+        tds.data = stringToDate(self.data_scadenza_entry.get_text())
+        tds.importo = float(self.importo_scadenza_entry.get_text() or '0')
+        tds.id_pagamento = findIdFromCombobox(self.id_pagamento_scadenza_ccb.combobox)
+        tds.data_pagamento = stringToDate(self.data_pagamento_scadenza_entry.get_text())
+        tds.id_banca = findIdFromCombobox(self.id_banca_scadenza_ccb.combobox)
+        tds.note_per_primanota = textview_get_text(self.note_scadenza_textview) or ''
+        return tds
 
     def on_pulisci_rata_button_clicked(self, button):
         """ Pulizia dei campi relativi alla rata

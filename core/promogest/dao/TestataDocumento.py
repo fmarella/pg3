@@ -24,6 +24,7 @@
 
 from sqlalchemy import *
 from sqlalchemy.orm import *
+from sqlalchemy.orm.session import make_transient
 from Dao import Dao
 from Operazione import Operazione
 from ScontoTestataDocumento import ScontoTestataDocumento
@@ -44,7 +45,6 @@ from promogest.dao.NumeroLottoTemp import NumeroLottoTemp
 from promogest.modules.PrimaNota.dao.TestataPrimaNota import TestataPrimaNota
 from promogest.modules.PrimaNota.dao.RigaPrimaNota import RigaPrimaNota
 from promogest.modules.PrimaNota.dao.RigaPrimaNotaTestataDocumentoScadenza import RigaPrimaNotaTestataDocumentoScadenza
-from ScontoRigaMovimento import ScontoRigaMovimento
 from promogest.dao.RigaMovimentoFornitura import RigaMovimentoFornitura
 from promogest.modules.Pagamenti.dao.TestataDocumentoScadenza import TestataDocumentoScadenza
 from promogest.dao.InformazioniFatturazioneDocumento import InformazioniFatturazioneDocumento
@@ -52,7 +52,7 @@ import promogest.lib.ibanlib
 
 from promogest.dao.DaoUtils import numeroRegistroGet
 from promogest.dao.CachedDaosDict import CachedDaosDict
-from decimal import *
+from decimal import Decimal
 
 from promogest.Environment import *
 from promogest import Environment
@@ -68,8 +68,6 @@ class TestataDocumento(Dao):
 
         self.__righeDocumento = None
         self.__operazione = None
-        self.__dbScadenzeDocumento = []
-        self.__ScadenzeDocumento = []
         self.__dbScontiTestataDocumento = []
         self.__scontiTestataDocumento = []
         self.__dbRigheDocumentoPart = []
@@ -93,12 +91,10 @@ class TestataDocumento(Dao):
 
     @reconstructor
     def init_on_load(self):
-        self.__dbScadenzeDocumento = []
         self.__dbScontiTestataDocumento = []
         self.__dbRigheDocumentoPart = []
         self.__dbRigheMovimentoPart = []
         self.__righeDocumento = []
-        self.__ScadenzeDocumento = []
         self.__scontiTestataDocumento = []
         self.__data_inizio_noleggio = None
         self.__data_fine_noleggio = None
@@ -106,22 +102,6 @@ class TestataDocumento(Dao):
     def __repr__(self):
         return '<Documento ID={0} operazione="{1}">'.format(self.numero, self.operazione)
 
-    def _getScadenzeDocumento(self):
-        #if not self.__dbScadenzeDocumento:
-        if self.id:
-            #self.__dbScadenzeDocumento = params['session']\
-                                    #.query(TestataDocumentoScadenza)\
-                                    #.with_parent(self)\
-                                    #.filter_by(id_testata_documento=self.id)\
-                                    #.all()
-            self.__dbScadenzeDocumento = self.testata_documento_scadenza
-        self.__ScadenzeDocumento = self.__dbScadenzeDocumento[:]
-        return self.__ScadenzeDocumento
-
-    def _setScadenzeDocumento(self, value):
-        self.__ScadenzeDocumento = value
-
-    scadenze = property(_getScadenzeDocumento, _setScadenzeDocumento)
 
     def _getRigheDocumento(self):
         #if not self.__righeDocumento:
@@ -301,7 +281,7 @@ class TestataDocumento(Dao):
         impon_spese = Decimal(0)
         imposta_spese = Decimal(0)
         if self.esclusione_spese == False:
-            for scad in self.scadenze:
+            for scad in self.testata_documento_scadenza:
                 if scad:
                     impon_spese_, spese_ = getSpesePagamento(scad.pagamento)
                     spese += spese_
@@ -480,6 +460,99 @@ class TestataDocumento(Dao):
                         break
         return righeMovimentazione
 
+
+    def testataDocumentoScadenzaSave(self, dao=None):
+        # Gestione anche della prima nota abbinata al pagamento
+        # agganciare qui con dei controlli, le cancellazioni preventive ed i
+        # reinserimenti.
+        self.testataDocumentoScadenzaDel(dao=self)
+
+        #print "check testataDocumentoScadenzaSave"
+
+        # Non ci sono scadenze: ne aggiungo una obbligatoria
+#        if self.testata_documento_scadenza == [] and self.ripartire_importo:
+#            tds = TestataDocumentoScadenza()
+#            tds.id_testata_documento = self.id
+#            tds.data = datetime.datetime.now()
+#            tds.numero_scadenza = 1
+#            tds.pagamento = 'n/a'
+#            tds.id_pagamento = None
+#            tds.note_per_primanota = ''
+#            tds.importo = self.totale_sospeso + self.totale_pagato
+#            #self.testata_documento_scadenza.append(tds)
+#            Environment.session.add(tds)
+#            Environment.session.commit()
+
+        # n (>=1) scadenze associate al documento
+        num_scadenze = len(self.testata_documento_scadenza)
+        for scad in self.testata_documento_scadenza:
+            #scad.id_testata_documento = self.id
+            #Environment.session.add(scad)
+
+            if self.ripartire_importo:
+                if scad.data_pagamento is None:
+                    if not setconf('PrimaNota', 'inserisci_senza_data_pagamento'):
+                        continue
+
+                ope = leggiOperazione(self.operazione)
+
+                tipo = 'n/a'
+                if scad.pagamento != 'n/a':
+                    p = Pagamento().select(denominazione=scad.pagamento)
+                    if p:
+                        tipo = p[0].tipo
+
+                if scad.numero_scadenza == 0:
+                    tipo_pag = "ACCONTO"
+                    num_scadenze -= 1
+                else:
+                    tipo_pag = 'pagam. %s' % scad.numero_scadenza
+                    if self.documento_saldato and num_scadenze == scad.numero_scadenza:
+                        tipo_pag = 'saldo'
+                    if scad.data_pagamento is None:
+                        if ope['tipoPersonaGiuridica'] == 'fornitore':
+                            tipo_pag += ' ricevuta'
+                        elif ope['tipoPersonaGiuridica'] == 'cliente':
+                            tipo_pag += ' emessa'
+                        else:
+                            pass
+
+                stringa = "%s %s - %s Rif.interni N.%s " %(self.operazione, self.protocollo, \
+                    dateToString(self.data_documento), str(self.numero))
+                if ope["segno"] == "-":
+                    stringa += 'a '
+                    segno = "entrata"
+                else:
+                    stringa += 'da '
+                    segno = "uscita"
+                str_importo_doc = "Importo doc. %s " % mN(self.totale_sospeso + self.totale_pagato, 2)
+                stringa += "%s \n%s%s, %s" %(self.intestatario, str_importo_doc, self._getPI_CF(), tipo_pag)
+
+                tpn = TestataPrimaNota()
+                tpn.data_inizio = scad.data_pagamento
+                tpn.note = ""
+                rigaprimanota = RigaPrimaNota()
+                rigaprimanota.denominazione = stringa
+                rigaprimanota.numero = 1
+                rigaprimanota.data_registrazione = scad.data_pagamento
+                if tipo:
+                    rigaprimanota.tipo = tipo.lower()
+                else:
+                    rigaprimanota.tipo = 'n/a'
+                rigaprimanota.segno = segno
+                rigaprimanota.valore = scad.importo
+                rigaprimanota.id_banca = scad.id_banca
+                rigaprimanota.note_primanota = scad.note_per_primanota or ''
+                rigaprimanota.id_testata_documento = self.id
+                tpn.righeprimanota = [rigaprimanota]
+                tpn.persist()
+                a = RigaPrimaNotaTestataDocumentoScadenza()
+                a.id_riga_prima_nota = rigaprimanota.id
+                a.id_testata_documento_scadenza = scad.id
+                params["session"].add(a)
+                #params["session"].commit()
+        Environment.session.commit()
+
     #Salvataggi subordinati alla testata Documento, iniziamo da righe documento e poi righe
     def persist(self):
         if not self.ckdd(self):
@@ -560,87 +633,7 @@ class TestataDocumento(Dao):
                         riga.id_testata_documento = self.id
                         riga.persist(sm=sm)
 
-        #Gestione anche della prima nota abbinata al pagamento
-        #agganciare qui con dei controlli, le cancellazioni preventive ed i
-        #reinserimenti.
-        self.testataDocumentoScadenzaDel(dao=self)
-
-        if not(self.__ScadenzeDocumento) and self.ripartire_importo:
-            tds = TestataDocumentoScadenza()
-            tds.data = datetime.datetime.now()
-            tds.numero_scadenza = 1
-            tds.pagamento = 'n/a'
-            tds.note_per_primanota = ''
-            tds.importo = self.totale_sospeso + self.totale_pagato
-            self.__ScadenzeDocumento.append(tds)
-
-        num_scadenze = len(self.__ScadenzeDocumento)
-        for scad in self.__ScadenzeDocumento:
-            scad.id_testata_documento = self.id
-            Environment.session.add(scad)
-
-            if self.ripartire_importo:
-                if scad.data_pagamento is None:
-                    if not setconf('PrimaNota', 'inserisci_senza_data_pagamento'):
-                        continue
-
-                ope = leggiOperazione(self.operazione)
-                tipo = 'n/a'
-                if scad.pagamento != 'n/a':
-                    p = Pagamento().select(denominazione=scad.pagamento)
-                    if p:
-                        tipo = p[0].tipo
-
-                if scad.numero_scadenza == 0:
-                    tipo_pag = "ACCONTO"
-                    num_scadenze -= 1
-                else:
-                    tipo_pag = 'pagam. %s' % scad.numero_scadenza
-                    if self.documento_saldato and num_scadenze == scad.numero_scadenza:
-                        tipo_pag = 'saldo'
-                    if scad.data_pagamento is None:
-                        if ope['tipoPersonaGiuridica'] == 'fornitore':
-                            tipo_pag += ' ricevuta'
-                        elif ope['tipoPersonaGiuridica'] == 'cliente':
-                            tipo_pag += ' emessa'
-                        else:
-                            pass
-
-                stringa = "%s %s - %s Rif.interni N.%s " %(self.operazione, self.protocollo, \
-                    dateToString(self.data_documento), str(self.numero))
-                if ope["segno"] == "-":
-                    stringa += 'a '
-                    segno = "entrata"
-                else:
-                    stringa += 'da '
-                    segno = "uscita"
-                str_importo_doc = "Importo doc. %s " % mN(self.totale_sospeso + self.totale_pagato, 2)
-                stringa += "%s \n%s%s, %s" %(self.intestatario, str_importo_doc, self._getPI_CF(), tipo_pag)
-
-                tpn = TestataPrimaNota()
-                tpn.data_inizio = scad.data_pagamento
-                tpn.note = ""
-                rigaprimanota = RigaPrimaNota()
-                rigaprimanota.denominazione = stringa
-                rigaprimanota.numero = 1
-                rigaprimanota.data_registrazione = scad.data_pagamento
-                if tipo:
-                    rigaprimanota.tipo = tipo.lower()
-                else:
-                    rigaprimanota.tipo = 'n/a'
-                rigaprimanota.segno = segno
-                rigaprimanota.valore = scad.importo
-                rigaprimanota.id_banca = scad.id_banca
-                rigaprimanota.note_primanota = scad.note_per_primanota or ''
-                rigaprimanota.id_testata_documento = self.id
-                tpn.righeprimanota = [rigaprimanota]
-                tpn.persist()
-                a = RigaPrimaNotaTestataDocumentoScadenza()
-                a.id_riga_prima_nota = rigaprimanota.id
-                a.id_testata_documento_scadenza = scad.id
-                params["session"].add(a)
-                #params["session"].commit()
-        Environment.session.commit()
+        self.testataDocumentoScadenzaSave(self)
 
         #parte relativa al noleggio
         if self.__data_fine_noleggio and self.__data_inizio_noleggio:
@@ -690,30 +683,17 @@ class TestataDocumento(Dao):
         """
         Cancella gli sconti associati ad un documento
         """
-        #row = ScontoTestataDocumento().select(idScontoTestataDocumento= id,
-                            #offset = None,
-                            #batchSize = None,
-                            #orderBy=ScontoTestataDocumento.id_testata_documento)
         if self.STD:
             for r in self.STD:
                 params['session'].delete(r)
             params["session"].commit()
             return True
 
-    def testataDocumentoScadenzaDel(self,dao=None):
+    def testataDocumentoScadenzaDel(self, dao=None):
         """
         Cancella la scadenza documento associato ad un documento
         """
-        #row = TestataDocumentoScadenza().select(idTestataDocumento= dao.id,
-                        #offset = None,
-                        #batchSize = None)
-        row = self.testata_documento_scadenza
-        for r in row:
-            #a cascata
-#            if dao.ripartire_importo: #aka prima nota
-            #rpntds = RigaPrimaNotaTestataDocumentoScadenza().\
-                    #select(idTestataDocumentoScadenza=r.id, batchSize=None)
-            #r.rpntds
+        for r in self.testata_documento_scadenza:
             if r.rpntds:
                 for p in r.rpntds:
                     try:
@@ -736,9 +716,6 @@ class TestataDocumento(Dao):
                         #params["session"].commit()
             params['session'].delete(r)
         params["session"].commit()
-        return True
-
-
 
     def testataDocumentoGestioneNoleggioDel(self,id=None):
         """
@@ -752,8 +729,6 @@ class TestataDocumento(Dao):
             for r in row:
                 params['session'].delete(r)
             params["session"].commit()
-        return True
-
 
     @property
     def aliquota_iva_esenzione(self):

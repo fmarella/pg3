@@ -856,6 +856,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
     def saveDao(self, tipo=None):
         """ Salvataggio del Dao
         """
+        print "SCAAAAAAAAAAAAADENZEEEE ==", self.dao.testata_documento_scadenza
         print "\n\nINIZIO IL SALVATAGGIO DEL DOCUMENTO\n\n"
         GN = posso("GN")
         SM = posso("SM")
@@ -1076,6 +1077,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
                 daoRiga.ritenute = daoRiteAcc
             righeDocumento.append(daoRiga)
         self.dao.righeDocumento = righeDocumento
+
         self.pagamenti_page.saveScadenze()
 
         #porto in persist tre dizionari: uno per gli sconti sul totale, l'altro per gli sconti sulle righe e le righe stesse

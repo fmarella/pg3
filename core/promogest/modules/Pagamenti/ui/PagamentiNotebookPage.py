@@ -269,8 +269,8 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         self.controlla_rate_scadenza(self, True)
 
     def getScadenze(self):
-        if self.ana.dao.scadenze:
-            for scadenza in self.ana.dao.scadenze:
+        if self.ana.dao.testata_documento_scadenza:
+            for scadenza in self.ana.dao.testata_documento_scadenza:
                 if scadenza.numero_scadenza == 0:
                     self.acconto = None
                     self.acconto_scheda_togglebutton.set_active(True)
@@ -324,6 +324,7 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
     def saveScadenze(self):
         ''' Gestione del salvataggio dei dati di pagamento
         '''
+        print "CHECKKKK saveScadenze"
         #TODO: aggiungere la cancellazione se vengono trovate più righe?
         self.ana.dao.totale_pagato = float(self.totale_pagato_scadenza_label.get_text())
         self.ana.dao.totale_sospeso = float(self.totale_sospeso_scadenza_label.get_text())
@@ -332,26 +333,43 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         else:
             self.ana.dao.documento_saldato = False
         self.ana.dao.ripartire_importo =  self.primanota_check.get_active()
-        scadenze = []
+        #scadenze = []
+
         if self.acconto:
             daoTestataDocumentoScadenza = self.acconto.get()
             daoTestataDocumentoScadenza.id_testata_documento = self.ana.dao.id
             daoTestataDocumentoScadenza.numero_scadenza = 0
+            if not daoTestataDocumentoScadenza.importo:
+                daoTestataDocumentoScadenza.importo = Decimal(0)
+            if not daoTestataDocumentoScadenza.pagamento:
+                daoTestataDocumentoScadenza.pagamento = 'n/a'
+            if not daoTestataDocumentoScadenza.data:
+                daoTestataDocumentoScadenza.data = datetime.datetime.now()
             daoTestataDocumentoScadenza.data_pagamento = daoTestataDocumentoScadenza.data
-            scadenze.append(daoTestataDocumentoScadenza)
+            #scadenze.append(daoTestataDocumentoScadenza)
+            Environment.session.add(daoTestataDocumentoScadenza)
         i = 1
         for rata in self.rate:
             daoTestataDocumentoScadenza = rata.get()
             daoTestataDocumentoScadenza.id_testata_documento = self.ana.dao.id
             daoTestataDocumentoScadenza.numero_scadenza = i
-            if not daoTestataDocumentoScadenza.data:
-                daoTestataDocumentoScadenza.data = datetime.datetime.now()
+            if not daoTestataDocumentoScadenza.importo:
+                daoTestataDocumentoScadenza.importo = Decimal(0)
+            if not daoTestataDocumentoScadenza.pagamento:
+                daoTestataDocumentoScadenza.pagamento = 'n/a'
+#            if not daoTestataDocumentoScadenza.data:
+#                daoTestataDocumentoScadenza.data = datetime.datetime.now()
             if controllaDateFestivi(daoTestataDocumentoScadenza.data):
                 daoTestataDocumentoScadenza.data = daoTestataDocumentoScadenza.data + datetime.timedelta(5)
+            Environment.session.add(daoTestataDocumentoScadenza)
             i += 1
-            scadenze.append(daoTestataDocumentoScadenza)
+            #scadenze.append(daoTestataDocumentoScadenza)
 
-        self.ana.dao.scadenze = scadenze
+        Environment.session.commit()
+
+#        self.ana.dao.testata_documento_scadenza = scadenze
+        for s in self.ana.dao.testata_documento_scadenza:
+            print "data={0}\nimport={1}\npagamento={2}\nid testata doc={3}\nnumero scadenza={4}".format(s.data,s.importo,s.id_pagamento,s.id_testata_documento, s.numero_scadenza)
 
         #TODO: finire di sistemare questa parte ......
 
@@ -401,6 +419,7 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
                 daoTDS = self.rate[j].get()
             except IndexError:
                 daoTDS = TestataDocumentoScadenza()
+                daoTDS.id_testata_documento = self.ana.dao.id
             idpag = findIdFromCombobox(self.id_pagamento_customcombobox.combobox)
             if idpag:
                 p = Pagamento().getRecord(id=idpag)
