@@ -695,33 +695,42 @@ class TestataDocumento(Dao):
             params["session"].commit()
             return True
 
+    def primanota_del(self, tds):
+        """ Cancella le informazioni di PrimaNota associate alle scadenze """
+        if tds.rpntds:
+            for p in tds.rpntds:
+                try:
+                    rpn = tds._rpn_
+                except:
+                    rpn = RigaPrimaNota().getRecord(id=p.id_riga_prima_nota)
+                tpn = None
+                if rpn:
+                    try:
+                        tpn = rpn.__tpn
+                    except:
+                        tpn = TestataPrimaNota().getRecord(id=rpn.id_testata_prima_nota)
+                session.delete(p)
+                if rpn:
+                    session.delete(rpn)
+                if tpn and len(tpn.righeprimanota)==0:
+                    session.delete(tpn)
+
+    def primanota_del_all(self):
+        """
+        Cancella la scadenza documento associato ad un documento
+        """
+        for tds in self.testata_documento_scadenza:
+            self.primanota_del(tds)
+        session.commit()
+
     def testataDocumentoScadenzaDel(self, dao=None):
         """
         Cancella la scadenza documento associato ad un documento
         """
-        for r in self.testata_documento_scadenza:
-            if r.rpntds:
-                for p in r.rpntds:
-                    try:
-                        rpn = r._rpn_
-                    except:
-                        rpn = RigaPrimaNota().getRecord(id=p.id_riga_prima_nota)
-                    tpn = None
-                    if rpn:
-                        try:
-                            tpn = rpn.__tpn
-                        except:
-                            tpn = TestataPrimaNota().getRecord(id=rpn.id_testata_prima_nota)
-                    params['session'].delete(p)
-                    #params["session"].commit()
-                    if rpn:
-                        params['session'].delete(rpn)
-                        #params["session"].commit()
-                    if tpn and len(tpn.righeprimanota)==0:
-                        params['session'].delete(tpn)
-                        #params["session"].commit()
-            params['session'].delete(r)
-        params["session"].commit()
+        for tds in self.testata_documento_scadenza:
+            self.primanota_del(tds)
+            session.delete(tds)
+        session.commit()
 
     def testataDocumentoGestioneNoleggioDel(self,id=None):
         """

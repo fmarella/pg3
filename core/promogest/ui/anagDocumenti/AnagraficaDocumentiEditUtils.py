@@ -358,7 +358,7 @@ def calcolaTotalePart(anaedit, dao=None):
             totaleImpostaScontata += Decimal(castellettoIva[k]['imposta'])
 
         totaleScontato = totaleImponibileScontato + totaleImpostaScontata
-    totaleInPagamenti = totaleScontato + Decimal(str(anaedit.pagamenti_page.calcola_spese()))
+    totaleInPagamenti = totaleScontato# + Decimal(str(anaedit.pagamenti_page.calcola_spese()))
 
     anaedit.totale_generale_label.set_text(str(mN(totaleImponibile,2) + mN(totaleImposta,2) + mN(totaleEsclusoBaseImponibile, 2)))
     anaedit.totale_generale_riepiloghi_label.set_text(str(mN(totaleImponibile,2) + mN(totaleImposta,2) + mN(totaleEsclusoBaseImponibile, 2)))

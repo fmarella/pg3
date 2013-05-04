@@ -61,6 +61,9 @@ if "note_per_primanota" not in colonne:
     col = Column('note_per_primanota', String(400), nullable=True)
     col.create(tesdocsca)
 
+#if "pagamento" in colonne:
+#    tesdocsca.c.pagamento.drop()
+
 std_mapper = mapper(TestataDocumentoScadenza,
                     tesdocsca,
                     properties={},
