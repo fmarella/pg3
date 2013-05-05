@@ -2,9 +2,10 @@
 
 #    Copyright (C) 2005-2012 by Promotux
 #                        di Francesco Meloni snc - http://www.promotux.it/
+#    Copyright © 2013 Francesco Marella <francesco.marella@anche.no>
 
-# Author: Francesco Meloni <francesco@promotux.it>
-# Author: Francesco Marella <francesco.marella@anche.no>
+#    Author: Francesco Meloni <francesco@promotux.it>
+#    Author: Francesco Marella <francesco.marella@anche.no>
 
 #    This file is part of Promogest.
 
@@ -126,7 +127,8 @@ class TestataDocumento(Dao):
 
     righe = property(_getRigheDocumento, _setRigheDocumento)
 
-    def _getDocumentTotalConfections(self):
+    @property
+    def totalConfections(self):
         """
         Ritorna il numero totale delle confezioni inserite nelle righe del documento:
         quantità Totale = sommatoria(i=1 to n)[quantità(riga i) * moltiplicatore(riga i)]
@@ -137,11 +139,8 @@ class TestataDocumento(Dao):
                 __quantitaTotale += float(r.quantita*r.moltiplicatore)
         return __quantitaTotale
 
-    totalConfections = property(_getDocumentTotalConfections)
-
-
-
-    def _getNumeroMagazzini(self):
+    @property
+    def numeroMagazzini(self):
         """
         Restituisce il numero di magazzini presenti nel documento. Ci serve per poter effettuare
         il trasferimento di articoli che partono tutti dallo stesso magazzino
@@ -151,7 +150,6 @@ class TestataDocumento(Dao):
             if riga.id_magazzino not in __numeroMagazzini and riga.id_magazzino !=None:
                 __numeroMagazzini.append(riga.id_magazzino)
         return len(__numeroMagazzini)
-    numeroMagazzini = property(_getNumeroMagazzini)
 
     def _getScontiTestataDocumento(self):
         if not self.__scontiTestataDocumento:
@@ -165,52 +163,14 @@ class TestataDocumento(Dao):
 
     sconti = property(_getScontiTestataDocumento, _setScontiTestataDocumento)
 
-    def _getStringaScontiTestataDocumento(self):
+    @property
+    def stringaSconti(self):
         #(listSconti, applicazione) = getScontiFromDao(self._getScontiTestataDocumento(), self.applicazione_sconti)
         (listSconti, applicazione) = getScontiFromDao(self.STD, self.applicazione_sconti)
         return getStringaSconti(listSconti)
-    stringaSconti = property(_getStringaScontiTestataDocumento)
 
-
-    #def _getIntestatario(self):
-        #"""
-        #Restituisce la ragione sociale o cognome + nome
-        #se la ragione sociale e' vuota
-        #"""
-        #intestatario = ''
-
-        #if self.id_cliente is not None:
-            #if (hasattr(self, 'ragione_sociale_cliente') and
-                #hasattr(self, 'cognome_cliente') and
-                #hasattr(self, 'nome_cliente')):
-                #intestatario = self.ragione_sociale_cliente
-                #if intestatario == '':
-                    #intestatario = self.cognome_cliente + ' ' + self.nome_cliente
-                #return intestatario
-            #else:
-                #cliente = leggiCliente(self.id_cliente)
-                #intestatario = cliente['ragioneSociale']
-                #if intestatario == '':
-                    #intestatario = cliente['cognome'] + ' ' + cliente['nome']
-                #return intestatario
-        #elif self.id_fornitore is not None:
-            #if (hasattr(self, 'ragione_sociale_fornitore') and
-                #hasattr(self, 'cognome_fornitore') and
-                #hasattr(self, 'nome_fornitore')):
-                #intestatario = self.ragione_sociale_fornitore
-                #if intestatario == '':
-                    #intestatario = self.cognome_fornitore + ' ' + self.nome_fornitore
-                #return intestatario
-            #else:
-                #fornitore = leggiFornitore(self.id_fornitore)
-                #intestatario = fornitore['ragioneSociale']
-                #if intestatario == '':
-                    #intestatario = fornitore['cognome'] + ' ' + fornitore['nome']
-                #return intestatario
-        #else:
-            #return ''
-
-    def _getIntestatario(self):
+    @property
+    def intestatario(self):
         """
         Restituisce la ragione sociale o cognome + nome
         se la ragione sociale e' vuota
@@ -227,8 +187,6 @@ class TestataDocumento(Dao):
                 return self.FORN.cognome + ' ' + self.FORN.nome
         else:
             return ''
-
-    intestatario = property(_getIntestatario, )
 
     def _getPI_CF(self):
         """
@@ -248,12 +206,13 @@ class TestataDocumento(Dao):
         else:
             return ''
 
-
-    def _getTotaliDocumento(self):
+    @property
+    def totali(self):
         """ funzione di calcolo dei totali documento """
+        cache = CachedDaosDict()
+        #TODO: usare la cache
         self.__operazione = leggiOperazione(self.operazione)
         fonteValore = self.__operazione["fonteValore"]
-        cache = CachedDaosDict()
         # FIXME: duplicated in AnagraficaDocumenti.py
         totaleImponibile = Decimal(0)
         totaleImposta = Decimal(0)
@@ -265,10 +224,7 @@ class TestataDocumento(Dao):
         totaleScontato = Decimal(0)
         castellettoIva = {}
         def getSpesePagamento(pagamento):
-            cache = CachedDaosDict()
-            #p = Pagamento().select(denominazioneEM=pagamento, batchSize=None)
             if pagamento in cache['pagamento']:
-                #p = p[0]
                 p = cache['pagamento'][pagamento]
                 if Decimal(str(p.spese or 0)) != Decimal(0):
                     return Decimal(str(p.spese)), calcolaPrezzoIva(Decimal(str(p.spese)), Decimal(str(p.perc_aliquota_iva)))
@@ -442,8 +398,6 @@ class TestataDocumento(Dao):
 
         return None
 
-    totali = property(_getTotaliDocumento, )
-
     def contieneMovimentazione(self, righe=None):
         """
             Verifica se sono e devono essere presenti righe di movimentazione magazzino
@@ -460,8 +414,8 @@ class TestataDocumento(Dao):
                         break
         return righeMovimentazione
 
-
     def testataDocumentoScadenzaSave(self, dao=None):
+        cache = CachedDaosDict()
         # Gestione anche della prima nota abbinata al pagamento
         # agganciare qui con dei controlli, le cancellazioni preventive ed i
         # reinserimenti.
@@ -483,30 +437,16 @@ class TestataDocumento(Dao):
 #            Environment.session.add(tds)
 #            Environment.session.commit()
 
-        # n (>=1) scadenze associate al documento
-        num_scadenze = len(self.testata_documento_scadenza)
 
-        if num_scadenze == 0:
-            print "**** NESSUNNNAAAAAAA SCADENZA"
-        else:
-            print "**** {0} SCADENZEEEEE".format(num_scadenze)
+        if self.ripartire_importo:
+            num_scadenze = len(self.testata_documento_scadenza)
+            for scad in self.testata_documento_scadenza:
 
-        for scad in self.testata_documento_scadenza:
-            #scad.id_testata_documento = self.id
-            #Environment.session.add(scad)
-
-            if self.ripartire_importo:
                 if scad.data_pagamento is None:
                     if not setconf('PrimaNota', 'inserisci_senza_data_pagamento'):
                         continue
 
-                ope = leggiOperazione(self.operazione)
-
-                tipo = 'n/a'
-                if scad.pagamento != 'n/a':
-                    p = Pagamento().select(denominazione=scad.pagamento)
-                    if p:
-                        tipo = p[0].tipo
+                operazione = cache['operazione'][self.operazione]
 
                 if scad.numero_scadenza == 0:
                     tipo_pag = "ACCONTO"
@@ -516,16 +456,16 @@ class TestataDocumento(Dao):
                     if self.documento_saldato and num_scadenze == scad.numero_scadenza:
                         tipo_pag = 'saldo'
                     if scad.data_pagamento is None:
-                        if ope['tipoPersonaGiuridica'] == 'fornitore':
+                        if operazione.tipo_persona_giuridica == 'fornitore':
                             tipo_pag += ' ricevuta'
-                        elif ope['tipoPersonaGiuridica'] == 'cliente':
+                        elif operazione.tipo_persona_giuridica == 'cliente':
                             tipo_pag += ' emessa'
                         else:
                             pass
 
                 stringa = "%s %s - %s Rif.interni N.%s " %(self.operazione, self.protocollo, \
                     dateToString(self.data_documento), str(self.numero))
-                if ope["segno"] == "-":
+                if operazione.segno == "-":
                     stringa += 'a '
                     segno = "entrata"
                 else:
@@ -557,12 +497,12 @@ class TestataDocumento(Dao):
                 a.id_testata_documento_scadenza = scad.id
                 params["session"].add(a)
                 #params["session"].commit()
-        Environment.session.commit()
+            Environment.session.commit()
 
     #Salvataggi subordinati alla testata Documento, iniziamo da righe documento e poi righe
     def persist(self):
-        if not self.ckdd(self):
-            return
+        #if not self.ckdd(self):
+        #    return
         DaoTestataMovimento = None
 
         if not self.numero:
