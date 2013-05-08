@@ -28,7 +28,7 @@ from promogest import Environment
 from promogest.Environment import session
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.modules.Pagamenti.ui import AnagraficadocumentiPagamentExt
-from promogest.dao.Pagamento import Pagamento
+from promogest.dao.CachedDaosDict import CachedDaosDict
 from promogest.dao.TestataDocumento import TestataDocumento
 from promogest.modules.Pagamenti.dao.TestataDocumentoScadenza import TestataDocumentoScadenza
 
@@ -42,10 +42,7 @@ class PagamentiNotebookPage(GladeWidget):
                              isModule=True)
         self.ana = mainnn
         scadenza_model = None
-#        # lista di scadenze
-#        self.rate = []
-#        # assegno un'istanza di PagamentoWidget se ho un acconto, None altrimenti
-#        self.acconto = None
+        self.cache = CachedDaosDict()
         self.draw()
 
     def draw(self):
@@ -63,8 +60,6 @@ class PagamentiNotebookPage(GladeWidget):
                                                on_id_pagamento_customcombobox_clicked)
         self.id_banca_scadenza_ccb.connect('clicked',
                                            on_id_banca_customcombobox_clicked)
-        self.pulisci_rata_button.connect('clicked',
-                                         self.on_pulisci_rata_button_clicked)
         self.data_pagamento_scadenza_entry.entry.connect('changed',
                                                          self.on_data_pagamento_scadenza_entry_changed)
         self.id_pagamento_scadenza_ccb.combobox.connect('changed',
@@ -86,9 +81,6 @@ class PagamentiNotebookPage(GladeWidget):
         win.set_transient_for(self.ana.dialogTopLevel)
         anag.show_all()
 
-    def on_primanota_check_toggled(self, widget):
-        pass
-
     def clear(self):
         '''
         '''
@@ -104,48 +96,13 @@ class PagamentiNotebookPage(GladeWidget):
         self.numero_primo_documento_entry.set_text('')
         self.numero_secondo_documento_entry.set_text('')
         self.primanota_check.set_active(True)
-#        if self.acconto:
-#            self.acconto_scheda_togglebutton.set_active(False)
-#        if len(self.rate) > 0:
-#            for i in self.rate:
-#                self.scadenze_notebook.remove_page(0)
-#            self.rate = []
-#            # devono essere rimosse tutta una serie di dati collegati alle scadenze
-#            # come ad esempio prima nota
-#            self.ana.dao.testataDocumentoScadenzaDel()
-
-#    def on_aggiungi_rate_button_clicked(self, button):
-#        '''
-#        '''
-#        numero = len(self.rate) + 1
-#        pag_w = PagamentoWidget(self.ana, 'rata ' + str(numero))
-#        self.rate.append(pag_w)
-#        self.scadenze_notebook.insert_page(pag_w.getTopLevel(), gtk.Label(pag_w.label), -1)
-#        self.scadenze_notebook.set_current_page(-1)
-
-#    def on_rimuovi_rate_button_clicked(self, button):
-#        ''' Elimina una scheda di pagamento e la relativa rata
-#        '''
-#        if len(self.rate) > 0:
-#            if YesNoDialog(msg=_('Rimuovere la rata?\n\nAlcune informazioni andranno perse per sempre.')):
-#                scadenza = self.rate.pop()
-#                #TODO: rimuovere la scadenza da testata_documento_scadenza
-#                #scadenza.get_model().delete()
-#
-#                self.scadenze_notebook.remove_page(-1)
-#        else:
-#            messageInfo('Non ci sono altre scadenze da rimuovere.')
 
     def on_aggiorna_pagamenti_button_clicked(self, button):
-        """
-        Aggiorna la parte dei pagamenti
-        """
+        """ Aggiorna la parte dei pagamenti """
         self.ricalcola_sospeso_e_pagato()
 
     def on_seleziona_prima_nota_button_clicked(self, button):
-        """
-        Seleziona la prima nota da utilizzare come riferimento
-        """
+        """ Seleziona la prima nota da utilizzare come riferimento """
         if self.numero_primo_documento_entry.get_text() != "":
             response = self.impostaDocumentoCollegato(int(self.numero_primo_documento_entry.get_text()))
         else:
@@ -177,7 +134,6 @@ class PagamentiNotebookPage(GladeWidget):
         Imposta il documento indicato dall'utente come collegato al documento
         in creazione.
         """
-
         documento = AnagraficadocumentiPagamentExt.getDocumentoCollegato(self.ana, numerodocumento)
         if documento is None:
             return False
@@ -196,14 +152,12 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         return totale_pagato
 
     def on_calcola_importi_scadenza_button_clicked(self, button):
-        """
-        Calcola importi scadenza pagamenti
-        """
+        """ Calcola importi scadenza pagamenti """
         id_pag = findIdFromCombobox(self.id_pagamento_customcombobox.combobox)
         if id_pag == -1 or id_pag==0 or id_pag==None:
             messageInfo(msg=_("NESSUN METODO DI PAGAMENTO SELEZIONATO\n NON POSSO AGIRE"))
             return
-        pago = Pagamento().getRecord(id=id_pag)
+        pago = self.cache['pagamento'][id_pag]
         if pago:
             self.metodo_pagamento_label.set_markup('<b><span foreground="black" size="16000">'+str(pago.denominazione)+'</span></b>')
             val = Decimal(self.ana.totale_scontato_riepiloghi_label.get_text() or 0) + Decimal(str(self.calcola_spese()))
@@ -224,66 +178,31 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         self.dividi_importo()
         self.ricalcola_sospeso_e_pagato()
 
-    def on_chiudi_pagamento_documento_button_clicked(self, button):
-        """
-        Chiude un pagamento
-        """
-        acconto = 0
-        importo_immesso = 0
-        for rata in self.rate:
-            daoTDS = rata.get_model()
-            importo_immesso += daoTDS.importo
-
-        if self.acconto:
-            daoAcconto = self.acconto.get_model()
-            acconto = daoAcconto.importo
-
-        if acconto == 0 or importo_immesso == 0 or importo_immesso < float(self.totale_in_pagamenti_label.get_text()):
-            msg = _('Chiusura di un documento con pagamenti nulli o parziali.\n Continuare?')
-            if YesNoDialog(msg=msg, transient=None):
-                self.stato_label.set_markup('<b><span foreground="#338000" size="24000">'+_('PAGATO')+'</span></b>')
-                self.chiudi_pagamento_documento_button.set_sensitive(False)
-                self.apri_pagamento_documento_button.set_sensitive(True)
+    def on_apri_chiudi_pagamento_button_clicked(self, button):
+        ''' Apre o chiude il pagamento '''
+        if self.ana.dao.documento_saldato:
+            if YesNoDialog(_('Attenzione! Stai per riaprire un documento considerato già pagato.\n Continuare?')):
+                self.stato_label.set_markup('<b><span foreground="#B40000" size="24000">'+_('APERTO')+'</span></b>')
+                self.apri_chiudi_pagamento_button.set_label('Chiudi pagamento')
         else:
-            self.stato_label.set_markup('<b><span foreground="#338000" size="24000">'+_('PAGATO')+'</span></b>')
+            # TODO: fare la somma degli importi delle scadenze
+            acconto = 0
+            importo_immesso = 0
+            for tds in self.ana.dao.testata_documento_scadenza:
+                if tds.numero_scadenza == 0:
+                    acconto = tds.importo
+                importo_immesso += tds.importo
+            if acconto == 0 or importo_immesso == 0 or importo_immesso < float(self.totale_in_pagamenti_label.get_text()):
+                if YesNoDialog(_('Chiusura di un documento con pagamenti nulli o parziali.\n Continuare?')):
+                    self.stato_label.set_markup('<b><span foreground="#338000" size="24000">'+_('PAGATO')+'</span></b>')
+                    self.apri_chiudi_pagamento_button.set_label('Riapri pagamento')
+            else:
+                self.stato_label.set_markup('<b><span foreground="#338000" size="24000">'+_('PAGATO')+'</span></b>')
 
-    def on_apri_pagamento_documento_button_clicked(self, button):
-        ''' Apre il pagamento
-        '''
-        msg=_('Attenzione! Stai per riaprire un documento considerato già pagato.\n Continuare?')
-        if YesNoDialog(msg=msg):
-            self.stato_label.set_markup('<b><span foreground="#B40000" size="24000">'+_('APERTO')+'</span></b>')
-            self.apri_pagamento_documento_button.set_sensitive(False)
-            self.chiudi_pagamento_documento_button.set_sensitive(True)
-
-#    def on_acconto_scheda_togglebutton_toggled(self, button):
-#        """
-#
-#        """
-#        if not self.acconto:
-#            self.acconto_scheda_togglebutton.set_label(_('Acconto'))
-#            self.acconto = PagamentoWidget(self.ana, 'Acconto')
-#            dao = self.acconto.get_model()
-#            dao.data = datetime.datetime.now()
-#            self.acconto.set_model(dao)
-#            self.scadenze_notebook.insert_page(self.acconto.getTopLevel(), gtk.Label(self.acconto.label), 0)
-#            self.scadenze_notebook.set_current_page(0)
-#        else:
-#            self.acconto_scheda_togglebutton.set_label(_('Acconto'))
-#            self.scadenze_notebook.remove_page(0)
-#            self.scadenze_notebook.set_current_page(-1)
-#            self.acconto = None
-
-#    def on_pulisci_scadenza_button_clicked(self, button):
-#        """
-#        Pulisce tutti i campi relativi alla scheda pagamenti
-#        """
-#        msg = _('Stai per rimuovere i riferimenti già inseriti. Continuare?')
-#        if YesNoDialog(msg=msg):
-#            self.clear()
-#            self.ricalcola_sospeso_e_pagato()
-
-    # INIZIO GESTIONE SCADENZE
+    def on_acconto_button_clicked(self, button):
+        """"""
+        # TODO: implementare l'aggiunta dell'acconto
+        messageInfo('Funzione non ancora implementata.')
 
     def __clear_scadenza(self):
         self.scadenza_model = None
@@ -298,6 +217,10 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         self.scadenze_liststore.clear()
         for tds in self.ana.dao.testata_documento_scadenza:
             self.scadenze_liststore.append([tds, tds.numero_scadenza, "data scadenza: %s\n  importo %s" % (dateToString(tds.data), tds.importo)])
+        if self.ana.dao.documento_saldato:
+            self.apri_chiudi_pagamento_button.set_label("Riapri pagamento")
+        else:
+            self.apri_chiudi_pagamento_button.set_label("Chiudi pagamento")
 
     def on_scadenze_treeview_cursor_changed(self, treeview):
         sel = treeview.get_selection()
@@ -362,11 +285,6 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         """ bottone che controlla le rate scadenza """
         self.controlla_rate_scadenza(self, True)
 
-    def on_pulisci_rata_button_clicked(self, button):
-        """ Pulizia dei campi relativi alla rata
-        """
-        self.__clear_scadenza()
-
     def on_data_pagamento_scadenza_entry_changed(self, entry):
         """ Reimposta i totali saldato e da saldare alla modifica della data
             di pagamento della scadenza """
@@ -374,7 +292,6 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
 
     def on_id_pagamento_scadenza_ccb_changed(self, combobox):
         self.ricalcola_sospeso_e_pagato()
-    # FINE GESTIONE SCADENZE
 
     def getScadenze(self):
         if self.ana.dao.testata_documento_scadenza:
@@ -423,10 +340,7 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
                 self.numero_secondo_documento_entry.set_text('')
 
     def saveScadenze(self):
-        ''' Gestione del salvataggio dei dati di pagamento
-        '''
-        print "CHECKKKK saveScadenze"
-        #TODO: aggiungere la cancellazione se vengono trovate più righe?
+        ''' Gestione del salvataggio dei dati di pagamento '''
         self.ana.dao.totale_pagato = float(self.totale_pagato_scadenza_label.get_text())
         self.ana.dao.totale_sospeso = float(self.totale_sospeso_scadenza_label.get_text())
         if self.stato_label.get_text() == "PAGATO":
@@ -434,45 +348,6 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         else:
             self.ana.dao.documento_saldato = False
         self.ana.dao.ripartire_importo =  self.primanota_check.get_active()
-        #scadenze = []
-
-#        if self.acconto:
-#            daoTestataDocumentoScadenza = self.acconto.get_model()
-#            daoTestataDocumentoScadenza.id_testata_documento = self.ana.dao.id
-#            daoTestataDocumentoScadenza.numero_scadenza = 0
-#            if not daoTestataDocumentoScadenza.importo:
-#                daoTestataDocumentoScadenza.importo = Decimal(0)
-#            if not daoTestataDocumentoScadenza.pagamento:
-#                daoTestataDocumentoScadenza.pagamento = 'n/a'
-#            if not daoTestataDocumentoScadenza.data:
-#                daoTestataDocumentoScadenza.data = datetime.datetime.now()
-#            daoTestataDocumentoScadenza.data_pagamento = daoTestataDocumentoScadenza.data
-#            #scadenze.append(daoTestataDocumentoScadenza)
-#            Environment.session.add(daoTestataDocumentoScadenza)
-#        i = 1
-#        for rata in self.rate:
-#            daoTestataDocumentoScadenza = rata.get_model()
-#            daoTestataDocumentoScadenza.id_testata_documento = self.ana.dao.id
-#            daoTestataDocumentoScadenza.numero_scadenza = i
-#            if not daoTestataDocumentoScadenza.importo:
-#                daoTestataDocumentoScadenza.importo = Decimal(0)
-#            if not daoTestataDocumentoScadenza.pagamento:
-#                daoTestataDocumentoScadenza.pagamento = 'n/a'
-#            if not daoTestataDocumentoScadenza.data:
-#                daoTestataDocumentoScadenza.data = datetime.datetime.now()
-#            if controllaDateFestivi(daoTestataDocumentoScadenza.data):
-#                daoTestataDocumentoScadenza.data = daoTestataDocumentoScadenza.data + datetime.timedelta(5)
-#            Environment.session.add(daoTestataDocumentoScadenza)
-#            i += 1
-#            #scadenze.append(daoTestataDocumentoScadenza)
-#
-#        Environment.session.commit()
-
-#        self.ana.dao.testata_documento_scadenza = scadenze
-        for s in self.ana.dao.testata_documento_scadenza:
-            print "data={0}\nimport={1}\npagamento={2}\nid testata doc={3}\nnumero scadenza={4}".format(s.data,s.importo,s.id_pagamento,s.id_testata_documento, s.numero_scadenza)
-
-        #TODO: finire di sistemare questa parte ......
 
         doc = self.numero_primo_documento_entry.get_text()
         if doc != "" and doc != "0":
@@ -501,40 +376,29 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         else:
             fine_mese = True
 
-        # Rimuovo le rate in eccesso e le relative tabs dall'interfaccia
-        y = len(self.rate) - numeroscadenze
+        # Rimuovo le scadenze in eccesso
+        y = len(self.ana.dao.testata_documento_scadenza) - numeroscadenze
         if y > 0:
             msg = 'Rimuovere ' + ngettext('%s rata', '%s rate', y) % y #@UndefinedVariable
-            msg += ' dai pagamenti?\n\n Alcune informazioni andranno perse per sempre.'
+            msg += ' dai pagamenti?'
             if not YesNoDialog(msg=msg):
                 return False
-            for i in range(abs(y)):
-                self.rate.pop()
-                self.scadenze_notebook.remove_page(-1)
-
-        # Aggiungo le rate necessarie per il tipo di pagamento scelto
-        i = 1
-        for j in range(numeroscadenze):
-            daoTDS = None
-            try:
-                daoTDS = self.rate[j].get_model()
-            except IndexError:
-                daoTDS = TestataDocumentoScadenza()
-                daoTDS.id_testata_documento = self.ana.dao.id
-            idpag = findIdFromCombobox(self.id_pagamento_customcombobox.combobox)
-            if idpag:
-                p = Pagamento().getRecord(id=idpag)
-                daoTDS.pagamento = p.denominazione
-            if type(scadenze) == list:
-                daoTDS.data = dateToString(getScadenza(data_doc, int(scadenze[i]), fine_mese))
-                i += 2
-            else:
-                daoTDS.data = data_doc
-            try:
-                self.rate[j].set_model(daoTDS)
-            except IndexError:
-                self.on_aggiungi_rate_button_clicked(None)
-                self.rate[-1].set_model(daoTDS)
+            for tds in self.ana.dao.testata_documento_scadenza:
+                if tds.numero_scadenza > y:
+                    tds.delete()
+            Environment.session.commit()
+        elif y < 0:
+            for k in range(abs(y)):
+                tds = TestataDocumentoScadenza()
+                if not self.ana.dao.id:
+                    self.ana.dao.persist()
+                tds.id_testata_documento = self.ana.dao.id
+                tds.data = datetime.datetime.today()
+                tds.importo = Decimal(0)
+                tds.id_pagamento = findIdFromCombobox(self.id_pagamento_customcombobox.combobox)
+                tds.numero_scadenza = len(self.ana.dao.testata_documento_scadenza) + k
+                Environment.session.add(tds)
+            Environment.session.commit()
         return True
 
     def dividi_importo(self):
@@ -548,9 +412,10 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         self.totale_in_pagamenti_label.set_markup('<b><span foreground="black" size="24000">'+str(mN(importodoc, 2))+'</span></b>')
 
         acconto = float(0)
-        if self.acconto:
-            daoAcconto = self.acconto.get_model()
-            acconto = float(daoAcconto.importo or 0)
+        for tds in self.ana.dao.testata_documento_scadenza:
+            if tds.numero_scadenza == 0:
+                acconto = float(tds.importo or 0)
+                break
 
         importo_primo_doc = float(self.importo_primo_documento_entry.get_text() or 0)
         importo_secondo_doc = float(self.importo_secondo_documento_entry.get_text() or 0)
@@ -566,34 +431,19 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
             n_pagamenti = 1
             importorate = importotot
 
-#        i = 0
-#        for rata in self.rate:
-#            daoTDS = rata.get_model()
-#            if type(importorate) == list:
-#                daoTDS.importo = importorate[i]
-#                i += 1
-#            else:
-#                daoTDS.importo = importorate
-#            rata.set_model(daoTDS)
-
-        #TODO: mostrare o nascondere l'acconto ?
-
+        i = 0
+        for tds in self.ana.dao.testata_documento_scadenza:
+            if type(importorate) == list:
+                tds.importo = importorate[i]
+                i += 1
+            else:
+                tds.importo = importorate
+        self.__load_scadenze()
 
     def calcola_spese(self):
         """
         Calcola le spese dei pagamenti
         """
-        def getSpesePagamento(pagamento):
-            p = Pagamento().select(denominazione=pagamento)
-            if len(p) > 0:
-                p = p[0]
-                if float(p.spese or 0) != float(0):
-                    return calcolaPrezzoIva(float(p.spese), float(p.perc_aliquota_iva))
-                else:
-                    return float(0)
-            else:
-                return float(0)
-
         if not self.ana.dao:
             return float(0)
         if not self.ana.dao.id or not self.ana.dao.id_cliente:
@@ -601,14 +451,9 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         if self.ana.dao.esclusione_spese == True:
             return float(0)
         spese = float(0)
-        # Controllo l'acconto e le rate
-#        if self.acconto:
-#            dao = self.acconto.get_model()
-#            spese += getSpesePagamento(dao.pagamento)
-#        if len(self.rate) > 0:
-#            for rata in self.rate:
-#                dao = rata.get_model()
-#                spese += getSpesePagamento(dao.pagamento)
+        for tds in self.ana.dao.testata_documento_scadenza:
+            p = self.cache['pagamento'][tds.id_pagamento]
+            spese += calcolaPrezzoIva(float(p.spese or 0), float(p.perc_aliquota_iva or 0))
         return spese
 
     def on_esclusione_spese_checkbutton_toggled(self, widget):
@@ -623,19 +468,13 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         al totale del documento. Ritorna False se c'e` un errore,
         True se e` tutto corretto.
         """
-
         importotot = float(float(self.ana.totale_scontato_riepiloghi_label.get_text() or 0) + self.calcola_spese())
         if importotot == float(0):
             return
 
         importo_immesso = float(0)
-        for rata in self.rate:
-            daoTDS = rata.get_model()
-            importo_immesso += daoTDS.importo
-
-        if self.acconto:
-            daoAcconto = self.acconto.get_model()
-            importo_immesso += daoAcconto.importo
+        for tds in self.ana.dao.testata_documento_scadenza:
+            importo_immesso += tds.importo
 
         importo_primo_riferimento = float(self.ana.importo_primo_documento_entry.get_text() or 0)
         importo_secondo_riferimento = float(self.ana.importo_secondo_documento_entry.get_text() or 0)
@@ -671,20 +510,14 @@ Per l'esattezza, l'errore e` di %.2f""" % differenza_importi)
         self.totale_in_pagamenti_label.set_markup('<b><span foreground="black" size="24000">'+str(mN(totale_in_pagamenti_label, 2))+'</span></b>')
         self.ana.totale_spese_label.set_text(str(mN(spese, 2)))
 
-        acconto = float(0)
-#        if self.acconto:
-#            daoAcconto = self.acconto.get_model()
-#            acconto = daoAcconto.importo
-
-        totalepagato = acconto
+        totalepagato = float(0)
         totalesospeso = float(0)
 
-#        for rata in self.rate:
-#            daoTDS = rata.get_model()
-#            if daoTDS.data_pagamento:
-#                totalepagato += daoTDS.importo
-#            else:
-#                totalesospeso += daoTDS.importo
+        for tds in self.ana.dao.testata_documento_scadenza:
+            if tds.data_pagamento:
+                totalepagato += tds.importo
+            else:
+                totalesospeso += tds.importo
 
         totalepagato += float(self.importo_primo_documento_entry.get_text() or '0')
         totalepagato += float(self.importo_secondo_documento_entry.get_text() or '0')

@@ -509,12 +509,6 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
                     self.pagamenti_page.on_calcola_importi_scadenza_button_clicked(None)
             else:
                 self.pagamenti_page.metodo_pagamento_label.set_markup('<b><span foreground="black" size="16000">'+str(_("NESSUNO?"))+'</span></b>')
-            if self.dao.documento_saldato:
-                self.pagamenti_page.chiudi_pagamento_documento_button.set_sensitive(False)
-                self.pagamenti_page.apri_pagamento_documento_button.set_sensitive(True)
-            else:
-                self.pagamenti_page.chiudi_pagamento_documento_button.set_sensitive(True)
-                self.pagamenti_page.apri_pagamento_documento_button.set_sensitive(False)
 
     def on_rent_checkbutton_toggled(self, checkbutton=None):
         """ check button in schermata documenti relativa al noleggio """

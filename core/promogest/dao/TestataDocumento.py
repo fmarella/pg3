@@ -223,15 +223,6 @@ class TestataDocumento(Dao):
         totaleRicaricatoLordo = Decimal(0)
         totaleScontato = Decimal(0)
         castellettoIva = {}
-        def getSpesePagamento(pagamento):
-            if pagamento in cache['pagamento']:
-                p = cache['pagamento'][pagamento]
-                if Decimal(str(p.spese or 0)) != Decimal(0):
-                    return Decimal(str(p.spese)), calcolaPrezzoIva(Decimal(str(p.spese)), Decimal(str(p.perc_aliquota_iva)))
-                else:
-                    return (Decimal(0), Decimal(0))
-            else:
-                return (Decimal(0), Decimal(0))
 
         spese = Decimal(0)
         impon_spese = Decimal(0)
@@ -239,7 +230,8 @@ class TestataDocumento(Dao):
         if self.esclusione_spese == False:
             for scad in self.testata_documento_scadenza:
                 if scad:
-                    impon_spese_, spese_ = getSpesePagamento(scad.pagamento)
+                    p = cache['pagamento'][scad.id_pagamento]
+                    impon_spese_, spese_ = Decimal(str(p.spese or 0)), calcolaPrezzoIva(Decimal(str(p.spese or 0)), Decimal(str(p.perc_aliquota_iva or 0)))
                     spese += spese_
                     impon_spese += impon_spese_
                     imposta_spese += spese_ - impon_spese_

@@ -73,5 +73,5 @@ from promogest.dao.AliquotaIva import AliquotaIva
 
 cache_obj = CachedDaosDict()
 cache_obj.add(Operazione, use_key='denominazione')
-cache_obj.add(Pagamento, use_key='denominazione')
+cache_obj.add(Pagamento)
 cache_obj.add(AliquotaIva, fetch_field='tipo_ali_iva')
