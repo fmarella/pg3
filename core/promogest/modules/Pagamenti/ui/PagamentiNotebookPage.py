@@ -441,9 +441,7 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         self.__load_scadenze()
 
     def calcola_spese(self):
-        """
-        Calcola le spese dei pagamenti
-        """
+        """ Calcola le spese dei pagamenti """
         if not self.ana.dao:
             return float(0)
         if not self.ana.dao.id or not self.ana.dao.id_cliente:
@@ -515,9 +513,9 @@ Per l'esattezza, l'errore e` di %.2f""" % differenza_importi)
 
         for tds in self.ana.dao.testata_documento_scadenza:
             if tds.data_pagamento:
-                totalepagato += tds.importo
+                totalepagato += float(tds.importo)
             else:
-                totalesospeso += tds.importo
+                totalesospeso += float(tds.importo)
 
         totalepagato += float(self.importo_primo_documento_entry.get_text() or '0')
         totalepagato += float(self.importo_secondo_documento_entry.get_text() or '0')
