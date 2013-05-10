@@ -72,7 +72,8 @@ class PagamentiNotebookPage(GladeWidget):
     def id_pagamento_customcombobox_changed(self, combobox):
         if self.ana._loading:
             return
-        self.on_calcola_importi_scadenza_button_clicked(None)
+        if self.ana.dao.id:
+            self.on_calcola_importi_scadenza_button_clicked(None)
 
     def on_apri_primanota_clicked(self, widget):
         from promogest.modules.PrimaNota.ui.AnagraficaPrimaNota import AnagraficaPrimaNota
@@ -390,8 +391,9 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
         elif y < 0:
             for k in range(abs(y)):
                 tds = TestataDocumentoScadenza()
-                if not self.ana.dao.id:
-                    self.ana.dao.persist()
+                # FIXME: il documento nuovo potrebbe creare problemi qui
+#                if not self.ana.dao.id:
+#                    self.ana.dao.persist()
                 tds.id_testata_documento = self.ana.dao.id
                 tds.data = datetime.datetime.today()
                 tds.importo = Decimal(0)
