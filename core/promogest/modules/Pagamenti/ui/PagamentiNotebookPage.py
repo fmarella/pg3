@@ -97,6 +97,7 @@ class PagamentiNotebookPage(GladeWidget):
         self.numero_primo_documento_entry.set_text('')
         self.numero_secondo_documento_entry.set_text('')
         self.primanota_check.set_active(True)
+        self.__clear_scadenza()
 
     def on_aggiorna_pagamenti_button_clicked(self, button):
         """ Aggiorna la parte dei pagamenti """
@@ -433,13 +434,13 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
             n_pagamenti = 1
             importorate = importotot
 
-        i = 0
-        for tds in self.ana.dao.testata_documento_scadenza:
-            if type(importorate) == list:
-                tds.importo = importorate[i]
-                i += 1
-            else:
-                tds.importo = importorate
+#        i = 0
+        #for tds in self.ana.dao.testata_documento_scadenza:
+            #if type(importorate) == list:
+                #tds.importo = importorate[i]
+                #i += 1
+            #else:
+                #tds.importo = importorate
         self.__load_scadenze()
 
     def calcola_spese(self):
