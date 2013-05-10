@@ -498,9 +498,17 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
         return
 
     def on_notebook_switch_page(self, notebook, page, page_num):
+        if self._loading:
+            return
         if page_num == 2:
             self.calcolaTotale()
         elif page_num == 3:
+            if not self.dao.id:
+                if YesNoDialog(msg="Prima di poter gestire i pagamenti è necessario salvare il documento, continuare?"):
+                    self.saveDao()
+                else:
+                    notebook.set_current_page(0)
+                    return
             id_pag = findIdFromCombobox(self.pagamenti_page.id_pagamento_customcombobox.combobox)
             pago = Pagamento().getRecord(id=id_pag)
             if pago:
@@ -850,7 +858,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
     def saveDao(self, tipo=None):
         """ Salvataggio del Dao
         """
-        print "SCAAAAAAAAAAAAADENZEEEE ==", self.dao.testata_documento_scadenza
+
         print "\n\nINIZIO IL SALVATAGGIO DEL DOCUMENTO\n\n"
         GN = posso("GN")
         SM = posso("SM")
