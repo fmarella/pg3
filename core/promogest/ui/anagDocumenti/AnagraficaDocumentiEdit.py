@@ -856,10 +856,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
         return self.dao
 
     def saveDao(self, tipo=None):
-        """ Salvataggio del Dao
-        """
-
-        print "\n\nINIZIO IL SALVATAGGIO DEL DOCUMENTO\n\n"
+        """ Salvataggio del Dao """
         GN = posso("GN")
         SM = posso("SM")
         if posso("ADR") and tipo==GTK_RESPONSE_OK:
@@ -993,8 +990,9 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
         scontiRigaMovimento =[]
         scontiRigaDocumento =[]
 
+        pbar(self.dialog.pbar, parziale=3, totale=4)
+
         for i in range(1, len(self._righe)):
-            pbar(self.dialog.pbar,parziale=3, totale=4)
             if (tipoDOC == "MOV" and self._righe[i]["idArticolo"] == None) or tipoDOC == "DOC":
                 daoRiga = RigaDocumento()
                 sconti =[]
@@ -1084,13 +1082,11 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
 
         #porto in persist tre dizionari: uno per gli sconti sul totale, l'altro per gli sconti sulle righe e le righe stesse
         self.dao.persist()
-        pbar(self.dialog.pbar,parziale=4, totale=4)
         self.label_numero_righe.hide()
         text = str(len(self.dao.righe))
         self.label_numero_righe.set_text(text)
         self.label_numero_righe.show()
         pbar(self.dialog.pbar, stop=True)
-        print " \nFINE DEL SALVATAGGIO DEL DOCUMENTO\n\n"
 
     def on_importo_da_ripartire_entry_changed(self, entry):
         """Fesseria voluta da un cliente ....alla fine non serviva
