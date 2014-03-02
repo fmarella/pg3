@@ -61,8 +61,8 @@ class ParametriFrame(GladeWidget):
                     print "Sono stati inseriti %s bottoni" % str(rows)
                     print "ne restano %s" % str(len(self.modules) - rows)
                     break
-                module_button = gtk.Button()
-                module_butt_image = gtk.Image()
+                module_button = Gtk.Button()
+                module_butt_image = Gtk.Image()
                 module_butt_image.set_from_file(module[1]['guiDir']+'/'+module[1]['module'].VIEW_TYPE[2])
                 module_button.set_image(module_butt_image)
                 module_button.set_label(module[1]['module'].VIEW_TYPE[1])

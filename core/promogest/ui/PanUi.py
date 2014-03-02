@@ -74,7 +74,7 @@ def checkPan(main):
                 return
     if  Environment.tipodb!="postgresql":
         #pp = PanUi(main).draw()
-        #a = gtk.Label()
+        #a = Gtk.Label()
         #a.set_text("OPZIONI MODULI")
         #main.main_notebook.prepend_page(pp.pan_frame, a)
         #main.main_notebook.set_current_page(0)

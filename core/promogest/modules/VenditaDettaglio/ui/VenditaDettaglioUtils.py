@@ -28,7 +28,7 @@ from promogest.Environment import *
 def fillComboboxPos(combobox, filter=False, noempty=False):
     """  Crea l'elenco dei magazzini  """
     from promogest.modules.VenditaDettaglio.dao.Pos import Pos
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     mags = Pos().select(offset=None,batchSize=None)
     if not noempty:
         if not filter:
@@ -40,12 +40,12 @@ def fillComboboxPos(combobox, filter=False, noempty=False):
         model.append((m, m.id, (m.denominazione or '')[0:20]))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
     if not pg3:
-        if combobox.__class__ is gtk.ComboBoxEntry:
+        if combobox.__class__ is Gtk.ComboBoxEntry:
             combobox.set_text_column(2)
 
 

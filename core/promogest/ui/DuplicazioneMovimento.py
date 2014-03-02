@@ -60,12 +60,12 @@ class DuplicazioneMovimento(GladeWidget):
 
         res = Environment.params['session'].query(Operazione).all()
 
-        model = gtk.ListStore(object, str, str)
+        model = Gtk.ListStore(object, str, str)
         for o in res:
             model.append((o, o.denominazione, (o.denominazione or '')[0:30]))
 
         self.id_operazione_combobox.clear()
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         self.id_operazione_combobox.pack_start(renderer, True)
         self.id_operazione_combobox.add_attribute(renderer, 'text', 2)
         self.id_operazione_combobox.set_model(model)
@@ -74,12 +74,12 @@ class DuplicazioneMovimento(GladeWidget):
         self.data_movimento_entry.grab_focus()
 
         listini = Listino().select(batchSize=None)
-        model = gtk.ListStore(object, str)
+        model = Gtk.ListStore(object, str)
         model.append((None, '<Invariato>'))
         for l in listini:
             model.append((l, (l.denominazione or '')[0:30]))
         self.id_prezzo_combobox.clear()
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         self.id_prezzo_combobox.pack_start(renderer, True)
         self.id_prezzo_combobox.add_attribute(renderer, 'text', 1)
         self.id_prezzo_combobox.set_model(model)

@@ -73,9 +73,9 @@ class RicercaAnagraficaSecondariaFilter(RicercaFilter):
     def draw(self):
         # Colonne della Treeview per il filtro
         treeview = self._ricerca.ricerca_filter_treeview
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
 
-        column = gtk.TreeViewColumn('Codice', renderer,text=1)
+        column = Gtk.TreeViewColumn('Codice', renderer,text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'codice')
@@ -83,7 +83,7 @@ class RicercaAnagraficaSecondariaFilter(RicercaFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Ragione Sociale', renderer, text=2)
+        column = Gtk.TreeViewColumn('Ragione Sociale', renderer, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'ragione_sociale')
@@ -91,7 +91,7 @@ class RicercaAnagraficaSecondariaFilter(RicercaFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Cognome - Nome', renderer,text=3)
+        column = Gtk.TreeViewColumn('Cognome - Nome', renderer,text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'cognome, nome')
@@ -99,7 +99,7 @@ class RicercaAnagraficaSecondariaFilter(RicercaFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Localita', renderer,text=4)
+        column = Gtk.TreeViewColumn('Localita', renderer,text=4)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'localita')
@@ -164,7 +164,7 @@ class RicercaAnagraficaSecondariaFilter(RicercaFilter):
                                             offset=self.offset,
                                             batchSize=self.batchSize)
 
-        model = gtk.ListStore(object, str, str, str, str)
+        model = Gtk.ListStore(object, str, str, str, str)
 
         for c in clis:
             model.append((c,

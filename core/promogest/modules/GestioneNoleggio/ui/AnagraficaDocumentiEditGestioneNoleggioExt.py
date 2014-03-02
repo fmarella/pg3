@@ -32,7 +32,7 @@ def setLabels(anaedit):
     anaedit.totale_periodo_label.set_text("0")
 
 def setTreeview(treeview, rendererSx):
-    column = gtk.TreeViewColumn('Giorni', rendererSx, text=15)
+    column = Gtk.TreeViewColumn('Giorni', rendererSx, text=15)
     column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)

@@ -42,7 +42,7 @@ class NotificaAllarmiNotebookPage(GladeWidget):
         model.clear()
         #get the current alarms from db
         allarmi = promogest.dao.Promemoria.getScadenze()
-        #fill again the model of the treeview (a gtk.ListStore)
+        #fill again the model of the treeview (a Gtk.ListStore)
         for dao in allarmi:
             #dao = Promemoria().getRecord(id=idAllarme)
             model.append((dao, dateToString(dao.data_scadenza),

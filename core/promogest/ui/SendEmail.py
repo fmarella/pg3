@@ -88,12 +88,12 @@ class SendEmail(GladeWidget):
             self.sendMailFunc()
             self.hide()
         if self.dist:
-            gtk.main_quit()
+            Gtk.main_quit()
 
     def on_cancel_button_clicked(self, button):
         self.hide()
         if self.dist:
-            gtk.main_quit()
+            Gtk.main_quit()
 
     def sendMailFunc(self):
         """ sistemiamo i parametri per la email

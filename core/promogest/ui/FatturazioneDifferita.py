@@ -425,12 +425,12 @@ class FatturazioneDifferita(GladeWidget):
 
         res = Operazione().select(tipoOperazione = 'documento',
                                     segno=None)
-        model = gtk.ListStore(object, str, str)
+        model = Gtk.ListStore(object, str, str)
         for o in res:
             if "Fattura differita vendita" in o.denominazione or "Fattura differita acquisto" in o.denominazione:
                 model.append((o, o.denominazione, (o.denominazione or '')[0:30]))
         #self.id_operazione_combobox.clear()
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         self.id_operazione_combobox.pack_start(renderer, True)
         self.id_operazione_combobox.add_attribute(renderer, 'text', 2)
         self.id_operazione_combobox.set_model(model)

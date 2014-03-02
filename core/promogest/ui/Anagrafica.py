@@ -412,10 +412,10 @@ class AnagraficaDetail(GladeWidget):
             self._isSensitive = isSensitive
 
         # FIXME: a better way to find a widget going to be enabled/disabled?
-        if isinstance(currWidget, (gtk.ComboBox, gtk.TreeView,
-                                   gtk.Editable, gtk.Button, gtk.TextView)):
+        if isinstance(currWidget, (Gtk.ComboBox, Gtk.TreeView,
+                                   Gtk.Editable, Gtk.Button, Gtk.TextView)):
             currWidget.set_sensitive(isSensitive)
-        elif isinstance(currWidget, gtk.Container):
+        elif isinstance(currWidget, Gtk.Container):
             for child in currWidget.get_children():
                 self.setSensitive(isSensitive, child)
 

@@ -74,9 +74,9 @@ class RicercaContattiFilter(RicercaFilter):
     def draw(self):
         # Colonne della Treeview per il filtro
         treeview = self._ricerca.ricerca_filter_treeview
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
 
-        column = gtk.TreeViewColumn('Cognome - Nome', renderer,text=1)
+        column = Gtk.TreeViewColumn('Cognome - Nome', renderer,text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'cognome')
@@ -84,7 +84,7 @@ class RicercaContattiFilter(RicercaFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Ruolo', renderer,text=2)
+        column = Gtk.TreeViewColumn('Ruolo', renderer,text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'ruolo')
@@ -92,7 +92,7 @@ class RicercaContattiFilter(RicercaFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Descrizione', renderer,text=3)
+        column = Gtk.TreeViewColumn('Descrizione', renderer,text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'descrizione')
@@ -100,7 +100,7 @@ class RicercaContattiFilter(RicercaFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Relativo a', renderer,text=4)
+        column = Gtk.TreeViewColumn('Relativo a', renderer,text=4)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.set_resizable(True)
@@ -109,7 +109,7 @@ class RicercaContattiFilter(RicercaFilter):
 
         treeview.set_search_column(1)
 
-        self._treeViewModel = gtk.ListStore(object, str, str, str, str)
+        self._treeViewModel = Gtk.ListStore(object, str, str, str, str)
         self._ricerca.ricerca_filter_treeview.set_model(self._treeViewModel)
 
         fillComboboxMagazzini(self.id_magazzino_filter_combobox, True)
@@ -294,7 +294,7 @@ class RicercaContattiFilter(RicercaFilter):
                                  batchSize=self.batchSize)
 
 
-        model = gtk.ListStore(object, str, str, str, str)
+        model = Gtk.ListStore(object, str, str, str, str)
 
         for c in cons:
             model.append((c,

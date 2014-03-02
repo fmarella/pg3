@@ -247,7 +247,7 @@ class Anagrafica(GladeWidget):
 
         if self._rowEditingPath is None:
             return
-        dialog = gtk.MessageDialog(self.getTopLevel(),
+        dialog = Gtk.MessageDialog(self.getTopLevel(),
                                    Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
                                    Gtk.MessageType.QUESTION,
                                    Gtk.ButtonsType.YES_NO,
@@ -300,7 +300,7 @@ class Anagrafica(GladeWidget):
         """ Rilettura record """
         if self._rowEditingPath is None:
             return
-        dialog = gtk.MessageDialog(self.getTopLevel(),
+        dialog = Gtk.MessageDialog(self.getTopLevel(),
                                    Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
                                    Gtk.MessageType.QUESTION,
                                    Gtk.ButtonsType.YES_NO,
@@ -443,20 +443,20 @@ class Anagrafica(GladeWidget):
             column = cell.get_data('column')
         row = model[iterator]
         if row.path == self._rowEditingPath:
-            if cell.__class__ is gtk.CellRendererText:
+            if cell.__class__ is Gtk.CellRendererText:
                 try:
                     length = cell.get_data('max_length')
                     model.set_value(iterator, column+1, value[:length])
                 except:
                     model.set_value(iterator, column+1, value)
-            elif cell.__class__ is gtk.CellRendererToggle:
+            elif cell.__class__ is Gtk.CellRendererToggle:
                 model.set_value(iterator, column+1, not cell.get_active())
 
         columns = treeview.get_columns()
         if column+1 <= columns:
             if self._tabPressed:
                 self._tabPressed = False
-            GObject.timeout_add(1, treeview.set_cursor, gtk.TreePath(str(path)), treeview.get_column(column+1), editNext)
+            GObject.timeout_add(1, treeview.set_cursor, Gtk.TreePath(str(path)), treeview.get_column(column+1), editNext)
 
 
     def anagrafica_treeview_set_edit(self, flag):
@@ -467,9 +467,9 @@ class Anagrafica(GladeWidget):
         for c in columns:
             renderers = c.get_cells()
             for r in renderers:
-                if r.__class__ is gtk.CellRendererText:
+                if r.__class__ is Gtk.CellRendererText:
                     r.set_property('editable', flag)
-                elif r.__class__ is gtk.CellRendererToggle:
+                elif r.__class__ is Gtk.CellRendererToggle:
                     r.set_property('activatable', flag)
         if flag:
             self._getRowEditingPath(model, iterator)
@@ -484,7 +484,7 @@ class Anagrafica(GladeWidget):
     def on_anagrafica_window_close(self, widget, event=None):
         """ Gestisce la richiesta di uscita dall'anagrafica """
         if self._rowEditingPath is not None:
-            dialog = gtk.MessageDialog(self.getTopLevel(),
+            dialog = Gtk.MessageDialog(self.getTopLevel(),
                                        Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
                                        Gtk.MessageType.QUESTION,
                                        Gtk.ButtonsType.YES_NO,

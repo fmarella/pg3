@@ -37,20 +37,20 @@ class chartViewer():
 
     def draw(self,widget, func):
 
-        win = gtk.Window()
-        win.connect("destroy", lambda x: gtk.main_quit())
+        win = Gtk.Window()
+        win.connect("destroy", lambda x: Gtk.main_quit())
         win.set_default_size(800,600)
         win.set_title("Chart statistiche PromoGest2")
-        vbox = gtk.VBox()
+        vbox = Gtk.VBox()
 
         win.add(vbox)
-        sw = gtk.ScrolledWindow()
+        sw = Gtk.ScrolledWindow()
         vbox.pack_start(sw, True, True, 0)
         sw.set_border_width (10)
         sw.set_policy (hscrollbar_policy=Gtk.PolicyType.AUTOMATIC,
                vscrollbar_policy=Gtk.PolicyType.ALWAYS)
 
-        canvas = FigureCanvas(self.fig)  # a gtk.DrawingArea
+        canvas = FigureCanvas(self.fig)  # a Gtk.DrawingArea
 
         sw.add_with_viewport (canvas)
         toolbar = NavigationToolbar(canvas, win)
@@ -59,7 +59,7 @@ class chartViewer():
         win.set_modal(True)
         win.set_transient_for(None)
         win.show_all()
-        gtk.main()
+        Gtk.main()
 
     def export_csv(self):
         print "OKOKOKOKKOKOKOKOKO"

@@ -65,7 +65,7 @@ class SimpleGladeApp(SimpleGladeWrapper):
     def main(self):
         """
         Starts the main loop of processing events.
-        The default implementation calls gtk.main()
+        The default implementation calls Gtk.main()
 
         Useful for applications that needs a non gtk main loop.
         For example, applications based on gstreamer needs to override
@@ -77,10 +77,10 @@ class SimpleGladeApp(SimpleGladeWrapper):
         #if Environment.pg3:
         Gtk.main()
         #else:
-        #    gtk.gdk.threads_init()
-        #    gtk.gdk.threads_enter()
-        #    gtk.main()
-        #    gtk.gdk.threads_leave()
+        #    Gtk.gdk.threads_init()
+        #    Gtk.gdk.threads_enter()
+        #    Gtk.main()
+        #    Gtk.gdk.threads_leave()
 
     def on_focus_in_event(self, widget, event):
         try:

@@ -55,9 +55,9 @@ class AnagraficaStatiArticoliFilter(AnagraficaFilter):
 
     def draw(self):
         treeview = self._anagrafica.anagrafica_filter_treeview
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
 
-        column = gtk.TreeViewColumn('Descrizione', renderer, text=1)
+        column = Gtk.TreeViewColumn('Descrizione', renderer, text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'denominazione')
@@ -87,7 +87,7 @@ class AnagraficaStatiArticoliFilter(AnagraficaFilter):
                                                   orderBy = self.orderBy,
                                                   offset = self.offset,
                                                   batchSize = self.batchSize)
-        model = gtk.ListStore(object, str)
+        model = Gtk.ListStore(object, str)
         for s in stas:
             model.append((s,
                           (s.denominazione or '')))

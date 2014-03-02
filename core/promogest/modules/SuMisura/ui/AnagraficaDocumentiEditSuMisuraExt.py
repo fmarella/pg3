@@ -31,22 +31,22 @@ def setLabels(ui):
 
 
 def setTreeview(treeview, rendererSx):
-    column = gtk.TreeViewColumn('H', rendererSx, text=5)
-    column.set_sizing(gtk.TREE_VIEW_COLUMN_GROW_ONLY)
+    column = Gtk.TreeViewColumn('H', rendererSx, text=5)
+    column.set_sizing(Gtk.TREE_VIEW_COLUMN_GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn('L', rendererSx, text=6)
-    column.set_sizing(gtk.TREE_VIEW_COLUMN_GROW_ONLY)
+    column = Gtk.TreeViewColumn('L', rendererSx, text=6)
+    column.set_sizing(Gtk.TREE_VIEW_COLUMN_GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn('Pezzi', rendererSx, text=7)
-    column.set_sizing(gtk.TREE_VIEW_COLUMN_GROW_ONLY)
+    column = Gtk.TreeViewColumn('Pezzi', rendererSx, text=7)
+    column.set_sizing(Gtk.TREE_VIEW_COLUMN_GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)

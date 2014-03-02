@@ -55,11 +55,11 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
             non molto pulita
         """
         treeview = self._anagrafica.anagrafica_filter_treeview
-        rendererSx = gtk.CellRendererText()
-        rendererDx = gtk.CellRendererText()
+        rendererSx = Gtk.CellRendererText()
+        rendererDx = Gtk.CellRendererText()
         rendererDx.set_property('xalign', 1)
 
-        column = gtk.TreeViewColumn('Fornitore', rendererSx, text=1)
+        column = Gtk.TreeViewColumn('Fornitore', rendererSx, text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         #column.connect("clicked", self._changeOrderBy, (self.joinT,Fornitore.ragione_sociale))
@@ -68,7 +68,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Codice articolo fornitore', rendererSx, text=2)
+        column = Gtk.TreeViewColumn('Codice articolo fornitore', rendererSx, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,Fornitura.codice_articolo_fornitore))
@@ -77,7 +77,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Codice articolo', rendererSx, text=3)
+        column = Gtk.TreeViewColumn('Codice articolo', rendererSx, text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         #column.connect("clicked", self._changeOrderBy, (self.joinT2,Articolo.codice))
@@ -86,7 +86,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Articolo', rendererSx, text=4)
+        column = Gtk.TreeViewColumn('Articolo', rendererSx, text=4)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         #column.connect("clicked", self._changeOrderBy,(self.joinT2,Articolo.denominazione))
@@ -95,7 +95,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         column.set_min_width(200)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Data fornitura', rendererSx, text=5)
+        column = Gtk.TreeViewColumn('Data fornitura', rendererSx, text=5)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,Fornitura.data_fornitura))
@@ -104,7 +104,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Prezzo lordo', rendererDx, text=6)
+        column = Gtk.TreeViewColumn('Prezzo lordo', rendererDx, text=6)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,Fornitura.prezzo_lordo))
@@ -113,7 +113,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Prezzo netto', rendererDx, text=7)
+        column = Gtk.TreeViewColumn('Prezzo netto', rendererDx, text=7)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,Fornitura.prezzo_netto))
@@ -122,7 +122,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
         if posso("PW"):
-            column = gtk.TreeViewColumn('Gruppo taglia', rendererSx, text=8)
+            column = Gtk.TreeViewColumn('Gruppo taglia', rendererSx, text=8)
             column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
             column.set_clickable(True)
             column.connect("clicked", self._changeOrderBy, 'denominazione_gruppo_taglia')
@@ -131,7 +131,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
             column.set_min_width(100)
             treeview.append_column(column)
 
-            column = gtk.TreeViewColumn('Taglia', rendererSx, text=9)
+            column = Gtk.TreeViewColumn('Taglia', rendererSx, text=9)
             column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
             column.set_clickable(True)
             column.connect("clicked", self._changeOrderBy, 'denominazione_taglia')
@@ -140,7 +140,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
             column.set_min_width(70)
             treeview.append_column(column)
 
-            column = gtk.TreeViewColumn('Colore', rendererSx, text=10)
+            column = Gtk.TreeViewColumn('Colore', rendererSx, text=10)
             column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
             column.set_clickable(True)
             column.connect("clicked", self._changeOrderBy, 'denominazione_colore')
@@ -149,7 +149,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
             column.set_min_width(70)
             treeview.append_column(column)
 
-            column = gtk.TreeViewColumn('Anno', rendererSx, text=11)
+            column = Gtk.TreeViewColumn('Anno', rendererSx, text=11)
             column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
             column.set_clickable(True)
             column.connect("clicked", self._changeOrderBy, 'anno')
@@ -158,7 +158,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
             column.set_min_width(50)
             treeview.append_column(column)
 
-            column = gtk.TreeViewColumn('Stagione', rendererSx, text=12)
+            column = Gtk.TreeViewColumn('Stagione', rendererSx, text=12)
             column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
             column.set_clickable(True)
             column.connect("clicked", self._changeOrderBy, 'stagione')
@@ -167,7 +167,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
             column.set_min_width(100)
             treeview.append_column(column)
 
-            column = gtk.TreeViewColumn('Genere', rendererSx, text=13)
+            column = Gtk.TreeViewColumn('Genere', rendererSx, text=13)
             column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
             column.set_clickable(True)
             column.connect("clicked", self._changeOrderBy, 'genere')
@@ -175,9 +175,9 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
             column.set_expand(False)
             column.set_min_width(50)
             treeview.append_column(column)
-            self._treeViewModel = gtk.ListStore(object, str, str, str, str, str, str, str, str, str, str, str, str, str)
+            self._treeViewModel = Gtk.ListStore(object, str, str, str, str, str, str, str, str, str, str, str, str, str)
         else:
-           self._treeViewModel = gtk.ListStore(object, str, str, str, str, str, str, str)
+           self._treeViewModel = Gtk.ListStore(object, str, str, str, str, str, str, str)
 
         self._anagrafica.anagrafica_filter_treeview.set_model(self._treeViewModel)
 

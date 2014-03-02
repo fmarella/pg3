@@ -56,9 +56,9 @@ class RicercaAziendeFilter(RicercaFilter):
     def draw(self):
         # Colonne della Treeview per il filtro
         treeview = self._ricerca.ricerca_filter_treeview
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
 
-        column = gtk.TreeViewColumn('Denominazione', renderer, text=1)
+        column = Gtk.TreeViewColumn('Denominazione', renderer, text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'denominazione')
@@ -66,7 +66,7 @@ class RicercaAziendeFilter(RicercaFilter):
         column.set_expand(True)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Indirizzo', renderer,text=2)
+        column = Gtk.TreeViewColumn('Indirizzo', renderer,text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'indirizzo')
@@ -74,7 +74,7 @@ class RicercaAziendeFilter(RicercaFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Localita', renderer,text=3)
+        column = Gtk.TreeViewColumn('Localita', renderer,text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'localita')
@@ -107,7 +107,7 @@ class RicercaAziendeFilter(RicercaFilter):
                                             offset=self.offset,
                                             batchSize=self.batchSize)
 
-        model = gtk.ListStore(object, str, str, str)
+        model = Gtk.ListStore(object, str, str, str)
 
         for a in azis:
             model.append((a,

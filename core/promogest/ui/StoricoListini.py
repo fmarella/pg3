@@ -60,11 +60,11 @@ class StoricoListiniFilter(VisualizzazioneFilter):
         # Colonne della Treeview per il filtro
         treeview = self._visualizzazione.visualizzazione_filter_treeview
 
-        rendererSx = gtk.CellRendererText()
-        rendererDx = gtk.CellRendererText()
+        rendererSx = Gtk.CellRendererText()
+        rendererDx = Gtk.CellRendererText()
         rendererDx.set_property('xalign', 1)
 
-        column = gtk.TreeViewColumn('Listino', rendererSx, text=1)
+        column = Gtk.TreeViewColumn('Listino', rendererSx, text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
 #        column.set_clickable(True)
 #        column.connect("clicked", self._changeOrderBy,
@@ -73,7 +73,7 @@ class StoricoListiniFilter(VisualizzazioneFilter):
         column.set_expand(True)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Data listino', rendererSx, text=2)
+        column = Gtk.TreeViewColumn('Data listino', rendererSx, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
 #        column.set_clickable(True)
 #        column.connect("clicked", self._changeOrderBy,
@@ -82,7 +82,7 @@ class StoricoListiniFilter(VisualizzazioneFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Prezzo dettaglio (ivato)',
+        column = Gtk.TreeViewColumn('Prezzo dettaglio (ivato)',
                                                         rendererDx, text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -92,19 +92,19 @@ class StoricoListiniFilter(VisualizzazioneFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('% Ricarico', rendererDx, text=4)
+        column = Gtk.TreeViewColumn('% Ricarico', rendererDx, text=4)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('% Margine', rendererDx, text=5)
+        column = Gtk.TreeViewColumn('% Margine', rendererDx, text=5)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Prezzo ingrosso (non ivato)',
+        column = Gtk.TreeViewColumn('Prezzo ingrosso (non ivato)',
                                                     rendererDx, text=6)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -114,19 +114,19 @@ class StoricoListiniFilter(VisualizzazioneFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('% Ricarico', rendererDx, text=7)
+        column = Gtk.TreeViewColumn('% Ricarico', rendererDx, text=7)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('% Margine', rendererDx, text=8)
+        column = Gtk.TreeViewColumn('% Margine', rendererDx, text=8)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Costo base (non ivato)',
+        column = Gtk.TreeViewColumn('Costo base (non ivato)',
                                                         rendererDx, text=9)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -135,7 +135,7 @@ class StoricoListiniFilter(VisualizzazioneFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        self._treeViewModel = gtk.ListStore(object, str, str, str,
+        self._treeViewModel = Gtk.ListStore(object, str, str, str,
                                             str, str, str, str, str, str)
         self._visualizzazione.visualizzazione_filter_treeview.\
                                         set_model(self._treeViewModel)

@@ -35,10 +35,10 @@ blink = 0
 screens = []
 
 
-class Pg2StatusIcon(gtk.StatusIcon):
+class Pg2StatusIcon(Gtk.StatusIcon):
     def __init__(self):
 
-        gtk.StatusIcon.__init__(self)
+        Gtk.StatusIcon.__init__(self)
         menu = '''
             <ui>
              <menubar name="Menubar">
@@ -54,16 +54,16 @@ class Pg2StatusIcon(gtk.StatusIcon):
 
         actions = [
             ('Menu',  None, 'Menu'),
-            ('Preferences', gtk.STOCK_PREFERENCES, '_Preferences...', None,
+            ('Preferences', Gtk.STOCK_PREFERENCES, '_Preferences...', None,
                                 'tooltip preferences', self.on_preferences),
-            ('About', gtk.STOCK_ABOUT, '_About', None, 'tooltip About',
+            ('About', Gtk.STOCK_ABOUT, '_About', None, 'tooltip About',
                                  self.on_about),
-            ('Exit', gtk.STOCK_QUIT, '_Exit', None, 'tooltip Exit',
+            ('Exit', Gtk.STOCK_QUIT, '_Exit', None, 'tooltip Exit',
                                  self.on_close)
             ]
-        actionGroup = gtk.ActionGroup("Actions")
+        actionGroup = Gtk.ActionGroup("Actions")
         actionGroup.add_actions(actions)
-        self.manager = gtk.UIManager()
+        self.manager = Gtk.UIManager()
         self.manager.insert_action_group(actionGroup, 0)
         self.manager.add_ui_from_string(menu)
         self.menu = self.manager.get_widget('/Menubar/Menu/About').props.parent
@@ -87,7 +87,7 @@ class Pg2StatusIcon(gtk.StatusIcon):
         self.menu.popup(None, None, None, button, time)
 
     def on_close(self, data):
-        gtk.main_quit()
+        Gtk.main_quit()
 
     def on_preferences(self, data):
         #if not hasAction(actionID=14):return
@@ -99,7 +99,7 @@ class Pg2StatusIcon(gtk.StatusIcon):
 
     def on_about(self, data):
         """ and this one to show the about box """
-        about = gtk.AboutDialog()
+        about = Gtk.AboutDialog()
         about.set_name("PromoGest2")
         about.set_version("svn")
         about.set_copyright("Promotux 2011")

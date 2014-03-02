@@ -50,8 +50,8 @@ class AnagrafichePrincipaliFrame(GladeWidget):
     def setModulesButtons(self):
         if self.modules is not None:
             for module in self.modules.iteritems():
-                module_button = gtk.Button()
-                module_butt_image = gtk.Image()
+                module_button = Gtk.Button()
+                module_butt_image = Gtk.Image()
                 module_butt_image.set_from_file(module[1]['guiDir']+'/'+module[1]['module'].VIEW_TYPE[2])
                 module_button.set_image(module_butt_image)
                 module_button.set_label(module[1]['module'].VIEW_TYPE[1])

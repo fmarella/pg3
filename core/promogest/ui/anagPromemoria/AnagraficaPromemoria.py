@@ -64,9 +64,9 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
     def draw(self,cplx=False):
         # Colonne della Treeview per il filtro
         treeview = self.anagrafica_filter_treeview
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
 
-        column = gtk.TreeViewColumn('Data inserimento', renderer, text=1)
+        column = Gtk.TreeViewColumn('Data inserimento', renderer, text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy,(None, 'data_inserimento'))
@@ -75,7 +75,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Data scadenza', renderer, text=2)
+        column = Gtk.TreeViewColumn('Data scadenza', renderer, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None, 'data_scadenza'))
@@ -84,7 +84,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Oggetto', renderer, text=3)
+        column = Gtk.TreeViewColumn('Oggetto', renderer, text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy,(None, 'oggetto'))
@@ -93,7 +93,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         column.set_min_width(200)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Incaricato', renderer, text=4)
+        column = Gtk.TreeViewColumn('Incaricato', renderer, text=4)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'incaricato'))
@@ -102,7 +102,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         column.set_min_width(200)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Autore', renderer, text=5)
+        column = Gtk.TreeViewColumn('Autore', renderer, text=5)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy,(None ,'autore'))
@@ -111,7 +111,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Completato', renderer, text=6)
+        column = Gtk.TreeViewColumn('Completato', renderer, text=6)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.connect("clicked", self._changeOrderBy,(None, 'completato'))
@@ -120,7 +120,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Scaduto', renderer, text=7)
+        column = Gtk.TreeViewColumn('Scaduto', renderer, text=7)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.connect("clicked", self._changeOrderBy,(None, 'scaduto'))
@@ -129,7 +129,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('In scadenza', renderer, text=8)
+        column = Gtk.TreeViewColumn('In scadenza', renderer, text=8)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.connect("clicked", self._changeOrderBy, (None,'in_scadenza'))
@@ -138,7 +138,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Riferimento', renderer, text=9)
+        column = Gtk.TreeViewColumn('Riferimento', renderer, text=9)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
 #        column.connect("clicked", self._changeOrderBy, 'riferimento')
@@ -149,7 +149,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
 
         treeview.set_search_column(1)
 
-        self._treeViewModel = gtk.ListStore(object, str, str, str, str, str, str, str, str, str)
+        self._treeViewModel = Gtk.ListStore(object, str, str, str, str, str, str, str, str, str)
         self.anagrafica_filter_treeview.set_model(self._treeViewModel)
 
         self.clear()
@@ -290,11 +290,11 @@ class AnagraficaPromemoriaEdit(AnagraficaEdit):
         self.selectedData = selectedData
 
     def draw(self,cplx=False):
-        textBuffer = gtk.TextBuffer()
+        textBuffer = Gtk.TextBuffer()
         self.descrizione_textview.set_buffer(textBuffer)
 #        self.annotazioneHTML = createHtmlObj(self)
 #        self.annotazione_scrolled.add(self.annotazioneHTML)
-        textBuffer = gtk.TextBuffer()
+        textBuffer = Gtk.TextBuffer()
         self.annotazione_textview.set_buffer(textBuffer)
         fillComboboxIncaricatiPromemoria(self.incaricato_combobox_entry)
         fillComboboxAutoriPromemoria(self.autore_combobox_entry)

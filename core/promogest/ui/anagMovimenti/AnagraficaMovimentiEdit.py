@@ -62,7 +62,7 @@ class AnagraficaMovimentiEdit(AnagraficaEdit):
         # modello righe: magazzino, codice articolo,
         # descrizione, percentuale iva, unita base, multiplo, listino,
         # quantita, prezzo lordo, sconti, prezzo netto, totale
-        self.modelRiga = gtk.ListStore(str, str, str, str, str, str, str,
+        self.modelRiga = Gtk.ListStore(str, str, str, str, str, str, str,
                                        str, str, str, str, str)
         # iteratore riga corrente
         self._iteratorRiga = None
@@ -174,88 +174,88 @@ class AnagraficaMovimentiEdit(AnagraficaEdit):
         Costruisce la treevew e gli altri widget dell'interfaccia
         """
         treeview = self.righe_treeview
-        rendererSx = gtk.CellRendererText()
-        rendererDx = gtk.CellRendererText()
+        rendererSx = Gtk.CellRendererText()
+        rendererDx = Gtk.CellRendererText()
         rendererDx.set_property('xalign', 1)
 
-        column = gtk.TreeViewColumn('Magazzino', rendererSx, text=0)
+        column = Gtk.TreeViewColumn('Magazzino', rendererSx, text=0)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Codice articolo', rendererSx, text=1)
+        column = Gtk.TreeViewColumn('Codice articolo', rendererSx, text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Descrizione', rendererSx, text=2)
+        column = Gtk.TreeViewColumn('Descrizione', rendererSx, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(True)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('% IVA', rendererDx, text=3)
+        column = Gtk.TreeViewColumn('% IVA', rendererDx, text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('U.M.', rendererSx, text=4)
+        column = Gtk.TreeViewColumn('U.M.', rendererSx, text=4)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Multiplo', rendererSx, text=5)
+        column = Gtk.TreeViewColumn('Multiplo', rendererSx, text=5)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Listino', rendererSx, text=6)
+        column = Gtk.TreeViewColumn('Listino', rendererSx, text=6)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Quantita''', rendererDx, text=7)
+        column = Gtk.TreeViewColumn('Quantita''', rendererDx, text=7)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Prezzo lordo', rendererDx, text=8)
+        column = Gtk.TreeViewColumn('Prezzo lordo', rendererDx, text=8)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Sconti', rendererSx, text=9)
+        column = Gtk.TreeViewColumn('Sconti', rendererSx, text=9)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Prezzo netto', rendererDx, text=10)
+        column = Gtk.TreeViewColumn('Prezzo netto', rendererDx, text=10)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Totale', rendererDx, text=11)
+        column = Gtk.TreeViewColumn('Totale', rendererDx, text=11)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -308,33 +308,33 @@ class AnagraficaMovimentiEdit(AnagraficaEdit):
                                                  self.on_edit_date_and_number_button_clicked)
 
         #Castelletto iva
-        rendererText = gtk.CellRendererText()
+        rendererText = Gtk.CellRendererText()
 
-        column = gtk.TreeViewColumn('Aliquota I.V.A.', rendererText, text=0)
+        column = Gtk.TreeViewColumn('Aliquota I.V.A.', rendererText, text=0)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(True)
         self.riepiloghi_iva_treeview.append_column(column)
 
-        rendererText = gtk.CellRendererText()
+        rendererText = Gtk.CellRendererText()
         rendererText.set_property('xalign', 1)
 
-        column = gtk.TreeViewColumn('Imponibile', rendererText, text=1)
+        column = Gtk.TreeViewColumn('Imponibile', rendererText, text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(True)
         self.riepiloghi_iva_treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Imposta', rendererText, text=2)
+        column = Gtk.TreeViewColumn('Imposta', rendererText, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(True)
         self.riepiloghi_iva_treeview.append_column(column)
 
-        model = gtk.ListStore(str, str, str)
+        model = Gtk.ListStore(str, str, str)
         self.riepiloghi_iva_treeview.set_model(model)
         fillComboboxAliquoteIva(self.id_iva_customcombobox.combobox)
         self.id_iva_customcombobox.connect('clicked',
@@ -1381,7 +1381,7 @@ class AnagraficaMovimentiEdit(AnagraficaEdit):
         stringa = text.get_text()
         if self.mattu:
             text.set_text(stringa.split(self.sepric)[0])
-        #model = gtk.ListStore(str,object)
+        #model = Gtk.ListStore(str,object)
         #vediamo = self.completion.get_model()
         #vediamo.clear()
         self.ricerca_art_listore.clear()

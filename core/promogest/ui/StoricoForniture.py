@@ -59,11 +59,11 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         # Colonne della Treeview per il filtro
         treeview = self._visualizzazione.visualizzazione_filter_treeview
 
-        rendererSx = gtk.CellRendererText()
-        rendererDx = gtk.CellRendererText()
+        rendererSx = Gtk.CellRendererText()
+        rendererDx = Gtk.CellRendererText()
         rendererDx.set_property('xalign', 1)
 
-        column = gtk.TreeViewColumn('Codice articolo', rendererSx, text=1)
+        column = Gtk.TreeViewColumn('Codice articolo', rendererSx, text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
 #        column.set_clickable(True)
 #        column.connect("clicked", self._changeOrderBy, ("Articolo", 'codice_articolo'))
@@ -71,7 +71,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         column.set_expand(True)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Denominazione', rendererSx, text=2)
+        column = Gtk.TreeViewColumn('Denominazione', rendererSx, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
 #        column.set_clickable(True)
 #        column.connect("clicked", self._changeOrderBy, ("Articolo", 'denominazione'))
@@ -79,7 +79,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         column.set_expand(True)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Prezzo lordo', rendererDx, text=3)
+        column = Gtk.TreeViewColumn('Prezzo lordo', rendererDx, text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'prezzo_lordo'))
@@ -87,7 +87,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Prezzo Netto', rendererDx, text=4)
+        column = Gtk.TreeViewColumn('Prezzo Netto', rendererDx, text=4)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'prezzo_netto'))
@@ -95,7 +95,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Data prezzo', rendererSx, text=5)
+        column = Gtk.TreeViewColumn('Data prezzo', rendererSx, text=5)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'data_prezzo'))
@@ -103,7 +103,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Data fornitura', rendererSx, text=6)
+        column = Gtk.TreeViewColumn('Data fornitura', rendererSx, text=6)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'data_fornitura'))
@@ -111,7 +111,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Codice fornitore', rendererSx, text=7)
+        column = Gtk.TreeViewColumn('Codice fornitore', rendererSx, text=7)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'codice_fornitore'))
@@ -119,7 +119,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Ragione sociale', rendererSx, text=8)
+        column = Gtk.TreeViewColumn('Ragione sociale', rendererSx, text=8)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'fornitore'))
@@ -127,7 +127,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Codice articolo fornitore', rendererSx, text=9)
+        column = Gtk.TreeViewColumn('Codice articolo fornitore', rendererSx, text=9)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'codice_articolo_fornitore'))
@@ -135,7 +135,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         column.set_expand(False)
         treeview.append_column(column)
 
-        self._treeViewModel = gtk.ListStore(object, str, str, str, str, str, str, str, str, str)
+        self._treeViewModel = Gtk.ListStore(object, str, str, str, str, str, str, str, str, str)
         self._visualizzazione.visualizzazione_filter_treeview.set_model(self._treeViewModel)
 
         self.id_articolo_filter_customcombobox.setId(self._visualizzazione._idArticolo)

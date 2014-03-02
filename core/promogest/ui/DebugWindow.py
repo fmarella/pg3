@@ -44,7 +44,7 @@ class DebugWindow(GladeWidget):
 
     def on_entry1_key_press_event(self, widget, event):
         buf = textview_get_text(self.textview1)
-        if event.type == gtk.gdk.KEY_PRESS:
+        if event.type == Gtk.gdk.KEY_PRESS:
             if Gdk.keyval_name(event.keyval) == 'Return':
                 cmd = self.entry1.get_text()
                 self.entry1.set_text('')

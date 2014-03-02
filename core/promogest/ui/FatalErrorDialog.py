@@ -53,4 +53,4 @@ Grazie.
         sendemail = SendEmail(string = messaggio, d=True)
 
     def on_ok_button_clicked(self, button):
-        gtk.main_quit()
+        Gtk.main_quit()

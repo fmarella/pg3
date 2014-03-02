@@ -129,21 +129,21 @@ class GestioneInventario(RicercaComplessaArticoli):
     def draw(self):
         """ Disegna la treeview relativa al risultato del filtraggio """
         treeview = self.filter.resultsElement
-        model = gtk.ListStore(object, str, str, str, str, str, str, str, str, str, str, str, str)
-        rendererSx = gtk.CellRendererText()
-        rendererDx = gtk.CellRendererText()
+        model = Gtk.ListStore(object, str, str, str, str, str, str, str, str, str, str, str, str)
+        rendererSx = Gtk.CellRendererText()
+        rendererDx = Gtk.CellRendererText()
         rendererDx.set_property('xalign', 1)
 
-        cellspin = gtk.CellRendererSpin()
+        cellspin = Gtk.CellRendererSpin()
         cellspin.set_property("editable", True)
         cellspin.set_property("visible", True)
-        adjustment = gtk.Adjustment(1, 1, 1000, 0.500, 2)
+        adjustment = Gtk.Adjustment(1, 1, 1000, 0.500, 2)
         cellspin.set_property("adjustment", adjustment)
         cellspin.set_property("digits", 2)
         cellspin.set_property("climb-rate", 3)
         cellspin.set_property('xalign', 1)
         cellspin.connect('edited', self.on_column_quantita_edited, treeview, True)
-        column = gtk.TreeViewColumn('Quantità', cellspin, text=1)
+        column = Gtk.TreeViewColumn('Quantità', cellspin, text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.filter._changeOrderBy, (None, Inventario.quantita))
@@ -153,17 +153,17 @@ class GestioneInventario(RicercaComplessaArticoli):
         treeview.append_column(column)
 
 
-        cellspin1 = gtk.CellRendererSpin()
+        cellspin1 = Gtk.CellRendererSpin()
         cellspin1.set_property("editable", True)
         cellspin1.set_property("visible", True)
-        adjustment = gtk.Adjustment(1, 1, 1000, 0.500, 2)
+        adjustment = Gtk.Adjustment(1, 1, 1000, 0.500, 2)
         cellspin1.set_property("adjustment", adjustment)
         cellspin1.set_property("digits", 2)
         cellspin1.set_property("climb-rate", 3)
         cellspin1.set_property('xalign', 1)
         cellspin1.connect('edited', self.on_column_valore_unitario_edited, treeview, True)
 
-        column = gtk.TreeViewColumn('Val. unitario', cellspin1, text=2)
+        column = Gtk.TreeViewColumn('Val. unitario', cellspin1, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.filter._changeOrderBy, (None, Inventario.valore_unitario))
@@ -172,7 +172,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         column.set_min_width(70)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('U/B', rendererSx, text=3)
+        column = Gtk.TreeViewColumn('U/B', rendererSx, text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
 #        column.set_clickable(True)
 #        column.connect("clicked", self.filter._changeOrderBy, (Articolo, Articolo.unita_base))
@@ -181,7 +181,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         column.set_min_width(10)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Valorizza', rendererSx, text=4)
+        column = Gtk.TreeViewColumn('Valorizza', rendererSx, text=4)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
 #        column.connect("clicked", self.filter._changeOrderBy, 'denominazione_breve_unita_base')
@@ -190,7 +190,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         column.set_min_width(20)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Data agg', rendererSx, text=5)
+        column = Gtk.TreeViewColumn('Data agg', rendererSx, text=5)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.filter._changeOrderBy, (None, Inventario.data_aggiornamento))
@@ -199,7 +199,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Cod. ART', rendererSx, text=6)
+        column = Gtk.TreeViewColumn('Cod. ART', rendererSx, text=6)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.filter._changeOrderBy,(Articolo, Articolo.codice))
@@ -208,7 +208,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Descriz', rendererSx, text=7)
+        column = Gtk.TreeViewColumn('Descriz', rendererSx, text=7)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.filter._changeOrderBy, (Articolo, Articolo.denominazione))
@@ -217,7 +217,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         column.set_min_width(250)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('C Barre', rendererSx, text=8)
+        column = Gtk.TreeViewColumn('C Barre', rendererSx, text=8)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         #column.connect("clicked", self.filter._changeOrderBy, (None, 'produttore'))
@@ -225,7 +225,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Produttore', rendererSx, text=9)
+        column = Gtk.TreeViewColumn('Produttore', rendererSx, text=9)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         #column.connect("clicked", self.filter._changeOrderBy, 'produttore')
@@ -233,7 +233,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Famiglia', rendererSx, text=10)
+        column = Gtk.TreeViewColumn('Famiglia', rendererSx, text=10)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         #column.connect("clicked", self.filter._changeOrderBy, 'denominazione_famiglia')
@@ -241,7 +241,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Categoria', rendererSx, text=11)
+        column = Gtk.TreeViewColumn('Categoria', rendererSx, text=11)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         #column.connect("clicked", self.filter._changeOrderBy, 'denominazione_categoria')
@@ -249,7 +249,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Cod arti forn', rendererSx, text=12)
+        column = Gtk.TreeViewColumn('Cod arti forn', rendererSx, text=12)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         #column.connect("clicked", self.filter._changeOrderBy, 'codice_articolo_fornitore')
@@ -719,12 +719,12 @@ class GestioneInventario(RicercaComplessaArticoli):
 
         idMagazzino = findIdFromCombobox(self.additional_filter.id_magazzino_filter_combobox2)
 
-        fileDialog = gtk.FileChooserDialog(title='Esportazione inventario ',
+        fileDialog = Gtk.FileChooserDialog(title='Esportazione inventario ',
                                            parent=self.getTopLevel(),
                                            action=Gtk.FileChooserAction.SAVE,
-                                           buttons=(gtk.STOCK_CANCEL,
+                                           buttons=(Gtk.STOCK_CANCEL,
                                                     Gtk.ResponseType.CANCEL,
-                                                    gtk.STOCK_SAVE,
+                                                    Gtk.STOCK_SAVE,
                                                     Gtk.ResponseType.OK),
                                            backend=None)
 
@@ -737,7 +737,7 @@ class GestioneInventario(RicercaComplessaArticoli):
                 folder = os.environ['USERPROFILE']
         fileDialog.set_current_folder(folder)
 
-        fltr = gtk.FileFilter()
+        fltr = Gtk.FileFilter()
         fltr.add_pattern("*.csv")
         fltr.set_name('File CSV (*.csv)')
         fileDialog.add_filter(fltr)
@@ -801,14 +801,14 @@ class GestioneInventario(RicercaComplessaArticoli):
 
     def on_valorizza_button_clicked(self, button):
         """ Valorizzazione inventario (modifica automatica del valore unitario) """
-        dialog = gtk.Dialog('Attenzione',
+        dialog = Gtk.Dialog('Attenzione',
                             self.getTopLevel(),
                             Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
                             None)
-        hbox = gtk.HBox()
-        image = Gtk.Image.new_from_stock(gtk.STOCK_DIALOG_QUESTION, Gtk.IconSize.BUTTON)
+        hbox = Gtk.HBox()
+        image = Gtk.Image.new_from_stock(Gtk.STOCK_DIALOG_QUESTION, Gtk.IconSize.BUTTON)
         image.set_padding(10, 10)
-        label = gtk.Label('Verranno aggiornati i valori unitari non ancora\nspecificati secondo la modalita\' scelta.')
+        label = Gtk.Label('Verranno aggiornati i valori unitari non ancora\nspecificati secondo la modalita\' scelta.')
         label.set_justify(Gtk.Justification.LEFT)
         label.set_alignment(0, 0)
         label.set_padding(15, 10)
@@ -816,17 +816,17 @@ class GestioneInventario(RicercaComplessaArticoli):
         hbox.pack_start(label, True, True, 0)
         dialog.get_content_area().pack_start(hbox, True, True, 0)
 
-        buttonAcquistoUltimo = gtk.Button(label = 'Ultimo prezzo\n di acquisto')
+        buttonAcquistoUltimo = Gtk.Button(label = 'Ultimo prezzo\n di acquisto')
         buttonAcquistoUltimo.connect('clicked', self.on_buttonAcquistoUltimo_clicked)
-        buttonVenditaUltimo = gtk.Button(label = 'Ultimo prezzo\n di vendita')
+        buttonVenditaUltimo = Gtk.Button(label = 'Ultimo prezzo\n di vendita')
         buttonVenditaUltimo.connect('clicked', self.on_buttonVenditaUltimo_clicked)
-        buttonAcquistoMedio = gtk.Button(label = 'Prezzo medio\n di acquisto')
+        buttonAcquistoMedio = Gtk.Button(label = 'Prezzo medio\n di acquisto')
         buttonAcquistoMedio.connect('clicked', self.on_buttonAcquistoMedio_clicked)
-        buttonVenditaMedio = gtk.Button(label = 'Prezzo medio\n di vendita')
+        buttonVenditaMedio = Gtk.Button(label = 'Prezzo medio\n di vendita')
         buttonVenditaMedio.connect('clicked', self.on_buttonVenditaMedio_clicked)
-        buttonVenditaDaListino = gtk.Button(label = 'Prezzo da listino\n di vendita')
+        buttonVenditaDaListino = Gtk.Button(label = 'Prezzo da listino\n di vendita')
         buttonVenditaDaListino.connect('clicked', self.on_buttonVenditaDaListino_clicked)
-        buttonClose = gtk.Button(label = 'Chiudi')
+        buttonClose = Gtk.Button(label = 'Chiudi')
         buttonClose.connect('clicked', self.on_buttonClose_clicked, dialog)
         dialog.get_action_area().pack_start(buttonAcquistoUltimo, True, True, 0)
         dialog.get_action_area().pack_start(buttonVenditaUltimo, True, True, 0)

@@ -42,39 +42,39 @@ if posso("ADR"):
 
 def drawPart(anaedit):
     treeview = anaedit.righe_treeview
-    rendererSx = gtk.CellRendererText()
-    rendererDx = gtk.CellRendererText()
+    rendererSx = Gtk.CellRendererText()
+    rendererDx = Gtk.CellRendererText()
     rendererDx.set_property('xalign', 1)
 
-    column = gtk.TreeViewColumn(_('N°'), rendererSx, text=0)
+    column = Gtk.TreeViewColumn(_('N°'), rendererSx, text=0)
     column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn(_('Magazzino'), rendererSx, text=1)
+    column = Gtk.TreeViewColumn(_('Magazzino'), rendererSx, text=1)
     column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn(_('Codice articolo'), rendererSx, text=2)
+    column = Gtk.TreeViewColumn(_('Codice articolo'), rendererSx, text=2)
     column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn(_('Descrizione'), rendererSx, text=3)
+    column = Gtk.TreeViewColumn(_('Descrizione'), rendererSx, text=3)
     column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(True)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn(_('% IVA'), rendererDx, text=4)
+    column = Gtk.TreeViewColumn(_('% IVA'), rendererDx, text=4)
     column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
@@ -84,49 +84,49 @@ def drawPart(anaedit):
     if posso("SM"):
         AnagraficaDocumentiEditSuMisuraExt.setTreeview(treeview, rendererSx)
 
-    column = gtk.TreeViewColumn(_('Multiplo'), rendererSx, text=8)
+    column = Gtk.TreeViewColumn(_('Multiplo'), rendererSx, text=8)
     column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn(_('Listino'), rendererSx, text=9)
+    column = Gtk.TreeViewColumn(_('Listino'), rendererSx, text=9)
     column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn(_('U.M.'), rendererSx, text=10)
+    column = Gtk.TreeViewColumn(_('U.M.'), rendererSx, text=10)
     column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn(_("Quantita'"), rendererDx, text=11)
+    column = Gtk.TreeViewColumn(_("Quantita'"), rendererDx, text=11)
     column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn(_('Prezzo lordo'), rendererDx, text=12)
+    column = Gtk.TreeViewColumn(_('Prezzo lordo'), rendererDx, text=12)
     column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn(_('Sconti'), rendererSx, text=13)
+    column = Gtk.TreeViewColumn(_('Sconti'), rendererSx, text=13)
     column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn(_('Prezzo netto'), rendererDx, text=14)
+    column = Gtk.TreeViewColumn(_('Prezzo netto'), rendererDx, text=14)
     column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
@@ -136,7 +136,7 @@ def drawPart(anaedit):
     if posso("GN"):
         AnagraficaDocumentiEditGestioneNoleggioExt.setTreeview(treeview, rendererSx)
 
-    column = gtk.TreeViewColumn(_('Totale'), rendererDx, text=16)
+    column = Gtk.TreeViewColumn(_('Totale'), rendererDx, text=16)
     column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
@@ -161,7 +161,7 @@ def drawPart(anaedit):
     descrizione, percentuale iva, unita base, multiplo, listino,
     quantita, prezzo lordo, sconti, prezzo netto, totale, altezza, larghezza,molt_pezzi
     """
-    anaedit.modelRiga = gtk.ListStore(int, str, str, str, str, str, str, str,\
+    anaedit.modelRiga = Gtk.ListStore(int, str, str, str, str, str, str, str,\
                              str, str, str, str, str, str, str, str, str)
     anaedit.righe_treeview.set_model(anaedit.modelRiga)
     anaedit.ricerca = None

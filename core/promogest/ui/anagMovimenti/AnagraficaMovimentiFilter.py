@@ -51,9 +51,9 @@ class AnagraficaMovimentiFilter(AnagraficaFilter):
         """
         # Colonne della Treeview per il filtro
         treeview = self._anagrafica.anagrafica_filter_treeview
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
 
-        column = gtk.TreeViewColumn('Data movimento', renderer, text=1)
+        column = Gtk.TreeViewColumn('Data movimento', renderer, text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None, 'data_movimento'))
@@ -62,7 +62,7 @@ class AnagraficaMovimentiFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Numero movimento', renderer, text=2)
+        column = Gtk.TreeViewColumn('Numero movimento', renderer, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'numero'))
@@ -71,7 +71,7 @@ class AnagraficaMovimentiFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Causale movimento', renderer, text=3)
+        column = Gtk.TreeViewColumn('Causale movimento', renderer, text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy,   (None, 'operazione'))
@@ -80,7 +80,7 @@ class AnagraficaMovimentiFilter(AnagraficaFilter):
         column.set_min_width(150)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Cliente / Fornitore', renderer, text=4)
+        column = Gtk.TreeViewColumn('Cliente / Fornitore', renderer, text=4)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -88,7 +88,7 @@ class AnagraficaMovimentiFilter(AnagraficaFilter):
         column.set_min_width(250)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Note interne', renderer, text=5)
+        column = Gtk.TreeViewColumn('Note interne', renderer, text=5)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -96,7 +96,7 @@ class AnagraficaMovimentiFilter(AnagraficaFilter):
         column.set_min_width(200)
         treeview.append_column(column)
 
-        self._treeViewModel = gtk.ListStore(object, str, str, str, str, str)
+        self._treeViewModel = Gtk.ListStore(object, str, str, str, str, str)
         self._anagrafica.anagrafica_filter_treeview.set_model(self._treeViewModel)
 
         fillComboboxOperazioni(self.id_operazione_filter_combobox, 'movimento',

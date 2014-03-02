@@ -44,23 +44,23 @@ class ExportCsv(GladeWidget):
     def draw(self):
 
         treeview = self.modello_treeview
-        cellspin = gtk.CellRendererToggle()
+        cellspin = Gtk.CellRendererToggle()
         cellspin.set_property('activatable', True)
         cellspin.connect('toggled', self.on_selected, treeview, True)
-        column = gtk.TreeViewColumn('Attiva', cellspin)
+        column = Gtk.TreeViewColumn('Attiva', cellspin)
         column.add_attribute( cellspin, "active", 0)
-#        column.set_sizing(gtk.TREE_VIEW_COLUMN_GROW_ONLY)
+#        column.set_sizing(Gtk.TREE_VIEW_COLUMN_GROW_ONLY)
         column.set_resizable(False)
         column.set_expand(False)
         column.set_min_width(70)
         treeview.append_column(column)
-        rendererSx =gtk.CellRendererText()
-        column = gtk.TreeViewColumn('campo', rendererSx, text=1)
-        column.set_sizing(gtk.TREE_VIEW_COLUMN_GROW_ONLY)
+        rendererSx =Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn('campo', rendererSx, text=1)
+        column.set_sizing(Gtk.TREE_VIEW_COLUMN_GROW_ONLY)
         column.set_resizable(True)
         column.set_expand(True)
         treeview.append_column(column)
-        model = gtk.ListStore(bool, str)
+        model = Gtk.ListStore(bool, str)
         treeview.set_model(model)
         self.fillmodellocombo()
         self.modello_csv_scrolledwindow.set_sensitive(False)
@@ -205,22 +205,22 @@ class ExportCsv(GladeWidget):
         self.salvaFile()
 
     def salvaFile(self):
-        fileDialog = gtk.FileChooserDialog(title='Salva il file',
+        fileDialog = Gtk.FileChooserDialog(title='Salva il file',
                                            parent=self.getTopLevel(),
-                                           action=gtk.FILE_CHOOSER_ACTION_SAVE,
-                                           buttons=(gtk.STOCK_CANCEL,
-                                                    gtk.RESPONSE_CANCEL,
-                                                    gtk.STOCK_SAVE,
-                                                    gtk.RESPONSE_OK),
+                                           action=Gtk.FILE_CHOOSER_ACTION_SAVE,
+                                           buttons=(Gtk.STOCK_CANCEL,
+                                                    Gtk.RESPONSE_CANCEL,
+                                                    Gtk.STOCK_SAVE,
+                                                    Gtk.RESPONSE_OK),
                                            backend=None)
         fileDialog.set_current_name(self.dao.__class__.__name__+".csv")
         fileDialog.set_current_folder(Environment.documentsDir)
 
         response = fileDialog.run()
         # FIXME: handle errors here
-        if ( (response == gtk.RESPONSE_CANCEL) or ( response == gtk.RESPONSE_DELETE_EVENT)) :
+        if ( (response == Gtk.RESPONSE_CANCEL) or ( response == Gtk.RESPONSE_DELETE_EVENT)) :
             fileDialog.destroy()
-        elif response == gtk.RESPONSE_OK:
+        elif response == Gtk.RESPONSE_OK:
             filename = fileDialog.get_filename()
             if not filename:
                 messageInfo(msg="Nessun nome scelto per il file")

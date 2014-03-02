@@ -58,9 +58,9 @@ class AnagraficaVariazioniListiniFilter(AnagraficaFilter):
     def draw(self):
         # Colonne della Treeview per il filtro
         treeview = self._anagrafica.anagrafica_filter_treeview
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
 
-        column = gtk.TreeViewColumn('Denominazione', renderer, text=2, background=1)
+        column = Gtk.TreeViewColumn('Denominazione', renderer, text=2, background=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None, 'denominazione'))
@@ -69,7 +69,7 @@ class AnagraficaVariazioniListiniFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Listino', renderer, text=3, background=1)
+        column = Gtk.TreeViewColumn('Listino', renderer, text=3, background=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None, 'listino'))
@@ -78,7 +78,7 @@ class AnagraficaVariazioniListiniFilter(AnagraficaFilter):
         column.set_min_width(70)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Data Inizio', renderer, text=4, background=1)
+        column = Gtk.TreeViewColumn('Data Inizio', renderer, text=4, background=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect('clicked', self._changeOrderBy, (None, 'data_inizio'))
@@ -87,7 +87,7 @@ class AnagraficaVariazioniListiniFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Data Fine', renderer, text=5, background=1)
+        column = Gtk.TreeViewColumn('Data Fine', renderer, text=5, background=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect('clicked', self._changeOrderBy, (None, 'data_fine'))
@@ -96,7 +96,7 @@ class AnagraficaVariazioniListiniFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Valore', renderer, text=6, background=1)
+        column = Gtk.TreeViewColumn('Valore', renderer, text=6, background=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect('clicked', self._changeOrderBy, (None, 'valore'))
@@ -107,7 +107,7 @@ class AnagraficaVariazioniListiniFilter(AnagraficaFilter):
 
         treeview.set_search_column(1)
 
-        self._treeViewModel = gtk.ListStore(object, str,str, str, str, str, str)
+        self._treeViewModel = Gtk.ListStore(object, str,str, str, str, str, str)
         self._anagrafica.anagrafica_filter_treeview.set_model(self._treeViewModel)
 
         fillComboboxListini(self.listino_filter_ccb.combobox)

@@ -48,7 +48,7 @@ class GtkPrintDialog(object):
 
     def _add_preview_button(self, dialog):
         # Add a preview button
-        button = gtk.Button(stock=gtk.STOCK_PRINT_PREVIEW)
+        button = Gtk.Button(stock=Gtk.STOCK_PRINT_PREVIEW)
         dialog.action_area.pack_start(button)
         dialog.action_area.reorder_child(button, 0)
         button.show()

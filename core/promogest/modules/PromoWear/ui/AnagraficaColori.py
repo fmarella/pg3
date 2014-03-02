@@ -55,12 +55,12 @@ class AnagraficaColori(Anagrafica):
 
         treeview = self.anagrafica_treeview
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', False)
         renderer.connect('edited', self.on_column_edited, treeview, True)
         renderer.set_data('column', 0)
         renderer.set_data('max_length', 200)
-        column = gtk.TreeViewColumn('Denominazione', renderer, text=1,
+        column = Gtk.TreeViewColumn('Denominazione', renderer, text=1,
                                     sensitive=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -69,12 +69,12 @@ class AnagraficaColori(Anagrafica):
         column.set_expand(True)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', False)
         renderer.connect('edited', self.on_column_edited, treeview, False)
         renderer.set_data('column', 1)
         renderer.set_data('max_length', 10)
-        column = gtk.TreeViewColumn('Descrizione breve', renderer, text=2,
+        column = Gtk.TreeViewColumn('Descrizione breve', renderer, text=2,
                                                                 sensitive=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -85,7 +85,7 @@ class AnagraficaColori(Anagrafica):
         treeview.append_column(column)
         treeview.set_search_column(1)
         # Model: Dao, denominazione, denominazione_breve, sensitive
-        self._treeViewModel = gtk.ListStore(object, str, str, bool)
+        self._treeViewModel = Gtk.ListStore(object, str, str, bool)
         treeview.set_model(self._treeViewModel)
 
         self.refresh()

@@ -63,12 +63,12 @@ class DuplicazioneDocumento(GladeWidget):
 
         res = Environment.params['session'].query(Operazione).filter(Operazione.tipo_persona_giuridica != '').all()
 
-        model = gtk.ListStore(object, str, str)
+        model = Gtk.ListStore(object, str, str)
         for o in res:
             model.append((o, o.denominazione, (o.denominazione or '')[0:30]))
 
         self.id_operazione_combobox.clear()
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         self.id_operazione_combobox.pack_start(renderer, True)
         self.id_operazione_combobox.add_attribute(renderer, 'text', 2)
         self.id_operazione_combobox.set_model(model)
@@ -77,7 +77,7 @@ class DuplicazioneDocumento(GladeWidget):
         self.data_documento_entry.grab_focus()
 
         listini = Listino().select(batchSize=None)
-        model = gtk.ListStore(object, int, str)
+        model = Gtk.ListStore(object, int, str)
         model.append((None, 0, '<Invariato>'))
         model.append((None, 1, '<Azzera>'))
         model.append((None, 2, '<Prezzo d\'acquisto>'))
@@ -86,7 +86,7 @@ class DuplicazioneDocumento(GladeWidget):
             model.append((l, indice_prezzo, (l.denominazione or '')[0:30]))
             indice_prezzo += 1
         self.id_prezzo_combobox.clear()
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         self.id_prezzo_combobox.pack_start(renderer, True)
         self.id_prezzo_combobox.add_attribute(renderer, 'text', 2)
         self.id_prezzo_combobox.set_model(model)

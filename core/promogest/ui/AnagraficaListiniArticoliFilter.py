@@ -54,11 +54,11 @@ class AnagraficaListiniArticoliFilter(AnagraficaFilter):
         """
         # Colonne della Treeview per il filtro
         treeview = self._anagrafica.anagrafica_filter_treeview
-        rendererSx = gtk.CellRendererText()
-        rendererDx = gtk.CellRendererText()
+        rendererSx = Gtk.CellRendererText()
+        rendererDx = Gtk.CellRendererText()
         rendererDx.set_property('xalign', 1)
 
-        column = gtk.TreeViewColumn('Listino', rendererSx, text=1)
+        column = Gtk.TreeViewColumn('Listino', rendererSx, text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (Listino, 'Listino.denominazione'))
@@ -67,7 +67,7 @@ class AnagraficaListiniArticoliFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Codice articolo', rendererSx, text=2)
+        column = Gtk.TreeViewColumn('Codice articolo', rendererSx, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (Articolo, 'Articolo.codice'))
@@ -76,7 +76,7 @@ class AnagraficaListiniArticoliFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Articolo', rendererSx, text=3)
+        column = Gtk.TreeViewColumn('Articolo', rendererSx, text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (Articolo, 'Articolo.denominazione'))
@@ -85,7 +85,7 @@ class AnagraficaListiniArticoliFilter(AnagraficaFilter):
         column.set_min_width(200)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Data variazione', rendererSx, text=4)
+        column = Gtk.TreeViewColumn('Data variazione', rendererSx, text=4)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'data_listino_articolo'))
@@ -94,7 +94,7 @@ class AnagraficaListiniArticoliFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Prezzo dettaglio', rendererDx, text=5)
+        column = Gtk.TreeViewColumn('Prezzo dettaglio', rendererDx, text=5)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None, 'prezzo_dettaglio'))
@@ -103,7 +103,7 @@ class AnagraficaListiniArticoliFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Prezzo ingrosso', rendererDx, text=6)
+        column = Gtk.TreeViewColumn('Prezzo ingrosso', rendererDx, text=6)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None, 'prezzo_ingrosso'))
@@ -112,7 +112,7 @@ class AnagraficaListiniArticoliFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Ultimo costo', rendererDx, text=7)
+        column = Gtk.TreeViewColumn('Ultimo costo', rendererDx, text=7)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None, 'prezzo_dettaglio'))
@@ -125,7 +125,7 @@ class AnagraficaListiniArticoliFilter(AnagraficaFilter):
         if posso("PW"):
             drawPromoWearExpand1(self)
         else:
-            self._treeViewModel = gtk.ListStore(object, str, str, str, str, str, str, str)
+            self._treeViewModel = Gtk.ListStore(object, str, str, str, str, str, str, str)
         self._anagrafica.anagrafica_filter_treeview.set_model(self._treeViewModel)
 
 

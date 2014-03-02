@@ -125,9 +125,9 @@ def parseModel(model, operation, index):
     def analyzeListStoreRow(model, row, operation, index):
         operation(row, index)
 
-    if model.__class__ is gtk.TreeStore:
+    if model.__class__ is Gtk.TreeStore:
         model.foreach(analyzeTreeStoreRow, (operation, index))
-    elif model.__class__ is gtk.ListStore:
+    elif model.__class__ is Gtk.ListStore:
         for r in model:
             analyzeListStoreRow(model, r, operation, index)
 
@@ -203,13 +203,13 @@ def onColumnEdited(cell, path, value, treeview, editNext=False, refreshCall=None
     iterator = model.get_iter(path)
     index = cell.get_data('model_index')
     row = model[iterator]
-    if cell.__class__ is gtk.CellRendererText:
+    if cell.__class__ is Gtk.CellRendererText:
         if value == '':
             model.remove(iterator)
             return
         else:
             model.set_value(iterator, index, value)
-    elif cell.__class__ is gtk.CellRendererToggle:
+    elif cell.__class__ is Gtk.CellRendererToggle:
         model.set_value(iterator, index, not cell.get_active())
         checked = model.get_value(iterator, index)
         if checked:
@@ -217,7 +217,7 @@ def onColumnEdited(cell, path, value, treeview, editNext=False, refreshCall=None
                 model.set_value(iterator, 1, False)
             elif index == 1:
                 model.set_value(iterator, 0, False)
-        if model.__class__ is gtk.TreeStore:
+        if model.__class__ is Gtk.TreeStore:
             setChild(model, model.iter_children(iterator), index, checked)
 
     column = cell.get_data('column')

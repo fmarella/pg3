@@ -82,7 +82,7 @@ class RicercaComplessaFornitori(RicercaComplessa):
         RicercaComplessa.__init__(self, 'Promogest - Ricerca fornitori',
                                   self._ricerca)
 
-        self.ricerca_hpaned = gtk.HPaned()
+        self.ricerca_hpaned = Gtk.HPaned()
         self.ricerca_viewport.add(self.ricerca_hpaned)
 
         # set filter part on the left
@@ -93,7 +93,7 @@ class RicercaComplessaFornitori(RicercaComplessa):
         # set treeview on the right
         resultElement = self.filter.filter_list_vbox
         resultElement.unparent()
-        self.results_vbox = gtk.VBox()
+        self.results_vbox = Gtk.VBox()
         self.results_vbox.pack_start(resultElement, True, True, 0)
         self.ricerca_hpaned.pack2(self.results_vbox, resize=True, shrink=False)
 
@@ -117,10 +117,10 @@ class RicercaComplessaFornitori(RicercaComplessa):
     def draw(self):
         """ Disegna la treeview relativa al risultato del filtraggio """
         treeview = self.filter.resultsElement
-        model = gtk.ListStore(gobject.TYPE_PYOBJECT, str, str, str, str, str)
-        renderer = gtk.CellRendererText()
+        model = Gtk.ListStore(gobject.TYPE_PYOBJECT, str, str, str, str, str)
+        renderer = Gtk.CellRendererText()
 
-        column = gtk.TreeViewColumn('Codice', renderer, text=1)
+        column = Gtk.TreeViewColumn('Codice', renderer, text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.filter._changeOrderBy, (None,'codice'))
@@ -128,7 +128,7 @@ class RicercaComplessaFornitori(RicercaComplessa):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Ragione sociale', renderer, text=2)
+        column = Gtk.TreeViewColumn('Ragione sociale', renderer, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.filter._changeOrderBy,(None, 'ragione_sociale'))
@@ -136,7 +136,7 @@ class RicercaComplessaFornitori(RicercaComplessa):
         column.set_expand(True)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Cognome e nome', renderer, text=3)
+        column = Gtk.TreeViewColumn('Cognome e nome', renderer, text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.filter._changeOrderBy, (None,'cognome'))
@@ -144,7 +144,7 @@ class RicercaComplessaFornitori(RicercaComplessa):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Localita\'', renderer, text=4)
+        column = Gtk.TreeViewColumn('Localita\'', renderer, text=4)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.filter._changeOrderBy,(None, 'sede_legale_localita'))
@@ -152,7 +152,7 @@ class RicercaComplessaFornitori(RicercaComplessa):
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Partita IVA/Codice fiscale', renderer, text=5)
+        column = Gtk.TreeViewColumn('Partita IVA/Codice fiscale', renderer, text=5)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -233,9 +233,9 @@ class RicercaComplessaFornitori(RicercaComplessa):
         selection = self.filter.resultsElement.get_selection()
         if self._ricerca._tipoRicerca == 'semplice':
             # solo se la ricerca e' semplice si puo' selezionare una riga
-            selection.set_mode(gtk.SELECTION_SINGLE)
+            selection.set_mode(Gtk.SELECTION_SINGLE)
         else:
-            selection.set_mode(gtk.SELECTION_NONE)
+            selection.set_mode(Gtk.SELECTION_NONE)
 
     def on_filter_entry_changed(self, text):
         stringa = text.get_text()
@@ -246,7 +246,7 @@ class RicercaComplessaFornitori(RicercaComplessa):
     def setTreeViewSelectionType(self, mode=None):
         self._fixedSelectionTreeViewType = True
         if mode is not None:
-            if mode in (gtk.SELECTION_SINGLE, gtk.SELECTION_MULTIPLE, gtk.SELECTION_NONE):
+            if mode in (Gtk.SELECTION_SINGLE, Gtk.SELECTION_MULTIPLE, Gtk.SELECTION_NONE):
                 selection = self.filter.resultsElement.get_selection()
                 selection.set_mode(mode)
 
@@ -258,7 +258,7 @@ class RicercaComplessaFornitori(RicercaComplessa):
         else:
             selection = self.filter.resultsElement.get_selection()
             selectionMode = selection.get_mode()
-            if selectionMode == gtk.SELECTION_SINGLE:
+            if selectionMode == Gtk.SELECTION_SINGLE:
                 return self.dao
             elif self._ricerca.resultsCount == 1:
                 treeview = self.filter.resultsElement
@@ -279,7 +279,7 @@ class RicercaComplessaFornitori(RicercaComplessa):
         else:
             selection = self.filter.resultsElement.get_selection()
             selectionMode = selection.get_mode()
-            if (selectionMode == gtk.SELECTION_SINGLE):
+            if (selectionMode == Gtk.SELECTION_SINGLE):
                 if self.dao is not None:
                     return 1
                 else:
@@ -420,18 +420,18 @@ class RicercaFornitoriFilter(GladeWidget):
         treeview = self.ragione_sociale_fornitore_filter_treeview
         treeview.selectAllIncluded = False
         treeview.selectAllExcluded = False
-        model = gtk.ListStore(bool, bool, str)
+        model = Gtk.ListStore(bool, bool, str)
         self._ragioneSocialeTreeViewModel = model
 
         for c in treeview.get_columns():
             treeview.remove_column(c)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 0)
         renderer.set_data('column', 1)
-        column = gtk.TreeViewColumn('Includi', renderer, active=0)
+        column = Gtk.TreeViewColumn('Includi', renderer, active=0)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -439,12 +439,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 1)
         renderer.set_data('column', 2)
-        column = gtk.TreeViewColumn('Escludi', renderer, active=1)
+        column = Gtk.TreeViewColumn('Escludi', renderer, active=1)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -452,12 +452,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', True)
         renderer.connect('edited', self.onColumnEdited, treeview)
         renderer.set_data('model_index', 2)
         renderer.set_data('column', 3)
-        column = gtk.TreeViewColumn('Ragione sociale', renderer, text=2)
+        column = Gtk.TreeViewColumn('Ragione sociale', renderer, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -480,18 +480,18 @@ class RicercaFornitoriFilter(GladeWidget):
         treeview = self.insegna_fornitore_filter_treeview
         treeview.selectAllIncluded = False
         treeview.selectAllExcluded = False
-        model = gtk.ListStore(bool, bool, str)
+        model = Gtk.ListStore(bool, bool, str)
         self._insegnaTreeViewModel = model
 
         for c in treeview.get_columns():
             treeview.remove_column(c)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 0)
         renderer.set_data('column', 1)
-        column = gtk.TreeViewColumn('Includi', renderer, active=0)
+        column = Gtk.TreeViewColumn('Includi', renderer, active=0)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -499,12 +499,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 1)
         renderer.set_data('column', 2)
-        column = gtk.TreeViewColumn('Escludi', renderer, active=1)
+        column = Gtk.TreeViewColumn('Escludi', renderer, active=1)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -512,12 +512,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', True)
         renderer.connect('edited', self.onColumnEdited, treeview)
         renderer.set_data('model_index', 2)
         renderer.set_data('column', 3)
-        column = gtk.TreeViewColumn('Insegna', renderer, text=2)
+        column = Gtk.TreeViewColumn('Insegna', renderer, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -534,18 +534,18 @@ class RicercaFornitoriFilter(GladeWidget):
         treeview = self.cognome_nome_fornitore_filter_treeview
         treeview.selectAllIncluded = False
         treeview.selectAllExcluded = False
-        model = gtk.ListStore(bool, bool, str)
+        model = Gtk.ListStore(bool, bool, str)
         self._cognomeNomeTreeViewModel = model
 
         for c in treeview.get_columns():
             treeview.remove_column(c)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 0)
         renderer.set_data('column', 1)
-        column = gtk.TreeViewColumn('Includi', renderer, active=0)
+        column = Gtk.TreeViewColumn('Includi', renderer, active=0)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -553,12 +553,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 1)
         renderer.set_data('column', 2)
-        column = gtk.TreeViewColumn('Escludi', renderer, active=1)
+        column = Gtk.TreeViewColumn('Escludi', renderer, active=1)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -566,12 +566,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', True)
         renderer.connect('edited', self.onColumnEdited, treeview)
         renderer.set_data('model_index', 2)
         renderer.set_data('column', 3)
-        column = gtk.TreeViewColumn('Cognome e nome', renderer, text=2)
+        column = Gtk.TreeViewColumn('Cognome e nome', renderer, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -588,18 +588,18 @@ class RicercaFornitoriFilter(GladeWidget):
         treeview = self.codice_fornitore_filter_treeview
         treeview.selectAllIncluded = False
         treeview.selectAllExcluded = False
-        model = gtk.ListStore(bool, bool, str)
+        model = Gtk.ListStore(bool, bool, str)
         self._codiceTreeViewModel = model
 
         for c in treeview.get_columns():
             treeview.remove_column(c)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 0)
         renderer.set_data('column', 1)
-        column = gtk.TreeViewColumn('Includi', renderer, active=0)
+        column = Gtk.TreeViewColumn('Includi', renderer, active=0)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -607,12 +607,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 1)
         renderer.set_data('column', 2)
-        column = gtk.TreeViewColumn('Escludi', renderer, active=1)
+        column = Gtk.TreeViewColumn('Escludi', renderer, active=1)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -620,12 +620,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', True)
         renderer.connect('edited', self.onColumnEdited, treeview)
         renderer.set_data('model_index', 2)
         renderer.set_data('column', 3)
-        column = gtk.TreeViewColumn('Codice', renderer, text=2)
+        column = Gtk.TreeViewColumn('Codice', renderer, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -642,18 +642,18 @@ class RicercaFornitoriFilter(GladeWidget):
         treeview = self.localita_fornitore_filter_treeview
         treeview.selectAllIncluded = False
         treeview.selectAllExcluded = False
-        model = gtk.ListStore(bool, bool, str)
+        model = Gtk.ListStore(bool, bool, str)
         self._localitaTreeViewModel = model
 
         for c in treeview.get_columns():
             treeview.remove_column(c)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 0)
         renderer.set_data('column', 1)
-        column = gtk.TreeViewColumn('Includi', renderer, active=0)
+        column = Gtk.TreeViewColumn('Includi', renderer, active=0)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -661,12 +661,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 1)
         renderer.set_data('column', 2)
-        column = gtk.TreeViewColumn('Escludi', renderer, active=1)
+        column = Gtk.TreeViewColumn('Escludi', renderer, active=1)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -674,12 +674,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', True)
         renderer.connect('edited', self.onColumnEdited, treeview)
         renderer.set_data('model_index', 2)
         renderer.set_data('column', 3)
-        column = gtk.TreeViewColumn('Localita\'', renderer, text=2)
+        column = Gtk.TreeViewColumn('Localita\'', renderer, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -696,18 +696,18 @@ class RicercaFornitoriFilter(GladeWidget):
         treeview = self.indirizzo_fornitore_filter_treeview
         treeview.selectAllIncluded = False
         treeview.selectAllExcluded = False
-        model = gtk.ListStore(bool, bool, str)
+        model = Gtk.ListStore(bool, bool, str)
         self._indirizzoTreeViewModel = model
 
         for c in treeview.get_columns():
             treeview.remove_column(c)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 0)
         renderer.set_data('column', 1)
-        column = gtk.TreeViewColumn('Includi', renderer, active=0)
+        column = Gtk.TreeViewColumn('Includi', renderer, active=0)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -715,12 +715,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 1)
         renderer.set_data('column', 2)
-        column = gtk.TreeViewColumn('Escludi', renderer, active=1)
+        column = Gtk.TreeViewColumn('Escludi', renderer, active=1)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -728,12 +728,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', True)
         renderer.connect('edited', self.onColumnEdited, treeview)
         renderer.set_data('model_index', 2)
         renderer.set_data('column', 3)
-        column = gtk.TreeViewColumn('Indirizzo', renderer, text=2)
+        column = Gtk.TreeViewColumn('Indirizzo', renderer, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -750,18 +750,18 @@ class RicercaFornitoriFilter(GladeWidget):
         treeview = self.codice_fiscale_fornitore_filter_treeview
         treeview.selectAllIncluded = False
         treeview.selectAllExcluded = False
-        model = gtk.ListStore(bool, bool, str)
+        model = Gtk.ListStore(bool, bool, str)
         self._codiceFiscaleTreeViewModel = model
 
         for c in treeview.get_columns():
             treeview.remove_column(c)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 0)
         renderer.set_data('column', 1)
-        column = gtk.TreeViewColumn('Includi', renderer, active=0)
+        column = Gtk.TreeViewColumn('Includi', renderer, active=0)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -769,12 +769,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 1)
         renderer.set_data('column', 2)
-        column = gtk.TreeViewColumn('Escludi', renderer, active=1)
+        column = Gtk.TreeViewColumn('Escludi', renderer, active=1)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -782,12 +782,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', True)
         renderer.connect('edited', self.onColumnEdited, treeview)
         renderer.set_data('model_index', 2)
         renderer.set_data('column', 3)
-        column = gtk.TreeViewColumn('Codice fiscale', renderer, text=2)
+        column = Gtk.TreeViewColumn('Codice fiscale', renderer, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -804,18 +804,18 @@ class RicercaFornitoriFilter(GladeWidget):
         treeview = self.partita_iva_fornitore_filter_treeview
         treeview.selectAllIncluded = False
         treeview.selectAllExcluded = False
-        model = gtk.ListStore(bool, bool, str)
+        model = Gtk.ListStore(bool, bool, str)
         self._partitaIvaTreeViewModel = model
 
         for c in treeview.get_columns():
             treeview.remove_column(c)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 0)
         renderer.set_data('column', 1)
-        column = gtk.TreeViewColumn('Includi', renderer, active=0)
+        column = Gtk.TreeViewColumn('Includi', renderer, active=0)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -823,12 +823,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 1)
         renderer.set_data('column', 2)
-        column = gtk.TreeViewColumn('Escludi', renderer, active=1)
+        column = Gtk.TreeViewColumn('Escludi', renderer, active=1)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -836,12 +836,12 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', True)
         renderer.connect('edited', self.onColumnEdited, treeview)
         renderer.set_data('model_index', 2)
         renderer.set_data('column', 3)
-        column = gtk.TreeViewColumn('Partita I.V.A.', renderer, text=2)
+        column = Gtk.TreeViewColumn('Partita I.V.A.', renderer, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -858,18 +858,18 @@ class RicercaFornitoriFilter(GladeWidget):
         treeview = self.categoria_fornitore_filter_treeview
         treeview.selectAllIncluded = False
         treeview.selectAllExcluded = False
-        model = gtk.ListStore(bool, bool, int, str)
+        model = Gtk.ListStore(bool, bool, int, str)
         self._categoriaTreeViewModel = model
 
         for c in treeview.get_columns():
             treeview.remove_column(c)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 0)
         renderer.set_data('column', 1)
-        column = gtk.TreeViewColumn('Includi', renderer, active=0)
+        column = Gtk.TreeViewColumn('Includi', renderer, active=0)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -877,8 +877,8 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
-        column = gtk.TreeViewColumn('Descrizione', renderer, text=3)
+        renderer = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn('Descrizione', renderer, text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -906,18 +906,18 @@ class RicercaFornitoriFilter(GladeWidget):
         treeview = self.pagamento_fornitore_filter_treeview
         treeview.selectAllIncluded = False
         treeview.selectAllExcluded = False
-        model = gtk.ListStore(bool, bool, int, str)
+        model = Gtk.ListStore(bool, bool, int, str)
         self._pagamentoTreeViewModel = model
 
         for c in treeview.get_columns():
             treeview.remove_column(c)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 0)
         renderer.set_data('column', 1)
-        column = gtk.TreeViewColumn('Includi', renderer, active=0)
+        column = Gtk.TreeViewColumn('Includi', renderer, active=0)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -925,8 +925,8 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
-        column = gtk.TreeViewColumn('Descrizione', renderer, text=3)
+        renderer = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn('Descrizione', renderer, text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -955,18 +955,18 @@ class RicercaFornitoriFilter(GladeWidget):
         treeview = self.magazzino_fornitore_filter_treeview
         treeview.selectAllIncluded = False
         treeview.selectAllExcluded = False
-        model = gtk.ListStore(bool, bool, int, str)
+        model = Gtk.ListStore(bool, bool, int, str)
         self._magazzinoTreeViewModel = model
 
         for c in treeview.get_columns():
             treeview.remove_column(c)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable', True)
         renderer.connect('toggled', self.onColumnEdited, None, treeview)
         renderer.set_data('model_index', 0)
         renderer.set_data('column', 1)
-        column = gtk.TreeViewColumn('Includi', renderer, active=0)
+        column = Gtk.TreeViewColumn('Includi', renderer, active=0)
         column.connect("clicked", self.columnSelectAll, treeview)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
@@ -974,8 +974,8 @@ class RicercaFornitoriFilter(GladeWidget):
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
-        column = gtk.TreeViewColumn('Descrizione', renderer, text=3)
+        renderer = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn('Descrizione', renderer, text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -1145,7 +1145,7 @@ class RicercaFornitoriFilter(GladeWidget):
         self.setRiepilogoFornitore()
 
     def on_ragione_sociale_fornitore_filter_treeview_key_press_event(self, widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gtk.gdk.keyval_name(event.keyval)
         return analyze_treeview_key_press_event(widget,
                                                 keyname,
                                                 self.insertRagioneSociale,
@@ -1154,7 +1154,7 @@ class RicercaFornitoriFilter(GladeWidget):
 
 
     def on_insegna_fornitore_filter_treeview_key_press_event(self, widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gtk.gdk.keyval_name(event.keyval)
         return analyze_treeview_key_press_event(widget,
                                                 keyname,
                                                 self.insertInsegna,
@@ -1163,7 +1163,7 @@ class RicercaFornitoriFilter(GladeWidget):
 
 
     def on_cognome_nome_fornitore_filter_treeview_key_press_event(self, widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gtk.gdk.keyval_name(event.keyval)
         return analyze_treeview_key_press_event(widget,
                                                 keyname,
                                                 self.insertCognomeNome,
@@ -1172,7 +1172,7 @@ class RicercaFornitoriFilter(GladeWidget):
 
 
     def on_codice_fornitore_filter_treeview_key_press_event(self, widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gtk.gdk.keyval_name(event.keyval)
         return analyze_treeview_key_press_event(widget,
                                                 keyname,
                                                 self.insertCodice,
@@ -1181,7 +1181,7 @@ class RicercaFornitoriFilter(GladeWidget):
 
 
     def on_localita_fornitore_filter_treeview_key_press_event(self, widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gtk.gdk.keyval_name(event.keyval)
         return analyze_treeview_key_press_event(widget,
                                                 keyname,
                                                 self.insertLocalita,
@@ -1190,7 +1190,7 @@ class RicercaFornitoriFilter(GladeWidget):
 
 
     def on_indirizzo_fornitore_filter_treeview_key_press_event(self, widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gtk.gdk.keyval_name(event.keyval)
         return analyze_treeview_key_press_event(widget,
                                                 keyname,
                                                 self.insertIndirizzo,
@@ -1199,7 +1199,7 @@ class RicercaFornitoriFilter(GladeWidget):
 
 
     def on_codice_fiscale_fornitore_filter_treeview_key_press_event(self, widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gtk.gdk.keyval_name(event.keyval)
         return analyze_treeview_key_press_event(widget,
                                                 keyname,
                                                 self.insertCodiceFiscale,
@@ -1208,7 +1208,7 @@ class RicercaFornitoriFilter(GladeWidget):
 
 
     def on_partita_iva_fornitore_filter_treeview_key_press_event(self, widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gtk.gdk.keyval_name(event.keyval)
         return analyze_treeview_key_press_event(widget,
                                                 keyname,
                                                 self.insertPartitaIva,
@@ -1317,7 +1317,7 @@ class RicercaFornitoriFilter(GladeWidget):
 
     def on_campo_filter_entry_key_press_event(self, widget, event):
         """ Conferma parametri filtro x ricerca semplice da tastiera """
-        keyname = gtk.gdk.keyval_name(event.keyval)
+        keyname = Gtk.gdk.keyval_name(event.keyval)
 
         if keyname == 'Return' or keyname == 'KP_Enter':
             self._parentObject.refresh()

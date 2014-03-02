@@ -112,7 +112,7 @@ class ADRNotebookPage(GladeWidget):
 
 def fillComboboxCategoriaTrasporto(combobox, filter=False):
     """ Riempi combo degli stadi commessa """
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     stcom = CategoriaTrasporto().select(batchSize=None)
     if not filter:
         emptyRow = ''
@@ -121,7 +121,7 @@ def fillComboboxCategoriaTrasporto(combobox, filter=False):
         model.append((c, c.id, (c.denominazione or '')[0:20]))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
@@ -155,7 +155,7 @@ def id_categoria_trasporto_customcombobox_clicked(widget, button):
 
 def fillComboboxCodiceClassificazione(combobox, filter=False):
     """ Riempi combo dei codici di classificazione """
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     stcom = CodiceClassificazione().select(batchSize=None)
     if not filter:
         emptyRow = ''
@@ -164,7 +164,7 @@ def fillComboboxCodiceClassificazione(combobox, filter=False):
         model.append((c, c.id, (c.denominazione or '')[0:20]))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
@@ -197,7 +197,7 @@ def id_codice_classificazione_customcombobox_clicked(widget, button):
 
 def fillComboboxGruppoImballaggio(combobox, filter=False):
     """ Riempi combo dei gruppi di imballaggio """
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     stcom = GruppoImballaggio().select(batchSize=None)
     if not filter:
         emptyRow = ''
@@ -206,7 +206,7 @@ def fillComboboxGruppoImballaggio(combobox, filter=False):
         model.append((c, c.id, (c.denominazione or '')[0:20]))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
@@ -239,7 +239,7 @@ def id_gruppo_imballaggio_adr_customcombobox_clicked(widget, button):
 
 def fillComboboxClassePericolo(combobox, filter=False):
     """ Riempi combo delle classi di pericolosità """
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     stcom = ClassePericolo().select(batchSize=None)
     if not filter:
         emptyRow = ''
@@ -248,7 +248,7 @@ def fillComboboxClassePericolo(combobox, filter=False):
         model.append((c, c.id, (c.denominazione or '')[0:20]))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
@@ -281,7 +281,7 @@ def id_classe_pericolo_adr_customcombobox_clicked(widget, button):
 
 def fillComboboxGalleria(combobox, filter=False):
     """ Riempi combo galleria """
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     stcom = Galleria().select(batchSize=None)
     if not filter:
         emptyRow = ''
@@ -290,7 +290,7 @@ def fillComboboxGalleria(combobox, filter=False):
         model.append((c, c.id, (c.denominazione or '')[0:20]))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)

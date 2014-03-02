@@ -44,22 +44,22 @@ class FatturazioneProvvigioni(GladeWidget):
         self.data_documento_entry.grab_focus()
 
     def on_esporta_button_clicked(self, widget):
-        fileDialog = gtk.FileChooserDialog(title='Salva il file',
+        fileDialog = Gtk.FileChooserDialog(title='Salva il file',
                                            parent=self.getTopLevel(),
-                                           action=gtk.FILE_CHOOSER_ACTION_SAVE,
-                                           buttons=(gtk.STOCK_CANCEL,
-                                                    gtk.RESPONSE_CANCEL,
-                                                    gtk.STOCK_SAVE,
-                                                    gtk.RESPONSE_OK),
+                                           action=Gtk.FILE_CHOOSER_ACTION_SAVE,
+                                           buttons=(Gtk.STOCK_CANCEL,
+                                                    Gtk.RESPONSE_CANCEL,
+                                                    Gtk.STOCK_SAVE,
+                                                    Gtk.RESPONSE_OK),
                                            backend=None)
         fileDialog.set_current_name("fatturazione_provvigioni.csv")
         fileDialog.set_current_folder(Environment.documentsDir)
 
         response = fileDialog.run()
         # FIXME: handle errors here
-        if ( (response == gtk.RESPONSE_CANCEL) or ( response == gtk.RESPONSE_DELETE_EVENT)) :
+        if ( (response == Gtk.RESPONSE_CANCEL) or ( response == Gtk.RESPONSE_DELETE_EVENT)) :
             fileDialog.destroy()
-        elif response == gtk.RESPONSE_OK:
+        elif response == Gtk.RESPONSE_OK:
             filename = fileDialog.get_filename()
             if not filename:
                 messageInfo(msg="Nessun nome scelto per il file")

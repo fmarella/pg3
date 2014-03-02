@@ -78,9 +78,9 @@ class AnagraficaContattiFilter(AnagraficaFilter):
     def draw(self, cplx=False):
         # Colonne della Treeview per il filtro
         treeview = self._anagrafica.anagrafica_filter_treeview
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
 
-        column = gtk.TreeViewColumn('Cognome - Nome', renderer, text=1)
+        column = Gtk.TreeViewColumn('Cognome - Nome', renderer, text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy,
@@ -90,7 +90,7 @@ class AnagraficaContattiFilter(AnagraficaFilter):
         column.set_min_width(300)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Ruolo', renderer, text=2)
+        column = Gtk.TreeViewColumn('Ruolo', renderer, text=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None, Contatto.ruolo))
@@ -99,7 +99,7 @@ class AnagraficaContattiFilter(AnagraficaFilter):
         column.set_min_width(150)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Descrizione', renderer, text=3)
+        column = Gtk.TreeViewColumn('Descrizione', renderer, text=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy,
@@ -109,7 +109,7 @@ class AnagraficaContattiFilter(AnagraficaFilter):
         column.set_min_width(150)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Relativo a', renderer, text=4)
+        column = Gtk.TreeViewColumn('Relativo a', renderer, text=4)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
@@ -119,7 +119,7 @@ class AnagraficaContattiFilter(AnagraficaFilter):
 
         treeview.set_search_column(1)
 
-        self._treeViewModel = gtk.ListStore(object, str, str, str, str)
+        self._treeViewModel = Gtk.ListStore(object, str, str, str, str)
         self._anagrafica.anagrafica_filter_treeview.set_model(self._treeViewModel)
 
         self.clear()
@@ -476,16 +476,16 @@ class AnagraficaContattiEdit(AnagraficaEdit):
         model = self.categorie_liststore
         self.categorie_treeview.set_model(model)
 
-        rendererText = gtk.CellRendererText()
-        column = gtk.TreeViewColumn('Categoria', rendererText, text=1)
+        rendererText = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn('Categoria', rendererText, text=1)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(True)
         self.categorie_treeview.append_column(column)
 
-        rendererPixbuf = gtk.CellRendererPixbuf()
-        column = gtk.TreeViewColumn('', rendererPixbuf, pixbuf=2)
+        rendererPixbuf = Gtk.CellRendererPixbuf()
+        column = Gtk.TreeViewColumn('', rendererPixbuf, pixbuf=2)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(False)
@@ -497,7 +497,7 @@ class AnagraficaContattiEdit(AnagraficaEdit):
         model = self.recapiti_liststore
         self.recapiti_treeview.set_model(model)
 
-        rendererCombo = gtk.CellRendererCombo()
+        rendererCombo = Gtk.CellRendererCombo()
         rendererCombo.set_property('editable', True)
         rendererCombo.connect('edited', self.on_tipo_recapito_edited, self.recapiti_treeview.get_model())
         rendererCombo.set_property('text-column', 0)
@@ -505,7 +505,7 @@ class AnagraficaContattiEdit(AnagraficaEdit):
         rendererCombo.set_property('model', fillModelTipiRecapito())
         rendererCombo.set_property('width', 200)
         rendererCombo.set_data('column', 0)
-        column = gtk.TreeViewColumn('Tipo', rendererCombo, text=1)
+        column = Gtk.TreeViewColumn('Tipo', rendererCombo, text=1)
         column.set_clickable(False)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_resizable(True)
@@ -513,19 +513,19 @@ class AnagraficaContattiEdit(AnagraficaEdit):
         column.set_min_width(200)
         self.recapiti_treeview.append_column(column)
 
-        rendererText = gtk.CellRendererText()
+        rendererText = Gtk.CellRendererText()
         rendererText.set_property('editable', True)
         rendererText.connect('edited', self.on_recapito_edited, self.recapiti_treeview.get_model())
         rendererText.set_data('column', 1)
-        column = gtk.TreeViewColumn('Recapito', rendererText, text=2)
+        column = Gtk.TreeViewColumn('Recapito', rendererText, text=2)
         column.set_clickable(False)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_resizable(True)
         column.set_expand(True)
         self.recapiti_treeview.append_column(column)
 
-        rendererPixbuf = gtk.CellRendererPixbuf()
-        column = gtk.TreeViewColumn('', rendererPixbuf, pixbuf=3)
+        rendererPixbuf = Gtk.CellRendererPixbuf()
+        column = Gtk.TreeViewColumn('', rendererPixbuf, pixbuf=3)
         column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(False)
@@ -575,8 +575,8 @@ class AnagraficaContattiEdit(AnagraficaEdit):
             for c in model:
                 if c[0] == id:
                     return
-            image = gtk.Image()
-            anagPixbuf = image.render_icon(gtk.STOCK_ADD,
+            image = Gtk.Image()
+            anagPixbuf = image.render_icon(Gtk.STOCK_ADD,
                                            Gtk.IconSize.BUTTON)
             model.append((id, categoria, anagPixbuf, 'added'))
         self.categorie_treeview.get_selection().unselect_all()
@@ -585,8 +585,8 @@ class AnagraficaContattiEdit(AnagraficaEdit):
     def on_categorie_contatti_delete_row_button_clicked(self, widget):
         id = findIdFromCombobox(self.id_categoria_contatto_customcombobox.combobox)
         if id is not None:
-            image = gtk.Image()
-            anagPixbuf = image.render_icon(gtk.STOCK_REMOVE,
+            image = Gtk.Image()
+            anagPixbuf = image.render_icon(Gtk.STOCK_REMOVE,
                                            Gtk.IconSize.BUTTON)
             model = self.categorie_treeview.get_model()
             for c in model:
@@ -651,8 +651,8 @@ class AnagraficaContattiEdit(AnagraficaEdit):
                 self.recapiti_treeview_focus_out()
                 return
 
-            image = gtk.Image()
-            anagPixbuf = image.render_icon(gtk.STOCK_ADD,
+            image = Gtk.Image()
+            anagPixbuf = image.render_icon(Gtk.STOCK_ADD,
                                            Gtk.IconSize.BUTTON)
         model.set_value(iterator, column+1, value)
         model.set_value(iterator, 3, anagPixbuf)
@@ -683,8 +683,8 @@ class AnagraficaContattiEdit(AnagraficaEdit):
         if iterator is not None:
             new = model.get_value(iterator, 0) == 0
             if not new:
-                image = gtk.Image()
-                anagPixbuf = image.render_icon(gtk.STOCK_REMOVE,
+                image = Gtk.Image()
+                anagPixbuf = image.render_icon(Gtk.STOCK_REMOVE,
                                                Gtk.IconSize.BUTTON)
                 operation = 'deleted'
                 model.set_value(iterator, 3, anagPixbuf)
