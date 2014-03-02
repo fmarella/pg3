@@ -23,7 +23,6 @@
 
 from sqlalchemy import *
 from sqlalchemy.orm import *
-#from promogest.lib.migrate import *
 from promogest.Environment import *
 from promogest.dao.Dao import Dao
 from promogest.dao.User import User, t_utente

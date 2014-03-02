@@ -23,7 +23,6 @@ from sqlalchemy import *
 from sqlalchemy.orm import *
 from promogest.Environment import params
 #from Listino import Listino
-#from migrate.changeset.constraint import PrimaryKeyConstraint
 from promogest.dao.Dao import Dao
 
 try:

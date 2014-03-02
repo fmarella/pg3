@@ -22,7 +22,6 @@
 from sqlalchemy import *
 from sqlalchemy.orm import *
 from promogest.Environment import *
-#from migrate.changeset.constraint import PrimaryKeyConstraint
 from Dao import Dao
 
 

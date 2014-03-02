@@ -32,7 +32,6 @@ from promogest.dao.Dao import Dao
 from promogest.dao.ListinoCategoriaCliente import ListinoCategoriaCliente
 from promogest.dao.ListinoMagazzino import ListinoMagazzino
 from promogest.dao.ListinoComplessoListino import ListinoComplessoListino
-#from promogest.lib.migrate import *
 
 
 

@@ -39,7 +39,6 @@ from promogest.dao.Dao import Dao
 from Multiplo import Multiplo, t_multiplo
 from ScontoFornitura import ScontoFornitura
 from Fornitore import Fornitore, t_fornitore
-#from promogest.lib.migrate import *
 
 
 class Fornitura(Dao):
