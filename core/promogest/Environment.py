@@ -74,9 +74,7 @@ from sqlalchemy.exc import *
 from promogest.EnvUtils import *
 
 PRODOTTO = "PromoTux"
-VERSIONE = "PromoGest 2.9.2"
-if pg3:
-    VERSIONE = "PromoGest 2.9.92"
+VERSIONE = "PromoGest 3.0 beta"
 reportTemplatesDir = None
 imagesDir = None
 labelTemplatesDir = None
