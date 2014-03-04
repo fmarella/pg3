@@ -21,7 +21,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from gi.repository import Gtk, GdkPixbuf
+from gi.repository import GObject, Gtk, GdkPixbuf
 from CustomLabel import CustomLabel
 from promogest import Environment
 from promogest.lib.utils import mN, setconf

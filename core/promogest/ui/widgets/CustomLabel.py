@@ -22,7 +22,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from gi.repository import GObject, Gtk
+from gi.repository import GObject, Gtk, GdkPixbuf
 from promogest import Environment
 
 class CustomLabel(Gtk.Box):
