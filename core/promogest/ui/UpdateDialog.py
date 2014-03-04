@@ -25,6 +25,7 @@ try:
 except:
     pysvn = None
 import threading
+from gi.repository import GLib
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.lib.utils import messageWarning
 
@@ -102,7 +103,7 @@ class UpdateDialog(GladeWidget):
                     return False
             self.update_progress_bar.pulse()
             return True
-        gobject.timeout_add(100, refreshUI)
+        GLib.timeout_add(100, refreshUI)
 
         t = threading.Thread(group=None, target=fetchThread,
                         name='Data rendering thread', args=([self]),
@@ -138,7 +139,7 @@ class UpdateDialog(GladeWidget):
             else:
                 self.update_progress_bar.pulse()
                 return True
-        gobject.timeout_add(100, refreshUI)
+        GLib.timeout_add(100, refreshUI)
 
         t = threading.Thread(group=None, target=updateThread,
                         name='Data rendering thread', args=([self]),
