@@ -36,7 +36,6 @@ from promogest.lib.ibanlib import dividi_iban
 from promogest.modules.Pagamenti.dao import TestataDocumentoScadenza
 from datetime import datetime
 from decimal import Decimal
-from promogest.ui.gtk_compat import *
 from sqlalchemy.sql import and_, or_
 from promogest.lib.HtmlHandler import renderTemplate, renderHTML
 
@@ -238,7 +237,7 @@ class RiBaExportWindow(GladeWidget):
         self.show_all()
 
     def __setup_webview(self):
-        from webkit import WebView
+        from gi.repository.WebKit import WebView
         self.view = WebView()
         self.webview_scrolledwindow.add(self.view)
 
@@ -277,22 +276,22 @@ class RiBaExportWindow(GladeWidget):
     def salvaFile(self):
         data_inizio = stringToDate(self.data_inizio_entry.get_text())
         nome_file = 'ESTRATTO_RIBA_' + data_inizio.strftime('%m_%y') + ".txt"
-        fileDialog = gtk.FileChooserDialog(title='Salvare il file',
+        fileDialog = Gtk.FileChooserDialog(title='Salvare il file',
                                            parent=self.getTopLevel(),
-                                           action= GTK_FILE_CHOOSER_ACTION_SAVE,
-                                           buttons=(gtk.STOCK_CANCEL,
-                                                    GTK_RESPONSE_CANCEL,
-                                                    gtk.STOCK_SAVE,
-                                                    GTK_RESPONSE_OK),
+                                           action= Gtk.FileChooserAction.SAVE,
+                                           buttons=(Gtk.STOCK_CANCEL,
+                                                    Gtk.ResponseType.CANCEL,
+                                                    Gtk.STOCK_SAVE,
+                                                    Gtk.ResponseType.OK),
                                            backend=None)
         fileDialog.set_current_name(nome_file)
         fileDialog.set_current_folder(Environment.documentsDir)
 
         response = fileDialog.run()
 
-        if ( (response == GTK_RESPONSE_CANCEL) or ( response == GTK_RESPONSE_DELETE_EVENT)) :
+        if ( (response == Gtk.ResponseType.CANCEL) or ( response == Gtk.ResponseType.DELETE_EVENT)) :
             fileDialog.destroy()
-        elif response == GTK_RESPONSE_OK:
+        elif response == Gtk.ResponseType.OK:
             filename = fileDialog.get_filename()
             if not filename:
                 messageInfo(msg="Nessun nome scelto per il file")

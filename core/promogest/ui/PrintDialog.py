@@ -22,10 +22,11 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
-from promogest.lib.utils import *
 import subprocess
 import os, sys, threading, os.path
+from gi.repository import Gtk
+
+from promogest.lib.utils import *
 from utilsCombobox import *
 from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget
@@ -121,23 +122,23 @@ class PrintDialogHandler(GladeWidget):
         start_viewer(pdfFile)
 
     def __handleSaveResponse(self, dialog):
-        fileDialog = gtk.FileChooserDialog(title='Salva il file',
+        fileDialog = Gtk.FileChooserDialog(title='Salva il file',
                                            parent=dialog,
-                                           action=GTK_FILE_CHOOSER_ACTION_SAVE,
-                                           buttons=(gtk.STOCK_CANCEL,
-                                                    GTK_RESPONSE_CANCEL,
-                                                    gtk.STOCK_SAVE,
-                                                    GTK_RESPONSE_OK))
+                                           action=Gtk.FileChooserAction.SAVE,
+                                           buttons=(Gtk.STOCK_CANCEL,
+                                                    Gtk.ResponseType.CANCEL,
+                                                    Gtk.STOCK_SAVE,
+                                                    Gtk.ResponseType.OK))
         fileDialog.set_current_name(self._pdfName+".pdf")
         fileDialog.set_current_folder(self._folder)
 
-        fltr = gtk.FileFilter()
+        fltr = Gtk.FileFilter()
         fltr.add_mime_type('application/pdf')
         fltr.set_name('File Promogest:(*.pdf & *.ods)')
         fltr.add_pattern("*.pdf")
         fileDialog.add_filter(fltr)
 
-        fltr = gtk.FileFilter()
+        fltr = Gtk.FileFilter()
         fltr.set_name("All files")
         fltr.add_pattern("*")
         fltr.set_name('Tutti i file')
@@ -145,9 +146,9 @@ class PrintDialogHandler(GladeWidget):
 
         response = fileDialog.run()
         # FIXME: handle errors here
-        if ( (response == GTK_RESPONSE_CANCEL) or ( response == GTK_RESPONSE_DELETE_EVENT)) :
+        if ( (response == Gtk.ResponseType.CANCEL) or ( response == Gtk.ResponseType.DELETE_EVENT)) :
             pass
-        elif response == GTK_RESPONSE_OK:
+        elif response == Gtk.ResponseType.OK:
             filename = fileDialog.get_filename()
 
             #modifiche
@@ -159,24 +160,24 @@ class PrintDialogHandler(GladeWidget):
 
                 if os.path.exists(filename):
                     msg = 'Il file "%s" esiste.  Sovrascrivere?' % filename
-                    overDialog = gtk.MessageDialog(None, GTK_DIALOG_MODAL
-                                                            | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                            GTK_DIALOG_MESSAGE_QUESTION,
-                                                            GTK_BUTTON_YES_NO, msg)
+                    overDialog = Gtk.MessageDialog(None, Gtk.DialogFlags.MODAL
+                                                            | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                                            Gtk.MessageType.QUESTION,
+                                                            Gtk.ButtonsType.YES_NO, msg)
                     response = overDialog.run()
                     overDialog.destroy()
-                    if response == GTK_RESPONSE_YES:
+                    if response == Gtk.ResponseType.YES:
                         can_save = 1
                         #overwrite the file if user click  yes
                         #break
                     else:
                         response =  fileDialog.run()
-                        if response == GTK_RESPONSE_CANCEL or response == GTK_RESPONSE_DELETE_EVENT:
+                        if response == Gtk.ResponseType.CANCEL or response == Gtk.ResponseType.DELETE_EVENT:
                             #exit but don't save the file
                             esci = True
                             can_save = 0
                             break
-                        elif response == GTK_RESPONSE_OK:
+                        elif response == Gtk.ResponseType.OK:
                             filename = fileDialog.get_filename()
                 else:
                     can_save = 1
@@ -194,20 +195,20 @@ class PrintDialogHandler(GladeWidget):
                             msg = """Errore nel salvataggio!
     Verificare i permessi della cartella o che NON sia
     errata nella sezione di configurazione"""
-                            overDialog = gtk.MessageDialog(None, GTK_DIALOG_MODAL
-                                                                | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                                GTK_DIALOG_MESSAGE_ERROR,
-                                                                GTK_BUTTON_CANCEL, msg)
+                            overDialog = Gtk.MessageDialog(None, Gtk.DialogFlags.MODAL
+                                                                | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                                                Gtk.MessageType.ERROR,
+                                                                Gtk.ButtonsType.CANCEL, msg)
                             response = overDialog.run()
                             #overDialog.destroy()
-                            if response == GTK_RESPONSE_CANCEL or response == GTK_RESPONSE_DELETE_EVENT:
+                            if response == Gtk.ResponseType.CANCEL or response == Gtk.ResponseType.DELETE_EVENT:
                                 overDialog.destroy()
                                 response = fileDialog.run()
-                                if response == GTK_RESPONSE_CANCEL or response == GTK_RESPONSE_DELETE_EVENT:
+                                if response == Gtk.ResponseType.CANCEL or response == Gtk.ResponseType.DELETE_EVENT:
                                     #exit but don't save the file
                                     esci = True
                                     break
-                                elif response == GTK_RESPONSE_OK:
+                                elif response == Gtk.ResponseType.OK:
                                     filename = fileDialog.get_filename()
                                     break
 

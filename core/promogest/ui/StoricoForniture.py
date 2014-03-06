@@ -27,7 +27,6 @@ from promogest import Environment
 import promogest.dao.Fornitura
 from promogest.dao.Fornitura import Fornitura
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 
 
 class StoricoForniture(Visualizzazione):
@@ -65,7 +64,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         rendererDx.set_property('xalign', 1)
 
         column = gtk.TreeViewColumn('Codice articolo', rendererSx, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
 #        column.set_clickable(True)
 #        column.connect("clicked", self._changeOrderBy, ("Articolo", 'codice_articolo'))
         column.set_resizable(True)
@@ -73,7 +72,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Denominazione', rendererSx, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
 #        column.set_clickable(True)
 #        column.connect("clicked", self._changeOrderBy, ("Articolo", 'denominazione'))
         column.set_resizable(True)
@@ -81,7 +80,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Prezzo lordo', rendererDx, text=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'prezzo_lordo'))
         column.set_resizable(True)
@@ -89,7 +88,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Prezzo Netto', rendererDx, text=4)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'prezzo_netto'))
         column.set_resizable(True)
@@ -97,7 +96,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Data prezzo', rendererSx, text=5)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'data_prezzo'))
         column.set_resizable(True)
@@ -105,7 +104,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Data fornitura', rendererSx, text=6)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'data_fornitura'))
         column.set_resizable(True)
@@ -113,7 +112,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Codice fornitore', rendererSx, text=7)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'codice_fornitore'))
         column.set_resizable(True)
@@ -121,7 +120,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Ragione sociale', rendererSx, text=8)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'fornitore'))
         column.set_resizable(True)
@@ -129,7 +128,7 @@ class StoricoFornitureFilter(VisualizzazioneFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Codice articolo fornitore', rendererSx, text=9)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'codice_articolo_fornitore'))
         column.set_resizable(True)

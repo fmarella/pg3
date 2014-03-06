@@ -22,17 +22,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-from SimpleGladeWrapper import SimpleGladeWrapper
 import os
-from promogest import Environment
-from promogest.ui.gtk_compat import *
 import xml.etree.cElementTree as ElementTree
-
-
-import promogest.ui.widgets
-
+from gi.repository import Gtk, Gdk
 
 from SimpleGladeApp import SimpleGladeApp
+from SimpleGladeWrapper import SimpleGladeWrapper
+from promogest import Environment
+import promogest.ui.widgets
+
 
 class GladeWidget(SimpleGladeApp):
     """ Classe base per i widget creati utilizzando Glade 2 """
@@ -140,10 +138,10 @@ class GladeWidget(SimpleGladeApp):
             #print "right click"
 
         # was it a multiple click?
-        if event.type == GDK_EVENTTYPE_BUTTON_PRESS:
+        if event.type == Gdk.EventType.BUTTON_PRESS:
             pass
             #print "single click"
-        elif event.type == GDK_EVENTTYPE_2BUTTON_PRESS:
+        elif event.type == Gdk.EventType._2BUTTON_PRESS:
             testo = widget.get_text()
             if testo.isupper():
                 uppertext = testo.lower()
@@ -151,7 +149,7 @@ class GladeWidget(SimpleGladeApp):
                 uppertext = testo.upper()
             widget.set_text(uppertext)
             #print "double click"
-        elif event.type == GDK_EVENTTYPE_3BUTTON_PRESS:
+        elif event.type == Gdk.EventType._3BUTTON_PRESS:
             testo = widget.get_text()
             capitalizetext = testo.capitalize()
             widget.set_text(capitalizetext)

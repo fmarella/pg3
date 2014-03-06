@@ -36,6 +36,7 @@ from promogest.dao.Setconf import SetConf
 from promogest.lib.utils import setconf, messageInfo, posso, findIdFromCombobox
 from promogest.ui.utilsCombobox import findComboboxRowFromId
 
+
 class ConfiguraWindow(GladeWidget):
 
     def __init__(self, mainWindow):

@@ -25,7 +25,6 @@
 from promogest.ui.Ricerca import Ricerca, RicercaFilter
 from promogest.dao.AnagraficaSecondaria import AnagraficaSecondaria_
 from promogest.lib.utils import showAnagraficaRichiamata, prepareFilterString, findIdFromCombobox
-from promogest.ui.gtk_compat import *
 from promogest.modules.RuoliAzioni.dao.Role import Role
 
 class RicercaAnagraficaSecondaria(Ricerca):
@@ -77,7 +76,7 @@ class RicercaAnagraficaSecondariaFilter(RicercaFilter):
         renderer = gtk.CellRendererText()
 
         column = gtk.TreeViewColumn('Codice', renderer,text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'codice')
         column.set_resizable(True)
@@ -85,7 +84,7 @@ class RicercaAnagraficaSecondariaFilter(RicercaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Ragione Sociale', renderer, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'ragione_sociale')
         column.set_resizable(True)
@@ -93,7 +92,7 @@ class RicercaAnagraficaSecondariaFilter(RicercaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Cognome - Nome', renderer,text=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'cognome, nome')
         column.set_resizable(True)
@@ -101,7 +100,7 @@ class RicercaAnagraficaSecondariaFilter(RicercaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Localita', renderer,text=4)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'localita')
         column.set_resizable(True)

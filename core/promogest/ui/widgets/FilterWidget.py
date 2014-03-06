@@ -21,7 +21,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
+from gi.repository import Gtk
 import math
 import sqlalchemy
 from promogest import Environment
@@ -141,7 +141,7 @@ class FilterWidget(GladeWidget):
         """
         Confirm or erase filter's parameters from keyboard
         """
-        keyname = gdk_keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
 
         if keyname == 'Escape':
             self.on_filter_clear_button_clicked(widget)
@@ -181,7 +181,7 @@ class FilterWidget(GladeWidget):
         """
         Confirms page indication
         """
-        keyname = gdk_keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == 'Return' or keyname == 'KP_Enter':
             page = int(self.filter_current_page_entry.get_text())
             self.gotoPage(int(page))
@@ -384,7 +384,7 @@ class FilterWidget(GladeWidget):
         return filterCountClosure()
 
     def genericButton(self):
-        button = gtk.Button()
+        button = Gtk.Button()
         return button
 
     def getTreeViewFilterResultsWidget(self):
@@ -398,7 +398,7 @@ class FilterWidget(GladeWidget):
         elif hasattr(self.filtersElement,"anagrafica_semplice_treeview"):
             treeview = self.filtersElement.anagrafica_semplice_treeview
         else:
-            treeview = gtk.TreeView()
+            treeview = Gtk.TreeView()
 
             # some default settings
             # LASCIO libertà nella creazione da glade.... è giusto?

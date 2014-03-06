@@ -29,7 +29,6 @@ import promogest.dao.Azienda
 from promogest.dao.Azienda import Azienda
 
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 
 
 class RicercaAziende(Ricerca):
@@ -60,7 +59,7 @@ class RicercaAziendeFilter(RicercaFilter):
         renderer = gtk.CellRendererText()
 
         column = gtk.TreeViewColumn('Denominazione', renderer, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'denominazione')
         column.set_resizable(True)
@@ -68,7 +67,7 @@ class RicercaAziendeFilter(RicercaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Indirizzo', renderer,text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'indirizzo')
         column.set_resizable(True)
@@ -76,7 +75,7 @@ class RicercaAziendeFilter(RicercaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Localita', renderer,text=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'localita')
         column.set_resizable(True)

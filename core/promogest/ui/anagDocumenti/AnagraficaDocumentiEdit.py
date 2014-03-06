@@ -25,7 +25,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
 import datetime
 
 from promogest import Environment
@@ -121,10 +120,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
         # Inizializziamo i moduli in interfaccia!
         #self.draw()
         self.completion = self.ricerca_articolo_entrycompletition
-        if Environment.pg3:
-            self.completion.set_match_func(self.match_func, None)
-        else:
-            self.completion.set_match_func(self.match_func)
+        self.completion.set_match_func(self.match_func, None)
         self.completion.set_text_column(0)
         self.articolo_entry.set_completion(self.completion)
         self.sepric = "  ~  "
@@ -232,7 +228,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
         """ Mappiamo un po' di tasti su anag documenti
         TODO: da ricontrollare
         """
-        keyname = gdk_keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == 'F4':  # confermo e pulisco
             self.on_confirm_row_button_clicked(widget=None)
         elif keyname == 'F6':  # confermo e non pulisco
@@ -862,7 +858,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
         print "\n\nINIZIO IL SALVATAGGIO DEL DOCUMENTO\n\n"
         GN = posso("GN")
         SM = posso("SM")
-        if posso("ADR") and tipo==GTK_RESPONSE_OK:
+        if posso("ADR") and tipo==Gtk.ResponseType.OK:
             AnagraficaDocumentiEditADRExt.sposta_sommario_in_tabella(self)
         scontiRigaDocumentoList = {}
         if not(len(self._righe) > 1):
@@ -1359,20 +1355,20 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
             if not(self._variazioneListiniResponse == 'all' or self._variazioneListiniResponse == 'none'):
                 msg = _('Il prezzo di acquisto e\' stato variato:\n\n   si desidera aggiornare i listini di vendita ?')
                 response = showComplexQuestion(self.dialogTopLevel, msg)
-                if response == GTK_RESPONSE_YES:
+                if response == Gtk.ResponseType.YES:
                     self._variazioneListiniResponse = 'yes'
                     #la richiesta verra' riproposta per la successiva variante o articolo
                     self._variazioneListiniShow = True
-                elif response == GTK_RESPONSE_NO:
+                elif response == Gtk.ResponseType.NO:
                     self._variazioneListiniResponse = 'no'
                     #la richiesta verra' riproposta per la successiva variante o articolo
                     self._variazioneListiniShow = False
-                elif response == GTK_RESPONSE_APPLY:
+                elif response == Gtk.ResponseType.APPLY:
                     self._variazioneListiniResponse = 'all'
                     #la richiesta non verra' riproposta per la successiva variante o articolo
                     #ma per il prossimo articolo padre si'
                     self._variazioneListiniShow = True
-                elif response == GTK_RESPONSE_REJECT:
+                elif response == Gtk.ResponseType.REJECT:
                     self._variazioneListiniResponse = 'none'
                     #la richiesta non verra' riproposta per la successiva variante o articolo
                     #ma per il prossimo articolo padre si'
@@ -1546,7 +1542,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
                                             codice=codice,
                                             codiceABarre=codiceABarre,
                                             codiceArticoloFornitore=codiceArticoloFornitore)
-            anag.setTreeViewSelectionType(GTK_SELECTIONMODE_SINGLE)
+            anag.setTreeViewSelectionType(Gtk.SelectionMode.SINGLE)
 
             anagWindow = anag.getTopLevel()
             anagWindow.connect("hide",
@@ -1725,7 +1721,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
 
     def on_articolo_entry_key_press_event(self, widget, event):
         """ """
-        keyname = gdk_keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if self.ricerca == "codice_a_barre" \
                 and setconf("Documenti", "no_ricerca_incrementale") \
                 and (keyname == 'F3' \

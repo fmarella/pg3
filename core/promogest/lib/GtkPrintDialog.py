@@ -27,16 +27,8 @@ import os
 import shutil
 import tempfile
 from promogest import Environment
-from promogest.ui.gtk_compat import *
 
-if not Environment.pg3:
-    try:
-        import gtkunixprint
-        gtkunixprint # pyflakes
-    except ImportError:
-        gtkunixprint = None
-else:
-    gtkunixprint = None
+gtkunixprint = None
 
 
 class GtkPrintDialog(object):
@@ -76,11 +68,11 @@ class GtkPrintDialog(object):
 
     def run(self):
         response = self._dialog.run()
-        if response in [GTK_RESPONSE_CANCEL,
-                        GTK_RESPONSE_DELETE_EVENT]:
+        if response in [Gtk.ResponseType.CANCEL,
+                        Gtk.ResponseType.DELETE_EVENT]:
             self._dialog.destroy()
             self._dialog = None
-        elif response == GTK_RESPONSE_OK:
+        elif response == Gtk.ResponseType.OK:
             self._send_to_printer(self._dialog.get_selected_printer(),
                                   self._dialog.get_settings(),
                                   self._dialog.get_page_setup())

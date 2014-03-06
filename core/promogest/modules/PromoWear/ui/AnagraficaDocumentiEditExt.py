@@ -23,7 +23,6 @@
 
 from promogest import Environment
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 from promogest.modules.PromoWear.ui.PromowearUtils import *
 
 def hidePromoWear(ui):

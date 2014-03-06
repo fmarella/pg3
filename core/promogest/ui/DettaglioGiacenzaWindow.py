@@ -21,7 +21,6 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from decimal import *
-from promogest.ui.gtk_compat import *
 from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.lib.utils import *
@@ -34,6 +33,7 @@ from promogest.dao.TestataMovimento import TestataMovimento
 from promogest.dao.ListinoArticolo import ListinoArticolo
 from promogest.dao.RigaMovimento import RigaMovimento
 from promogest.dao.RigaMovimentoFornitura import RigaMovimentoFornitura
+
 
 class DettaglioGiacenzaWindow(GladeWidget):
 
@@ -51,7 +51,7 @@ class DettaglioGiacenzaWindow(GladeWidget):
         self.idMagazzino = riga["idMagazzino"]
         self.rigamovimentofornituralist = riga["rigaMovimentoFornituraList"]
         #treeselection = self.dettaglio_giacenza_treeview.get_selection()
-        #treeselection.set_mode(GTK_SELECTIONMODE_MULTIPLE)
+        #treeselection.set_mode(Gtk.SelectionMode.MULTIPLE)
         self.draw()
 
     def draw(self):

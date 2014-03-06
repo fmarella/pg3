@@ -24,7 +24,7 @@
 from math import sqrt
 from promogest import Environment
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
+
 
 def setLabels(anaedit):
     anaedit.prezzo_aquisto_entry.set_text("0")
@@ -33,7 +33,7 @@ def setLabels(anaedit):
 
 def setTreeview(treeview, rendererSx):
     column = gtk.TreeViewColumn('Giorni', rendererSx, text=15)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)

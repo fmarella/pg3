@@ -34,11 +34,11 @@ from promogest.modules.PromoWear.ui.PromowearUtils import *
 def drawPromoWearPart(anaarti, renderer):
 
     treeview = anaarti.filter.resultsElement
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
 
 
-    column = gtk.TreeViewColumn('Gruppo taglia', renderer, text=9, background=1)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    column = Gtk.TreeViewColumn('Gruppo taglia', renderer, text=9, background=1)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.connect("clicked", anaarti.filter._changeOrderBy, (GruppoTaglia, GruppoTaglia.denominazione))
     column.set_resizable(True)
@@ -46,8 +46,8 @@ def drawPromoWearPart(anaarti, renderer):
     column.set_min_width(100)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn('Taglia', renderer, text=10, background=1)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    column = Gtk.TreeViewColumn('Taglia', renderer, text=10, background=1)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.connect("clicked", anaarti.filter._changeOrderBy, (Taglia, Taglia.denominazione))
     column.set_resizable(True)
@@ -55,8 +55,8 @@ def drawPromoWearPart(anaarti, renderer):
     column.set_min_width(100)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn('Colore', renderer, text=11, background=1)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    column = Gtk.TreeViewColumn('Colore', renderer, text=11, background=1)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.connect("clicked", anaarti.filter._changeOrderBy, (Colore, Colore.denominazione))
     column.set_resizable(True)
@@ -64,8 +64,8 @@ def drawPromoWearPart(anaarti, renderer):
     column.set_min_width(100)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn('Anno', renderer, text=12, background=1)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    column = Gtk.TreeViewColumn('Anno', renderer, text=12, background=1)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.connect("clicked", anaarti.filter._changeOrderBy, (AnnoAbbigliamento,AnnoAbbigliamento.denominazione))
     column.set_resizable(True)
@@ -73,8 +73,8 @@ def drawPromoWearPart(anaarti, renderer):
     column.set_min_width(100)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn('Stagione', renderer, text=13, background=1)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    column = Gtk.TreeViewColumn('Stagione', renderer, text=13, background=1)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.connect("clicked", anaarti.filter._changeOrderBy, (StagioneAbbigliamento,StagioneAbbigliamento.denominazione))
     column.set_resizable(True)
@@ -82,15 +82,15 @@ def drawPromoWearPart(anaarti, renderer):
     column.set_min_width(100)
     treeview.append_column(column)
 
-    column = gtk.TreeViewColumn('Genere', renderer, text=14, background=1)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    column = Gtk.TreeViewColumn('Genere', renderer, text=14, background=1)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.connect("clicked", anaarti.filter._changeOrderBy, (None, "genere"))
     column.set_resizable(True)
     column.set_expand(False)
     column.set_min_width(100)
     treeview.append_column(column)
-    model = gtk.ListStore(object, str, str, str, str, str, str, str, str, str, str, str, str, str, str)
+    model = Gtk.ListStore(object, str, str, str, str, str, str, str, str, str, str, str, str, str, str)
     return model
 
 def drawRicercaSemplicePromoWearPart(anaarti):
@@ -146,36 +146,36 @@ def drawGruppoTagliaTreeView(anaarti):
     treeview = anaarti.gruppo_taglia_articolo_filter_treeview
     treeview.selectAllIncluded = False
     treeview.selectAllExcluded = False
-    model = gtk.ListStore(bool, bool, int, str, str)
+    model = Gtk.ListStore(bool, bool, int, str, str)
     anaarti._gruppoTagliaTreeViewModel = model
 
     for c in treeview.get_columns():
         treeview.remove_column(c)
 
-    renderer = gtk.CellRendererToggle()
+    renderer = Gtk.CellRendererToggle()
     renderer.set_property('activatable', True)
     renderer.connect('toggled', anaarti.onColumnEdited, None, treeview)
     renderer.set_data('model_index', 0)
     renderer.set_data('column', 1)
-    column = gtk.TreeViewColumn('Includi', renderer, active=0)
+    column = Gtk.TreeViewColumn('Includi', renderer, active=0)
     column.connect("clicked", anaarti.columnSelectAll, treeview)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(True)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    renderer = gtk.CellRendererText()
-    column = gtk.TreeViewColumn('Descrizione breve', renderer, text=3)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    renderer = Gtk.CellRendererText()
+    column = Gtk.TreeViewColumn('Descrizione breve', renderer, text=3)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    renderer = gtk.CellRendererText()
-    column = gtk.TreeViewColumn('Descrizione', renderer, text=4)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    renderer = Gtk.CellRendererText()
+    column = Gtk.TreeViewColumn('Descrizione', renderer, text=4)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(True)
@@ -204,36 +204,36 @@ def drawTagliaTreeView(anaarti):
     treeview = anaarti.taglia_articolo_filter_treeview
     treeview.selectAllIncluded = False
     treeview.selectAllExcluded = False
-    model = gtk.ListStore(bool, bool, int, str, str)
+    model = Gtk.ListStore(bool, bool, int, str, str)
     anaarti._tagliaTreeViewModel = model
 
     for c in treeview.get_columns():
         treeview.remove_column(c)
 
-    renderer = gtk.CellRendererToggle()
+    renderer = Gtk.CellRendererToggle()
     renderer.set_property('activatable', True)
     renderer.connect('toggled', anaarti.onColumnEdited, None, treeview)
     renderer.set_data('model_index', 0)
     renderer.set_data('column', 1)
-    column = gtk.TreeViewColumn('Includi', renderer, active=0)
+    column = Gtk.TreeViewColumn('Includi', renderer, active=0)
     column.connect("clicked", anaarti.columnSelectAll, treeview)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(True)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    renderer = gtk.CellRendererText()
-    column = gtk.TreeViewColumn('Descrizione breve', renderer, text=3)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    renderer = Gtk.CellRendererText()
+    column = Gtk.TreeViewColumn('Descrizione breve', renderer, text=3)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    renderer = gtk.CellRendererText()
-    column = gtk.TreeViewColumn('Descrizione', renderer, text=4)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    renderer = Gtk.CellRendererText()
+    column = Gtk.TreeViewColumn('Descrizione', renderer, text=4)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(True)
@@ -261,36 +261,36 @@ def drawColoreTreeView(anaarti):
     treeview = anaarti.colore_articolo_filter_treeview
     treeview.selectAllIncluded = False
     treeview.selectAllExcluded = False
-    model = gtk.ListStore(bool, bool, int, str, str)
+    model = Gtk.ListStore(bool, bool, int, str, str)
     anaarti._coloreTreeViewModel = model
 
     for c in treeview.get_columns():
         treeview.remove_column(c)
 
-    renderer = gtk.CellRendererToggle()
+    renderer = Gtk.CellRendererToggle()
     renderer.set_property('activatable', True)
     renderer.connect('toggled', anaarti.onColumnEdited, None, treeview)
     renderer.set_data('model_index', 0)
     renderer.set_data('column', 1)
-    column = gtk.TreeViewColumn('Includi', renderer, active=0)
+    column = Gtk.TreeViewColumn('Includi', renderer, active=0)
     column.connect("clicked", anaarti.columnSelectAll, treeview)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(True)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    renderer = gtk.CellRendererText()
-    column = gtk.TreeViewColumn('Descrizione breve', renderer, text=3)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    renderer = Gtk.CellRendererText()
+    column = Gtk.TreeViewColumn('Descrizione breve', renderer, text=3)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    renderer = gtk.CellRendererText()
-    column = gtk.TreeViewColumn('Descrizione', renderer, text=4)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    renderer = Gtk.CellRendererText()
+    column = Gtk.TreeViewColumn('Descrizione', renderer, text=4)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(True)
@@ -319,28 +319,28 @@ def drawAnnoTreeView(anaarti):
     treeview = anaarti.anno_articolo_filter_treeview
     treeview.selectAllIncluded = False
     treeview.selectAllExcluded = False
-    model = gtk.ListStore(bool, bool, int, str)
+    model = Gtk.ListStore(bool, bool, int, str)
     anaarti._annoTreeViewModel = model
 
     for c in treeview.get_columns():
         treeview.remove_column(c)
 
-    renderer = gtk.CellRendererToggle()
+    renderer = Gtk.CellRendererToggle()
     renderer.set_property('activatable', True)
     renderer.connect('toggled', anaarti.onColumnEdited, None, treeview)
     renderer.set_data('model_index', 0)
     renderer.set_data('column', 1)
-    column = gtk.TreeViewColumn('Includi', renderer, active=0)
+    column = Gtk.TreeViewColumn('Includi', renderer, active=0)
     column.connect("clicked", anaarti.columnSelectAll, treeview)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(True)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    renderer = gtk.CellRendererText()
-    column = gtk.TreeViewColumn('Descrizione', renderer, text=3)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    renderer = Gtk.CellRendererText()
+    column = Gtk.TreeViewColumn('Descrizione', renderer, text=3)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(True)
@@ -372,28 +372,28 @@ def drawCutSizeTreeView(anaarti):
     treeview = anaarti.cutsize_articolo_filter_treeview
     treeview.selectAllIncluded = False
     treeview.selectAllExcluded = False
-    model = gtk.ListStore(bool, bool, str)
+    model = Gtk.ListStore(bool, bool, str)
     anaarti._cutisizeTreeViewModel = model
 
     for c in treeview.get_columns():
         treeview.remove_column(c)
 
-    renderer = gtk.CellRendererToggle()
+    renderer = Gtk.CellRendererToggle()
     renderer.set_property('activatable', True)
     renderer.connect('toggled', anaarti.onColumnEdited, None, treeview)
     renderer.set_data('model_index', 0)
     renderer.set_data('column', 1)
-    column = gtk.TreeViewColumn('Includi', renderer, active=0)
+    column = Gtk.TreeViewColumn('Includi', renderer, active=0)
     column.connect("clicked", anaarti.columnSelectAll, treeview)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(True)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    renderer = gtk.CellRendererText()
-    column = gtk.TreeViewColumn('Descrizione', renderer, text=2)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    renderer = Gtk.CellRendererText()
+    column = Gtk.TreeViewColumn('Descrizione', renderer, text=2)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(True)
@@ -415,28 +415,28 @@ def drawStagioneTreeView(anaarti):
     treeview = anaarti.stagione_articolo_filter_treeview
     treeview.selectAllIncluded = False
     treeview.selectAllExcluded = False
-    model = gtk.ListStore(bool, bool, int, str)
+    model = Gtk.ListStore(bool, bool, int, str)
     anaarti._stagioneTreeViewModel = model
 
     for c in treeview.get_columns():
         treeview.remove_column(c)
 
-    renderer = gtk.CellRendererToggle()
+    renderer = Gtk.CellRendererToggle()
     renderer.set_property('activatable', True)
     renderer.connect('toggled', anaarti.onColumnEdited, None, treeview)
     renderer.set_data('model_index', 0)
     renderer.set_data('column', 1)
-    column = gtk.TreeViewColumn('Includi', renderer, active=0)
+    column = Gtk.TreeViewColumn('Includi', renderer, active=0)
     column.connect("clicked", anaarti.columnSelectAll, treeview)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(True)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    renderer = gtk.CellRendererText()
-    column = gtk.TreeViewColumn('Descrizione', renderer, text=3)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    renderer = Gtk.CellRendererText()
+    column = Gtk.TreeViewColumn('Descrizione', renderer, text=3)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(True)
@@ -469,28 +469,28 @@ def drawGenereTreeView(anaarti):
     treeview = anaarti.genere_articolo_filter_treeview
     treeview.selectAllIncluded = False
     treeview.selectAllExcluded = False
-    model = gtk.ListStore(bool, bool, int, str)
+    model = Gtk.ListStore(bool, bool, int, str)
     anaarti._genereTreeViewModel = model
 
     for c in treeview.get_columns():
         treeview.remove_column(c)
 
-    renderer = gtk.CellRendererToggle()
+    renderer = Gtk.CellRendererToggle()
     renderer.set_property('activatable', True)
     renderer.connect('toggled', anaarti.onColumnEdited, None, treeview)
     renderer.set_data('model_index', 0)
     renderer.set_data('column', 1)
-    column = gtk.TreeViewColumn('Includi', renderer, active=0)
+    column = Gtk.TreeViewColumn('Includi', renderer, active=0)
     column.connect("clicked", anaarti.columnSelectAll, treeview)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(True)
     column.set_resizable(True)
     column.set_expand(False)
     treeview.append_column(column)
 
-    renderer = gtk.CellRendererText()
-    column = gtk.TreeViewColumn('Descrizione', renderer, text=3)
-    column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+    renderer = Gtk.CellRendererText()
+    column = Gtk.TreeViewColumn('Descrizione', renderer, text=3)
+    column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
     column.set_clickable(False)
     column.set_resizable(True)
     column.set_expand(True)

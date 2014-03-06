@@ -23,37 +23,37 @@
 
 from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget
-from promogest.ui.gtk_compat import *
+from gi.repository import Gtk, Gdk
 
 
 class MultiLineEditor(GladeWidget):
 
     def __init__(self, desc=None):
         self.string = desc
-        window = gtk.Window(GTK_WINDOWTYPE_TOPLEVEL)
+        window = Gtk.Window(Gtk.WindowType.TOPLEVEL)
         self.window = window
         window.set_resizable(True)
         window.connect("destroy", self.close_application)
         window.set_title("Multi Line Editor")
         window.set_border_width(0)
 
-        box1 = gtk.VBox()
+        box1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         box1.set_homogeneous(False)
         box1.set_spacing(0)
         window.add(box1)
         box1.show()
 
-        box2 = gtk.VBox()
+        box2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         box2.set_homogeneous(False)
         box2.set_spacing(10)
         box2.set_border_width(10)
         box1.pack_start(box2, True, True, 0)
         box2.show()
 
-        sw = gtk.ScrolledWindow()
-        sw.set_policy(GTK_POLICYTYPE_AUTOMATIC, GTK_POLICYTYPE_AUTOMATIC)
-        self.textview = gtk.TextView()
-        self.textview.set_justification(GTK_JUSTIFICATION_LEFT)
+        sw = Gtk.ScrolledWindow()
+        sw.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        self.textview = Gtk.TextView()
+        self.textview.set_justification(Gtk.Justification.LEFT)
         textbuffer = self.textview.get_buffer()
         sw.add(self.textview)
         sw.show()
@@ -61,44 +61,44 @@ class MultiLineEditor(GladeWidget):
         box2.pack_start(sw, True, True, 0)
         textbuffer.set_text(self.string)
 
-        hbox = gtk.HButtonBox()
+        hbox = Gtk.HButtonBox()
         box2.pack_start(hbox, False, False, 0)
         hbox.show()
 
-        vbox = gtk.VBox()
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         vbox.show()
         hbox.pack_start(vbox, False, False, 0)
         # check button to toggle editable mode
-        check = gtk.CheckButton("Editable")
+        check = Gtk.CheckButton("Editable")
         vbox.pack_start(check, False, False, 0)
         check.connect("toggled", self.toggle_editable, self.textview)
         check.set_active(True)
         check.show()
         # check button to toggle cursor visiblity
-        check = gtk.CheckButton("Cursor Visible")
+        check = Gtk.CheckButton("Cursor Visible")
         vbox.pack_start(check, False, False, 0)
         check.connect("toggled", self.toggle_cursor_visible, self.textview)
         check.set_active(True)
         check.show()
-        vbox = gtk.VBox()
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         vbox.show()
         hbox.pack_start(vbox, False, False, 0)
-        radio = gtk.RadioButton(None, "WRAP__WORD")
+        radio = Gtk.RadioButton(None, "WRAP__WORD")
         vbox.pack_start(radio, False, True, 0)
-        radio.connect("toggled", self.new_wrap_mode, self.textview, GTK_WRAPMODE_WORD)
+        radio.connect("toggled", self.new_wrap_mode, self.textview, Gtk.WrapMode.WORD)
         radio.show()
-        separator = gtk.HSeparator()
+        separator = Gtk.HSeparator()
         box1.pack_start(separator, False, True, 0)
         separator.show()
 
-        box2 = gtk.VBox()
+        box2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         box2.set_homogeneous(False)
         box2.set_spacing(10)
         box2.set_border_width(10)
         box1.pack_start(box2, False, True, 0)
         box2.show()
 
-        button = gtk.Button("OK")
+        button = Gtk.Button("OK")
         button.connect("clicked", self.close_application)
         box2.pack_start(button, True, True, 0)
         button.set_can_default(True)

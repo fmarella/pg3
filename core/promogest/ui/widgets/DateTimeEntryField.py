@@ -22,13 +22,15 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
 import time, datetime, string
+from gi.repository import Gtk, Gdk
 from CustomEntryField import CustomEntryField
 
 
 class DateTimeEntryField(CustomEntryField):
-# Effettua la validazione delle date + ore
+    '''
+    Effettua la validazione delle date + ore
+    '''
     __gtype_name__ = 'DateTimeEntryField'
 
     def __init__(self, str1=None, str2=None, int1=None, int2=None):
@@ -42,7 +44,7 @@ class DateTimeEntryField(CustomEntryField):
 
 
     def my_key_press_event(self, widget, event):
-        keyname = gdk_keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname not in self.acceptedKeys:
             return True
         data = widget.get_text()

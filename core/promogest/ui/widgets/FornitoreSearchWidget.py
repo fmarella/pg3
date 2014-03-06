@@ -21,7 +21,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
+from gi.repository import Gtk, Gdk
 from CustomComboBoxSearch import CustomComboBoxSearch
 from promogest.lib.utils import leggiFornitore, findIdFromCombobox
 
@@ -75,7 +75,7 @@ class FornitoreSearchWidget(CustomComboBoxSearch):
                 idCat = None
             self._ricerca = RicercaComplessaFornitori(idCategoria = idCat)
             if not self._filter:
-                self._ricerca.setTreeViewSelectionType(GTK_SELECTIONMODE_SINGLE)
+                self._ricerca.setTreeViewSelectionType(Gtk.SelectionMode.SINGLE)
             else:
                 self._ricerca.refresh()
             anagWindow = self._ricerca.getTopLevel()

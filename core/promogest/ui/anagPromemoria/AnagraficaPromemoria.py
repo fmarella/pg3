@@ -21,8 +21,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
-
 from promogest.ui.AnagraficaComplessa import Anagrafica
 from promogest.ui.AnagraficaComplessaEdit import AnagraficaEdit
 from promogest.ui.AnagraficaComplessaReport import AnagraficaReport
@@ -35,6 +33,7 @@ from datetime import datetime, timedelta
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
 from promogest.lib.HtmlHandler import createHtmlObj, renderTemplate, renderHTML
+
 
 class AnagraficaPromemoria(Anagrafica):
     """ Anagrafica promemoria """
@@ -68,7 +67,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         renderer = gtk.CellRendererText()
 
         column = gtk.TreeViewColumn('Data inserimento', renderer, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy,(None, 'data_inserimento'))
         column.set_resizable(True)
@@ -77,7 +76,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Data scadenza', renderer, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None, 'data_scadenza'))
         column.set_resizable(True)
@@ -86,7 +85,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Oggetto', renderer, text=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy,(None, 'oggetto'))
         column.set_resizable(True)
@@ -95,7 +94,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Incaricato', renderer, text=4)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'incaricato'))
         column.set_resizable(True)
@@ -104,7 +103,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Autore', renderer, text=5)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy,(None ,'autore'))
         column.set_resizable(True)
@@ -113,7 +112,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Completato', renderer, text=6)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.connect("clicked", self._changeOrderBy,(None, 'completato'))
         column.set_resizable(True)
@@ -122,7 +121,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Scaduto', renderer, text=7)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.connect("clicked", self._changeOrderBy,(None, 'scaduto'))
         column.set_resizable(True)
@@ -131,7 +130,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('In scadenza', renderer, text=8)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.connect("clicked", self._changeOrderBy, (None,'in_scadenza'))
         column.set_resizable(True)
@@ -140,7 +139,7 @@ class AnagraficaPromemoriaFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Riferimento', renderer, text=9)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
 #        column.connect("clicked", self._changeOrderBy, 'riferimento')
         column.set_resizable(True)
@@ -412,7 +411,7 @@ class AnagraficaPromemoriaEdit(AnagraficaEdit):
         if combobox.get_child().get_text() == stringClienti:
             from promogest.ui.RicercaComplessaClienti import RicercaComplessaClienti
             anag = RicercaComplessaClienti()
-            anag.setTreeViewSelectionType(GTK_SELECTIONMODE_SINGLE)
+            anag.setTreeViewSelectionType(Gtk.SelectionMode.SINGLE)
             anagWindow = anag.getTopLevel()
             anagWindow.connect("hide", refresh_combobox, 'cliente')
             returnWindow = combobox.get_toplevel()
@@ -421,7 +420,7 @@ class AnagraficaPromemoriaEdit(AnagraficaEdit):
         elif combobox.get_child().get_text() == stringFornitori:
             from promogest.ui.RicercaComplessaFornitori import RicercaComplessaFornitori
             anag = RicercaComplessaFornitori()
-            anag.setTreeViewSelectionType(GTK_SELECTIONMODE_SINGLE)
+            anag.setTreeViewSelectionType(Gtk.SelectionMode.SINGLE)
             anagWindow = anag.getTopLevel()
             anagWindow.connect("hide", refresh_combobox, 'fornitore')
             returnWindow = combobox.get_toplevel()

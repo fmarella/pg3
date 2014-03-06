@@ -99,7 +99,7 @@ class Ricerca(GladeWidget):
         """ Gestisce lo spostamento tra le righe """
         sel = self.ricerca_filter_treeview.get_selection()
         #(model, iterator) = sel.get_selected()
-        if sel.get_mode() != GTK_SELECTIONMODE_MULTIPLE:
+        if sel.get_mode() != Gtk.SelectionMode.MULTIPLE:
             (model, iterator) = sel.get_selected()
             if iterator is not None:
                 self.dao = model.get_value(iterator, 0)

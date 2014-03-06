@@ -31,7 +31,6 @@ from promogest.modules.PromoWear.dao.Taglia import Taglia
 from promogest.modules.PromoWear.dao.Colore import Colore
 from promogest.dao.CodiceABarreArticolo import CodiceABarreArticolo
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.lib.HtmlHandler import createHtmlObj, renderTemplate, renderHTML
 
@@ -111,32 +110,32 @@ class GestioneTaglieColori(GladeWidget):
            le taglie direi che sia il caso di gestire anche le descrizioni variante visto che le ho
         """
         self.treeview = self.color_and_size_treeview
-        cellspin = gtk.CellRendererToggle()
+        cellspin = Gtk.CellRendererToggle()
         cellspin.set_property('activatable', True)
         cellspin.connect('toggled', self.on_column_selected_edited, self.treeview, True)
-        column = gtk.TreeViewColumn('Seleziona', cellspin)
+        column = Gtk.TreeViewColumn('Seleziona', cellspin)
         column.add_attribute(cellspin, "active", 1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_resizable(True)
         #column.set_expand(True)
         #column.set_min_width(40)
         self.treeview.append_column(column)
 
-        rendererSx = gtk.CellRendererText()
-        column = gtk.TreeViewColumn("Taglia / Colore", rendererSx, text=2, background=4, font=5)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        rendererSx = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn("Taglia / Colore", rendererSx, text=2, background=4, font=5)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         #column.set_expand(False)
         column.set_min_width(70)
         self.treeview.append_column(column)
 
-        celltext = gtk.CellRendererText()
+        celltext = Gtk.CellRendererText()
         celltext.set_property("editable", True)
         celltext.set_property("visible", True)
         celltext.connect('edited', self.on_column_codice_edited, self.treeview, True)
-        column = gtk.TreeViewColumn('Codice', celltext, text=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Codice', celltext, text=3)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         #column.set_clickable(True)
         #column.connect("clicked", self._changeOrderBy, 'denominazione_breve')
         column.set_resizable(True)
@@ -144,7 +143,7 @@ class GestioneTaglieColori(GladeWidget):
         column.set_min_width(50)
         self.treeview.append_column(column)
 
-        self._treeViewModel = gtk.TreeStore(object, bool, str, str, str, str, object)
+        self._treeViewModel = Gtk.TreeStore(object, bool, str, str, str, str, object)
         self.treeview.set_model(self._treeViewModel)
         self.head_color.set_active(True)
         self.only_variation.set_active(True)
@@ -406,8 +405,8 @@ class GestioneTaglieColori(GladeWidget):
                 if codici:
                         msg = """Attenzione !
 Il codice a barre  %s è gia' presente nel Database, ricontrolla!""" % codiceabarre
-                        dialog = gtk.MessageDialog(self.getTopLevel(), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                       GTK_DIALOG_MESSAGE_QUESTION, GTK_BUTTON_OK, msg)
+                        dialog = Gtk.MessageDialog(self.getTopLevel(), Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                                       Gtk.MessageType.QUESTION, Gtk.ButtonsType.OK, msg)
                         response = dialog.run()
                         dialog.destroy()
                         return

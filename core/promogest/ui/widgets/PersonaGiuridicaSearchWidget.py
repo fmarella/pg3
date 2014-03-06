@@ -21,7 +21,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
 from CustomComboBoxSearch import CustomComboBoxSearch
 from promogest.lib.utils import leggiCliente, leggiFornitore
 
@@ -72,7 +71,7 @@ class PersonaGiuridicaSearchWidget(CustomComboBoxSearch):
                 from promogest.ui.RicercaComplessaFornitori import RicercaComplessaFornitori
                 self._ricerca = RicercaComplessaFornitori()
             if not self._filter:
-                self._ricerca.setTreeViewSelectionType(GTK_SELECTIONMODE_SINGLE)
+                self._ricerca.setTreeViewSelectionType(Gtk.SelectionMode.SINGLE)
             else:
                 self._ricerca.refresh()
             anagWindow = self._ricerca.getTopLevel()

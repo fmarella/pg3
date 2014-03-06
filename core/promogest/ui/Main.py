@@ -27,6 +27,7 @@ import os
 from datetime import datetime, date
 import webbrowser
 from  subprocess import *
+from gi.repository import GdkPixbuf, Gtk
 from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.ui.ElencoMagazzini import ElencoMagazzini
@@ -37,7 +38,6 @@ from promogest.lib.utils import hasAction, fencemsg, setconf,  \
          orda, posso, messageInfo, YesNoDialog, messageError,\
          obligatoryField, leggiRevisioni
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 from ParametriFrame import ParametriFrame
 from AnagraficaPrincipaleFrame import AnagrafichePrincipaliFrame
 Environment.params["schema"] = Environment.params['schema']  if Environment.tipo_eng=="postgresql" else None
@@ -57,7 +57,10 @@ from promogest.ui.ConfiguraWindow import ConfiguraWindow
 from promogest.ui.PanUi import PanUi, checkPan
 #from promogest.ui.AzioniVelociNotebookPage import AzioniVelociNotebookPage
 from promogest.ui.NewsNotebookPage import NewsNotebookPage
-from promogest.ui.CalendarNotebookPage import CalendarNotebookPage
+try:
+    from promogest.ui.CalendarNotebookPage import CalendarNotebookPage
+except:
+    pass
 from promogest.ui.NotificaAllarmiNotebookPage import NotificaAllarmiNotebookPage
 from promogest.ui.ScadenzarioNotebookPage import ScadenzarioNotebookPage
 
@@ -70,22 +73,8 @@ from promogest.ui.UpdateDialog import UpdateDialog
 if posso("GN"):
     from promogest.modules.GestioneNoleggio.dao.TestataGestioneNoleggio \
                             import TestataGestioneNoleggio
-try:
-    from  xhtml2pdf import pisa
-except:
-    messageError(msg=_("ATTENIONE! modulo xhtml2pdf mancante,\n qualcosa non ha funzionato nell'installazione?"))
 
 from promogest.dao.Setconf import SetConf
-
-try:
-    if Environment.pg3:
-        from gi.repository.WebKit import WebView
-    else:
-        from webkit import WebView
-    WEBKIT = True
-except:
-    WEBKIT = False
-
 
 #from sqlalchemy import MetaData
 #from sqlalchemy_schemadisplay import create_schema_graph
@@ -185,7 +174,7 @@ class Main(GladeWidget):
                         self.gest_commesse_image.get_pixbuf(), None])
 
         # right vertical icon list  adding modules
-#        model_right = gtk.ListStore(int, str, gtk.gdk.Pixbuf, object)
+#        model_right = Gtk.ListStore(int, str, Gtk.gdk.Pixbuf, object)
         ind = 6
         for mod in self.anagrafiche_dirette_modules:
             currModule = self.anagrafiche_dirette_modules[mod]
@@ -197,7 +186,7 @@ class Main(GladeWidget):
                 showAnagrafica(self.getTopLevel(), anag, mainClass=self)
                 #icon_view.unselect_all()
                 return
-            pbuf = GDK_PIXBUF_NEW_FROM_FILE(currModule['guiDir'] \
+            pbuf = GdkPixbuf.Pixbuf.new_from_file(currModule['guiDir'] \
                                     + currModule['module'].VIEW_TYPE[2])
             row = (ind, currModule['module'].VIEW_TYPE[1],
                                             pbuf, currModule['module'])
@@ -205,7 +194,7 @@ class Main(GladeWidget):
             ind += 1
         for mod in self.frame_modules:
             currModule = self.frame_modules[mod]
-            pbuf = GDK_PIXBUF_NEW_FROM_FILE(currModule['guiDir'] \
+            pbuf = GdkPixbuf.Pixbuf.new_from_file(currModule['guiDir'] \
                                     + currModule['module'].VIEW_TYPE[2])
             row = (ind, currModule['module'].VIEW_TYPE[1],
                                             pbuf, currModule['module'])
@@ -467,10 +456,7 @@ class Main(GladeWidget):
         selected = icon_view.get_selected_items()
         if len(selected) == 0:
             return
-        if Environment.pg3:
-            i = selected[0]
-        else:
-            i = selected[0][0]
+        i = selected[0]
         selection = self.iconview_listore[i][0]
 
         if selection == 3:
@@ -535,8 +521,8 @@ class Main(GladeWidget):
 
     def setModulesButtons(self):
         for module in self.anagrafiche_modules.iteritems():
-            module_button = gtk.Button()
-            module_butt_image = gtk.Image()
+            module_button = Gtk.Button()
+            module_butt_image = Gtk.Image()
             module_butt_image.set_from_file(module[1]['guiDir']+'/'+module[1]['module'].VIEW_TYPE[2])
             module_button.set_image(module_butt_image)
             module_button.set_label(module[1]['module'].VIEW_TYPE[1])
@@ -837,25 +823,25 @@ class Main(GladeWidget):
 
     def on_importa_modulo_activate(self, widget):
         return
-        fileDialog = gtk.FileChooserDialog(title=_('Importazione modulo'),
+        fileDialog = Gtk.FileChooserDialog(title=_('Importazione modulo'),
                                            parent=self.getTopLevel(),
-                                           action=GTK_FILE_CHOOSER_ACTION_OPEN,
-                                           buttons=(gtk.STOCK_CANCEL,
-                                                    GTK_RESPONSE_CANCEL,
-                                                    gtk.STOCK_OK,
-                                                    GTK_RESPONSE_OK),
+                                           action=Gtk.FileChooserAction.OPEN,
+                                           buttons=(Gtk.STOCK_CANCEL,
+                                                    Gtk.ResponseType.CANCEL,
+                                                    Gtk.STOCK_OK,
+                                                    Gtk.ResponseType.OK),
                                            backend=None)
-        fltr = gtk.FileFilter()
+        fltr = Gtk.FileFilter()
         fltr.add_pattern('*.pg2')
         fltr.set_name('File Pg2 (*.pg2)')
         fileDialog.add_filter(fltr)
-        fltr = gtk.FileFilter()
+        fltr = Gtk.FileFilter()
         fltr.add_pattern('*')
         fltr.set_name('Tutti i file')
         fileDialog.add_filter(fltr)
         n = ""
         response = fileDialog.run()
-        if response == GTK_RESPONSE_OK:
+        if response == Gtk.ResponseType.OK:
             filename = fileDialog.get_filename()
             f = open(filename)
             r = f.readline()
@@ -890,20 +876,20 @@ class Main(GladeWidget):
         creditsDialog.versione_label.set_markup(info)
         creditsDialog.getTopLevel().show_all()
         response = creditsDialog.credits_dialog.run()
-        if response == GTK_RESPONSE_OK:
+        if response == Gtk.ResponseType.OK:
             creditsDialog.credits_dialog.destroy()
 
     def on_inserimento_codice_activate(self,widget):
         from promogest.dao.Setconf import SetConf
-        dialog = gtk.MessageDialog(self.getTopLevel(),
-                                   GTK_DIALOG_MODAL
-                                   | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                   GTK_DIALOG_MESSAGE_INFO, GTK_BUTTON_OK)
+        dialog = Gtk.MessageDialog(self.getTopLevel(),
+                                   Gtk.DialogFlags.MODAL
+                                   | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                   Gtk.MessageType.INFO, Gtk.ButtonsType.OK)
         dialog.set_markup(_("""<b>                CODICE ATTIVAZIONE PACCHETTO               </b>"""))
-        hbox = gtk.HBox()
-        entry___ = gtk.Entry()
+        hbox = Gtk.HBox()
+        entry___ = Gtk.Entry()
 
-        label = gtk.Label()
+        label = Gtk.Label()
         label.set_markup(_("<b>   Inserisci codice   </b>"))
         hbox.pack_start(label, True, True, 0)
         hbox.pack_start(entry___, True, True, 0)
@@ -1019,7 +1005,7 @@ class Main(GladeWidget):
         licenzaDialog.licenza_textview.set_buffer(textBuffer)
         licenzaDialog.getTopLevel().show_all()
         response = licenzaDialog.licenza_dialog.run()
-        if response == GTK_RESPONSE_OK:
+        if response == Gtk.ResponseType.OK:
             licenzaDialog.licenza_dialog.destroy()
 
     def on_manuale_online_activate(self, widget):
@@ -1050,7 +1036,7 @@ promogest2 IN /HOME/NOMEUTENTE/ O IN C:/UTENTI/NOMEUTENTE""")
 
     ATTENZIONE!!!! la procedura potrebbe richiedere diversi minuti.""") %(st, nameDump)
             messageInfo(msg= msgg, transient=self.getTopLevel())
-            #if response == gtk.RESPONSE_OK:
+            #if response == Gtk.RESPONSE_OK:
             st= Environment.startdir()
             stname = st+nameDump
             os.environ["PGPASSWORD"] = Environment.password
@@ -1204,7 +1190,7 @@ Procedo all'installazione del modulo PromoWear? """)
     def on_quit(self, widget=None):
         if YesNoDialog(msg=_('Confermi la chiusura?'), transient=self.getTopLevel()):
             self.hide()
-            gtk.main_quit()
+            Gtk.main_quit()
         else:
             return
 
@@ -1216,13 +1202,11 @@ Procedo all'installazione del modulo PromoWear? """)
         pass
 
     def addNoteBookPage(self):
-
-        if WEBKIT:
-            self.nn = NewsNotebookPage(self, self.aziendaStr).draw()
-            n = gtk.Label()
-            n.set_markup(_("<b>NEWS/A.VEL</b>"))
-            ind = self.main_notebook.append_page(self.nn.notizie_frame, n)
-            self.main_notebook.set_current_page(ind)
+        self.nn = NewsNotebookPage(self, self.aziendaStr).draw()
+        n = Gtk.Label()
+        n.set_markup(_("<b>NEWS/A.VEL</b>"))
+        ind = self.main_notebook.append_page(self.nn.notizie_frame, n)
+        self.main_notebook.set_current_page(ind)
 
         self.pp = checkPan(self)
 
@@ -1233,23 +1217,23 @@ Procedo all'installazione del modulo PromoWear? """)
         self.main_notebook.append_page(self.elenco_listini_page.elenco_listini_frame,self.elenco_listini_page.elenco_listini_label)
 
         self.scadenzario = ScadenzarioNotebookPage(self, self.aziendaStr)
-        scadenzario_label = gtk.Label()
+        scadenzario_label = Gtk.Label()
         scadenzario_label.set_markup(_("<b>SCADENZARIO</b>"))
         self.main_notebook.append_page(self.scadenzario.scadenzario_frame, scadenzario_label)
 
         self.calendar_page = CalendarNotebookPage(self, self.aziendaStr).draw()
-        calendar_page_label = gtk.Label()
+        calendar_page_label = Gtk.Label()
         calendar_page_label.set_markup(_("<b>CALENDARIO</b>"))
         self.main_notebook.append_page(self.calendar_page.calendario_frame, calendar_page_label)
 
         self.notifica_allarmi = NotificaAllarmiNotebookPage(self, self.aziendaStr)
-        notifica_allarmi_label = gtk.Label()
+        notifica_allarmi_label = Gtk.Label()
         notifica_allarmi_label.set_markup(_("<b>NOTIFICA ALLARMI</b>"))
         self.main_notebook.append_page(self.notifica_allarmi.notifica_allarmi_frame, notifica_allarmi_label)
 
 #        azioni_veloci_page = AzioniVelociNotebookPage(self, self.aziendaStr).draw()
 #        self.azioni_veloci_page = azioni_veloci_page
-#        azioni_veloci_page_label = gtk.Label()
+#        azioni_veloci_page_label = Gtk.Label()
 #        azioni_veloci_page_label.set_markup("<b>AZIONI VELOCI</b>")
 #        self.main_notebook.append_page(azioni_veloci_page.azioni_veloci_frame, azioni_veloci_page_label)
 

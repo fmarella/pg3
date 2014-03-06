@@ -27,7 +27,6 @@ from promogest.modules.RuoliAzioni.dao.Action import Action
 from promogest.modules.RuoliAzioni.dao.RoleAction import RoleAction
 from promogest.ui.utilsCombobox import *
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 
 
 class ManageRuoloAzioni(GladeWidget):
@@ -54,42 +53,42 @@ class ManageRuoloAzioni(GladeWidget):
         # Colonne della Treeview per il filtro/modifica
         treeview = self.anagrafica_treeview_role
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', False)
         #renderer.connect('edited', self.on_column_edited, treeview, False)
         renderer.set_data('column', 0)
         renderer.set_data('max_length', 5)
-        column = gtk.TreeViewColumn('Den. breve', renderer, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Den. breve', renderer, text=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         #column.set_clickable(True)
         column.set_resizable(True)
         column.set_expand(True)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', False)
         #renderer.connect('edited', self.on_column_edited, treeview, False)
         renderer.set_data('column', 0)
         renderer.set_data('max_length', 200)
-        column = gtk.TreeViewColumn('Denominazione', renderer, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Denominazione', renderer, text=2)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         #column.set_clickable(True)
         column.set_resizable(True)
         column.set_expand(True)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererToggle()
+        renderer = Gtk.CellRendererToggle()
         renderer.set_property('activatable',True)
         renderer.connect('toggled', self.on_column_edited, None, treeview)
         #renderer.set_active(False)
-        column = gtk.TreeViewColumn('Attiva/Disattiva', renderer, active=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Attiva/Disattiva', renderer, active=3)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        self._treeViewModel = gtk.ListStore(object, str, str, bool)
+        self._treeViewModel = Gtk.ListStore(object, str, str, bool)
         treeview.set_model(self._treeViewModel)
 
         treeview.set_search_column(1)

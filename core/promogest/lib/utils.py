@@ -28,10 +28,7 @@ import hashlib
 from calendar import Calendar
 from decimal import *
 
-try:
-    from promogest.ui.gtk_compat import *
-except:
-    pass
+from gi.repository import Gtk, Gdk
 import threading
 import time
 import datetime
@@ -50,10 +47,7 @@ import xml.etree.ElementTree as ET
 import unicodedata
 import urllib
 import urllib2
-try:
-    import json
-except:
-    None
+import json
 
 
 try:  # necessario per gestire i custom widgts con glade3 e gtkBuilder
@@ -1987,9 +1981,9 @@ def scontiTipo(stringa):
 
 def getDynamicStrListStore(length):
     """
-    return a gtk.ListStore of the specified lenght
+    return a Gtk.ListStore of the specified lenght
     """
-    string1 = 'list = gtk.ListStore(str'
+    string1 = 'list = Gtk.ListStore(str'
     string2 = ', str' * (length -1)
     string3 = ')'
     string4 = string1+string2+string3
@@ -2030,7 +2024,7 @@ def showAnagraficaRichiamata(returnWindow, anagWindow, button=None, callName=Non
             Environment.windowGroup.remove(anagWindow)
 ##        Login.windowGroup.append(anagReturn)
         if button is not None:
-            if isinstance(button, gtk.ToggleButton):
+            if isinstance(button, Gtk.ToggleButton):
                 button.set_active(False)
         if callName is not None:
             callName()
@@ -2062,8 +2056,8 @@ def obligatoryField(window, widget=None, msg=None):
     """
     if msg is None:
         msg = 'Campo obbligatorio !'
-    dialog = gtk.MessageDialog(window, GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                               GTK_DIALOG_MESSAGE_INFO, GTK_BUTTON_OK, msg)
+    dialog = Gtk.MessageDialog(window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                               Gtk.MessageType.INFO, Gtk.ButtonsType.OK, msg)
     dialog.run()
     dialog.destroy()
     if widget is not None:
@@ -2076,39 +2070,39 @@ def showComplexQuestion(parentWindow, message):
     """
     MessageBox alla quale si puo' rispondere con Si/No/Tutti/Nessuno
     """
-    dialog = gtk.Dialog('Attenzione',
+    dialog = Gtk.Dialog('Attenzione',
                         parentWindow,
-                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                        Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
                         None)
-    hbox = gtk.HBox()
-    image = GTK_IMAGE_NEW_FROM_STOCK(gtk.STOCK_DIALOG_QUESTION, GTK_ICON_SIZE_DIALOG)
+    hbox = Gtk.HBox()
+    image = Gtk.Image.new_from_stock(Gtk.STOCK_DIALOG_QUESTION, Gtk.IconSize.DIALOG)
     image.set_padding(10,10)
-    label = gtk.Label(message)
-    label.set_justify(GTK_JUSTIFICATION_LEFT)
+    label = Gtk.Label(message)
+    label.set_justify(Gtk.Justification.LEFT)
     label.set_alignment(0,0)
     label.set_padding(15,10)
     hbox.pack_start(image, False, False, 0)
     hbox.pack_start(label, True, True, 0)
     dialog.get_content_area().pack_start(hbox, True, True, 0)
 
-    buttonYes = gtk.Button(stock=gtk.STOCK_YES)
-    buttonNo = gtk.Button(stock=gtk.STOCK_NO)
-    buttonAll = gtk.Button(stock=gtk.STOCK_MEDIA_NEXT)
+    buttonYes = Gtk.Button(stock=Gtk.STOCK_YES)
+    buttonNo = Gtk.Button(stock=Gtk.STOCK_NO)
+    buttonAll = Gtk.Button(stock=Gtk.STOCK_MEDIA_NEXT)
     alignmentAll = buttonAll.get_children()[0]
     hboxAll = alignmentAll.get_children()[0]
     imageAll, labelAll = hboxAll.get_children()
     labelAll.set_text('S_i a tutti')
     labelAll.set_use_underline(True)
-    buttonNone = gtk.Button(stock=gtk.STOCK_MEDIA_FORWARD)
+    buttonNone = Gtk.Button(stock=Gtk.STOCK_MEDIA_FORWARD)
     alignmentNone = buttonNone.get_children()[0]
     hboxNone = alignmentNone.get_children()[0]
     imageNone, labelNone = hboxNone.get_children()
     labelNone.set_text('N_o a tutti')
     labelNone.set_use_underline(True)
-    dialog.add_action_widget(buttonYes, GTK_RESPONSE_YES)
-    dialog.add_action_widget(buttonNo, GTK_RESPONSE_NO)
-    dialog.add_action_widget(buttonAll, GTK_RESPONSE_APPLY)
-    dialog.add_action_widget(buttonNone, GTK_RESPONSE_REJECT)
+    dialog.add_action_widget(buttonYes, Gtk.ResponseType.YES)
+    dialog.add_action_widget(buttonNo, Gtk.ResponseType.NO)
+    dialog.add_action_widget(buttonAll, Gtk.ResponseType.APPLY)
+    dialog.add_action_widget(buttonNone, Gtk.ResponseType.REJECT)
 
     dialog.show_all()
     result = dialog.run()
@@ -2118,14 +2112,14 @@ def showComplexQuestion(parentWindow, message):
 
 def destroy_event(window):
     """
-    Send a 'destroy-event' to the specified gtk.Window
+    Send a 'destroy-event' to the specified Gtk.Window
     """
-    event = GDK_EVENT(GDK_EVENT_DESTROY)
+    event = Gdk.Event(Gdk.Event_DESTROY)
 
     event.send_event = True
     event.window = window.window
 
-    gtk.main_do_event(event)
+    Gtk.main_do_event(event)
 
 def insertFileTypeChooser(filechooser,typeList):
     """
@@ -2135,17 +2129,17 @@ def insertFileTypeChooser(filechooser,typeList):
     @param typeList:
     @type typeList:
     """
-    fc_vbox = gtk.VBox(True, spacing=5)
-    hbox1 = gtk.HBox()
-    label = gtk.Label()
+    fc_vbox = Gtk.VBox(True, spacing=5)
+    hbox1 = Gtk.HBox()
+    label = Gtk.Label()
     label.set_markup(str='<b><u>Salva in formato</u></b>')
     hbox1.pack_start(label, False, False, 5)
     fc_vbox.pack_start(hbox1, False, False)
-    cb_model = gtk.ListStore(str,str)
+    cb_model = Gtk.ListStore(str,str)
     for type in typeList:
         cb_model.append(type)
-    renderer = gtk.CellRendererText()
-    combobox = gtk.ComboBox(model=cb_model)
+    renderer = Gtk.CellRendererText()
+    combobox = Gtk.ComboBox(model=cb_model)
     combobox.clear()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 1)
@@ -2407,10 +2401,10 @@ def hasAction(actionID=None):
     if actionID in Environment.idACT: #roleActions:
         return True
     else:
-        dialog = gtk.MessageDialog( None,
-                                GTK_DIALOG_MODAL |
-                                GTK_DIALOG_DESTROY_WITH_PARENT,
-                                GTK_DIALOG_MESSAGE_WARNING, GTK_BUTTON_OK,
+        dialog = Gtk.MessageDialog( None,
+                                Gtk.DialogFlags.MODAL |
+                                Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                Gtk.MessageType.WARNING, Gtk.ButtonsType.OK,
                                 _("Permesso negato! L'azione richiesta non è tra quelle che ti son consentite"))
         dialog.run()
         dialog.destroy()
@@ -2459,10 +2453,10 @@ def checkCodiceDuplicato(codice=None,id=None,tipo=None):
         msg = """Attenzione!
     Codice %s : %s  è già presente
     Inserirne un altro o premere il bottone "G"enera""" %(tipo,codice)
-        dialog = gtk.MessageDialog(None,
-                                GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                GTK_DIALOG_MESSAGE_INFO,
-                                GTK_BUTTON_OK,
+        dialog = Gtk.MessageDialog(None,
+                                Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                Gtk.MessageType.INFO,
+                                Gtk.ButtonsType.OK,
                                 msg)
         dialog.run()
         dialog.destroy()
@@ -2847,14 +2841,14 @@ def fenceDialog():
         from promogest.ui.SendEmail import SendEmail
         SendEmail()
 
-    dialog = gtk.MessageDialog(None,
-                                GTK_DIALOG_MODAL
-                                | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                GTK_DIALOG_MESSAGE_INFO, GTK_BUTTON_OK)
-    image = gtk.Image()
+    dialog = Gtk.MessageDialog(None,
+                                Gtk.DialogFlags.MODAL
+                                | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                Gtk.MessageType.INFO, Gtk.ButtonsType.OK)
+    image = Gtk.Image()
     image.set_from_file("./gui/messaggio_avviso.png")
     image.show()
-    button = gtk.Button()
+    button = Gtk.Button()
     button.add(image)
     button.show()
     button.connect('clicked', on_button_clicked)
@@ -2863,13 +2857,13 @@ def fenceDialog():
     dialog.destroy()
 
 def inputDialog(messaggio, parentWindow=None):
-    dialog = gtk.Dialog('Richiesta dati',
+    dialog = Gtk.Dialog('Richiesta dati',
                         parentWindow,
-                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                        (gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+                        Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                        (Gtk.STOCK_OK, Gtk.RESPONSE_ACCEPT))
     dialog.set_resizable(False)
-    label = gtk.Label(messaggio)
-    entry = gtk.Entry()
+    label = Gtk.Label(messaggio)
+    entry = Gtk.Entry()
     box = dialog.get_content_area()
     box.add(label)
     box.add(entry)
@@ -2880,13 +2874,13 @@ def inputDialog(messaggio, parentWindow=None):
     return testo
 
 def inputPasswordDialog(parentWindow=None):
-    dialog = gtk.Dialog('Richiesta password',
+    dialog = Gtk.Dialog('Richiesta password',
                         parentWindow,
-                        GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                        (gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+                        Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                        (Gtk.STOCK_OK, Gtk.RESPONSE_ACCEPT))
     dialog.set_resizable(False)
-    label = gtk.Label('Inserire la password:')
-    entry = gtk.Entry()
+    label = Gtk.Label('Inserire la password:')
+    entry = Gtk.Entry()
     entry.set_visibility(False)
     box = dialog.get_content_area()
     box.add(label)
@@ -2920,10 +2914,10 @@ def leggiRevisioni():
 def messageInfo(msg="Messaggio generico", transient=None):
     """generic msg dialog """
     if Environment.web is not True:
-        dialoggg = gtk.MessageDialog(transient,
-                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                            GTK_DIALOG_MESSAGE_INFO,
-                            GTK_BUTTON_OK)
+        dialoggg = Gtk.MessageDialog(transient,
+                            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                            Gtk.MessageType.INFO,
+                            Gtk.ButtonsType.OK)
         dialoggg.set_markup(msg)
         response = dialoggg.run()
         dialoggg.destroy()
@@ -2932,10 +2926,10 @@ def messageInfo(msg="Messaggio generico", transient=None):
 def messageError(msg="Messaggio generico", transient=None):
     """generic msg dialog """
     if Environment.web is not True:
-        dialoggg = gtk.MessageDialog(transient,
-                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                            gtk.MESSAGE_ERROR,
-                            gtk.BUTTONS_CANCEL)
+        dialoggg = Gtk.MessageDialog(transient,
+                            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                            Gtk.MESSAGE_ERROR,
+                            Gtk.BUTTONS_CANCEL)
         dialoggg.set_markup(msg)
         print "MESSAGGIO", msg
         return
@@ -2946,10 +2940,10 @@ def messageError(msg="Messaggio generico", transient=None):
 def messageWarning(msg="Messaggio generico", transient=None):
     """generic msg dialog """
     if Environment.web is not True:
-        dialoggg = gtk.MessageDialog(transient,
-                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                            GTK_DIALOG_MESSAGE_WARNING,
-                            GTK_BUTTON_OK)
+        dialoggg = Gtk.MessageDialog(transient,
+                            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                            Gtk.MessageType.WARNING,
+                            Gtk.ButtonsType.OK)
         dialoggg.set_markup(msg)
         response = dialoggg.run()
         dialoggg.destroy()
@@ -2958,12 +2952,12 @@ def messageWarning(msg="Messaggio generico", transient=None):
 
 def YesNoDialog(msg="MESSAGGIO", transient=None,show_entry=False ):
     if Environment.web is not True:
-        dialog = gtk.MessageDialog(transient,
-                               GTK_DIALOG_MODAL
-                               | GTK_DIALOG_DESTROY_WITH_PARENT,
-                               GTK_DIALOG_MESSAGE_QUESTION, GTK_BUTTON_YES_NO,
+        dialog = Gtk.MessageDialog(transient,
+                               Gtk.DialogFlags.MODAL
+                               | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                               Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO,
                                msg)
-        __entry_codi = gtk.Entry()
+        __entry_codi = Gtk.Entry()
         dialog.get_content_area().pack_start(__entry_codi, False, False, 0)
         if show_entry:
             __entry_codi.show()
@@ -3197,8 +3191,8 @@ def pbar(pbar, parziale=1, totale=1, pulse=False, stop=False, text="", noeta= Fa
         pbar.grab_add()
         pbar.set_fraction(0)
         pbar.set_text("Finito")
-        while gtk.events_pending():
-            gtk.main_iteration_do(False)
+        while Gtk.events_pending():
+            Gtk.main_iteration_do(False)
         pbar.grab_remove()
         return
     if not pulse:
@@ -3240,16 +3234,16 @@ def pbar(pbar, parziale=1, totale=1, pulse=False, stop=False, text="", noeta= Fa
         if totale ==0 :totale =1
         if totale - 1.0 >0:
             pbar.set_fraction(parziale/(totale - 1.0))  # genera un warning, perc >= 0 and perc <= 1.0, infatti vale 1.33 all'ultimo passaggio...
-        while gtk.events_pending():
-             gtk.main_iteration_do(False)
+        while Gtk.events_pending():
+             Gtk.main_iteration_do(False)
         pbar.grab_remove()
     else:
         pbar.grab_add()
         if text:
             pbar.set_text(text)
         pbar.pulse()
-        while gtk.events_pending():
-             gtk.main_iteration_do(False)
+        while Gtk.events_pending():
+             Gtk.main_iteration_do(False)
         pbar.grab_remove()
 
 
@@ -3484,14 +3478,7 @@ def do_print(fileName):
 
     L'argomento è il percorso ad un file esistente.
     """
-    if not Environment.pg3:
-        try:
-            import gtkunixprint
-            gtkunixprint # pyflakes
-        except ImportError:
-            gtkunixprint = None
-    else:
-        gtkunixprint = None
+    gtkunixprint = None
     if gtkunixprint:
         from promogest.lib.GtkPrintDialog import GtkPrintDialog
         dialog = GtkPrintDialog(fileName)

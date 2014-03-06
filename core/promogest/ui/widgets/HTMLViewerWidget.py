@@ -20,7 +20,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
+from gi.repository import Gtk, Gdk
 from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.lib.utils import *
@@ -77,13 +77,13 @@ class HTMLViewerWidget(GladeWidget):
 
     def on_csv_button_clicked(self, button):
 
-        fileDialog = gtk.FileChooserDialog(title='Salvataggio file csv',
+        fileDialog = Gtk.FileChooserDialog(title='Salvataggio file csv',
                                            parent=self.getTopLevel(),
-                                           action=GTK_FILE_CHOOSER_ACTION_SAVE,
-                                           buttons=(gtk.STOCK_CANCEL,
-                                                    GTK_RESPONSE_CANCEL,
-                                                    gtk.STOCK_SAVE,
-                                                    GTK_RESPONSE_OK),
+                                           action=Gtk.FileChooserAction.SAVE,
+                                           buttons=(Gtk.STOCK_CANCEL,
+                                                    Gtk.ResponseType.CANCEL,
+                                                    Gtk.STOCK_SAVE,
+                                                    Gtk.ResponseType.OK),
                                            backend=None)
         folder = ''
         try:
@@ -101,7 +101,7 @@ class HTMLViewerWidget(GladeWidget):
 
         response = fileDialog.run()
 
-        if response == GTK_RESPONSE_OK:
+        if response == Gtk.ResponseType.OK:
             filename = fileDialog.get_filename()
             parser = html2csv()
             parser.feed(self.html)

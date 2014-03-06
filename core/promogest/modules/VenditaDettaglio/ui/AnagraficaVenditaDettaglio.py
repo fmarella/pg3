@@ -45,7 +45,7 @@ from VenditaDettaglioUtils import fillComboboxPos
 from promogest.ui.PrintDialog import PrintDialogHandler
 from promogest.lib.HtmlHandler import createHtmlObj, renderTemplate, renderHTML
 
-from promogest.ui.gtk_compat import *
+
 AAA = False
 if Environment.params["schema"]:
     val=0
@@ -293,7 +293,7 @@ class AnagraficaVenditaDettaglio(GladeWidget):
 
     def on_vendita_dettaglio_window_key_press_event(self, widget, event):
         """ jolly key è F9, richiama ed inserisce l'articolo definito nel configure"""
-        keyname = gdk_keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == 'F9' and AAA == False:
             try:
                 if hasattr(Environment.conf, "VenditaDettaglio"):
@@ -962,7 +962,7 @@ class AnagraficaVenditaDettaglio(GladeWidget):
         anag = RicercaComplessaArticoli(codiceABarre = codiceABarre,
                                         codice = codice,
                                         denominazione=descrizione)
-        anag.setTreeViewSelectionType(GTK_SELECTIONMODE_SINGLE)
+        anag.setTreeViewSelectionType(Gtk.SelectionMode.SINGLE)
         anagWindow = anag.getTopLevel()
         anagWindow.connect("hide",
                            on_ricerca_articolo_hide, anag)
@@ -1061,7 +1061,7 @@ class AnagraficaVenditaDettaglio(GladeWidget):
             if YesNoDialog('Confermi la chiusura?', self.getTopLevel()):
                 self.hide()
                 Environment.pg2log.info("CHIUDO IL MODULO DI GESTIONE NEGOZIO APERTO CON SHOP")
-                gtk.main_quit()
+                Gtk.main_quit()
             else:
                 return
         else:
@@ -1194,11 +1194,11 @@ class AnagraficaVenditaDettaglio(GladeWidget):
                 return 1
 
     def createPopupMenu(self):
-        self.file_menu = gtk.Menu()    # Don't need to show menus
+        self.file_menu = Gtk.Menu()    # Don't need to show menus
         # Create the menu items
-        open_item = gtk.MenuItem(label="Conferma")
-        #save_item = gtk.MenuItem(label="Cancella")
-        quit_item = gtk.MenuItem(label="Annulla")
+        open_item = Gtk.MenuItem(label="Conferma")
+        #save_item = Gtk.MenuItem(label="Cancella")
+        quit_item = Gtk.MenuItem(label="Annulla")
         # Add them to the menu
         self.file_menu.append(open_item)
         self.file_menu.append(quit_item)

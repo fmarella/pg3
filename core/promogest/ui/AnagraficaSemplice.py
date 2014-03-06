@@ -23,7 +23,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
+from gi.repository import GObject
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.ui.widgets.FilterWidget import FilterWidget
 from promogest.ui.SendEmail import SendEmail
@@ -84,8 +84,8 @@ class Anagrafica(GladeWidget):
         """ Facoltativo ma suggerito per indicare la lunghezza
         massima della cella di testo
         """
-        self.filter.denominazione_column.get_cells()[0].set_data(
-                                                        'max_length', 50)
+        #self.filter.denominazione_column.get_cells()[0].set_data(
+                                                        #'max_length', 50)
 
         self._treeViewModel = self.filter.filter_listore
         self.refresh()
@@ -100,7 +100,7 @@ class Anagrafica(GladeWidget):
         creditsDialog.getTopLevel().set_transient_for(self.getTopLevel())
         creditsDialog.getTopLevel().show_all()
         response = creditsDialog.credits_dialog.run()
-        if response == GTK_RESPONSE_OK:
+        if response == Gtk.ResponseType.OK:
             creditsDialog.credits_dialog.destroy()
 
     def on_send_Email_activate(self, widget):
@@ -125,7 +125,7 @@ class Anagrafica(GladeWidget):
         licenzaDialog.licenza_textview.set_buffer(textBuffer)
         licenzaDialog.getTopLevel().show_all()
         response = licenzaDialog.licenza_dialog.run()
-        if response == GTK_RESPONSE_OK:
+        if response == Gtk.ResponseType.OK:
             licenzaDialog.licenza_dialog.destroy()
 
 
@@ -248,14 +248,14 @@ class Anagrafica(GladeWidget):
         if self._rowEditingPath is None:
             return
         dialog = gtk.MessageDialog(self.getTopLevel(),
-                                   GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                   GTK_DIALOG_MESSAGE_QUESTION,
-                                   GTK_BUTTON_YES_NO,
+                                   Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                   Gtk.MessageType.QUESTION,
+                                   Gtk.ButtonsType.YES_NO,
                                    'Abbandonare le modifiche ?')
 
         response = dialog.run()
         dialog.destroy()
-        if response != GTK_RESPONSE_YES:
+        if response != Gtk.ResponseType.YES:
             self.anagrafica_treeview.grab_focus()
             return
 
@@ -301,14 +301,14 @@ class Anagrafica(GladeWidget):
         if self._rowEditingPath is None:
             return
         dialog = gtk.MessageDialog(self.getTopLevel(),
-                                   GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                   GTK_DIALOG_MESSAGE_QUESTION,
-                                   GTK_BUTTON_YES_NO,
+                                   Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                   Gtk.MessageType.QUESTION,
+                                   Gtk.ButtonsType.YES_NO,
                                    'Cancellare le modifiche ?')
 
         response = dialog.run()
         dialog.destroy()
-        if response != GTK_RESPONSE_YES:
+        if response != Gtk.ResponseType.YES:
             self.anagrafica_treeview.grab_focus()
             self.anagrafica_treeview_set_edit(True)
             return
@@ -456,10 +456,7 @@ class Anagrafica(GladeWidget):
         if column+1 <= columns:
             if self._tabPressed:
                 self._tabPressed = False
-            if Environment.pg3:
-                gobject.timeout_add(1, treeview.set_cursor, gtk.TreePath(str(path)), treeview.get_column(column+1), editNext)
-            else:
-                gobject.timeout_add(1, treeview.set_cursor,path, treeview.get_column(column+1), editNext)
+            GObject.timeout_add(1, treeview.set_cursor, gtk.TreePath(str(path)), treeview.get_column(column+1), editNext)
 
 
     def anagrafica_treeview_set_edit(self, flag):
@@ -479,10 +476,7 @@ class Anagrafica(GladeWidget):
             row = model[iterator]
             column = self.anagrafica_treeview.get_column(0)
             self.anagrafica_treeview.grab_focus()
-            if Environment.pg3:
-                self.anagrafica_treeview.set_cursor(row.path, column, True)
-            else:
-                self.anagrafica_treeview.set_cursor(row.path, column, start_editing=True)
+            self.anagrafica_treeview.set_cursor(row.path, column, True)
         else:
             self._rowEditingPath = None
 
@@ -491,13 +485,13 @@ class Anagrafica(GladeWidget):
         """ Gestisce la richiesta di uscita dall'anagrafica """
         if self._rowEditingPath is not None:
             dialog = gtk.MessageDialog(self.getTopLevel(),
-                                       GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                       GTK_DIALOG_MESSAGE_QUESTION,
-                                       GTK_BUTTON_YES_NO,
+                                       Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                       Gtk.MessageType.QUESTION,
+                                       Gtk.ButtonsType.YES_NO,
                                        'Confermi la chiusura ?')
             response = dialog.run()
             dialog.destroy()
-            if response != GTK_RESPONSE_YES:
+            if response != Gtk.ResponseType.YES:
                 return True
 
         self.destroy()

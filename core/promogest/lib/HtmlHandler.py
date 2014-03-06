@@ -23,21 +23,10 @@
 import os
 import sys
 from datetime import datetime
-from promogest.ui.gtk_compat import *
+from gi.repository.WebKit import WebView, WebSettings
+from gi.repository import GLib
 from threading import Timer
 from promogest.lib import feedparser
-try:
-    if Environment.pg3:
-        from gi.repository.WebKit import WebView
-        from gi.repository.WebKit import WebSettings
-    else:
-        from webkit import WebView
-        from webkit import WebSettings
-    WEBKIT = True
-except:
-    import gtkhtml2
-    WEBKIT = False
-#from HtmlTextView import HtmlTextView
 import urllib2
 import webbrowser
 from promogest import Environment
@@ -237,14 +226,10 @@ def _on_navigation_requested(view, frame, req, data=None):
     return True
 
 def createHtmlObj(mainWidget,widget=None):
-    try:
-        a= WebView()
-        a.connect('navigation-requested', _on_navigation_requested,a)
-        return a
-    except:
-        return gtkhtml2.View()
+    a = WebView()
+    a.connect('navigation-requested', _on_navigation_requested, a)
+    return a
 
-#@utils.timeit
 def renderTemplate(pageData):
     jinja_env.globals['environment'] = Environment
     jinja_env.globals['utils'] = utils
@@ -273,7 +258,7 @@ def _on_html_request_url(document, url, stream):
             html = response.read()
             stream.write(html)
             stream.close()
-    gobject.idle_add(render)
+    GLib.idle_add(render)
 
 def linkOpen(link):
     webbrowser.open_new_tab(link)
@@ -286,40 +271,25 @@ def _on_html_link_clicked(url, link):
     elif "newPromemoria" in agg:
             apriAnagraficaPromemoriaNew()
     else:
-        gobject.idle_add(linkOpen, link)
+        GLib.idle_add(linkOpen, link)
     return True
-
-if not WEBKIT:
-    """ gtkhtml23"""
-    document = gtkhtml2.Document()
-    document.connect('request_url', _on_html_request_url)
-    document.connect('link_clicked', _on_html_link_clicked)
 
 def renderHTMLTemplate(pageData):
     return renderTemplate(pageData)
 
 def renderHTML(widget, html):
+        c = WebSettings()
+        c.set_property('user-agent', None)
+        c.set_property("minimum_font_size", 8)
+        c.set_property("javascript-can-open-windows-automatically", True)
+        c.set_property("default-encoding", "Utf-8")
+        c.set_property("enable-file-access-from-file-uris", True)
+        c.set_property("enable-universal-access-from-file-uris", True)
+        c.set_property("enable-site-specific-quirks", True)
 
-    if WEBKIT:
-        try:
-            c = WebSettings()
-            c.set_property('user-agent', None)
-            c.set_property("minimum_font_size", 8)
-            c.set_property("javascript-can-open-windows-automatically", True)
-            c.set_property("default-encoding", "Utf-8")
-            c.set_property("enable-file-access-from-file-uris", True)
-            c.set_property("enable-universal-access-from-file-uris", True)
-            c.set_property( "enable-site-specific-quirks", True)
+        widget.set_settings(c)
 
-            widget.set_settings(c)
-        except:
-            print " VERSIONE DI WEBKIT NON AGGIORNATA... KARMIC?"
         #widget.load_string( html,"text/html", "UTF-8","file:///"+sys.path[0]+os.sep)
         # quella qui sopra è la versione compatibile da usare in futuro
         widget.load_html_string(html, "file:///"+sys.path[0]+os.sep)
         widget.show()
-    else:
-        document.open_stream('text/html')
-        document.write_stream(html)
-        document.close_stream()
-        widget.set_document(document)

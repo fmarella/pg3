@@ -35,7 +35,6 @@ from promogest.dao.Fornitore import Fornitore
 from promogest.dao.ScontoFornitura import ScontoFornitura
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaForniture(Anagrafica):

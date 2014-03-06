@@ -30,7 +30,6 @@ from promogest import Environment
 from promogest.dao.Articolo import Articolo
 from promogest.modules.DistintaBase.dao.AssociazioneArticolo import AssociazioneArticolo
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaDistintaBase(Anagrafica):
@@ -310,7 +309,7 @@ class AnagraficaDistintaBaseEdit(AnagraficaEdit):
                                         codice=codice,
                                         codiceABarre=codiceABarre,
                                         codiceArticoloFornitore=codiceArticoloFornitore)
-        anag.setTreeViewSelectionType(GTK_SELECTIONMODE_SINGLE)
+        anag.setTreeViewSelectionType(Gtk.SelectionMode.SINGLE)
 
         anagWindow = anag.getTopLevel()
         anagWindow.connect("hide",

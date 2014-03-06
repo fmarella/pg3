@@ -25,7 +25,7 @@ import os
 import glob
 
 from promogest import Environment
-from promogest.ui.gtk_compat import *
+from gi.repository import Gdk, GLib
 import datetime
 import random
 import webbrowser
@@ -37,10 +37,6 @@ from promogest.ui.UpdateDialog import UpdateDialog
 from promogest.lib.utils import leggiRevisioni, hasAction, checkInstallation, \
     installId, messageInfo
 from promogest.ui.utilsCombobox import findComboboxRowFromStr,findStrFromCombobox
-
-Environment.pg2log.info("GTK+: " + str(GTK_VERSION))
-
-import sqlalchemy
 
 from promogest.lib import feedparser
 from promogest.lib import HtmlHandler
@@ -81,8 +77,6 @@ class Login(SimpleGladeApp):
             self.azienda_combobox_listore.append((a.schemaa,
                                         (a.denominazione or "")[0:30]))
         self.azienda_combobox.set_model(self.azienda_combobox_listore)
-        #if not Environment.pg3: #necessario per windows, non va bene in gtk3
-            #self.azienda_combobox.set_text_column(0)
         Environment.windowGroup.append(self.getTopLevel())
 
         self.splashHandler()
@@ -145,8 +139,7 @@ class Login(SimpleGladeApp):
                                     + "].png"
                 self.login_tipo_label.set_markup(_("<b>PromoGest 'PRO'</b>"))
                 self.urll = "http://www.promogest.me/promoGest/preventivo_pro"
-        if Environment.pg3:
-            self.login_tipo_label.set_markup(_("<span weight='bold' size='larger'>PROMOGEST 3 BETA2</span>"))
+        self.login_tipo_label.set_markup(_("<span weight='bold' size='larger'>PROMOGEST 3 BETA2</span>"))
         #settiamo l'immagine
         self.splash_image.set_from_file(fileSplashImage)
 
@@ -270,11 +263,7 @@ class Login(SimpleGladeApp):
                                             on_main_window_closed,
                                             self.login_window)
                         main.show()
-                    if Environment.pg3:
-                        glib.idle_add(mainmain)
-                    else:
-                        gobject.idle_add(mainmain)
-
+                    GLib.idle_add(mainmain)
         else:
             messageInfo(msg=_('Nome utente o password errati, Riprova'))
 
@@ -393,9 +382,9 @@ class Login(SimpleGladeApp):
         :param widget: -
         :param event: -
         """
-        if event.type == GDK_EVENTTYPE_KEY_PRESS:
-            if event.get_state() & GDK_CONTROL_MASK:
-                key = str(gdk_keyval_name(event.keyval))
+        if event.type == Gdk.EventType.KEY_PRESS:
+            if event.get_state() & Gdk.ModifierType.CONTROL_MASK:
+                key = str(Gdk.keyval_name(event.keyval))
                 if key.upper() == "L":
                     self.username_entry.set_text("admin")
                     self.password_entry.set_text('admin')

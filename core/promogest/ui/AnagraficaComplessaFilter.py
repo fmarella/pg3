@@ -24,7 +24,6 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from promogest.ui.GladeWidget import GladeWidget
-from promogest.ui.gtk_compat import *
 from promogest.lib.utils import setconf
 
 
@@ -177,7 +176,7 @@ class AnagraficaFilter(GladeWidget):
                                                             get_selection()
         if not treeViewSelection:
             return None
-        if treeViewSelection.get_mode() != GTK_SELECTIONMODE_MULTIPLE:
+        if treeViewSelection.get_mode() != Gtk.SelectionMode.MULTIPLE:
             (model, iterator) = treeViewSelection.get_selected()
             if iterator is not None:
                 dao = model.get_value(iterator, 0)

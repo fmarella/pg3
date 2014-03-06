@@ -25,7 +25,6 @@
 from promogest.ui.AnagraficaSemplice import Anagrafica, AnagraficaDetail, AnagraficaFilter
 from promogest.modules.SchedaLavorazione.dao.ColoreStampa import ColoreStampa
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaColoriStampa(Anagrafica):
@@ -41,13 +40,13 @@ class AnagraficaColoriStampa(Anagrafica):
         # Colonne della Treeview per il filtro
         treeview = self.anagrafica_treeview
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', False)
         renderer.connect('edited', self.on_column_edited, treeview, False)
         renderer.set_data('column', 0)
         renderer.set_data('max_length', 200)
-        column = gtk.TreeViewColumn('Denominazione', renderer, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Denominazione', renderer, text=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'denominazione')
         column.set_resizable(True)
@@ -56,7 +55,7 @@ class AnagraficaColoriStampa(Anagrafica):
 
         treeview.set_search_column(1)
 
-        self._treeViewModel = gtk.ListStore(object, str)
+        self._treeViewModel = Gtk.ListStore(object, str)
         treeview.set_model(self._treeViewModel)
 
         self.refresh()

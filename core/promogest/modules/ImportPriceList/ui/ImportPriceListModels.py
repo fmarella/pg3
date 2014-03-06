@@ -37,7 +37,6 @@ from promogest.ui.AnagraficaCategorieArticoli import AnagraficaCategorieArticoli
 from promogest.ui.AnagraficaFamiglieArticoli import AnagraficaFamiglieArticoli
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import fillModelCombobox
-from promogest.ui.gtk_compat import *
 
 from fieldsDict import *
 from PriceListModel import PriceListModel
@@ -64,17 +63,17 @@ class ImportPriceListModels(GladeWidget):
 
     def draw(self):
 
-        cbe_renderer = gtk.CellRendererText()
+        cbe_renderer = Gtk.CellRendererText()
         self.model_name_comboboxentry.pack_start(cbe_renderer, True)
         self.model_name_comboboxentry.add_attribute(cbe_renderer, 'text', 0)
 
         #Creating fields treeview
 
         treeview = self.fields_treeview
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
 
-        column = gtk.TreeViewColumn('Campo', renderer, text=0)
-        column.set_sizing(GTK_COLUMN_FIXED)
+        column = Gtk.TreeViewColumn('Campo', renderer, text=0)
+        column.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
         column.set_clickable(True)
         column.set_resizable(True)
         column.set_expand(True)
@@ -82,7 +81,7 @@ class ImportPriceListModels(GladeWidget):
         treeview.append_column(column)
         treeview.set_search_column(0)
 
-        self._treeViewModel = gtk.ListStore(str)
+        self._treeViewModel = Gtk.ListStore(str)
         treeview.set_model(self._treeViewModel)
 
     def refresh(self, first_call=False):
@@ -234,7 +233,7 @@ class ImportPriceListModels(GladeWidget):
             return
         def_list = ['Aliquota iva', 'Famiglia', 'Categoria', 'Unita base']
 #        _name = checkbutton.get_name()[:-3]
-        _name = gtk.Buildable.get_name(checkbutton)[:-3]
+        _name = Gtk.Buildable.get_name(checkbutton)[:-3]
         for k in possibleFieldsKeys:
             if _name == possibleFieldsDict[k]:
                 status = checkbutton.get_active()
@@ -325,13 +324,13 @@ class ImportPriceListModels(GladeWidget):
         """Calls the save method in PriceListModel class"""
         self.priceListModel.setDefaultFields()
         self.checkObligatoryFields()
-        fileDialog = gtk.FileChooserDialog(title='Salvataggio modello',
+        fileDialog = Gtk.FileChooserDialog(title='Salvataggio modello',
                                            parent=self.getTopLevel(),
-                                           action=GTK_FILE_CHOOSER_ACTION_SAVE,
-                                           buttons=(gtk.STOCK_CANCEL,
-                                                    GTK_RESPONSE_CANCEL,
-                                                    gtk.STOCK_SAVE,
-                                                    GTK_RESPONSE_OK),
+                                           action=Gtk.FileChooserAction.SAVE,
+                                           buttons=(Gtk.STOCK_CANCEL,
+                                                    Gtk.ResponseType.CANCEL,
+                                                    Gtk.STOCK_SAVE,
+                                                    Gtk.ResponseType.OK),
                                            backend=None)
         folder = ''
         try:
@@ -349,7 +348,7 @@ class ImportPriceListModels(GladeWidget):
 
         response = fileDialog.run()
 
-        if response == GTK_RESPONSE_OK:
+        if response == Gtk.ResponseType.OK:
             filename = fileDialog.get_filename()
 
             self.priceListModel
@@ -455,7 +454,7 @@ class ImportPriceListModels(GladeWidget):
         if self.loading:
             return
 #        comboboxName = combobox.get_name()
-        comboboxName = gtk.Buildable.get_name(combobox)
+        comboboxName = Gtk.Buildable.get_name(combobox)
         value = findStrFromCombobox(combobox, 1) or ''
 
         if len(str(value)) > 0:

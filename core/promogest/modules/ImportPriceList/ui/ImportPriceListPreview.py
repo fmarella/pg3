@@ -30,7 +30,6 @@ import promogest.ui.AnagraficaListini
 import promogest.ui.Main
 from promogest.ui.Main import *
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 import promogest.ui.Login
 from ProductFromCSV import ProductFromCsv
 from fieldsDict import *
@@ -62,16 +61,16 @@ class ImportPreview(GladeWidget):
         """ Dynamic creation of a trevew model
         """
         self.treeview = self.articoli_treeview
-        rendererSx = gtk.CellRendererText()
-        rendererDx = gtk.CellRendererText()
+        rendererSx = Gtk.CellRendererText()
+        rendererDx = Gtk.CellRendererText()
         rendererDx.set_property('xalign', 1)
         fields = self.PLModel._fields
         model = getDynamicStrListStore(len(fields))
         self.treeview.set_model(model)
         nc = 0
         for f in fields:
-            column = gtk.TreeViewColumn(f, rendererSx, text=nc)
-            column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+            column = Gtk.TreeViewColumn(f, rendererSx, text=nc)
+            column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
             column.set_clickable(False)
             column.set_resizable(True)
             column.set_expand(True)

@@ -20,7 +20,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
 from promogest.lib.utils import *
 from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget
@@ -93,7 +92,7 @@ class CSANotebookPage(GladeWidget):
 
 def fillComboboxTipoApparecchio(combobox, filter=False):
     """ Riempi combo degli stadi commessa """
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     stcom = TipoApparecchio().select(batchSize=None)
     if not filter:
         emptyRow = ''
@@ -102,14 +101,14 @@ def fillComboboxTipoApparecchio(combobox, filter=False):
         model.append((c, c.id, (c.denominazione or '')[0:20]))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
 
 def fillComboboxGasRefrigerante(combobox, filter=False):
     """ Riempi combo degli stadi commessa """
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     stcom = GasRefrigerante().select(batchSize=None)
     if not filter:
         emptyRow = ''
@@ -118,7 +117,7 @@ def fillComboboxGasRefrigerante(combobox, filter=False):
         model.append((c, c.id, (c.denominazione or '')[0:20]))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)

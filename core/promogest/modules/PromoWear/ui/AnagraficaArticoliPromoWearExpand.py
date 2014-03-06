@@ -23,17 +23,16 @@
 
 from promogest import Environment
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 from promogest.modules.PromoWear.ui.PromowearUtils import *
 from promogest.modules.PromoWear.dao.ArticoloTagliaColore import ArticoloTagliaColore
 from promogest.dao.Articolo import Articolo
 
 def treeViewExpand(gtkgui, treeview):
     """ Expand the normal article treeview """
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     if posso("PW"):
-        column = gtk.TreeViewColumn('Gruppo taglia', renderer, text=9, background=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Gruppo taglia', renderer, text=9, background=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.connect("clicked", gtkgui._changeOrderBy, (ArticoloTagliaColore, ArticoloTagliaColore.id_gruppo_taglia))
         column.set_resizable(True)
@@ -41,8 +40,8 @@ def treeViewExpand(gtkgui, treeview):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Modello', renderer, text=10, background=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Modello', renderer, text=10, background=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.connect("clicked", gtkgui._changeOrderBy, (None, Articolo.denominazione_modello))
         column.set_resizable(True)
@@ -50,8 +49,8 @@ def treeViewExpand(gtkgui, treeview):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Taglia', renderer, text=11, background=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Taglia', renderer, text=11, background=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.connect("clicked", gtkgui._changeOrderBy, (None,Articolo.denominazione_taglia))
         column.set_resizable(True)
@@ -59,8 +58,8 @@ def treeViewExpand(gtkgui, treeview):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Colore', renderer, text=12, background=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Colore', renderer, text=12, background=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.connect("clicked", gtkgui._changeOrderBy, 'denominazione_colore')
         column.set_resizable(True)
@@ -68,8 +67,8 @@ def treeViewExpand(gtkgui, treeview):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Anno', renderer, text=13, background=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Anno', renderer, text=13, background=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", gtkgui._changeOrderBy, 'anno')
         column.set_resizable(True)
@@ -77,8 +76,8 @@ def treeViewExpand(gtkgui, treeview):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Stagione', renderer, text=14, background=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Stagione', renderer, text=14, background=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.connect("clicked", gtkgui._changeOrderBy, 'stagione')
         column.set_resizable(True)
@@ -86,8 +85,8 @@ def treeViewExpand(gtkgui, treeview):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Genere', renderer, text=15, background=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Genere', renderer, text=15, background=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.connect("clicked", gtkgui._changeOrderBy, 'genere')
         column.set_resizable(True)
@@ -107,7 +106,7 @@ def articleTypeGuiManage(anagrafica, dao, new):
         # niente possibilita' di variare gruppo taglie, genere, anno e stagione
         gtkgui.con_taglie_colori_radiobutton.set_active(True)
         gtkgui.con_taglie_colori_radiobutton.set_sensitive(True)
-        #gtkgui.on_con_taglie_colori_radiobutton_toggled(gtk.RadioButton())
+        #gtkgui.on_con_taglie_colori_radiobutton_toggled(Gtk.RadioButton())
         gtkgui.codici_a_barre_togglebutton.set_sensitive(True)
         gtkgui.taglie_colori_togglebutton.set_sensitive(False)
         gtkgui.varianti_taglia_colore_label.set_sensitive(False)
@@ -177,7 +176,7 @@ def articleTypeGuiManage(anagrafica, dao, new):
             possibilita' di inserire gruppo taglia, genere, anno, stagione """
 
         gtkgui.con_taglie_colori_radiobutton.set_sensitive(True)
-        gtkgui.on_con_taglie_colori_radiobutton_toggled(gtk.RadioButton())
+        gtkgui.on_con_taglie_colori_radiobutton_toggled(Gtk.RadioButton())
         varianti = str(len(dao.articoliTagliaColore))
         testo= """ARTICOLO PRINCIPALE CON %s VARIANTI""" %varianti
         gtkgui.memo_wear.set_text(testo)
@@ -210,7 +209,7 @@ def articleTypeGuiManage(anagrafica, dao, new):
 
     elif articleType(dao) == "normal":
         gtkgui.normale_radiobutton.set_sensitive(True)
-        gtkgui.on_normale_radiobutton_toggled(gtk.RadioButton())
+        gtkgui.on_normale_radiobutton_toggled(Gtk.RadioButton())
         gtkgui.id_anno_combobox.set_active(-1)
         gtkgui.id_genere_combobox.set_active(-1)
         gtkgui.id_modello_customcombobox.combobox.set_active(-1)
@@ -230,7 +229,7 @@ def articleTypeGuiManage(anagrafica, dao, new):
     elif articleType(dao) == "plus":
         gtkgui.frame_promowear.set_sensitive(True)
         gtkgui.plus_radiobutton.set_sensitive(True)
-        gtkgui.on_plus_radiobutton_toggled(gtk.RadioButton())
+        gtkgui.on_plus_radiobutton_toggled(Gtk.RadioButton())
         findComboboxRowFromId(gtkgui.id_colore_customcombobox.combobox, dao.id_colore)
         findComboboxRowFromId(gtkgui.id_taglia_customcombobox.combobox, dao.id_taglia)
         findComboboxRowFromId(gtkgui.id_modello_customcombobox.combobox, dao.id_modello)
@@ -250,7 +249,7 @@ def articleTypeGuiManage(anagrafica, dao, new):
 
     elif articleType(dao) == "new":
         gtkgui.normale_radiobutton.set_sensitive(True)
-        gtkgui.on_normale_radiobutton_toggled(gtk.RadioButton())
+        gtkgui.on_normale_radiobutton_toggled(Gtk.RadioButton())
         gtkgui.id_anno_combobox.set_active(-1)
         gtkgui.id_genere_combobox.set_active(-1)
         gtkgui.id_stagione_combobox.set_active(-1)

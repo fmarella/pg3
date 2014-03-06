@@ -22,7 +22,6 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from promogest import Environment
-from promogest.ui.gtk_compat import *
 
 
 def fillComboboxDistintaBase(combobox, search_string=None):
@@ -30,7 +29,7 @@ def fillComboboxDistintaBase(combobox, search_string=None):
     Riempie la combobox di selezione delle associazioni di articoli.
     Se la lista risultante ha un solo elemento, questo viene automaticamente selezionato.
     """
-    model = gtk.ListStore(object,str,str,str)
+    model = Gtk.ListStore(object,str,str,str)
     model.clear()
     liss = promogest.dao.DistintaBase.select(Environment.connection, nodo=True, codice=search_string,
                                                                                                 offset=None, batchSize=None, immediate=True)
@@ -41,10 +40,10 @@ def fillComboboxDistintaBase(combobox, search_string=None):
         model.append((l, l.id_articolo,l.codice, l.denominazione))
     
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 3)
     combobox.set_model(model)

@@ -27,7 +27,6 @@ from promogest.ui.AnagraficaSemplice import \
 from promogest.dao.CodiceABarreArticolo import CodiceABarreArticolo
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaCodiciABarreArticoli(Anagrafica):
@@ -50,7 +49,7 @@ class AnagraficaCodiciABarreArticoli(Anagrafica):
         renderer.set_data('column', 0)
         renderer.set_data('max_length', 200)
         column = gtk.TreeViewColumn('Codice a barre', renderer, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.set_resizable(True)
         column.set_expand(True)
@@ -61,7 +60,7 @@ class AnagraficaCodiciABarreArticoli(Anagrafica):
         renderer.connect('toggled', self.on_column_edited, None, treeview)
         renderer.set_data('column', 1)
         column = gtk.TreeViewColumn('Primario', renderer, active=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)

@@ -23,8 +23,6 @@
 
 import os
 from shutil import copy2
-
-from promogest.ui.gtk_compat import *
 from promogest.lib.utils import *
 from promogest.ui.GladeWidget import GladeWidget
 from promogest import Environment

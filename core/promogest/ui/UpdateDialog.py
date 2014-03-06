@@ -26,7 +26,6 @@ except:
     pysvn = None
 import threading
 from promogest.ui.GladeWidget import GladeWidget
-from promogest.ui.gtk_compat import *
 from promogest.lib.utils import messageWarning
 
 

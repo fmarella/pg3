@@ -39,21 +39,6 @@ class AnagraficaCategorieArticoli(Anagrafica):
                             url_help ="http://www.promogest.me/promoGest/faq_detail/come-si-inserisce-una-categoria-articolo")
 
     def draw(self):
-        """ Facoltativo ma suggerito per indicare la lunghezza
-        massima della cella di testo
-        NOTA: Si è dovuto riaggiungere il set_data con il dato column
-        il precedente sistema automatizzato leggeva dal posizionamento
-        della celrenderer nella funzione on_column_edit dentro anagraficaFilter
-        purtroppo pygi gestisce la cosa in maniera diversa vedi quella funzione
-        SOLUZIONE Trovata...monitorare
-        """
-        self.filter.descrizione_column.get_cells()[0].set_data(
-                                                        'max_length', 200)
-        self.filter.descrizione_breve_column.get_cells()[0].set_data(
-                                                        'max_length', 10)
-        #self.filter.descrizione_column.get_cells()[0].set_data('column', 0)
-        #self.filter.descrizione_breve_column.get_cells()[0].set_data(
-#                                                            'column', 1)
         self._treeViewModel = self.filter.filter_listore
         self.refresh()
 

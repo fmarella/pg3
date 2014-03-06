@@ -31,15 +31,6 @@ from promogest.lib import feedparser
 from promogest.ui.SendEmail import SendEmail
 from promogest.dao.TestataDocumento import TestataDocumento
 
-try:
-    if Environment.pg3:
-        from gi.repository.WebKit import WebView
-    else:
-        from webkit import WebView
-    WEBKIT = True
-except:
-    import gtkhtml2
-    WEBKIT = False
 
 class NewsNotebookPage(GladeWidget):
     """ Widget di configurazione del codice installazione e dei parametri
@@ -52,10 +43,7 @@ class NewsNotebookPage(GladeWidget):
         self.main = main
         self.main_wind = main
         self.aziendaStr = azienda or ""
-        if Environment.pg3:
-            glib.idle_add(self.create_news_frame)
-        else:
-            gobject.idle_add(self.create_news_frame)
+        glib.idle_add(self.create_news_frame)
         self.htmlnewswidget = createHtmlObj(self)
         self.feed_scrolled.add(self.htmlnewswidget)
 
@@ -80,10 +68,10 @@ class NewsNotebookPage(GladeWidget):
             self.email_button.hide()
             self.promogest_button.hide()
 
-        if Environment.pg3:
-            glib.idle_add(self.build_news_frame)
-        else:
-            gobject.idle_add(self.build_news_frame)
+        #if Environment.pg3:
+        glib.idle_add(self.build_news_frame)
+        #else:
+        #    gobject.idle_add(self.build_news_frame)
         #lendocu = TestataDocumento().count(daData="2012-01-01",batchSize=None)
 
 

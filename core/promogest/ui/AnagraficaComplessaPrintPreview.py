@@ -24,7 +24,7 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
-from promogest.ui.gtk_compat import *
+from gi.repository import GLib
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.ui.widgets.FilterWidget import FilterWidget
 from promogest.lib.utils import *
@@ -76,10 +76,7 @@ class AnagraficaPrintPreview(GladeWidget):
             #glib.idle_add(test)
         #else:
             #gobject.idle_add(test)
-        if Environment.pg3:
-            glib.idle_add(self.refresh)
-        else:
-            gobject.idle_add(self.refresh)
+        GLib.idle_add(self.refresh)
         #self.refresh()
 
     def on_pdf_button_clicked(self, button):
@@ -124,7 +121,6 @@ class AnagraficaPrintPreview(GladeWidget):
         self.bodyWidget.numRecords = self.numRecords
         self.bodyWidget._refreshPageCount()
 
-    @timeit
     def refresh(self):
         """ show the html page in the custom widget"""
         self.bodyWidget.orderBy = self.orderBy
@@ -184,7 +180,7 @@ class AnagraficaPrintPreview(GladeWidget):
         renderHTML(self.print_on_screen_html, self.html_code)
 
     def on_print_on_screen_dialog_response(self, dialog, responseId):
-        if responseId == GTK_RESPONSE_CLOSE:
+        if responseId == Gtk.ResponseType.CLOSE:
             self.on_print_on_screen_dialog_delete_event()
 
     def on_print_on_screen_dialog_delete_event(self, dialog=None, event=None):

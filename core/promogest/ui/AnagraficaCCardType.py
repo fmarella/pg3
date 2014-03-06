@@ -25,7 +25,6 @@ from promogest.ui.AnagraficaSemplice import \
                 Anagrafica, AnagraficaDetail, AnagraficaFilter
 from promogest.dao.CCardType import CCardType
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaCCardType(Anagrafica):
@@ -47,7 +46,7 @@ class AnagraficaCCardType(Anagrafica):
         renderer.set_data('column', 0)
         renderer.set_data('max_length', 200)
         column = gtk.TreeViewColumn('Descrizione', renderer, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None, 'denominazione'))
         column.set_resizable(True)
@@ -60,7 +59,7 @@ class AnagraficaCCardType(Anagrafica):
         renderer.set_data('column', 1)
         renderer.set_data('max_length', 10)
         column = gtk.TreeViewColumn('Descrizione breve', renderer, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy,
                                 (None, 'denominazione_breve'))

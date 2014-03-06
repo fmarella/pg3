@@ -24,7 +24,6 @@
 
 import math
 from promogest import Environment
-from promogest.ui.gtk_compat import *
 from promogest.ui.GladeWidget import GladeWidget
 
 
@@ -93,7 +92,7 @@ class Anagrafica(GladeWidget):
         self.filter.gotoLastPage()
 
     def on_anagrafica_current_page_entry_key_press_event(self, widget, event):
-        keyname = gdk_keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == 'Return' or keyname == 'KP_Enter':
             pagina = int(self.anagrafica_current_page_entry.get_text())
             self.filter.gotoPage(int(pagina))
@@ -373,7 +372,7 @@ class AnagraficaFilter(GladeWidget):
 
     def on_campo_filter_entry_key_press_event(self, widget, event):
         """ Conferma o eliminazione parametri filtro da tastiera"""
-        keyname = gdk_keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
 
         if keyname == 'Escape':
             self._anagrafica.on_anagrafica_filter_clear_button_clicked(widget)

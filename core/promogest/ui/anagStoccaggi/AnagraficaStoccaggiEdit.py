@@ -25,7 +25,7 @@ from promogest.ui.AnagraficaComplessaEdit import AnagraficaEdit
 from promogest.dao.Stoccaggio import Stoccaggio
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
+
 
 if posso("PW"):
     from promogest.modules.PromoWear.ui.PromowearUtils import *

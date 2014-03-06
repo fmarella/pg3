@@ -31,7 +31,6 @@ from promogest.dao.ScontoFornitura import ScontoFornitura
 from promogest.dao.Articolo import Articolo
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaFornitureEdit(AnagraficaEdit):

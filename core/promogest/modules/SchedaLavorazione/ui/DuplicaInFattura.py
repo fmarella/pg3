@@ -30,7 +30,6 @@ from promogest.dao.TestataDocumento import TestataDocumento
 from promogest.dao.TestataMovimento import TestataMovimento
 from promogest.dao.RigaMovimento import RigaMovimento
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 
 
 class DuplicaInFattura(object):
@@ -48,7 +47,7 @@ class DuplicaInFattura(object):
             if self.dao.id is None:
                 msg = "Prima di poter generare la fattura di questa scheda e' necessario salvarla .\n Salvare ?"
                 response = self.advertise(msg)
-                if tipo=="fattura" and response == GTK_RESPONSE_YES:
+                if tipo=="fattura" and response == Gtk.ResponseType.YES:
                     if not self.dao.fattura:
                         self.ui.on_anagrafica_complessa_detail_dialog_response(self.ui.dialogTopLevel, -10)
                         idFattura = self.creaFatturaDaScheda()
@@ -62,7 +61,7 @@ class DuplicaInFattura(object):
                             ricevuta_num = self.dao.ricevuta_associata
                             self.advertise("La presente scheda ha gia' generato una fattura (numero "+ricevuta_num+").")
                     return
-                elif tipo=="movimento" and response == GTK_RESPONSE_YES:
+                elif tipo=="movimento" and response == Gtk.ResponseType.YES:
                     if not self.dao.fattura:
                         self.ui.on_anagrafica_complessa_detail_dialog_response(self.ui.dialogTopLevel, -10)
                         idMovimento = self.creaMovimentoDaScheda(operazione=operazione)

@@ -21,7 +21,6 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from decimal import *
-from promogest.ui.gtk_compat import *
 import os
 from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget

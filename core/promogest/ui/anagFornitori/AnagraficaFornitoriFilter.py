@@ -29,7 +29,6 @@ from promogest.dao.Fornitore import Fornitore
 from promogest.dao.DaoUtils import *
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 from promogest.ui.Ricerca import Ricerca
 
 class AnagraficaFornitoriFilter(AnagraficaFilter):

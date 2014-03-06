@@ -33,7 +33,6 @@ from promogest.ui.AnagraficaListini import AnagraficaListini
 from promogest.ui.anagFornitori.AnagraficaFornitori import AnagraficaFornitori
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import fillModelCombobox, fillComboboxListini
-from promogest.ui.gtk_compat import *
 import promogest.ui.Login
 from promogest.modules.ImportPriceList.ui.ImportPriceListPreview import ImportPreview
 from fieldsDict import *
@@ -196,26 +195,26 @@ del formato del file e riprovare""" % str(rowcount+1)
         """on_browse_button_clicked method opens a
         FileChooserDialog to choose the price-list file
         """
-        fileDialog = gtk.FileChooserDialog(title='Importazione listino',
+        fileDialog = Gtk.FileChooserDialog(title='Importazione listino',
                                            parent=self.getTopLevel(),
-                                           action=GTK_FILE_CHOOSER_ACTION_OPEN,
-                                           buttons=(gtk.STOCK_CANCEL,
-                                                    GTK_RESPONSE_CANCEL,
-                                                    gtk.STOCK_OK,
-                                                    GTK_RESPONSE_OK),
+                                           action=Gtk.FileChooserAction.OPEN,
+                                           buttons=(Gtk.STOCK_CANCEL,
+                                                    Gtk.ResponseType.CANCEL,
+                                                    Gtk.STOCK_OK,
+                                                    Gtk.ResponseType.OK),
                                            backend=None)
-        fltr = gtk.FileFilter()
+        fltr = Gtk.FileFilter()
         #fltr.add_mime_type('application/csv')
         fltr.add_pattern('*.csv')
         fltr.set_name('File CSV (*.csv)')
         fileDialog.add_filter(fltr)
-        fltr = gtk.FileFilter()
+        fltr = Gtk.FileFilter()
         fltr.add_pattern('*')
         fltr.set_name('Tutti i file')
         fileDialog.add_filter(fltr)
 
         response = fileDialog.run()
-        if response == GTK_RESPONSE_OK:
+        if response == Gtk.ResponseType.OK:
             filename = fileDialog.get_filename()
             self.path_file_entry.set_text(filename)
         fileDialog.destroy()

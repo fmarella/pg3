@@ -34,7 +34,6 @@ from promogest.dao.Operazione import Operazione
 from promogest.ui.anagDocumenti.AnagraficaDocumenti import *
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 
 import promogest.modules.Pagamenti.dao.TestataDocumentoScadenza
 from promogest.modules.Pagamenti.dao.TestataDocumentoScadenza import TestataDocumentoScadenza

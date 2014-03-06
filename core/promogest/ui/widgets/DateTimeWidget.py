@@ -22,22 +22,22 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
+from gi.repository import Gtk, Gdk
 import time, datetime
 from DateTimeEntryField import DateTimeEntryField
 from promogest import Environment
 
-class DateTimeWidget(gtk.HBox):
+class DateTimeWidget(Gtk.Box):
 # datetimeentryfield con possibilita' di scelta dal calendario e dall'orario
     __gtype_name__ = 'DateTimeWidget'
     def __init__(self, str1=None, str2=None, int1=None, int2=None):
-        gtk.HBox.__init__(self)
+        Gtk.Box.__init__(self)
         self.entry = DateTimeEntryField()
-        self.button = gtk.ToggleButton()
+        self.button = Gtk.ToggleButton()
         self.button.set_property("can-focus", False)
-        image = gtk.Image()
-        #pbuf = gtk.gdk.pixbuf_new_from_file(Environment.guiDir + 'calendario16x16.png')
-        pbuf = GDK_PIXBUF_NEW_FROM_FILE(Environment.guiDir + 'calendario16x16.png')
+        image = Gtk.Image()
+        #pbuf = Gtk.gdk.pixbuf_new_from_file(Environment.guiDir + 'calendario16x16.png')
+        pbuf = GdkPixbuf.Pixbuf.new_from_file(Environment.guiDir + 'calendario16x16.png')
         image.set_from_pixbuf(pbuf)
         self.button.add(image)
         self.pack_start(self.entry, True, True, 0)
@@ -85,22 +85,22 @@ class DateTimeWidget(gtk.HBox):
         if not button.get_active():
             return
 
-        window = gtk.Window()
+        window = Gtk.Window()
         window.set_size_request(300, 360)
         window.set_modal(True)
         window.set_transient_for(self.get_toplevel())
-        window.set_position(GTK_WIN_POS_CENTER_ON_PARENT)
+        window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         window.set_title('Selezione data e ora')
         window.connect("destroy", on_destroy)
-        vbox = gtk.VBox()
+        vbox = Gtk.VBox()
 
-        self.calendar = gtk.Calendar()
-        self.spinButtonOra = gtk.SpinButton(digits=0)
+        self.calendar = Gtk.Calendar()
+        self.spinButtonOra = Gtk.SpinButton(digits=0)
         self.spinButtonOra.set_numeric(True)
         self.spinButtonOra.set_wrap(True)
         self.spinButtonOra.set_range(0,23)
         self.spinButtonOra.set_increments(1,1)
-        self.spinButtonMinuti = gtk.SpinButton(digits=0)
+        self.spinButtonMinuti = Gtk.SpinButton(digits=0)
         self.spinButtonMinuti.set_numeric(True)
         self.spinButtonMinuti.set_wrap(True)
         self.spinButtonMinuti.set_range(0,59)
@@ -118,47 +118,47 @@ class DateTimeWidget(gtk.HBox):
                 pass
 
         self.calendar.connect('day-selected-double-click', confirmAction)
-        alignment = gtk.Alignment()
+        alignment = Gtk.Alignment()
         alignment.set(1, 1, 1, 1)
         alignment.set_padding(6, 2, 2, 2)
         alignment.add(self.calendar)
-        frame = gtk.Frame()
+        frame = Gtk.Frame()
         frame.set_label('Data: ')
         frame.set_label_align(0,1)
         frame.set_border_width(6)
         frame.add(alignment)
         vbox.pack_start(frame, True, True, 3)
 
-        separator = gtk.HSeparator()
+        separator = Gtk.HSeparator()
         vbox.pack_start(separator, False, False, 0)
 
-        hbox = gtk.HBox()
-        label = gtk.Label(':')
+        hbox = Gtk.Box()
+        label = Gtk.Label(':')
         hbox.pack_start(self.spinButtonOra, False, False, 0)
         hbox.pack_start(label, False, False, 5)
         hbox.pack_start(self.spinButtonMinuti, False, False, 0)
-        alignment = gtk.Alignment()
+        alignment = Gtk.Alignment()
         alignment.set(1, 1, 1, 1)
         alignment.set_padding(3, 2, 2, 2)
         alignment.add(hbox)
-        frame = gtk.Frame()
+        frame = Gtk.Frame()
         frame.set_label('Ora: ')
         frame.set_label_align(0,1)
         frame.set_border_width(6)
         frame.add(alignment)
         vbox.pack_start(frame, False, False, 5)
 
-        bbox = gtk.HButtonBox()
-        buttonCorrente = gtk.Button(label='_Corrente', stock=None, use_underline=True)
+        bbox = Gtk.HButtonBox()
+        buttonCorrente = Gtk.Button(label='_Corrente', stock=None, use_underline=True)
         buttonCorrente.connect('clicked', currentAction)
-        buttonOk = gtk.Button(label='_Ok', stock=None, use_underline=True)
+        buttonOk = Gtk.Button(label='_Ok', stock=None, use_underline=True)
         buttonOk.connect('clicked', confirmAction)
-        buttonAnnulla = gtk.Button(label='_Annulla', stock=None, use_underline=True)
+        buttonAnnulla = Gtk.Button(label='_Annulla', stock=None, use_underline=True)
         buttonAnnulla.connect('clicked', cancelAction)
         bbox.add(buttonCorrente)
         bbox.add(buttonOk)
         bbox.add(buttonAnnulla)
-        bbox.set_layout(GTK_BUTTON_BOX_SPREAD)
+        bbox.set_layout(Gtk.ButtonsType.BOX_SPREAD)
         vbox.pack_start(bbox, False, False, 5)
 
         window.add(vbox)
@@ -188,7 +188,7 @@ class DateTimeWidget(gtk.HBox):
             size = -1
             parent = self.get_parent()
             if parent is not None:
-                if parent.__class__ is gtk.Alignment:
+                if parent.__class__ is Gtk.Alignment:
                     (width, heigth) = parent.get_size_request()
                     size = width
 
@@ -197,8 +197,8 @@ class DateTimeWidget(gtk.HBox):
 
     def my_focus_out_event(self, entry, event):
         #self.emit('focus_out_event', event)
-        event = GDK_EVENT(GDK_EVENTTYPE_FOCUS_CHANGE)
-        event.window = entry.get_window()  # the gtk.gdk.Window of the widget
+        event = Gdk.Event(Gdk.EventType._FOCUS_CHANGE)
+        event.window = entry.get_window()  # the Gtk.gdk.Window of the widget
         event.send_event = True  # this means you sent the event explicitly
         event.in_ = False  # False for focus out, True for focus in
 

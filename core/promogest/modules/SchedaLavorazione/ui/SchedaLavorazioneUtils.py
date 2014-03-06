@@ -27,7 +27,6 @@ import string, re, time, datetime, decimal
 from decimal import *
 from promogest import Environment
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 from promogest.modules.SchedaLavorazione.dao.SchedaOrdinazione import SchedaOrdinazione
 from promogest.modules.SchedaLavorazione.dao.ColoreStampa import ColoreStampa
 from promogest.modules.SchedaLavorazione.dao.CarattereStampa import CarattereStampa
@@ -43,7 +42,7 @@ def fillComboboxColoreStampa(combobox, filter=False):
     """
     Crea la combo dei colori per la stampa
     """
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     liss = ColoreStampa().select(denominazione=None,
                                         orderBy = None,
                                         offset = None,
@@ -57,18 +56,18 @@ def fillComboboxColoreStampa(combobox, filter=False):
         model.append((l, l.id, (l.denominazione or '')[0:20]))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
-#    if combobox.__class__ is gtk.ComboBoxEntry:
+#    if combobox.__class__ is Gtk.ComboBoxEntry:
 #        combobox.set_text_column(2)
 
 def fillComboboxCarattereStampa(combobox, filter=False):
     """
     Crea la combo dei caratteri per la stampa
     """
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     liss = CarattereStampa().select(denominazione=None,
                                     orderBy = None,
                                     offset = None,
@@ -82,11 +81,11 @@ def fillComboboxCarattereStampa(combobox, filter=False):
         model.append((l, l.id, (l.denominazione or '')[0:20]))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
-#    if combobox.__class__ is gtk.ComboBoxEntry:
+#    if combobox.__class__ is Gtk.ComboBoxEntry:
 #        combobox.set_text_column(2)
 
 
@@ -95,7 +94,7 @@ def fillComboboxAssociazioneArticoli(combobox, search_string=None):
     Riempie la combobox di selezione delle associazioni di articoli.
     Se la lista risultante ha un solo elemento, questo viene automaticamente selezionato.
     """
-    model = gtk.ListStore(object, str, str)
+    model = Gtk.ListStore(object, str, str)
     model.clear()
     liss = Articolo().select(node =True,
                             codiceEM=search_string,
@@ -108,10 +107,10 @@ def fillComboboxAssociazioneArticoli(combobox, search_string=None):
     for l in liss:
         model.append([l,l.codice, l.denominazione])
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 1)
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)

@@ -26,7 +26,6 @@ from promogest.dao.Chiamata import Chiamata
 from promogest.dao.Magazzino import Magazzino
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaStoccaggiFilter(AnagraficaFilter):

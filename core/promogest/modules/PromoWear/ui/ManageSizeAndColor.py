@@ -26,7 +26,6 @@ from decimal import *
 from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 from promogest.modules.PromoWear.ui.PromowearUtils import leggiArticoloPromoWear,\
                                                      leggiFornituraPromoWear
 
@@ -72,10 +71,10 @@ class ManageSizeAndColor(GladeWidget):
         visto che le ho
         """
         self.treeview = self.taglie_colori_treeview
-        rendererSx = gtk.CellRendererText()
+        rendererSx = Gtk.CellRendererText()
 
-        column = gtk.TreeViewColumn("Taglia", rendererSx, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn("Taglia", rendererSx, text=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.refresh, 'Taglia')
         column.set_resizable(True)
@@ -83,8 +82,8 @@ class ManageSizeAndColor(GladeWidget):
         column.set_min_width(40)
         self.treeview.append_column(column)
 
-        column = gtk.TreeViewColumn("Colore", rendererSx, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn("Colore", rendererSx, text=2)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.refresh, 'Colore')
         column.set_resizable(True)
@@ -92,64 +91,64 @@ class ManageSizeAndColor(GladeWidget):
         column.set_min_width(40)
         self.treeview.append_column(column)
 
-        cellspin = gtk.CellRendererSpin()
+        cellspin = Gtk.CellRendererSpin()
         cellspin.set_property("editable", True)
         cellspin.set_property("visible", True)
-        adjustment = gtk.Adjustment(1, 1, 1000,0.500,2)
+        adjustment = Gtk.Adjustment(1, 1, 1000,0.500,2)
         cellspin.set_property("adjustment", adjustment)
         cellspin.set_property("digits",3)
         cellspin.set_property("climb-rate",3)
         cellspin.connect('edited', self.on_column_quantita_edited, self.treeview, True)
-        column = gtk.TreeViewColumn('Quantità', cellspin, text=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Quantità', cellspin, text=3)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_resizable(True)
         column.set_expand(True)
         column.set_min_width(40)
         self.treeview.append_column(column)
 
 
-        cellspin = gtk.CellRendererSpin()
+        cellspin = Gtk.CellRendererSpin()
         cellspin.set_property("editable", True)
         cellspin.set_property("visible", True)
-        adjustment = gtk.Adjustment(1, 1, 100000,0.100,2)
+        adjustment = Gtk.Adjustment(1, 1, 100000,0.100,2)
         cellspin.set_property("adjustment", adjustment)
         cellspin.set_property("digits",3)
         cellspin.set_property("climb-rate",3)
         cellspin.connect('edited', self.on_column_prezzo_edited, self.treeview, True)
-        column = gtk.TreeViewColumn('Prezzo', cellspin, text=4)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Prezzo', cellspin, text=4)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_resizable(True)
         column.set_expand(True)
         column.set_min_width(60)
         self.treeview.append_column(column)
 
-        celltext = gtk.CellRendererText()
+        celltext = Gtk.CellRendererText()
         celltext.set_property("editable", True)
         celltext.set_property("visible", True)
         celltext.connect('edited', self.on_column_sconto_edited, self.treeview, True)
-        column = gtk.TreeViewColumn('Sconto', celltext, text=5)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Sconto', celltext, text=5)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_resizable(True)
         column.set_expand(True)
         column.set_min_width(50)
         self.treeview.append_column(column)
 
-        column = gtk.TreeViewColumn("Prezzo Netto", rendererSx, text=6)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn("Prezzo Netto", rendererSx, text=6)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_resizable(True)
         column.set_expand(True)
         column.set_min_width(60)
         self.treeview.append_column(column)
 
 
-        column = gtk.TreeViewColumn("Denominazione", rendererSx, text=7)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn("Denominazione", rendererSx, text=7)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_resizable(True)
         column.set_expand(True)
         column.set_min_width(80)
         self.treeview.append_column(column)
 
-        self._treeViewModel = gtk.ListStore(object,str,str,str,str,str,str,str)
+        self._treeViewModel = Gtk.ListStore(object,str,str,str,str,str,str,str)
         self.treeview.set_model(self._treeViewModel)
         self.refresh(None)
 

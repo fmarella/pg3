@@ -22,26 +22,26 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
+from gi.repository import Gtk
 from SignedDecimalEntryField import SignedDecimalEntryField
 
 
-class ScontoWidget(gtk.HBox):
+class ScontoWidget(Gtk.Box):
 # entryfield numerica con segno con possibilita' di scelta del tipo di sconto
     __gtype_name__ = 'ScontoWidget'
     discountTypeChars = ('p', 'P', 'v', 'V')
 
     def __init__(self, str1=None, str2=None, int1=None, int2=None):
-        gtk.HBox.__init__(self)
+        Gtk.Box.__init__(self)
         self.entry = SignedDecimalEntryField(str1, str2, int1, int2)
         self.entry.connect("key_press_event", self.do_key_press_event)
         self.entry.connect("focus_out_event", self.do_focus_out_event)
-        self.buttonPerc = gtk.RadioButton(label='%')
+        self.buttonPerc = Gtk.RadioButton(label='%')
         self.buttonPerc.connect('clicked', self._setFocus)
         self.buttonPerc.set_mode(False)
         self.buttonPerc.set_size_request(20, -1)
         self.buttonPerc.set_property('can-focus', False)
-        self.buttonVal = gtk.RadioButton(group=self.buttonPerc, label='E')
+        self.buttonVal = Gtk.RadioButton(group=self.buttonPerc, label='E')
         self.buttonVal.connect('clicked', self._setFocus)
         self.buttonVal.set_mode(False)
         self.buttonVal.set_size_request(20, -1)
@@ -56,7 +56,7 @@ class ScontoWidget(gtk.HBox):
 
 
     def do_key_press_event(self, widget, event):
-        keyname = gdk_keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
 #        print "AHAHAAHAHAHAHAAHAH", keyname
         if keyname not in self.entry.acceptedKeys:
             return True
@@ -115,7 +115,7 @@ class ScontoWidget(gtk.HBox):
             size = -1
             parent = self.get_parent()
             if parent is not None:
-                if parent.__class__ is gtk.Alignment:
+                if parent.__class__ is Gtk.Alignment:
                     (width, heigth) = parent.get_size_request()
                     size = width
 

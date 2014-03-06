@@ -31,7 +31,6 @@ from promogest.dao.ScontoFornitura import ScontoFornitura
 from promogest.dao.Articolo import Articolo
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaFornitureFilter(AnagraficaFilter):
@@ -61,7 +60,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         rendererDx.set_property('xalign', 1)
 
         column = gtk.TreeViewColumn('Fornitore', rendererSx, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         #column.connect("clicked", self._changeOrderBy, (self.joinT,Fornitore.ragione_sociale))
         column.set_resizable(True)
@@ -70,7 +69,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Codice articolo fornitore', rendererSx, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,Fornitura.codice_articolo_fornitore))
         column.set_resizable(True)
@@ -79,7 +78,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Codice articolo', rendererSx, text=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         #column.connect("clicked", self._changeOrderBy, (self.joinT2,Articolo.codice))
         column.set_resizable(True)
@@ -88,7 +87,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Articolo', rendererSx, text=4)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         #column.connect("clicked", self._changeOrderBy,(self.joinT2,Articolo.denominazione))
         column.set_resizable(True)
@@ -97,7 +96,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Data fornitura', rendererSx, text=5)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,Fornitura.data_fornitura))
         column.set_resizable(True)
@@ -106,7 +105,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Prezzo lordo', rendererDx, text=6)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,Fornitura.prezzo_lordo))
         column.set_resizable(True)
@@ -115,7 +114,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Prezzo netto', rendererDx, text=7)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,Fornitura.prezzo_netto))
         column.set_resizable(True)
@@ -124,7 +123,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
         treeview.append_column(column)
         if posso("PW"):
             column = gtk.TreeViewColumn('Gruppo taglia', rendererSx, text=8)
-            column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+            column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
             column.set_clickable(True)
             column.connect("clicked", self._changeOrderBy, 'denominazione_gruppo_taglia')
             column.set_resizable(True)
@@ -133,7 +132,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
             treeview.append_column(column)
 
             column = gtk.TreeViewColumn('Taglia', rendererSx, text=9)
-            column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+            column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
             column.set_clickable(True)
             column.connect("clicked", self._changeOrderBy, 'denominazione_taglia')
             column.set_resizable(True)
@@ -142,7 +141,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
             treeview.append_column(column)
 
             column = gtk.TreeViewColumn('Colore', rendererSx, text=10)
-            column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+            column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
             column.set_clickable(True)
             column.connect("clicked", self._changeOrderBy, 'denominazione_colore')
             column.set_resizable(True)
@@ -151,7 +150,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
             treeview.append_column(column)
 
             column = gtk.TreeViewColumn('Anno', rendererSx, text=11)
-            column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+            column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
             column.set_clickable(True)
             column.connect("clicked", self._changeOrderBy, 'anno')
             column.set_resizable(True)
@@ -160,7 +159,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
             treeview.append_column(column)
 
             column = gtk.TreeViewColumn('Stagione', rendererSx, text=12)
-            column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+            column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
             column.set_clickable(True)
             column.connect("clicked", self._changeOrderBy, 'stagione')
             column.set_resizable(True)
@@ -169,7 +168,7 @@ class AnagraficaFornitureFilter(AnagraficaFilter):
             treeview.append_column(column)
 
             column = gtk.TreeViewColumn('Genere', rendererSx, text=13)
-            column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+            column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
             column.set_clickable(True)
             column.connect("clicked", self._changeOrderBy, 'genere')
             column.set_resizable(True)

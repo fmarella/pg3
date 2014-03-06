@@ -34,7 +34,6 @@ from promogest import Environment
 from promogest.modules.SchedaLavorazione.dao.SchedaOrdinazione import SchedaOrdinazione
 from promogest.modules.SchedaLavorazione.dao.Datario import Datario
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 from SchedaLavorazioneUtils import fillComboboxColoreStampa, fillComboboxCarattereStampa, fillComboboxAssociazioneArticoli, fetch_date, get_nomi_sposi, create_schede_ordinazioni, getPrezzoNetto
 from AnagraficaSchedeOrdinazioniEdit import AnagraficaSchedeOrdinazioniEdit
 
@@ -67,9 +66,9 @@ class AnagraficaSchedeOrdinazioniFilter(AnagraficaFilter):
     def draw(self, cplx=False):
         treeview = self._anagrafica.anagrafica_filter_treeview
 
-        renderer = gtk.CellRendererText()
-        column = gtk.TreeViewColumn('Numero', renderer, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        renderer = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn('Numero', renderer, text=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy,(None, 'numero'))
         column.set_resizable(True)
@@ -77,8 +76,8 @@ class AnagraficaSchedeOrdinazioniFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Numero Ricevuta/Fattura', renderer, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Numero Ricevuta/Fattura', renderer, text=2)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'ricevuta_associata'))
         column.set_resizable(True)
@@ -86,8 +85,8 @@ class AnagraficaSchedeOrdinazioniFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Sposi', renderer, text=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Sposi', renderer, text=3)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'nomi_sposi'))
         column.set_resizable(True)
@@ -95,8 +94,8 @@ class AnagraficaSchedeOrdinazioniFilter(AnagraficaFilter):
         column.set_min_width(300)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Data Matrimonio', renderer, text=4)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Data Matrimonio', renderer, text=4)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy,(Datario, Datario.matrimonio))
         column.set_resizable(True)
@@ -104,8 +103,8 @@ class AnagraficaSchedeOrdinazioniFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Data Ordinazione', renderer, text=5, )
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Data Ordinazione', renderer, text=5, )
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (Datario, Datario.presa_in_carico))
         column.set_resizable(True)
@@ -113,8 +112,8 @@ class AnagraficaSchedeOrdinazioniFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Referente', renderer, text=6)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Referente', renderer, text=6)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'referente')
         column.set_resizable(True)
@@ -122,8 +121,8 @@ class AnagraficaSchedeOrdinazioniFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Colore Stampa', renderer, text=7)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Colore Stampa', renderer, text=7)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'colore_stampa')
         column.set_resizable(True)
@@ -131,8 +130,8 @@ class AnagraficaSchedeOrdinazioniFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Carattere Stampa', renderer, text=8)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Carattere Stampa', renderer, text=8)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'carattere_stampa')
         column.set_resizable(True)
@@ -140,15 +139,15 @@ class AnagraficaSchedeOrdinazioniFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Note', renderer, text=9)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Note', renderer, text=9)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.set_resizable(True)
         column.set_expand(False)
         column.set_min_width(100)
         treeview.append_column(column)
 
-        self._treeViewModel = gtk.ListStore(object, str, str, str, str, str, str, str, str, str)
+        self._treeViewModel = Gtk.ListStore(object, str, str, str, str, str, str, str, str, str)
         self._anagrafica.anagrafica_filter_treeview.set_model(self._treeViewModel)
 
         fillComboboxColoreStampa(self.colore_stampa_filter_combobox, filter=True)

@@ -24,7 +24,6 @@
 
 import subprocess
 from promogest import Environment
-from promogest.ui.gtk_compat import *
 from promogest.ui.AnagraficaComplessaEdit import AnagraficaEdit
 from promogest.ui.AnagraficaPGEdit import AnagraficaPGEdit
 import promogest.dao.Cliente
@@ -148,13 +147,8 @@ class AnagraficaClientiEdit(AnagraficaEdit, AnagraficaPGEdit):
             for c in model:
                 if c[0] == id:
                     return
-            if Environment.pg3:
-                ah = self.marcatore_add.get_stock()
-                anagPixbuf = self.marcatore_add.render_icon(ah[0], ah[1], None)
-            else:
-                image = gtk.Image()
-                anagPixbuf = image.render_icon(gtk.STOCK_ADD,
-                                                GTK_ICON_SIZE_BUTTON)
+            ah = self.marcatore_add.get_stock()
+            anagPixbuf = self.marcatore_add.render_icon(ah[0], ah[1], None)
             model.append((id, categoria, anagPixbuf, 'added'))
         self.categorie_treeview.get_selection().unselect_all()
 
@@ -165,14 +159,8 @@ class AnagraficaClientiEdit(AnagraficaEdit, AnagraficaPGEdit):
         id = findIdFromCombobox(
             self.id_categoria_cliente_customcombobox.combobox)
         if id is not None:
-            if Environment.pg3:
-                ah = self.marcatore_remove.get_stock()
-                anagPixbuf = self.marcatore_remove.render_icon(
-                                                        ah[0], ah[1], None)
-            else:
-                image = gtk.Image()
-                anagPixbuf = image.render_icon(gtk.STOCK_REMOVE,
-                                            GTK_ICON_SIZE_BUTTON)
+            ah = self.marcatore_remove.get_stock()
+            anagPixbuf = self.marcatore_remove.render_icon(ah[0], ah[1], None)
             model = self.categorie_treeview.get_model()
             for c in model:
                 if c[0] == id:
@@ -497,7 +485,7 @@ class AnagraficaClientiEdit(AnagraficaEdit, AnagraficaPGEdit):
             msg = 'Prima di poter visualizzare la registrazione documenti occorre salvare il cliente.\n Salvare? '
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
                 self.on_anagrafica_complessa_detail_dialog_response(
-                        self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                        self.dialogTopLevel, Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -523,7 +511,7 @@ class AnagraficaClientiEdit(AnagraficaEdit, AnagraficaPGEdit):
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
                 self.on_anagrafica_complessa_detail_dialog_response(
                     self.dialogTopLevel,
-                    GTK_RESPONSE_APPLY)
+                    Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -543,7 +531,7 @@ class AnagraficaClientiEdit(AnagraficaEdit, AnagraficaPGEdit):
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
                 self.on_anagrafica_complessa_detail_dialog_response(
                             self.dialogTopLevel,
-                            GTK_RESPONSE_APPLY)
+                            Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -581,7 +569,7 @@ class AnagraficaClientiEdit(AnagraficaEdit, AnagraficaPGEdit):
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
                 self.on_anagrafica_complessa_detail_dialog_response(
                     self.dialogTopLevel,
-                    GTK_RESPONSE_APPLY)
+                    Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -602,7 +590,7 @@ class AnagraficaClientiEdit(AnagraficaEdit, AnagraficaPGEdit):
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
                 self.on_anagrafica_complessa_detail_dialog_response(
                     self.dialogTopLevel,
-                    GTK_RESPONSE_APPLY)
+                    Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -631,7 +619,7 @@ class AnagraficaClientiEdit(AnagraficaEdit, AnagraficaPGEdit):
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
                 self.on_anagrafica_complessa_detail_dialog_response(
                     self.dialogTopLevel,
-                    GTK_RESPONSE_APPLY)
+                    Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return

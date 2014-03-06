@@ -27,7 +27,7 @@ from numpy import arange, sin, pi
 from matplotlib.backends.backend_gtkagg import FigureCanvasGTKAgg as FigureCanvas
 from matplotlib.backends.backend_gtkagg import NavigationToolbar2GTKAgg as NavigationToolbar
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
+*
 
 class chartViewer():
     def __init__(self,widget, func= None, daos = None):
@@ -47,8 +47,8 @@ class chartViewer():
         sw = gtk.ScrolledWindow()
         vbox.pack_start(sw, True, True, 0)
         sw.set_border_width (10)
-        sw.set_policy (hscrollbar_policy=GTK_POLICYTYPE_AUTOMATIC,
-               vscrollbar_policy=GTK_POLICYTYPE_ALWAYS)
+        sw.set_policy (hscrollbar_policy=Gtk.PolicyType.AUTOMATIC,
+               vscrollbar_policy=Gtk.PolicyType.ALWAYS)
 
         canvas = FigureCanvas(self.fig)  # a gtk.DrawingArea
 

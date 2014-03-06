@@ -22,7 +22,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
+from gi.repository import Gtk, Gdk
 from CustomEntryField import CustomEntryField
 from promogest import Environment
 from promogest.lib.utils import mN, setconf
@@ -41,7 +41,7 @@ class SignedMoneyEntryField(CustomEntryField):
 
 
     def my_key_press_event(self, widget, event):
-        keyname = gdk_keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname not in self.acceptedKeys:
             return True
         s = self.get_text()

@@ -22,14 +22,14 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
+from gi.repository import GObject, Gtk
 from promogest import Environment
 
-class CustomLabel(gtk.HBox):
+class CustomLabel(Gtk.Box):
 
-    __gsignals__ = {'clicked' : (GOBJECT_SIGNAL_RUNLAST,
-                            gobject.TYPE_OBJECT,
-                            (gobject.TYPE_OBJECT, ) )}
+    __gsignals__ = {'clicked' : (GObject.SignalFlags.RUN_LAST,
+                            GObject.TYPE_OBJECT,
+                            (GObject.TYPE_OBJECT, ) )}
 
     def __init__(self, buttonText=None, labelText=None):
         self._id = None
@@ -37,19 +37,19 @@ class CustomLabel(gtk.HBox):
         self._buttonText = buttonText or ''
         self._labelText = labelText or ''
 
-        gtk.HBox.__init__(self)
-        self.button = gtk.ToggleButton()
-        hbox = gtk.HBox()
-        self.image = gtk.Image()
-        pbuf = GDK_PIXBUF_NEW_FROM_FILE(Environment.guiDir + 'modifica16x16.png')
+        Gtk.Box.__init__(self)
+        self.button = Gtk.ToggleButton()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        self.image = Gtk.Image()
+        pbuf = GdkPixbuf.Pixbuf.new_from_file(Environment.guiDir + 'modifica16x16.png')
         self.image.set_from_pixbuf(pbuf)
         hbox.pack_start(self.image, False, False, 0)
-        self.buttonLabel = gtk.Label()
+        self.buttonLabel = Gtk.Label()
         self.buttonLabel.set_text(self._buttonText)
         hbox.pack_start(self.buttonLabel, False, False, 0)
         self.button.add(hbox)
 
-        self.label = gtk.Label()
+        self.label = Gtk.Label()
         self.label.set_property('xalign',0)
         self.label.set_text(self._labelText)
         self.pack_start(self.button, False, False, 0)
@@ -88,7 +88,7 @@ class CustomLabel(gtk.HBox):
             size = -1
             parent = self.get_parent()
             if parent is not None:
-                if parent.__class__ is gtk.Alignment:
+                if parent.__class__ is Gtk.Alignment:
                     (width, heigth) = parent.get_size_request()
                     size = width
 

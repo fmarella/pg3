@@ -22,9 +22,9 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
 import time, datetime
 import string
+from gi.repository import Gtk, Gdk, GObject
 from CustomEntryField import CustomEntryField
 
 
@@ -42,7 +42,7 @@ class DateEntryField(CustomEntryField):
 
 
     def my_key_press_event(self, widget, event):
-        keyname = gdk_keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname not in self.acceptedKeys:
             return True
         data = widget.get_text()
@@ -74,4 +74,4 @@ class DateEntryField(CustomEntryField):
         s = string.zfill(str(data.day), 2) + '/' + string.zfill(str(data.month),2) + '/' + string.zfill(str(data.year),4)
         self.set_text(s)
 
-#gobject.type_register(DateEntryField)
+GObject.type_register(DateEntryField)

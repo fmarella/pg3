@@ -22,8 +22,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-
-from promogest.ui.gtk_compat import *
+from gi.repository import Gtk
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.lib.utils import *
 from promogest import Environment
@@ -54,25 +53,25 @@ class Sconti(GladeWidget):
         self.valore_entry.grab_focus()
 
         treeview = self.sconti_treeview
-        rendererSx = gtk.CellRendererText()
-        rendererDx = gtk.CellRendererText()
+        rendererSx = Gtk.CellRendererText()
+        rendererDx = Gtk.CellRendererText()
         rendererDx.set_property('xalign', 1)
 
-        column = gtk.TreeViewColumn('Sconto', rendererDx, text=0)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Sconto', rendererDx, text=0)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Tipo', rendererSx, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Tipo', rendererSx, text=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(True)
         treeview.append_column(column)
 
-        model = gtk.ListStore(str, str)
+        model = Gtk.ListStore(str, str)
         model.clear()
 
         if sconti is None:
@@ -123,7 +122,7 @@ class Sconti(GladeWidget):
 
 
     def on_valore_entry_key_press_event(self, widget, event):
-        keyname = gdk_keyval_name(event.keyval)
+        keyname = Gdk.keyval_name(event.keyval)
         if keyname == 'Return' or keyname == 'KP_Enter':
             self.confirm_button.grab_focus()
             self.on_confirm_button_clicked(widget)

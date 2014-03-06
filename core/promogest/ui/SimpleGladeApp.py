@@ -22,8 +22,8 @@
 # USA
 
 
+from gi.repository import Gtk, Gdk
 from promogest import Environment
-from promogest.ui.gtk_compat import *
 from SimpleGladeWrapper import SimpleGladeWrapper
 
 __version__ = "1.0"
@@ -74,13 +74,13 @@ class SimpleGladeApp(SimpleGladeWrapper):
         Do not directly call this method in your programs.
         Use the method run() instead.
         """
-        if Environment.pg3:
-            gtk.main()
-        else:
-            gtk.gdk.threads_init()
-            gtk.gdk.threads_enter()
-            gtk.main()
-            gtk.gdk.threads_leave()
+        #if Environment.pg3:
+        Gtk.main()
+        #else:
+        #    gtk.gdk.threads_init()
+        #    gtk.gdk.threads_enter()
+        #    gtk.main()
+        #    gtk.gdk.threads_leave()
 
     def on_focus_in_event(self, widget, event):
         try:
@@ -93,33 +93,33 @@ class SimpleGladeApp(SimpleGladeWrapper):
         except:
             #print "DEFINIRE NELLA SEZIONE DOCUMENTI UN COLORE PER LE ENTRY CON color_text = #FFFFFF"
             color_text = "black"
-        widget.modify_base(GTK_STATE_NORMAL, GDK_COLOR_PARSE(color_base))
-        widget.modify_text(GTK_STATE_NORMAL, GDK_COLOR_PARSE(color_text))
+        widget.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse(color_base))
+        widget.modify_text(Gtk.StateType.NORMAL, Gdk.color_parse(color_text))
 
     def on_focus_out_event(self, widget, event):
         #widget.modify_fg(GTK_STATE_NORMAL, GDK_COLOR_PARSE("blue"))
         #widget.modify_bg(GTK_STATE_NORMAL, GDK_COLOR_PARSE("red"))
-        widget.modify_base(GTK_STATE_NORMAL, GDK_COLOR_PARSE("white"))
-        widget.modify_text(GTK_STATE_NORMAL, GDK_COLOR_PARSE("black"))
+        widget.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse("white"))
+        widget.modify_text(Gtk.StateType.NORMAL, Gdk.color_parse("black"))
 
     def insert_text_decimal(self, editable, new_text, new_text_length, position):
         """Questa funzione permette di far inserire in una entry solo
         numeri ed un punto """
         stringg = editable.get_text()
         if (new_text != "." or "." in stringg.strip()) and not (new_text.replace(".","").isdigit()):
-            editable.modify_base(GTK_STATE_NORMAL, GDK_COLOR_PARSE("red"))
+            editable.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse("red"))
             editable.emit_stop_by_name("insert_text")
         else:
-            editable.modify_base(GTK_STATE_NORMAL, GDK_COLOR_PARSE("#F9FBA7"))
+            editable.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse("#F9FBA7"))
 
     def insert_text_digits(self,editable, new_text, new_text_length, position):
         """questa funzione permette di inserire SOLO numeri"""
         stringg = editable.get_text()
         if not new_text.isdigit():
-            editable.modify_base(GTK_STATE_NORMAL, GDK_COLOR_PARSE("red"))
+            editable.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse("red"))
             editable.emit_stop_by_name("insert_text")
         else:
-            editable.modify_base(GTK_STATE_NORMAL, GDK_COLOR_PARSE("#F9FBA7"))
+            editable.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse("#F9FBA7"))
 
     def on_entry_focus_in_event(self, widget, event):
         """ QUI sembra che ci sia un problema con la conversione gi, perch
@@ -136,15 +136,15 @@ class SimpleGladeApp(SimpleGladeWrapper):
         except:
             #print "DEFINIRE NELLA SEZIONE DOCUMENTI UN COLORE PER LE ENTRY CON color_text = #FFFFFF"
             color_text = "black"
-        widget.modify_base(GTK_STATE_NORMAL, GDK_COLOR_PARSE(color_base))
-        widget.modify_text(GTK_STATE_NORMAL, GDK_COLOR_PARSE(color_text))
+        widget.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse(color_base))
+        widget.modify_text(Gtk.StateType.NORMAL, Gdk.color_parse(color_text))
 
 
     def on_entry_focus_out_event(self, widget, event):
         #widget.modify_fg(GTK_STATE_NORMAL, GDK_COLOR_PARSE("blue"))
         #widget.modify_bg(GTK_STATE_NORMAL, GDK_COLOR_PARSE("red"))
-        widget.modify_base(GTK_STATE_NORMAL, GDK_COLOR_PARSE("white"))
-        widget.modify_text(GTK_STATE_NORMAL, GDK_COLOR_PARSE("black"))
+        widget.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse("white"))
+        widget.modify_text(Gtk.StateType.NORMAL, Gdk.color_parse("black"))
 
     def run(self):
         """

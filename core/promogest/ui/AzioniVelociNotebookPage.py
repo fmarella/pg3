@@ -26,6 +26,7 @@ from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.ui.SendEmail import SendEmail
 
+
 class AzioniVelociNotebookPage(GladeWidget):
     """ Widget di configurazione del codice installazione e dei parametri
     di configurazione """

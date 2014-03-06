@@ -36,6 +36,38 @@ from sqlalchemy.exc import *
 from sqlalchemy.interfaces import ConnectionProxy
 #from promogest.preEnv import *
 
+
+def check_deps():
+    import sqlalchemy
+    if sqlalchemy.__version__ < "0.7.4":
+        print "[Error] outdate sqlalchemy version, aggiornare"
+    try:
+        import jinja2
+        import reportlab
+    except Exception as e:
+        if not preEnv.web:
+            msg = """ Manca la libreria python indicata qui in basso,
+            Su linux installarla singolarmente usando il software manager o yum o apt-get
+            Su windows provare a disinstallare e reinstallare il PromoGest
+            disattivando l'antivirus per qualche minuto
+
+            {0}""".format(str(e))
+            print msg
+    try:
+        import xhtml2pdf
+    except ImportError:
+        print "[Error] missing xhtml2pdf"
+    try:
+        import PyPDF2
+    except ImportError:
+        print "[Error] missing PyPDF2"
+    try:
+        import keyring
+    except ImportError:
+        pass
+
+check_deps()
+
 class MyProxy(ConnectionProxy):
 
     def cursor_execute(self, execute, cursor, statement, parameters, context, executemany):

@@ -21,7 +21,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
+from gi.repository import Gtk, GdkPixbuf
 from CustomLabel import CustomLabel
 from promogest import Environment
 from promogest.lib.utils import mN, setconf
@@ -31,7 +31,7 @@ class ScontiWidget(CustomLabel):
     __gtype_name__ = 'ScontiWidget'
     def __init__(self, str1=None, str2=None):
         CustomLabel.__init__(self, str1, str2)
-        pbuf = GDK_PIXBUF_NEW_FROM_FILE(Environment.guiDir + 'sconti16x16.png')
+        pbuf = GdkPixbuf.Pixbuf.new_from_file(Environment.guiDir + 'sconti16x16.png')
         self.image.set_from_pixbuf(pbuf)
 
         self._scontiPercentuali = True

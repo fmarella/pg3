@@ -20,7 +20,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-
 from AnagraficaComplessa import Anagrafica
 from promogest.ui.AnagraficaComplessaFilter import AnagraficaFilter
 from promogest.ui.AnagraficaComplessaEdit import AnagraficaEdit
@@ -32,7 +31,6 @@ from promogest.ui.Ricerca import Ricerca
 
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaMagazzini(Anagrafica):
@@ -187,7 +185,7 @@ Verrà aggiornata la precedente.""")
             if self.dao.id is None:
                 msg = 'Prima di poter inserire i contatti occorre salvare il magazzino.\n Salvare ?'
                 if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
-                    self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                    self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, Gtk.ResponseType.APPLY)
                 else:
                     toggleButton.set_active(False)
                     return

@@ -22,7 +22,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
 import os
 from datetime import datetime
 from promogest.ui.RicercaComplessaArticoli import RicercaComplessaArticoli
@@ -145,7 +144,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         cellspin.set_property('xalign', 1)
         cellspin.connect('edited', self.on_column_quantita_edited, treeview, True)
         column = gtk.TreeViewColumn('Quantità', cellspin, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.filter._changeOrderBy, (None, Inventario.quantita))
         column.set_resizable(True)
@@ -165,7 +164,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         cellspin1.connect('edited', self.on_column_valore_unitario_edited, treeview, True)
 
         column = gtk.TreeViewColumn('Val. unitario', cellspin1, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.filter._changeOrderBy, (None, Inventario.valore_unitario))
         column.set_resizable(True)
@@ -174,7 +173,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('U/B', rendererSx, text=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
 #        column.set_clickable(True)
 #        column.connect("clicked", self.filter._changeOrderBy, (Articolo, Articolo.unita_base))
         column.set_resizable(False)
@@ -183,7 +182,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Valorizza', rendererSx, text=4)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
 #        column.connect("clicked", self.filter._changeOrderBy, 'denominazione_breve_unita_base')
         column.set_resizable(False)
@@ -192,7 +191,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Data agg', rendererSx, text=5)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.filter._changeOrderBy, (None, Inventario.data_aggiornamento))
         column.set_resizable(True)
@@ -201,7 +200,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Cod. ART', rendererSx, text=6)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.filter._changeOrderBy,(Articolo, Articolo.codice))
         column.set_resizable(True)
@@ -210,7 +209,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Descriz', rendererSx, text=7)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.filter._changeOrderBy, (Articolo, Articolo.denominazione))
         column.set_resizable(True)
@@ -219,7 +218,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('C Barre', rendererSx, text=8)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         #column.connect("clicked", self.filter._changeOrderBy, (None, 'produttore'))
         column.set_resizable(True)
@@ -227,7 +226,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Produttore', rendererSx, text=9)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         #column.connect("clicked", self.filter._changeOrderBy, 'produttore')
         column.set_resizable(True)
@@ -235,7 +234,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Famiglia', rendererSx, text=10)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         #column.connect("clicked", self.filter._changeOrderBy, 'denominazione_famiglia')
         column.set_resizable(True)
@@ -243,7 +242,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Categoria', rendererSx, text=11)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         #column.connect("clicked", self.filter._changeOrderBy, 'denominazione_categoria')
         column.set_resizable(True)
@@ -251,7 +250,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Cod arti forn', rendererSx, text=12)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         #column.connect("clicked", self.filter._changeOrderBy, 'codice_articolo_fornitore')
         column.set_resizable(True)
@@ -426,7 +425,7 @@ class GestioneInventario(RicercaComplessaArticoli):
     def _changeTreeViewSelectionType(self):
         """ Imposta la modalita' di selezione nella treeview ad una sola riga """
         selection = self.filter.resultsElement.get_selection()
-        selection.set_mode(GTK_SELECTIONMODE_SINGLE)
+        selection.set_mode(Gtk.SelectionMode.SINGLE)
 
     def on_filter_field_changed(self, widget=None, event=None):
         """ Aggiorna il testo del riepilogo perche' almeno uno dei filtri propri e' cambiato """
@@ -722,11 +721,11 @@ class GestioneInventario(RicercaComplessaArticoli):
 
         fileDialog = gtk.FileChooserDialog(title='Esportazione inventario ',
                                            parent=self.getTopLevel(),
-                                           action=GTK_FILE_CHOOSER_ACTION_SAVE,
+                                           action=Gtk.FileChooserAction.SAVE,
                                            buttons=(gtk.STOCK_CANCEL,
-                                                    GTK_RESPONSE_CANCEL,
+                                                    Gtk.ResponseType.CANCEL,
                                                     gtk.STOCK_SAVE,
-                                                    GTK_RESPONSE_OK),
+                                                    Gtk.ResponseType.OK),
                                            backend=None)
 
 
@@ -746,7 +745,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         fileDialog.set_current_name('inv_' + Environment.workingYear + '.csv')
 
         response = fileDialog.run()
-        if response == GTK_RESPONSE_OK:
+        if response == Gtk.ResponseType.OK:
             filename = fileDialog.get_filename()
             fileDialog.destroy()
 
@@ -804,13 +803,13 @@ class GestioneInventario(RicercaComplessaArticoli):
         """ Valorizzazione inventario (modifica automatica del valore unitario) """
         dialog = gtk.Dialog('Attenzione',
                             self.getTopLevel(),
-                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
                             None)
         hbox = gtk.HBox()
-        image = GTK_IMAGE_NEW_FROM_STOCK(gtk.STOCK_DIALOG_QUESTION, GTK_ICON_SIZE_BUTTON)
+        image = Gtk.Image.new_from_stock(gtk.STOCK_DIALOG_QUESTION, Gtk.IconSize.BUTTON)
         image.set_padding(10, 10)
         label = gtk.Label('Verranno aggiornati i valori unitari non ancora\nspecificati secondo la modalita\' scelta.')
-        label.set_justify(GTK_JUSTIFICATION_LEFT)
+        label.set_justify(Gtk.Justification.LEFT)
         label.set_alignment(0, 0)
         label.set_padding(15, 10)
         hbox.pack_start(image, False, False, 0)

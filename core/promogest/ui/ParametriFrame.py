@@ -35,7 +35,6 @@ from promogest.ui.VistaPrincipale import VistaPrincipale
 from promogest.ui.SendEmail import SendEmail
 from promogest.lib.utils import hasAction, fenceDialog
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 import Login
 
 
@@ -70,8 +69,8 @@ class ParametriFrame(GladeWidget):
                 module_button.connect('clicked', self.on_module_button_clicked)
                 self.table10.attach(module_button,current_column, current_column+1,\
                                                 current_row,current_row+1,
-                                                xoptions=GTK_ATTACHOPTIONS_EXPAND|GTK_ATTACHOPTIONS_FILL,\
-                                                yoptions=GTK_ATTACHOPTIONS_FILL)
+                                                xoptions=Gtk.AttachOptions.EXPAND|Gtk.AttachOptions.FILL,\
+                                                yoptions=Gtk.AttachOptions.FILL)
                 current_row += 1
             return
         else:

@@ -22,28 +22,28 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
+from gi.repository import Gtk, Gdk, GdkPixbuf
 import time, datetime
 from DateEntryField import DateEntryField
 from promogest import Environment
 
 
-class DateWidget(gtk.HBox):
+class DateWidget(Gtk.Box):
 # dateentryfield con possibilita' di scelta dal calendario
     __gtype_name__ = 'DateWidget'
     def __init__(self, str1=None, str2=None, int1=None, int2=None, futurecheck=None):
         self.futurecheck = futurecheck
-        gtk.HBox.__init__(self)
+        Gtk.Box.__init__(self)
         self.entry = DateEntryField(str1, str2, int1, int2)
-        self.button = gtk.ToggleButton()
+        self.button = Gtk.ToggleButton()
         self.button.set_property("can-focus", False)
-        self.button2 = gtk.Button()
+        self.button2 = Gtk.Button()
         self.button2.set_property("can-focus", False)
-        image = gtk.Image()
-        pbuf = GDK_PIXBUF_NEW_FROM_FILE(Environment.guiDir + 'calendario16x16.png')
+        image = Gtk.Image()
+        pbuf = GdkPixbuf.Pixbuf.new_from_file(Environment.guiDir + 'calendario16x16.png')
         image.set_from_pixbuf(pbuf)
-        image2 = gtk.Image()
-        pbuf2 = GDK_PIXBUF_NEW_FROM_FILE(Environment.guiDir + 'conferma12x12.png')
+        image2 = Gtk.Image()
+        pbuf2 = GdkPixbuf.Pixbuf.new_from_file(Environment.guiDir + 'conferma12x12.png')
         image2.set_from_pixbuf(pbuf2)
         self.button.add(image)
         self.button2.add(image2)
@@ -74,11 +74,11 @@ class DateWidget(gtk.HBox):
                 data = datetime.datetime.now()
                 if (year, month+1, day)>(data.year,data.month,data.day) and self.futurecheck==None:
                     msg = "Attenzione, hai selezionato una data futura\nSi desidera forzare la scelta ?"
-                    dialog = gtk.MessageDialog(None, GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                        GTK_DIALOG_MESSAGE_QUESTION, GTK_BUTTON_YES_NO, msg)
+                    dialog = Gtk.MessageDialog(None, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                        Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, msg)
                     response = dialog.run()
                     dialog.destroy()
-                    if response == GTK_RESPONSE_YES:
+                    if response == Gtk.ResponseType.YES:
                         day = '%02d' % int(day)
                         month = '%02d' % int(month + 1)
                         year = '%04d' % int(year)
@@ -112,16 +112,16 @@ class DateWidget(gtk.HBox):
         if not button.get_active():
             return
 
-        window = gtk.Window()
+        window = Gtk.Window()
         window.set_size_request(300, 260)
         window.set_modal(True)
         window.set_transient_for(self.get_toplevel())
-        window.set_position(GTK_WIN_POS_CENTER_ON_PARENT)
+        window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         window.set_title('Selezione data')
         window.connect("destroy", on_destroy)
-        vbox = gtk.VBox()
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
-        self.calendar = gtk.Calendar()
+        self.calendar = Gtk.Calendar()
         currentDate = self.entry.get_text()
         if not(currentDate is None or currentDate == ''):
             try:
@@ -135,20 +135,20 @@ class DateWidget(gtk.HBox):
         self.calendar.connect('day-selected-double-click', confirmAction)
         vbox.pack_start(self.calendar, True, True, 0)
 
-        separator = gtk.HSeparator()
+        separator = Gtk.HSeparator()
         vbox.pack_start(separator, False, False, 5)
 
-        bbox = gtk.HButtonBox()
-        buttonCorrente = gtk.Button(label='_Corrente', stock=None, use_underline=True)
+        bbox = Gtk.HButtonBox()
+        buttonCorrente = Gtk.Button(label='_Corrente', stock=None, use_underline=True)
         buttonCorrente.connect('clicked', currentAction)
-        buttonOk = gtk.Button(label='_Ok', stock=None, use_underline=True)
+        buttonOk = Gtk.Button(label='_Ok', stock=None, use_underline=True)
         buttonOk.connect('clicked', confirmAction)
-        buttonAnnulla = gtk.Button(label='_Annulla', stock=None, use_underline=True)
+        buttonAnnulla = Gtk.Button(label='_Annulla', stock=None, use_underline=True)
         buttonAnnulla.connect('clicked', cancelAction)
         bbox.add(buttonCorrente)
         bbox.add(buttonOk)
         bbox.add(buttonAnnulla)
-        bbox.set_layout(GTK_BUTTON_BOX_SPREAD)
+        bbox.set_layout(Gtk.ButtonsType.BOX_SPREAD)
         vbox.pack_start(bbox, False, False, 5)
 
         window.add(vbox)
@@ -178,7 +178,7 @@ class DateWidget(gtk.HBox):
             size = -1
             parent = self.get_parent()
             if parent is not None:
-                if parent.__class__ is gtk.Alignment:
+                if parent.__class__ is Gtk.Alignment:
                     (width, heigth) = parent.get_size_request()
                     size = width
 
@@ -187,8 +187,8 @@ class DateWidget(gtk.HBox):
 
     def my_focus_out_event(self, entry, event):
         #self.emit('focus_out_event', event)
-        event = GDK_EVENT(GDK_EVENTTYPE_FOCUS_CHANGE)
-        event.window = entry.get_window()  # the gtk.gdk.Window of the widget
+        event = Gdk.Event(Gdk.EventType._FOCUS_CHANGE)
+        event.window = entry.get_window()  # the Gtk.gdk.Window of the widget
         event.send_event = True  # this means you sent the event explicitly
         event.in_ = False  # False for focus out, True for focus in
 

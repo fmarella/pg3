@@ -120,7 +120,7 @@ class AnagraficaPrimaNotaEdit(AnagraficaEdit):
         self.id_banca_combobox.set_active(-1)
         textview_set_text(self.note_textview, '')
         self.aggiungi_button.set_label("Aggiungi")
-        image = GTK_IMAGE_NEW_FROM_STOCK(gtk.STOCK_ADD, GTK_ICON_SIZE_BUTTON)
+        image = Gtk.Image.new_from_stock(gtk.STOCK_ADD, Gtk.IconSize.BUTTON)
         self.aggiungi_button.set_image(image)
 
     def on_aggiungi_button_clicked(self, button):
@@ -230,7 +230,7 @@ class AnagraficaPrimaNotaEdit(AnagraficaEdit):
 
     def on_riga_primanota_treeview_row_activated(self, treeview, path, column):
         self.aggiungi_button.set_label("Aggiorna")
-        image = GTK_IMAGE_NEW_FROM_STOCK(gtk.STOCK_REFRESH, GTK_ICON_SIZE_BUTTON)
+        image = Gtk.Image.new_from_stock(gtk.STOCK_REFRESH, Gtk.IconSize.BUTTON)
         self.aggiungi_button.set_image(image)
         sel = self.riga_primanota_treeview.get_selection()
         (model, iterator) = sel.get_selected()

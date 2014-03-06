@@ -42,7 +42,6 @@ from promogest.dao.CategoriaArticolo import CategoriaArticolo
 from promogest.dao.ClienteCategoriaCliente import ClienteCategoriaCliente
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 from promogest.dao.DaoUtils import *
 from promogest.lib.HtmlViewer import HtmlViewer
 from promogest.lib.relativedelta import relativedelta
@@ -101,21 +100,21 @@ class StatisticaGenerale(GladeWidget):
         """ Disegnamo le colonne della treeview delle statistiche """
         self.treeview = self.show_treeview
 
-        cellspin = gtk.CellRendererToggle()
+        cellspin = Gtk.CellRendererToggle()
         cellspin.set_property('activatable', True)
         cellspin.connect('toggled', self.on_column_selected_edited, self.treeview, True)
-        column = gtk.TreeViewColumn('Seleziona', cellspin)
+        column = Gtk.TreeViewColumn('Seleziona', cellspin)
         column.add_attribute( cellspin, "active", 1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_resizable(True)
         self.treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', False)
         renderer.set_data('column', 0)
         renderer.set_data('max_length', 200)
-        column = gtk.TreeViewColumn('Descrizione', renderer, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Descrizione', renderer, text=2)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(True)
@@ -123,7 +122,7 @@ class StatisticaGenerale(GladeWidget):
 
         self.treeview.set_search_column(2)
 
-        self._treeViewModel = gtk.ListStore(object, bool, str, str)
+        self._treeViewModel = Gtk.ListStore(object, bool, str, str)
         self.treeview.set_model(self._treeViewModel)
         self._refresh()
 

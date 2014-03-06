@@ -31,7 +31,6 @@ from promogest.modules.PromoWear.dao.GruppoTaglia import GruppoTaglia
 from promogest.modules.PromoWear.dao.GruppoTagliaTaglia import GruppoTagliaTaglia
 from promogest.modules.PromoWear.ui.PromowearUtils import *
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaTaglie(Anagrafica):
@@ -94,25 +93,25 @@ class AnagraficaTaglieFilter(AnagraficaFilter):
         # Colonne della Treeview per il filtro
         treeview = self._anagrafica.anagrafica_filter_treeview
 
-        renderer = gtk.CellRendererText()
-        column = gtk.TreeViewColumn('Descrizione', renderer, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        renderer = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn('Descrizione', renderer, text=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(True)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
-        column = gtk.TreeViewColumn('Descrizione breve', renderer, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        renderer = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn('Descrizione breve', renderer, text=2)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererPixbuf()
-        column = gtk.TreeViewColumn('', renderer, pixbuf=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        renderer = Gtk.CellRendererPixbuf()
+        column = Gtk.TreeViewColumn('', renderer, pixbuf=3)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(False)
         column.set_expand(False)
@@ -186,9 +185,9 @@ class AnagraficaTaglieFilter(AnagraficaFilter):
             found = denominazione.upper() in c.denominazione.upper()
 
         if found:
-            image = gtk.Image()
-            anagPixbuf = image.render_icon(gtk.STOCK_GO_BACK,
-                                           GTK_ICON_SIZE_BUTTON)
+            image = Gtk.Image()
+            anagPixbuf = image.render_icon(Gtk.STOCK_GO_BACK,
+                                           Gtk.IconSize.BUTTON)
             model.set_value(iter, 3, anagPixbuf)
             self._anagrafica.anagrafica_filter_treeview.expand_to_path(path)
         else:

@@ -19,7 +19,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
 from promogest.ui.AnagraficaSemplice import Anagrafica, AnagraficaDetail, AnagraficaFilter
 from promogest.modules.InfoPeso.dao.TipoTrattamento import TipoTrattamento
 from promogest.lib.utils import *
@@ -39,13 +38,13 @@ class AnagraficaTipoTrattamento(Anagrafica):
         # Colonne della Treeview per il filtro/modifica
         treeview = self.anagrafica_treeview
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', False)
         renderer.connect('edited', self.on_column_edited, treeview, True)
         renderer.set_data('column', 0)
         renderer.set_data('max_length', 200)
-        column = gtk.TreeViewColumn('Descrizione', renderer, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Descrizione', renderer, text=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'denominazione'))
         column.set_resizable(True)
@@ -54,7 +53,7 @@ class AnagraficaTipoTrattamento(Anagrafica):
 
         treeview.set_search_column(1)
 
-        self._treeViewModel = gtk.ListStore(object, str)
+        self._treeViewModel = Gtk.ListStore(object, str)
         treeview.set_model(self._treeViewModel)
 
         self.refresh()

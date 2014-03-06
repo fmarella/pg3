@@ -23,7 +23,6 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from promogest.ui.AnagraficaComplessaEdit import AnagraficaEdit
-from promogest.ui.gtk_compat import *
 from promogest import Environment
 import promogest.dao.Fornitura
 import promogest.dao.Articolo
@@ -371,7 +370,7 @@ class AnagraficaArticoliEdit(AnagraficaEdit):
         if self.dao.id is None:
             msg = 'Prima di poter inserire i codici a barre occorre salvare l\' articolo.\n Salvare ?'
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
-                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -390,7 +389,7 @@ class AnagraficaArticoliEdit(AnagraficaEdit):
         if self.dao.id is None:
             msg = 'Prima di poter inserire i multipli occorre salvare l\' articolo.\n Salvare ?'
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
-                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -409,7 +408,7 @@ class AnagraficaArticoliEdit(AnagraficaEdit):
         if self.dao.id is None:
             msg = 'Prima di poter inserire i dati di stoccaggio occorre salvare l\' articolo.\n Salvare ?'
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
-                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -431,7 +430,7 @@ class AnagraficaArticoliEdit(AnagraficaEdit):
                    + 'salvare l\' articolo.\n Salvare ?')
 
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
-                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -453,7 +452,7 @@ class AnagraficaArticoliEdit(AnagraficaEdit):
                    + 'salvare l\' articolo.\n Salvare ?')
 
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
-                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -477,7 +476,7 @@ class AnagraficaArticoliEdit(AnagraficaEdit):
                    + 'salvare l\' articolo.\n Salvare ?')
 
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
-                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -496,7 +495,7 @@ class AnagraficaArticoliEdit(AnagraficaEdit):
         if self.dao.id is None:
             msg = 'Prima di poter inserire i listini occorre salvare l\' articolo.\n Salvare ?'
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
-                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -515,7 +514,7 @@ class AnagraficaArticoliEdit(AnagraficaEdit):
         if self.dao.id is None:
             msg = 'Prima di poter stampare una label occorre salvare l\' articolo.\n Salvare ?'
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
-                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -602,7 +601,7 @@ class AnagraficaArticoliEdit(AnagraficaEdit):
 da PLUS a NORMALE questo comporta la perdita
 dei dati accessori. Continuare?"""
                     if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
-                        #self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                        #self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, Gtk.ResponseType.APPLY)
                         self.id_anno_combobox.set_active(-1)
                         self.id_genere_combobox.set_active(-1)
                         self.id_stagione_combobox.set_active(-1)
@@ -676,7 +675,7 @@ dei dati accessori. Continuare?"""
             msg = 'Prima di poter inserire taglie, colori e codici a barre occorre salvare l\' articolo.\n Salvare ?'
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
                 try:
-                    self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                    self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, Gtk.ResponseType.APPLY)
                 except:
                     toggleButton.set_active(False)
                     return

@@ -23,12 +23,9 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from promogest.ui.GladeWidget import GladeWidget
-
 from promogest import Environment
 from promogest.dao.ListinoArticolo import ListinoArticolo
-
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 
 
 class VariazioneListini(GladeWidget):
@@ -59,7 +56,7 @@ class VariazioneListini(GladeWidget):
         renderer.connect('toggled', self.on_selected, treeview.get_model())
         renderer.set_data('column', 1)
         column = gtk.TreeViewColumn('Seleziona', renderer, active=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self.sel_unsel_all)
         column.set_resizable(True)
@@ -67,56 +64,56 @@ class VariazioneListini(GladeWidget):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Listino', rendererSx, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(True)
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Costo base', rendererDx, text=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('% Ricar. dettaglio', rendererDx, text=4)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('% Marg. dettaglio', rendererDx, text=5)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Prezzo dettaglio', rendererDx, text=6)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('% Ricar. ingrosso', rendererDx, text=7)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('% Marg. ingrosso', rendererDx, text=8)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Prezzo ingrosso', rendererDx, text=9)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(False)

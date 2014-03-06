@@ -44,7 +44,6 @@ from promogest.lib.utils import *
 
 from datetime import datetime
 from decimal import Decimal
-from promogest.ui.gtk_compat import *
 import simplejson as json
 
 class ImportJsonDocumenti(GladeWidget):

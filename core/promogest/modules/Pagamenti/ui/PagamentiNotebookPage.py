@@ -21,7 +21,6 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 import datetime
-from promogest.ui.gtk_compat import *
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
 from promogest import Environment
@@ -104,7 +103,7 @@ class PagamentiNotebookPage(GladeWidget):
         dao.data = datetime.datetime.now()
         pag_w.fill(dao)
         self.rate.append(pag_w)
-        self.scadenze_notebook.insert_page(pag_w.getTopLevel(), gtk.Label(pag_w.label), -1)
+        self.scadenze_notebook.insert_page(pag_w.getTopLevel(), Gtk.Label(pag_w.label), -1)
         self.scadenze_notebook.set_current_page(-1)
 
     def on_rimuovi_rate_button_clicked(self, button):
@@ -247,7 +246,7 @@ un importo in sospeso. Il documento, per poter essere collegato, deve essere com
             dao = self.acconto.get()
             dao.data = datetime.datetime.now()
             self.acconto.fill(dao)
-            self.scadenze_notebook.insert_page(self.acconto.getTopLevel(), gtk.Label(self.acconto.label), 0)
+            self.scadenze_notebook.insert_page(self.acconto.getTopLevel(), Gtk.Label(self.acconto.label), 0)
             self.scadenze_notebook.set_current_page(0)
         else:
             self.acconto_scheda_togglebutton.set_label(_('Acconto'))

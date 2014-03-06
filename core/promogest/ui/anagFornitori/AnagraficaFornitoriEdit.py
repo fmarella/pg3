@@ -30,7 +30,6 @@ from promogest.dao.daoContatti.ContattoFornitore import ContattoFornitore
 from promogest.dao.DaoUtils import *
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaFornitoriEdit(AnagraficaEdit, AnagraficaPGEdit):
@@ -167,7 +166,7 @@ class AnagraficaFornitoriEdit(AnagraficaEdit, AnagraficaPGEdit):
             msg = 'Prima di poter visualizzare la registrazione documenti occorre salvare il fornitore.\n Salvare? '
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
                 self.on_anagrafica_complessa_detail_dialog_response(
-                    self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                    self.dialogTopLevel, Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -195,7 +194,7 @@ class AnagraficaFornitoriEdit(AnagraficaEdit, AnagraficaPGEdit):
             if self.dao.id is None:
                 msg = 'Prima di poter inserire i contatti occorre salvare il fornitore.\n Salvare ?'
                 if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
-                    self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                    self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, Gtk.ResponseType.APPLY)
                 else:
                     toggleButton.set_active(False)
                     return
@@ -217,7 +216,7 @@ class AnagraficaFornitoriEdit(AnagraficaEdit, AnagraficaPGEdit):
         if self.dao.id is None:
             msg = 'Prima di poter inserire delle forniture occorre salvare il fornitore.\n Salvare ?'
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
-                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, GTK_RESPONSE_APPLY)
+                self.on_anagrafica_complessa_detail_dialog_response(self.dialogTopLevel, Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return

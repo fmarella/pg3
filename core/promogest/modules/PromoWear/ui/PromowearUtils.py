@@ -36,7 +36,6 @@ from promogest.modules.PromoWear.dao.ArticoloTagliaColore import ArticoloTagliaC
 import promogest.dao.Listino
 from promogest.lib.utils import findIdFromCombobox, findComboboxRowFromId, posso
 from promogest import Environment
-from promogest.ui.gtk_compat import *
 
 
 def leggiFornituraPromoWear(idArticolo, idFornitore=None, data=None, noPreferenziale=False):
@@ -248,7 +247,7 @@ def fillComboboxMultipli(combobox, idArticolo=None, noSottoMultipli=False, filte
     Crea l'elenco dei multipli
     """
 
-    model = gtk.ListStore(object, int, str, float)
+    model = Gtk.ListStore(object, int, str, float)
     # multipli legati all'articolo
     muls = Multiplo().select(denominazione=None,
                                          idArticolo=idArticolo,
@@ -290,7 +289,7 @@ def fillComboboxMultipli(combobox, idArticolo=None, noSottoMultipli=False, filte
             pass
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
@@ -299,7 +298,7 @@ def fillComboboxListiniFiltrati(combobox, idArticolo=None, idMagazzino=None, idC
     """
     Crea l'elenco dei listini
     """
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     liss = Environment.connection.execStoredProcedure('ListinoCandidateSel',
                                                       (None, idArticolo, idMagazzino, idCliente))
 
@@ -327,7 +326,7 @@ def fillComboboxListiniFiltrati(combobox, idArticolo=None, idMagazzino=None, idC
             pass
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
@@ -336,7 +335,7 @@ def fillComboboxGruppiTaglia(combobox, filter=False, ignoraVuoti=False,
                              selectedId=None):
     # Crea l'elenco dei gruppi taglia
     selected = None
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     grts = GruppoTaglia().select(denominazione=None,
                                              orderBy = None,
                                              offset = None,
@@ -357,7 +356,7 @@ def fillComboboxGruppiTaglia(combobox, filter=False, ignoraVuoti=False,
             selected = currIdx
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
@@ -369,7 +368,7 @@ def fillComboboxGruppiTaglia(combobox, filter=False, ignoraVuoti=False,
 def fillComboboxTaglie(combobox, filter=False, idGruppoTaglia=None, ignore=[]):
     # Crea l'elenco delle taglie, ignorando quelle presenti nella lista ignore
 
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     if idGruppoTaglia is None:
         tags = Taglia().select(denominazione=None,
                                 orderBy = None,
@@ -401,7 +400,7 @@ def fillComboboxTaglie(combobox, filter=False, idGruppoTaglia=None, ignore=[]):
             model.append((t, t.id_taglia, (t.denominazione_taglia or '')[0:25]))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
@@ -410,7 +409,7 @@ def fillComboboxTaglie(combobox, filter=False, idGruppoTaglia=None, ignore=[]):
 def fillComboboxColori(combobox, filter=False, ignore=[]):
     # Crea l'elenco dei colori, ignorando quelli presenti nella lista ignore
 
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     cols = Colore().select( denominazione=None,
                                        orderBy = None,
                                        offset = None,
@@ -426,7 +425,7 @@ def fillComboboxColori(combobox, filter=False, ignore=[]):
         model.append((c, c.id, (c.denominazione or '')[0:25]))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
@@ -434,7 +433,7 @@ def fillComboboxColori(combobox, filter=False, ignore=[]):
 def fillComboboxModelli(combobox, filter=False, ignore=[]):
     # Crea l'elenco dei modelli, ignorando quelli presenti nella lista ignore
 
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     cols = Modello().select( denominazione=None,
                                        orderBy = None,
                                        offset = None,
@@ -448,7 +447,7 @@ def fillComboboxModelli(combobox, filter=False, ignore=[]):
         model.append((c, c.id, (c.denominazione or '')[0:25]))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
@@ -456,7 +455,7 @@ def fillComboboxModelli(combobox, filter=False, ignore=[]):
 def fillComboboxAnniAbbigliamento(combobox, filter=False):
     #crea l'elenco degli anni per l'abbigliamento
     res = AnnoAbbigliamento().select()
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
 
     if not filter:
         emptyRow = ''
@@ -467,7 +466,7 @@ def fillComboboxAnniAbbigliamento(combobox, filter=False):
         model.append((a, a.id, a.denominazione))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
@@ -476,7 +475,7 @@ def fillComboboxAnniAbbigliamento(combobox, filter=False):
 def fillComboboxStagioniAbbigliamento(combobox, filter=False):
     #crea l'elenco degli anni per l'abbigliamento
     res = StagioneAbbigliamento().select(batchSize=None)
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
 
     if not filter:
         emptyRow = ''
@@ -487,7 +486,7 @@ def fillComboboxStagioniAbbigliamento(combobox, filter=False):
         model.append((s, s.id, s.denominazione))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)
@@ -496,7 +495,7 @@ def fillComboboxStagioniAbbigliamento(combobox, filter=False):
 def fillComboboxGeneriAbbigliamento(combobox, filter=False):
     #crea l'elenco degli anni per l'abbigliamento
     res = GenereAbbigliamento().select(batchSize=None)
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
 
     if not filter:
         emptyRow = ''
@@ -507,7 +506,7 @@ def fillComboboxGeneriAbbigliamento(combobox, filter=False):
         model.append((g, g.id, g.denominazione))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)

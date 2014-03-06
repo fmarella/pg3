@@ -33,7 +33,6 @@ from promogest.dao.Magazzino import Magazzino
 from promogest.dao.Stoccaggio import Stoccaggio
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 from promogest.dao.DaoUtils import *
 
 
@@ -69,7 +68,7 @@ class StatisticheMagazzino(GladeWidget):
                 folder = os.environ['USERPROFILE']
         self.filechooserdialog_stats.set_current_folder(folder)
 
-        fltr = gtk.FileFilter()
+        fltr = Gtk.FileFilter()
         fltr.add_mime_type('application/csv')
         fltr.set_name('File CSV (*.csv)')
         self.filechooserdialog_stats.add_filter(fltr)

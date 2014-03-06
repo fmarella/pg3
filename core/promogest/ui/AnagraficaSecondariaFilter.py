@@ -20,7 +20,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-import gobject
+from gi.repository import GLib
 
 from promogest.ui.AnagraficaComplessaFilter import AnagraficaFilter
 from promogest.dao.PersonaGiuridica import PersonaGiuridica_
@@ -74,7 +74,7 @@ class AnagraficaSecondariaFilter(AnagraficaFilter):
         stringa = text.get_text()
         def bobo():
             self.refresh()
-        gobject.idle_add(bobo)
+        GLib.idle_add(bobo)
 
     def refresh(self):
         # Aggiornamento TreeView

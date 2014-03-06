@@ -22,7 +22,6 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from promogest import Environment
-from promogest.ui.gtk_compat import *
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.ui.SendEmail import SendEmail
 

@@ -22,7 +22,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-
 from promogest.ui.AnagraficaComplessaFilter import AnagraficaFilter
 from promogest import Environment
 from promogest.dao.daoAgenti.Agente import Agente

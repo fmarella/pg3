@@ -28,8 +28,6 @@ from promogest.ui.GladeWidget import GladeWidget
 from promogest.lib.utils import *
 from promogest import Environment
 
-from promogest.ui.gtk_compat import *
-
 
 class AnagraficaEdit(GladeWidget):
     """ Interfaccia di editing dell'anagrafica """
@@ -102,15 +100,15 @@ class AnagraficaEdit(GladeWidget):
 
     def on_ok_button_grab_focus(self, button):
         if self.dialog.ok_button.is_focus():
-            self.on_anagrafica_complessa_detail_dialog_response(self.dialog, GTK_RESPONSE_OK)
+            self.on_anagrafica_complessa_detail_dialog_response(self.dialog, Gtk.ResponseType.OK)
 
     def on_anagrafica_complessa_detail_dialog_response(self, dialog, responseId):
         """ Main function connected with ok applica and cancel in Anagrafica Edit"""
-        if responseId == GTK_RESPONSE_CANCEL:
+        if responseId == Gtk.ResponseType.CANCEL:
             #self.clearDao()
             self.setVisible(False)
-        elif responseId == GTK_RESPONSE_OK:
-            self.saveDao(tipo=GTK_RESPONSE_OK)
+        elif responseId == Gtk.ResponseType.OK:
+            self.saveDao(tipo=Gtk.ResponseType.OK)
             self._anagrafica.filter.refresh()
             self._anagrafica.filter.selectCurrentDao()
             self._anagrafica.filter.getSelectedDao()
@@ -118,8 +116,8 @@ class AnagraficaEdit(GladeWidget):
                 self.setDao(None)
             else:
                 self.setVisible(False)
-        elif responseId == GTK_RESPONSE_APPLY:
-            self.saveDao(tipo=GTK_RESPONSE_APPLY)
+        elif responseId == Gtk.ResponseType.APPLY:
+            self.saveDao(tipo=Gtk.ResponseType.APPLY)
             self._anagrafica.filter.refresh()
             self._anagrafica.filter.selectCurrentDao()
 

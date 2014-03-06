@@ -40,7 +40,7 @@ from promogest.dao.UtenteImmagine import UtenteImmagine
 from promogest.modules.GestioneFile.dao.Immagine import ImageFile
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
+
 
 class AnagraficaUtenti(Anagrafica):
     """ Anagrafica utenti """
@@ -71,10 +71,10 @@ class AnagraficaUtentiFilter(AnagraficaFilter):
     def draw(self, cplx=False):
         # Colonne della Treeview per il filtro
         treeview = self._anagrafica.anagrafica_filter_treeview
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
 
-        column = gtk.TreeViewColumn('Username', renderer, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Username', renderer, text=1)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None,'username'))
         column.set_resizable(True)
@@ -82,8 +82,8 @@ class AnagraficaUtentiFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('E-mail', renderer,text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('E-mail', renderer,text=2)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect('clicked', self._changeOrderBy, (None,'email'))
         column.set_resizable(True)
@@ -91,8 +91,8 @@ class AnagraficaUtentiFilter(AnagraficaFilter):
         column.set_min_width(100)
         treeview.append_column(column)
 
-        column = gtk.TreeViewColumn('Ruolo', renderer,text=3)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Ruolo', renderer,text=3)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect('clicked', self._changeOrderBy, 'ruolo')
         column.set_resizable(True)
@@ -102,7 +102,7 @@ class AnagraficaUtentiFilter(AnagraficaFilter):
 
         treeview.set_search_column(1)
 
-        self._treeViewModel = gtk.ListStore(object, str, str, str)
+        self._treeViewModel = Gtk.ListStore(object, str, str, str)
         self._anagrafica.anagrafica_filter_treeview.set_model(self._treeViewModel)
 
         self.clear()

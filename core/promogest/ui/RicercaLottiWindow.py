@@ -23,7 +23,6 @@
 import datetime
 
 from promogest import Environment as env
-from promogest.ui.gtk_compat import *
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.dao.RicercaLottiUtils import ricerca_lotto
 from promogest.lib.utils import pbar

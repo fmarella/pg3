@@ -57,7 +57,6 @@ from promogest.dao.TestataDocumento import TestataDocumento
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 from SchedaLavorazioneUtils import *
 #from widgets.SchedeOrdinazioniEditWidget import SchedeOrdinazioniEditWidget
 from DuplicaInFattura import DuplicaInFattura
@@ -109,11 +108,11 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
         fillComboboxColoreStampa(self.colore_stampa_combobox)
         treeview = self.articoli_treeview
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_data('column', 0)
         renderer.set_data('min_length', 150)
-        column = gtk.TreeViewColumn('Codice articolo', renderer, text=2)
-        column.set_sizing(GTK_COLUMN_FIXED)
+        column = Gtk.TreeViewColumn('Codice articolo', renderer, text=2)
+        column.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
         column.set_clickable(False)
         column.set_resizable(False)
         column.set_expand(False)
@@ -121,14 +120,14 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
         column.set_fixed_width(150)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', True)
         renderer.set_property('xalign', 0)
         renderer.connect('edited', self.on_column_edited, treeview, False)
         renderer.set_data('max_length', 200)
         renderer.set_data('column', 1)
-        column = gtk.TreeViewColumn('Descrizione', renderer, text=3)
-        column.set_sizing(GTK_COLUMN_FIXED)
+        column = Gtk.TreeViewColumn('Descrizione', renderer, text=3)
+        column.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
         column.set_clickable(False)
         column.set_resizable(True)
         column.set_expand(True)
@@ -136,12 +135,12 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
         column.set_min_width(300)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_data('column', 2)
         renderer.set_property('xalign', 0.5)
         renderer.set_data('min_length', 50)
-        column = gtk.TreeViewColumn('U.M.', renderer, text=4)
-        column.set_sizing(GTK_COLUMN_FIXED)
+        column = Gtk.TreeViewColumn('U.M.', renderer, text=4)
+        column.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
         column.set_clickable(False)
         column.set_resizable(False)
         column.set_expand(False)
@@ -149,17 +148,17 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
         column.set_fixed_width(50)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererSpin()
+        renderer = Gtk.CellRendererSpin()
         renderer.set_property('editable', True)
         renderer.set_property('xalign', 0.5)
-        adjustment = gtk.Adjustment(1, 1, 1000,1,2)
+        adjustment = Gtk.Adjustment(1, 1, 1000,1,2)
         renderer.set_property("adjustment", adjustment)
         renderer.set_property("digits",2)
         renderer.set_property("climb-rate",3)
         renderer.connect('edited', self.on_column_quantita_edited, treeview, False)
 
-        column = gtk.TreeViewColumn('Q.ta', renderer, text=5)
-        column.set_sizing(GTK_COLUMN_FIXED)
+        column = Gtk.TreeViewColumn('Q.ta', renderer, text=5)
+        column.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
         column.set_clickable(False)
         column.set_resizable(False)
         column.set_expand(False)
@@ -167,14 +166,14 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
         column.set_fixed_width(80)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', True)
         renderer.set_property('xalign', 1)
         renderer.connect('edited', self.on_column_edited, treeview, False)
         renderer.set_data('column', 4)
         renderer.set_data('max_length', 200)
-        column = gtk.TreeViewColumn('Prezzo lordo', renderer, text=6)
-        column.set_sizing(GTK_COLUMN_FIXED)
+        column = Gtk.TreeViewColumn('Prezzo lordo', renderer, text=6)
+        column.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
         column.set_clickable(False)
         column.set_resizable(False)
         column.set_expand(False)
@@ -182,12 +181,12 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
         column.set_fixed_width(100)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('xalign', 1)
         renderer.set_data('column', 5)
         renderer.set_data('max_length', 200)
-        column = gtk.TreeViewColumn('Prezzo netto', renderer, text=7)
-        column.set_sizing(GTK_COLUMN_FIXED)
+        column = Gtk.TreeViewColumn('Prezzo netto', renderer, text=7)
+        column.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
         column.set_clickable(False)
         column.set_resizable(False)
         column.set_expand(False)
@@ -195,11 +194,11 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
         column.set_fixed_width(100)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_data('column', 6)
         renderer.set_property('xalign', 1)
-        column = gtk.TreeViewColumn('Totale', renderer, text=8)
-        column.set_sizing(GTK_COLUMN_FIXED)
+        column = Gtk.TreeViewColumn('Totale', renderer, text=8)
+        column.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
         column.set_clickable(False)
         column.set_resizable(False)
         column.set_expand(False)
@@ -211,18 +210,18 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
 
         res = Operazione().select(segno="-",tipoPersonaGiuridica="", tipoOperazione="movimento")
 
-        model = gtk.ListStore(object, str, str)
+        model = Gtk.ListStore(object, str, str)
         for o in res:
             model.append((o, o.denominazione, (o.denominazione or '')[0:30]))
         self.fattura_toggle.set_active(True)
         self.id_operazione_combobox.set_sensitive(False)
         self.id_operazione_combobox.clear()
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         self.id_operazione_combobox.pack_start(renderer, True)
         self.id_operazione_combobox.add_attribute(renderer, 'text', 2)
         self.id_operazione_combobox.set_model(model)
 
-        self._articoliTreeviewModel = gtk.ListStore(object, str, str, str, str, str, str,str,str)
+        self._articoliTreeviewModel = Gtk.ListStore(object, str, str, str, str, str, str,str,str)
         self.articoli_treeview.set_model(self._articoliTreeviewModel)
 
         self.sconti_scheda_widget.button.connect('toggled',self.on_sconti_scheda_widget_button_toggled)
@@ -527,8 +526,8 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
                     elif len(result) > 1:
                         response = self.advertise("Attenzione! sono state individuate piu' schede lavorazione con questo numero.\nSi consiglia una verifica della situazione. Continuare comunque?")
                     else:
-                        response = GTK_RESPONSE_YES
-                    if response != GTK_RESPONSE_YES:
+                        response = Gtk.ResponseType.YES
+                    if response != Gtk.ResponseType.YES:
                         return
                     else:
                         self.dao.numero = int(self.numero_scheda_entry.get_text())
@@ -765,7 +764,7 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
         iterator = model.get_iter(path)
         column = cell.get_data('column')
         row = model[iterator]
-        if cell.__class__ is gtk.CellRendererText:
+        if cell.__class__ is Gtk.CellRendererText:
             try:
                 length = cell.get_data('max_length')
                 model.set_value(iterator, column+2, value[:length])
@@ -833,7 +832,7 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
                                         codice=codice,
                                         codiceABarre=codiceABarre,
                                         codiceArticoloFornitore=codiceArticoloFornitore)
-        anag.setTreeViewSelectionType(GTK_SELECTIONMODE_SINGLE)
+        anag.setTreeViewSelectionType(Gtk.SelectionMode.SINGLE)
 
         anagWindow = anag.getTopLevel()
         anagWindow.connect("hide",
@@ -1097,10 +1096,10 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
 
         if not Environment.conf.emailcompose:
             msg = '\nErrore nella apertura del client di posta Thunderbird\n controllare il file configure, GRAZIE'
-            overDialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL
-                                                | gtk.DIALOG_DESTROY_WITH_PARENT,
-                                                    gtk.MESSAGE_ERROR,
-                                                    gtk.BUTTONS_CANCEL, msg)
+            overDialog = Gtk.MessageDialog(None, Gtk.DIALOG_MODAL
+                                                | Gtk.DIALOG_DESTROY_WITH_PARENT,
+                                                    Gtk.MESSAGE_ERROR,
+                                                    Gtk.BUTTONS_CANCEL, msg)
             response = overDialog.run()
             overDialog.destroy()
             return

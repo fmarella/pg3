@@ -20,7 +20,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
 from promogest.lib.utils import *
 from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget
@@ -46,7 +45,7 @@ class DebugWindow(GladeWidget):
     def on_entry1_key_press_event(self, widget, event):
         buf = textview_get_text(self.textview1)
         if event.type == gtk.gdk.KEY_PRESS:
-            if gdk_keyval_name(event.keyval) == 'Return':
+            if Gdk.keyval_name(event.keyval) == 'Return':
                 cmd = self.entry1.get_text()
                 self.entry1.set_text('')
                 if cmd == 'god':
@@ -59,5 +58,5 @@ class DebugWindow(GladeWidget):
                     Environment.debugFilter = not Environment.debugFilter
                     buf += "\nFILTER={0}".format(Environment.debugFilter)
                 textview_set_text(self.textview1, buf)
-            elif gdk_keyval_name(event.keyval) == 'Escape':
+            elif Gdk.keyval_name(event.keyval) == 'Escape':
                 self.debug_window.hide()

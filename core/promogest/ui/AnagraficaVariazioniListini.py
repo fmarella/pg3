@@ -19,7 +19,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
 from AnagraficaComplessa import Anagrafica
 from promogest.ui.AnagraficaComplessaEdit import AnagraficaEdit
 from promogest.ui.AnagraficaComplessaReport import AnagraficaReport
@@ -62,7 +61,7 @@ class AnagraficaVariazioniListiniFilter(AnagraficaFilter):
         renderer = gtk.CellRendererText()
 
         column = gtk.TreeViewColumn('Denominazione', renderer, text=2, background=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None, 'denominazione'))
         column.set_resizable(True)
@@ -71,7 +70,7 @@ class AnagraficaVariazioniListiniFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Listino', renderer, text=3, background=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None, 'listino'))
         column.set_resizable(True)
@@ -80,7 +79,7 @@ class AnagraficaVariazioniListiniFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Data Inizio', renderer, text=4, background=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect('clicked', self._changeOrderBy, (None, 'data_inizio'))
         column.set_resizable(True)
@@ -89,7 +88,7 @@ class AnagraficaVariazioniListiniFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Data Fine', renderer, text=5, background=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect('clicked', self._changeOrderBy, (None, 'data_fine'))
         column.set_resizable(True)
@@ -98,7 +97,7 @@ class AnagraficaVariazioniListiniFilter(AnagraficaFilter):
         treeview.append_column(column)
 
         column = gtk.TreeViewColumn('Valore', renderer, text=6, background=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect('clicked', self._changeOrderBy, (None, 'valore'))
         column.set_resizable(True)

@@ -23,10 +23,10 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from promogest import Environment
-from promogest.ui.gtk_compat import *
+from gi.repository import GObject, Gtk, Gdk
 
 
-class CustomEntryField(gtk.Entry):
+class CustomEntryField(Gtk.Entry):
 
     controlKeys = ('Delete','KP_Delete','BackSpace','Tab','ISO_Left_Tab',
                    'Left','Right','Down','Up',
@@ -43,7 +43,7 @@ class CustomEntryField(gtk.Entry):
 #    specialKeys = ("F4")
 
     def __init__(self):
-        gtk.Entry.__init__(self)
+        Gtk.Entry.__init__(self)
         self.connect('key_press_event', self.my_key_press_event)
         self.connect('focus_out_event', self.my_focus_out_event)
         self.connect('paste_clipboard', self.my_paste_clipboard)
@@ -76,14 +76,14 @@ class CustomEntryField(gtk.Entry):
         except:
             #print "DEFINIRE NELLA SEZIONE DOCUMENTI UN COLORE PER LE ENTRY CON color_text = #FFFFFF"
             color_text = "black"
-        widget.modify_base(GTK_STATE_NORMAL, GDK_COLOR_PARSE(color_base))
-        widget.modify_text(GTK_STATE_NORMAL, GDK_COLOR_PARSE(color_text))
+        widget.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse(color_base))
+        widget.modify_text(Gtk.StateType.NORMAL, Gdk.color_parse(color_text))
 
     def on_focus_out_event(self, widget, event):
-        #widget.modify_fg(GTK_STATE_NORMAL, GDK_COLOR_PARSE("blue"))
-        #widget.modify_bg(GTK_STATE_NORMAL, GDK_COLOR_PARSE("red"))
-        widget.modify_base(GTK_STATE_NORMAL, GDK_COLOR_PARSE("white"))
-        widget.modify_text(GTK_STATE_NORMAL, GDK_COLOR_PARSE("black"))
+        #widget.modify_fg(GTK_STATE_NORMAL, Gdk.color_parse("blue"))
+        #widget.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("red"))
+        widget.modify_base(Gtk.StateType.NORMAL, Gdk.color_parse("white"))
+        widget.modify_text(Gtk.StateType.NORMAL, Gdk.color_parse("black"))
 
     def my_key_press_event(self, widget, event):
         pass
@@ -108,11 +108,11 @@ class CustomEntryField(gtk.Entry):
             size = -1
             parent = self.get_parent()
             if parent is not None:
-                if parent.__class__ is gtk.Alignment:
+                if parent.__class__ is Gtk.Alignment:
                     (width, heigth) = parent.get_size_request()
                     size = width
 
         self.set_size_request(size, -1)
 
 
-#gobject.type_register(CustomEntryField)
+GObject.type_register(CustomEntryField)

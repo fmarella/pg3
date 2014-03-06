@@ -21,7 +21,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
 from promogest.lib.utils import *
 from promogest.ui.GladeWidget import GladeWidget
 from promogest import Environment

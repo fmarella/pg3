@@ -39,7 +39,6 @@ from promogest.ui.anagDocumenti.AnagraficaDocumenti import *
 import promogest.modules.Pagamenti.dao.TestataDocumentoScadenza
 from promogest.modules.Pagamenti.dao.TestataDocumentoScadenza import TestataDocumentoScadenza
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 
 
 class DuplicazioneDocumento(GladeWidget):

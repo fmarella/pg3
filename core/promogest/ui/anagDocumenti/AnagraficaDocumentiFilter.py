@@ -23,8 +23,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-
-from promogest.ui.gtk_compat import *
 from promogest.ui.AnagraficaComplessaFilter import AnagraficaFilter
 from promogest.lib.utils import *
 from promogest.dao.TestataDocumento import TestataDocumento
@@ -55,7 +53,7 @@ class AnagraficaDocumentiFilter(AnagraficaFilter):
         Disegna colonne della Treeview per il filtro
         """
         treeselection = self.anagrafica_filter_treeview.get_selection()
-        treeselection.set_mode(GTK_SELECTIONMODE_MULTIPLE)
+        treeselection.set_mode(Gtk.SelectionMode.MULTIPLE)
 
         fillComboboxPagamenti(self.id_pagamento_filter_combobox)
         fillComboboxOperazioni(self.id_operazione_filter_combobox, 'documento',True, extra=True)

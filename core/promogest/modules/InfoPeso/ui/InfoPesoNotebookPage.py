@@ -20,7 +20,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-from promogest.ui.gtk_compat import *
 from promogest.lib.utils import *
 from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget
@@ -325,7 +324,7 @@ class InfoPesoNotebookPage(GladeWidget):
 
 def fillComboboxTipoTrattamento(combobox, filter=False):
     """ Riempi combo degli stadi commessa """
-    model = gtk.ListStore(object, int, str)
+    model = Gtk.ListStore(object, int, str)
     stcom = TipoTrattamento().select(batchSize=None)
     if not filter:
         emptyRow = ''
@@ -334,7 +333,7 @@ def fillComboboxTipoTrattamento(combobox, filter=False):
         model.append((c, c.id, (c.denominazione or '')[0:20]))
 
     combobox.clear()
-    renderer = gtk.CellRendererText()
+    renderer = Gtk.CellRendererText()
     combobox.pack_start(renderer, True)
     combobox.add_attribute(renderer, 'text', 2)
     combobox.set_model(model)

@@ -21,11 +21,11 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.ui.gtk_compat import *
+from gi.repository import GObject, Gtk, Gdk
 from promogest.lib.utils import *
 
 
-class CustomComboBoxSearch(gtk.Entry):
+class CustomComboBoxSearch(Gtk.Entry):
     __gtype_name__ = 'CustomComboBoxSearch'
 
     def __init__(self):
@@ -33,7 +33,7 @@ class CustomComboBoxSearch(gtk.Entry):
         self._container = None
         self.__rebuildList = False
         self._idChangedHandler = None
-        gtk.Entry.__init__(self)
+        Gtk.Entry.__init__(self)
         self.set_property("can-focus", True)
         self.connect("show", self.on_show)
         #self.connect('changed',
@@ -55,18 +55,15 @@ class CustomComboBoxSearch(gtk.Entry):
     def draw(self, filter=True, idType=None):
         self.__rebuildList = True
         if idType == 'str':
-            model = gtk.ListStore(str, str, str, object)
+            model = Gtk.ListStore(str, str, str, object)
         else:
-            model = gtk.ListStore(str, int, str, object)
+            model = Gtk.ListStore(str, int, str, object)
         #self.set_model(model)
         self.__model = model
 
-        self.completion = gtk.EntryCompletion()
+        self.completion = Gtk.EntryCompletion()
         self.completion.set_popup_single_match(True)
-        if Environment.pg3:
-            self.completion.set_match_func(self.match_func, None)
-        else:
-            self.completion.set_match_func(self.match_func)
+        self.completion.set_match_func(self.match_func, None)
         self.completion.connect('match-selected',
                          self.on_completion_match_main)
         self.completion.set_model(model)
@@ -234,7 +231,7 @@ class CustomComboBoxSearch(gtk.Entry):
             size = -1
             parent = self.get_parent()
             if parent is not None:
-                if parent.__class__ is gtk.Alignment:
+                if parent.__class__ is Gtk.Alignment:
                     (width, heigth) = parent.get_size_request()
                     size = width
 
@@ -249,4 +246,4 @@ class CustomComboBoxSearch(gtk.Entry):
         rowIndex = self.get_active()
         return ((rowIndex == -1) or (model[rowIndex][0] == 'empty'))
 
-gobject.type_register(CustomComboBoxSearch)
+GObject.type_register(CustomComboBoxSearch)

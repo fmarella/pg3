@@ -22,7 +22,6 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from AnagraficaComplessa import Anagrafica
-from promogest.ui.gtk_compat import *
 from promogest.ui.AnagraficaComplessaEdit import AnagraficaEdit
 from promogest.ui.AnagraficaComplessaReport import AnagraficaReport
 from promogest.ui.AnagraficaComplessaHtml import AnagraficaHtml
@@ -442,7 +441,7 @@ class AnagraficaListiniEdit(AnagraficaEdit):
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
                 self.on_anagrafica_complessa_detail_dialog_response(
                                 self.dialogTopLevel,
-                                GTK_RESPONSE_APPLY)
+                                Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return
@@ -470,7 +469,7 @@ class AnagraficaListiniEdit(AnagraficaEdit):
             if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
                 self.on_anagrafica_complessa_detail_dialog_response(
                                 self.dialogTopLevel,
-                                GTK_RESPONSE_APPLY)
+                                Gtk.ResponseType.APPLY)
             else:
                 toggleButton.set_active(False)
                 return

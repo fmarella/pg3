@@ -22,8 +22,6 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 import hashlib
-
-from promogest.ui.gtk_compat import *
 import os
 from datetime import datetime, timedelta
 from promogest import Environment

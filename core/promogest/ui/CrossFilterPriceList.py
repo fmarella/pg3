@@ -31,7 +31,6 @@ from promogest.dao.ListinoArticolo import ListinoArticolo
 from promogest.dao.CodiceABarreArticolo import CodiceABarreArticolo
 from promogest.dao.ListinoComplessoArticoloPrevalente import ListinoComplessoArticoloPrevalente
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 
 
 class CrossFilterPriceList(GladeWidget):

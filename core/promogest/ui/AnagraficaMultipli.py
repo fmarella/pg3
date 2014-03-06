@@ -33,7 +33,6 @@ from promogest.lib.utils import *
 from utilsCombobox import fillComboboxUnitaBase, findIdFromCombobox
 
 
-
 class AnagraficaMultipli(Anagrafica):
     """ Anagrafica multipli unita di misura """
 

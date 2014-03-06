@@ -21,7 +21,6 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from decimal import *
-from promogest.ui.gtk_compat import *
 import os
 from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget
@@ -48,14 +47,14 @@ class ManageLabelsToPrint(GladeWidget):
         self.revert_button.destroy()
         self.apply_button.destroy()
         self.mainWindow = mainWindow
-        self.completion = gtk.EntryCompletion()
+        self.completion = Gtk.EntryCompletion()
         if Environment.pg3:
             self.completion.set_match_func(self.match_func,None)
         else:
             self.completion.set_match_func(self.match_func)
         self.completion.connect("match-selected",
                                             self.on_completion_match)
-        listore = gtk.ListStore(str, object)
+        listore = Gtk.ListStore(str, object)
         self.completion.set_model(listore)
         self.completion.set_text_column(0)
         self.articolo_entry.set_completion(self.completion)
@@ -74,9 +73,9 @@ class ManageLabelsToPrint(GladeWidget):
             andranno poi in stampa
         """
         if posso("PW"):
-            self._treeViewModel = self.label_treestore # gtk.TreeStore(object,str,str,str,str,str)
+            self._treeViewModel = self.label_treestore # Gtk.TreeStore(object,str,str,str,str,str)
         else:
-            self._treeViewModel = self.label_liststore # gtk.ListStore(object,str,str,str,str,str)
+            self._treeViewModel = self.label_liststore # Gtk.ListStore(object,str,str,str,str,str)
         self.labels_treeview.set_model(self._treeViewModel)
         fillComboboxMagazzini(self.id_magazzino_label_combobox, True)
         if self.art:
@@ -272,7 +271,7 @@ class ManageLabelsToPrint(GladeWidget):
         stringa = text.get_text()
         if self.mattu:
             text.set_text(stringa.split(self.sepric)[0])
-        model = gtk.ListStore(str,object)
+        model = Gtk.ListStore(str,object)
         #vediamo = self.completion.get_model()
         #vediamo.clear()
         art = []

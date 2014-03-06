@@ -29,7 +29,6 @@ import promogest.dao.StatoArticolo
 from promogest.dao.StatoArticolo import StatoArticolo
 
 from promogest.lib.utils import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaStatiArticoli(Anagrafica):
@@ -59,7 +58,7 @@ class AnagraficaStatiArticoliFilter(AnagraficaFilter):
         renderer = gtk.CellRendererText()
 
         column = gtk.TreeViewColumn('Descrizione', renderer, text=1)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'denominazione')
         column.set_resizable(True)

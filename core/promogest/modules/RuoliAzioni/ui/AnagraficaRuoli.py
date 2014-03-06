@@ -26,7 +26,6 @@ from promogest import Environment
 from promogest.modules.RuoliAzioni.dao.Role import Role
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaRuoli(Anagrafica):
@@ -43,26 +42,26 @@ class AnagraficaRuoli(Anagrafica):
         # Colonne della Treeview per il filtro/modifica
         treeview = self.anagrafica_treeview
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', False)
         renderer.connect('edited', self.on_column_edited, treeview, True)
         renderer.set_data('column', 0)
         renderer.set_data('max_length', 50)
-        column = gtk.TreeViewColumn('Nome', renderer, text=1)
-        #column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Nome', renderer, text=1)
+        #column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, (None, 'denominazione'))
         column.set_resizable(True)
         column.set_expand(True)
         treeview.append_column(column)
 
-        renderer = gtk.CellRendererText()
+        renderer = Gtk.CellRendererText()
         renderer.set_property('editable', False)
         renderer.connect('edited', self.on_column_edited, treeview, False)
         renderer.set_data('column', 1)
         renderer.set_data('max_length', 250)
-        column = gtk.TreeViewColumn('Descrizione', renderer, text=2)
-        column.set_sizing(GTK_COLUMN_GROWN_ONLY)
+        column = Gtk.TreeViewColumn('Descrizione', renderer, text=2)
+        column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
         column.set_clickable(True)
         column.connect("clicked", self._changeOrderBy, 'Descrizione')
         column.set_resizable(True)
@@ -71,7 +70,7 @@ class AnagraficaRuoli(Anagrafica):
 
         treeview.set_search_column(1)
 
-        self._treeViewModel = gtk.ListStore(object, str, str)
+        self._treeViewModel = Gtk.ListStore(object, str, str)
         treeview.set_model(self._treeViewModel)
 
         self.refresh()

@@ -27,7 +27,6 @@ from promogest.ui.GladeWidget import GladeWidget
 from promogest import Environment
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 from promogest.dao.DaoUtils import *
 from promogest.lib.HtmlHandler import createHtmlObj, renderTemplate, renderHTML
 from promogest.lib.html2csv import html2csv
@@ -88,13 +87,13 @@ class HtmlViewer(GladeWidget):
 
     def on_csv_button_clicked(self, button):
 
-        fileDialog = gtk.FileChooserDialog(title='Salvataggio file csv',
+        fileDialog = Gtk.FileChooserDialog(title='Salvataggio file csv',
                                            parent=self.getTopLevel(),
-                                           action=GTK_FILE_CHOOSER_ACTION_SAVE,
-                                           buttons=(gtk.STOCK_CANCEL,
-                                                    GTK_RESPONSE_CANCEL,
-                                                    gtk.STOCK_SAVE,
-                                                    GTK_RESPONSE_OK),
+                                           action=Gtk.FileChooserAction.SAVE,
+                                           buttons=(Gtk.STOCK_CANCEL,
+                                                    Gtk.ResponseType.CANCEL,
+                                                    Gtk.STOCK_SAVE,
+                                                    Gtk.ResponseType.OK),
                                            backend=None)
         folder = ''
         try:
@@ -112,7 +111,7 @@ class HtmlViewer(GladeWidget):
 
         response = fileDialog.run()
 
-        if response == GTK_RESPONSE_OK:
+        if response == Gtk.ResponseType.OK:
             filename = fileDialog.get_filename()
             parser = html2csv()
             parser.feed(self.html)

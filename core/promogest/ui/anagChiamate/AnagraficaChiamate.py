@@ -30,7 +30,6 @@ from promogest.ui.anagChiamate.AnagraficaChiamateFilter import\
 
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaChiamate(Anagrafica):

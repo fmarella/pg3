@@ -27,6 +27,7 @@ from promogest.dao.SectionUser import SectionUser
 from promogest.ui.GladeWidget import GladeWidget
 import datetime
 
+
 class SetConfUI(GladeWidget):
     """ Widget di configurazione del codice installazione e dei parametri
     di configurazione """

@@ -24,7 +24,6 @@ from promogest.ui.AnagraficaComplessaEdit import AnagraficaEdit
 from promogest.dao.Chiamate import Chiamate
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from promogest.ui.gtk_compat import *
 
 
 class AnagraficaChiamateEdit(AnagraficaEdit):

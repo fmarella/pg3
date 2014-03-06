@@ -19,7 +19,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-from promogest.ui.gtk_compat import *
 from promogest.lib.utils import *
 #from promogest.dao.Setconf import SetConf
 from promogest import Environment

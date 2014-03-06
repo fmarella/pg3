@@ -30,7 +30,7 @@ import os.path
 import subprocess
 import webbrowser
 from hashlib import md5
-from promogest.ui.gtk_compat import *
+from gi.repository import Gtk, Gdk
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.ui.widgets.FilterWidget import FilterWidget
 from promogest.lib.utils import *
@@ -51,7 +51,7 @@ def get_selected_daos(treeview):
     sel = treeview.get_selection()
     if not sel:
         return []
-    if sel.get_mode() == GTK_SELECTIONMODE_MULTIPLE:
+    if sel.get_mode() == Gtk.SelectionMode.MULTIPLE:
         model, iterator = sel.get_selected_rows()
         count = sel.count_selected_rows()
         if count > 1:
@@ -60,7 +60,7 @@ def get_selected_daos(treeview):
             return [model[iterator[0]][0]]
         else:
             return []
-    elif sel.get_mode() == GTK_SELECTIONMODE_SINGLE:
+    elif sel.get_mode() == Gtk.SelectionMode.SINGLE:
         (model, iterator) = sel.get_selected()
         if iterator is not None:
             return [model.get_value(iterator, 0)]
@@ -103,18 +103,15 @@ class Anagrafica(GladeWidget):
         self._selectedDao = None
         if self.__class__.__name__ == 'AnagraficaDocumenti':
             from promogest.export import tracciati_disponibili
-
             for tracciato in tracciati_disponibili():
                 def build_menuitem(name):
                     import string
-
                     labe = "Esporta " + string.capwords(name.replace('_', ' '))
-                    mi = gtk.MenuItem(label=labe)
+                    mi = Gtk.MenuItem(label=labe)
                     mi.show()
                     mi.connect('activate',
                                self.on_esporta_tracciato_menuitem_activate, (name,))
                     return mi
-
                 self.menu3.append(build_menuitem(tracciato))
             self.records_file_export.set_menu(self.menu3)
         # Initial (in)sensitive widgets
@@ -173,17 +170,16 @@ class Anagrafica(GladeWidget):
 
         gladeWidget.build()
 
-        accelGroup = gtk.AccelGroup()
+        accelGroup = Gtk.AccelGroup()
         self.getTopLevel().add_accel_group(accelGroup)
         self.bodyWidget.filter_clear_button.add_accelerator('clicked',
-                                                            accelGroup, GDK_KEY_ESCAPE, 0, GTK_ACCEL_VISIBLE)
+                            accelGroup, Gdk.KEY_Escape, 0, Gtk.AccelFlags.VISIBLE)
         self.bodyWidget.filter_search_button.add_accelerator('clicked',
-                                                             accelGroup, GDK_KEY_F3, 0, GTK_ACCEL_VISIBLE)
-
-    #        self.bodyWidget.filter_search_button.add_accelerator('clicked',
-    #                accelGroup, gtk.keysyms.KP_Enter, 0, gtk.ACCEL_VISIBLE)
-    #        self.bodyWidget.filter_search_button.add_accelerator('clicked',
-    #                accelGroup, gtk.keysyms.Return, 0, gtk.ACCEL_VISIBLE)
+                            accelGroup, Gdk.KEY_F3, 0, Gtk.AccelFlags.VISIBLE)
+#        self.bodyWidget.filter_search_button.add_accelerator('clicked',
+#                accelGroup, Gtk.keysyms.KP_Enter, 0, Gtk.ACCEL_VISIBLE)
+#        self.bodyWidget.filter_search_button.add_accelerator('clicked',
+#                accelGroup, Gtk.keysyms.Return, 0, Gtk.ACCEL_VISIBLE)
 
     def _setHtmlHandler(self, htmlHandler):
         self.htmlHandler = htmlHandler
@@ -248,12 +244,12 @@ class Anagrafica(GladeWidget):
                                      nome_tracciato + '.xml'))
 
         def get_save_filename(filename):
-            dialog = gtk.FileChooserDialog("Inserisci il nome del file",
-                                           None,
-                                           GTK_FILE_CHOOSER_ACTION_SAVE,
-                                           (gtk.STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                            gtk.STOCK_SAVE, GTK_RESPONSE_OK))
-            dialog.set_default_response(GTK_RESPONSE_OK)
+            dialog = Gtk.FileChooserDialog("Inserisci il nome del file",
+                                       None,
+                                       Gtk.FileChooserAction.SAVE,
+                                       (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                        Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
+            dialog.set_default_response(Gtk.ResponseType.OK)
 
             self.__homeFolder = setconf("General",
                                         "cartella_predefinita") or None
@@ -267,7 +263,7 @@ class Anagrafica(GladeWidget):
 
             response = dialog.run()
 
-            if response == GTK_RESPONSE_OK:
+            if response == Gtk.ResponseType.OK:
                 save_filename = dialog.get_filename()
                 dialog.destroy()
                 return save_filename
@@ -296,14 +292,14 @@ class Anagrafica(GladeWidget):
         return
 
         data = self.set_export_data()
-        saveDialog = gtk.FileChooserDialog("export in a file...",
-                                           None,
-                                           gtk.FILE_CHOOSER_ACTION_SAVE,
-                                           (gtk.STOCK_CANCEL,
-                                            GTK_RESPONSE_CANCEL,
-                                            gtk.STOCK_SAVE,
-                                            GTK_RESPONSE_OK))
-        saveDialog.set_default_response(GTK_RESPONSE_OK)
+        saveDialog = Gtk.FileChooserDialog("export in a file...",
+                                            None,
+                                            Gtk.FILE_CHOOSER_ACTION_SAVE,
+                                            (Gtk.STOCK_CANCEL,
+                                                Gtk.ResponseType.CANCEL,
+                                                Gtk.STOCK_SAVE,
+                                            Gtk.ResponseType.OK))
+        saveDialog.set_default_response(Gtk.ResponseType.OK)
 
         self.__homeFolder = setconf("General", "cartella_predefinita") or ""
         if self.__homeFolder == '':
@@ -314,18 +310,18 @@ class Anagrafica(GladeWidget):
         saveDialog.set_current_folder(self.__homeFolder)
         # folder = self.__homeFolder
 
-        filter = gtk.FileFilter()
+        filter = Gtk.FileFilter()
         filter.set_name("All files")
         filter.add_pattern("*")
         saveDialog.add_filter(filter)
 
-        filter1 = gtk.FileFilter()
+        filter1 = Gtk.FileFilter()
         filter1.set_name("XML files")
         filter1.add_pattern("*.xml")
         filter1.add_pattern("*.XML")
         saveDialog.add_filter(filter1)
 
-        filter2 = gtk.FileFilter()
+        filter2 = Gtk.FileFilter()
         filter2.set_name("CSV files")
         filter2.add_pattern("*.csv")
         filter2.add_pattern("*.CSV")
@@ -348,7 +344,7 @@ class Anagrafica(GladeWidget):
         values = self.set_data_list(data_export)
         saveDialog.show_all()
         response = saveDialog.run()
-        if response == GTK_RESPONSE_OK:
+        if response == Gtk.ResponseType.OK:
             (fileType, file_name) = on_typeComboBox_changed(typeComboBox,
                                                             saveDialog,
                                                             currentName,
@@ -373,7 +369,7 @@ class Anagrafica(GladeWidget):
                 #xmlFile.close_sheet()
                 xmlFile.XlsXmlFooter()
             saveDialog.destroy()
-        elif response == GTK_RESPONSE_CANCEL:
+        elif response == Gtk.ResponseType.CANCEL:
             saveDialog.destroy()
 
     def on_Help_activate(self, widget):
@@ -385,7 +381,7 @@ class Anagrafica(GladeWidget):
         creditsDialog.getTopLevel().set_transient_for(self.getTopLevel())
         creditsDialog.getTopLevel().show_all()
         response = creditsDialog.credits_dialog.run()
-        if response == GTK_RESPONSE_OK:
+        if response == Gtk.ResponseType.OK:
             creditsDialog.credits_dialog.destroy()
 
     def on_send_Email_activate(self, widget):
@@ -407,7 +403,7 @@ class Anagrafica(GladeWidget):
         licenzaDialog.licenza_textview.set_buffer(textBuffer)
         licenzaDialog.getTopLevel().show_all()
         response = licenzaDialog.licenza_dialog.run()
-        if response == GTK_RESPONSE_OK:
+        if response == Gtk.ResponseType.OK:
             licenzaDialog.licenza_dialog.destroy()
 
     def on_seriale_menu_activate(self, widget):
@@ -831,7 +827,7 @@ class Anagrafica(GladeWidget):
         self.reportHandler.buildPreviewWidget(veter=True)
 
     def on_records_print_progress_dialog_response(self, dialog, responseId):
-        if responseId == GTK_RESPONSE_CANCEL:
+        if responseId == Gtk.ResponseType.CANCEL:
             self.__cancelOperation = True
 
             #self.__pdfGenerator.cancelOperation()
@@ -957,24 +953,24 @@ html contatti <b>assistenza@promotux.it</b> per informazioni.""")
         start_viewer(pdfFile)
 
     def __handleSaveResponse(self, dialog):
-        fileDialog = gtk.FileChooserDialog(title='Salva il file',
+        fileDialog = Gtk.FileChooserDialog(title='Salva il file',
                                            parent=dialog,
-                                           action=gtk.FILE_CHOOSER_ACTION_SAVE,
-                                           buttons=(gtk.STOCK_CANCEL,
-                                                    GTK_RESPONSE_CANCEL,
-                                                    gtk.STOCK_SAVE,
-                                                    GTK_RESPONSE_OK),
+                                           action=Gtk.FILE_CHOOSER_ACTION_SAVE,
+                                           buttons=(Gtk.STOCK_CANCEL,
+                                                    Gtk.ResponseType.CANCEL,
+                                                    Gtk.STOCK_SAVE,
+                                                    Gtk.ResponseType.OK),
                                            backend=None)
         fileDialog.set_current_name(self._pdfName + ".pdf")
         fileDialog.set_current_folder(self._folder)
 
-        fltr = gtk.FileFilter()
+        fltr = Gtk.FileFilter()
         fltr.add_mime_type('application/pdf')
         fltr.set_name('File Promogest:(*.pdf & *.ods)')
         fltr.add_pattern("*.pdf")
         fileDialog.add_filter(fltr)
 
-        fltr = gtk.FileFilter()
+        fltr = Gtk.FileFilter()
         fltr.set_name("All files")
         fltr.add_pattern("*")
         fltr.set_name('Tutti i file')
@@ -982,9 +978,9 @@ html contatti <b>assistenza@promotux.it</b> per informazioni.""")
 
         response = fileDialog.run()
         # FIXME: handle errors here
-        if ( (response == GTK_RESPONSE_CANCEL) or ( response == GTK_RESPONSE_DELETE_EVENT)):
+        if ( (response == Gtk.ResponseType.CANCEL) or ( response == Gtk.ResponseType.DELETE_EVENT)) :
             pass
-        elif response == GTK_RESPONSE_OK:
+        elif response == Gtk.ResponseType.OK:
             filename = fileDialog.get_filename()
 
             #modifiche
@@ -1001,13 +997,13 @@ html contatti <b>assistenza@promotux.it</b> per informazioni.""")
                         #overwrite the file if user click  yes
                         #break
                     else:
-                        response = fileDialog.run()
-                        if response == GTK_RESPONSE_CANCEL or response == GTK_RESPONSE_DELETE_EVENT:
+                        response =  fileDialog.run()
+                        if response == Gtk.ResponseType.CANCEL or response == Gtk.ResponseType.DELETE_EVENT:
                             #exit but don't save the file
                             esci = True
                             can_save = 0
                             break
-                        elif response == GTK_RESPONSE_OK:
+                        elif response == Gtk.ResponseType.OK:
                             filename = fileDialog.get_filename()
                 else:
                     can_save = 1
@@ -1026,15 +1022,15 @@ html contatti <b>assistenza@promotux.it</b> per informazioni.""")
     Verificare i permessi della cartella o che NON sia
     errata nella sezione di configurazione"""
                             response = messageError(msg=msg)
-                            if response == GTK_RESPONSE_CANCEL or \
-                                            response == GTK_RESPONSE_DELETE_EVENT:
+                            if response == Gtk.ResponseType.CANCEL or \
+                                            response == Gtk.ResponseType.DELETE_EVENT:
                                 response = fileDialog.run()
-                                if response == GTK_RESPONSE_CANCEL or \
-                                                response == GTK_RESPONSE_DELETE_EVENT:
+                                if response == Gtk.ResponseType.CANCEL or \
+                                            response == Gtk.ResponseType.DELETE_EVENT:
                                     #exit but don't save the file
                                     esci = True
                                     break
-                                elif response == GTK_RESPONSE_OK:
+                                elif response == Gtk.ResponseType.OK:
                                     filename = fileDialog.get_filename()
                                     break
 

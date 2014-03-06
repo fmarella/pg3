@@ -31,7 +31,7 @@ with warnings.catch_warnings(record=True) as w:
     warnings.simplefilter('ignore')
 import tokenize
 from promogest import Environment
-from promogest.ui.gtk_compat import *
+from gi.repository import Gtk, Gdk
 import weakref
 import inspect
 import os.path, warnings
@@ -77,8 +77,7 @@ class SimpleGladeWrapper:
         """
         gl = None
         prefix = ""
-        if Environment.pg3:
-            prefix = "pg3_"
+        prefix = "pg3_"
 
         #print "PATH o NOME FILE --> ", path
         #print "ROOT --> ", root
@@ -111,8 +110,8 @@ class SimpleGladeWrapper:
             except TypeError:
                 setattr(self, key, value)
         if not gl:
-            gl = gtk.Builder()
-            #self.builda = gtk.Buildable()
+            gl = Gtk.Builder()
+            #self.builda = Gtk.Buildable()
         gl.set_translation_domain("promogest")
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
@@ -137,8 +136,8 @@ class SimpleGladeWrapper:
 #    def __repr__(self):
 #        class_name = self.__class__.__name__
 #        if self.main_widget:
-##            root = gtk.Widget.get_name(self.main_widget)
-#            root = gtk.Buildable.get_name(self.main_widget)
+##            root = Gtk.Widget.get_name(self.main_widget)
+#            root = Gtk.Buildable.get_name(self.main_widget)
 #            repr = '%s(path="%s", root="%s")' % (class_name, self.glade_path, root)
 #        else:
 #            repr = '%s(path="%s")' % (class_name, self.glade_path)
@@ -182,31 +181,29 @@ class SimpleGladeWrapper:
         """
         for widget in self.widgets:
             try:
-#                widget_name = gtk.Widget.get_name(widget)
-                widget_name = gtk.Buildable.get_name(widget)
+#                widget_name = Gtk.Widget.get_name(widget)
+                widget_name = Gtk.Buildable.get_name(widget)
                 prefixes_name_l = widget_name.split(":")
                 prefixes = prefixes_name_l[ : -1]
                 widget_api_name = prefixes_name_l[-1]
                 widget_api_name = "_".join( re.findall(tokenize.Name, widget_api_name))
-                gtk.Widget.set_name(widget, widget_api_name)
+                Gtk.Widget.set_name(widget, widget_api_name)
                 if hasattr(self, widget_api_name):
                     raise AttributeError("instance %s already has an attribute %s" % (self,widget_api_name))
                 else:
                     setattr(self, widget_api_name, widget)
                     if prefixes:
-                        if Environment.pg3:
-                            widget.prefixes = prefixes
-                        else:
-                            gtk.Widget.set_data(widget, "prefixes", prefixes)
+                        widget.prefixes = prefixes
                 if widget.__gtype__.name == "UnsignedIntegerEntryField":
                     setattr(widget, "nomee",widget_api_name)
                     self.entryGlobalcb(widget)
                 if widget.__gtype__.name == "GtkEntry":
                     self.entryGlobalcb(widget)
             except:
+                #pass
 #                pass
                 try:
-                    widget_name = gtk.Buildable.get_name(widget)
+                    widget_name = Gtk.Buildable.get_name(widget)
                     prefixes_name_l = widget_name.split(":")
                     prefixes = prefixes_name_l[ : -1]
                     widget_api_name = prefixes_name_l[-1]
@@ -217,7 +214,7 @@ class SimpleGladeWrapper:
                         setattr(self, widget_api_name, widget)
                     if widget.__gtype__.name == "GtkTreeViewColumn":
                         widget.connect("clicked", self._reOrderBy)
-                    #print "WIDGET NON WIDGET", widget.get_name(), widget
+                            #print "WIDGET NON WIDGET", widget.get_name(), widget
                 except:
                     pass
 
@@ -229,7 +226,7 @@ class SimpleGladeWrapper:
         entry.connect("focus-in-event", self.on_focus_in_event)
         entry.connect("focus-out-event", self.on_focus_out_event)
         entry.connect("focus-out-event", self.on_focus_out_event_calcolate)
-        if gtk.Buildable.get_name(entry) != "password_entry":
+        if Gtk.Buildable.get_name(entry) != "password_entry":
             entry.set_property("secondary_icon_stock", "gtk-clear")
             entry.set_property("secondary_icon_activatable", True)
             entry.set_property("secondary_icon_sensitive", True)
@@ -283,10 +280,7 @@ class SimpleGladeWrapper:
         prefix_actions_d = dict( map(drop_prefix, prefix_actions_t) )
 
         for widget in self.widgets:
-            if Environment.pg3:
-                prefixes = widget.prefixes
-            else:
-                prefixes = gtk.Widget.get_data(widget, "prefixes")
+            prefixes = widget.prefixes
             if prefixes:
                 for prefix in prefixes:
                     if prefix in prefix_actions_d:
@@ -400,21 +394,21 @@ class SimpleGladeWrapper:
     def quit(self):
         """
         Quit processing events.
-        The default implementation calls gtk.main_quit()
+        The default implementation calls Gtk.main_quit()
 
         Useful for applications that needs a non gtk main loop.
         For example, applications based on gstreamer needs to override
         this method with gst.main_quit()
         """
-        gtk.main_quit()
+        Gtk.main_quit()
 
 
     def install_custom_handler(self, custom_handler):
-        gtk.glade.set_custom_handler(custom_handler)
+        Gtk.glade.set_custom_handler(custom_handler)
 
 
     def create_glade(self, glade_path, root, domain):
-        return gtk.glade.XML(self.glade_path, root, domain)
+        return Gtk.glade.XML(self.glade_path, root, domain)
 
 
     def get_widget(self, widget_name):

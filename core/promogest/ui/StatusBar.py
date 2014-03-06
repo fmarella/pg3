@@ -21,7 +21,6 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 import hashlib
-from promogest.ui.gtk_compat import *
 import datetime
 from  subprocess import *
 from promogest import Environment
@@ -108,7 +107,7 @@ class Pg2StatusIcon(gtk.StatusIcon):
         about.set_website("http://www.promogest.me")
         about.set_authors(["Francesco <francesco@promotux.it>"])
         try:
-            about.set_logo(GDK_PIXBUF_NEW_FROM_FILE(Environment.guiDir + 'logo_promogest_piccolo.png'))
+            about.set_logo(GdkPixbuf.Pixbuf.new_from_file(Environment.guiDir + 'logo_promogest_piccolo.png'))
         except:
             pass
         about.set_comments("Gestionale multipiattaforma per la tua impresa")
