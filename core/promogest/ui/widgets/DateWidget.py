@@ -148,7 +148,7 @@ class DateWidget(Gtk.Box):
         bbox.add(buttonCorrente)
         bbox.add(buttonOk)
         bbox.add(buttonAnnulla)
-        bbox.set_layout(Gtk.ButtonsType.BOX_SPREAD)
+        #bbox.set_layout(Gtk.ButtonsType.BOX_SPREAD)
         vbox.pack_start(bbox, False, False, 5)
 
         window.add(vbox)
