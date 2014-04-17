@@ -32,7 +32,6 @@ from promogest import preEnv
 #except ImportError:
     #pygi_available = False
 
-pg3 = preEnv.pg3_cla
 # bypassiamo il paramentro iniziale o passato da linea di comando se siamo su win32
 import os
 #if os.name == 'nt' and pygi_available:
@@ -415,7 +414,7 @@ def __sendmail(msg="PG"):
     msg = msg +"\n"
     #for a in settaggi:
         #msg = msg+"\n"+str(a.__dic__)
-    if not web and not preEnv.pg3_cla:
+    if not web:
         return msgDef(text=msg, azienda=azienda)
 
 def hook(et, ev, eb):
