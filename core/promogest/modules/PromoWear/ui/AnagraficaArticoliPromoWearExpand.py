@@ -224,7 +224,7 @@ def articleTypeGuiManage(anagrafica, dao, new):
         gtkgui.denominazione_gruppo_taglia_label.set_property('visible', False)
         gtkgui.denominazione_stagione_anno_label.set_property('visible', False)
         gtkgui.memo_wear.set_text("""ARTICOLO NORMALE""")
-        print "ARTICOLO SEMPLICE"
+        print("ARTICOLO SEMPLICE")
 
     elif articleType(dao) == "plus":
         gtkgui.frame_promowear.set_sensitive(True)
@@ -245,7 +245,7 @@ def articleTypeGuiManage(anagrafica, dao, new):
         gtkgui.denominazione_gruppo_taglia_label.set_property('visible', False)
         gtkgui.denominazione_stagione_anno_label.set_property('visible', False)
         gtkgui.memo_wear.set_text("""ARTICOLO PLUS""")
-        print "ARTICOLO PLUS"
+        print("ARTICOLO PLUS")
 
     elif articleType(dao) == "new":
         gtkgui.normale_radiobutton.set_sensitive(True)
@@ -264,7 +264,7 @@ def articleTypeGuiManage(anagrafica, dao, new):
         gtkgui.denominazione_gruppo_taglia_label.set_property('visible', False)
         gtkgui.denominazione_stagione_anno_label.set_property('visible', False)
         gtkgui.memo_wear.set_text("""ARTICOLO NUOVO""")
-        print "ARTICOLO NEW"
+        print("ARTICOLO NEW")
     else:
         messageError(msg="ATTENZIONE LA TIPOLOGIA DI ARTICOLO NON E' CONTEMPLATA",
                      transient=None)

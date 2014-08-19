@@ -250,7 +250,7 @@ class SimpleGladeWrapper:
             except:
                 nt=""
             widget.set_text(str(nt))
-            print " VALUTATA in ", nt
+            print(" VALUTATA in ", nt)
 
     def add_prefix_actions(self, prefix_actions_proxy):
         """
@@ -306,7 +306,7 @@ class SimpleGladeWrapper:
         method named create_foo is called with str1,str2,int1,int2 as arguments.
         """
         try:
-            print "VEDIAMO UN PO", function_name
+            print("VEDIAMO UN PO", function_name)
             handler = getattr(self, function_name)
             return handler(str1, str2, int1, int2)
         except AttributeError:

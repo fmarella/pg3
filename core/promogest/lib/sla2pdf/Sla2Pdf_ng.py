@@ -34,7 +34,7 @@ from reportlab.pdfgen.canvas import Canvas
 try:
     from promogest import Environment
 except:
-    print "NESSUN ENV "
+    print("NESSUN ENV ")
 
 try:
     from promogest.lib.utils import pbar

@@ -646,8 +646,8 @@ class AnagraficaClientiEdit(AnagraficaEdit, AnagraficaPGEdit):
         #contents = output.getvalue()
         #output.close()
 
-        print "LA FOTO SELEZIONATA", filechooser.get_file().get_path(), \
-            filechooser.get_file()
+        print("LA FOTO SELEZIONATA", filechooser.get_file().get_path(), \
+            filechooser.get_file())
         self.photo_src = filechooser.get_filename()
         self.userlogo_image.set_from_file(self.photo_src)
         #im1 = Image.fromstring(self.photo_src)

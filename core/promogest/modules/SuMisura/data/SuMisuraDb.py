@@ -24,7 +24,7 @@ if hasattr(conf, 'SuMisura'):
                 UniqueConstraint('id_riga'),
                 schema=params['schema'])
     misurapezzoTable.create(checkfirst=True)
-    print "HO CREATO LA TABELLA MISURA PEZZO NECESSARIA PER IL MODULO SuMisura DEL PROMOGEST2"
+    print("HO CREATO LA TABELLA MISURA PEZZO NECESSARIA PER IL MODULO SuMisura DEL PROMOGEST2")
         #se tutto è andato bene ..... posso settare la variabile primoavvio su False
         #conf.SuMisura.primoavvio = "no"
         #conf.save()

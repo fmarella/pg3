@@ -425,7 +425,7 @@ class NameObject(str, PdfObject):
 
     def readFromStream(stream):
         debug = False
-        if debug: print stream.tell()
+        if debug: print(stream.tell())
         name = stream.read(1)
         if name != "/":
             raise utils.PdfReadError, "name read error"
@@ -435,7 +435,7 @@ class NameObject(str, PdfObject):
                 stream.seek(-1, 1)
                 break
             name += tok
-        if debug: print name
+        if debug: print(name)
         return NameObject(name)
     readFromStream = staticmethod(readFromStream)
 
@@ -527,7 +527,7 @@ class DictionaryObject(dict, PdfObject):
         data = {}
         while True:
             tok = readNonWhitespace(stream)
-            if debug: print "Tok:",tok
+            if debug: print("Tok:",tok)
             if tok == ">":
                 stream.read(1)
                 break
@@ -556,13 +556,13 @@ class DictionaryObject(dict, PdfObject):
             # this is a stream object, not a dictionary
             assert data.has_key("/Length")
             length = data["/Length"]
-            if debug: print data
+            if debug: print(data)
             if isinstance(length, IndirectObject):
                 t = stream.tell()
                 length = pdf.getObject(length)
                 stream.seek(t, 0)
             data["__streamdata__"] = stream.read(length)
-            if debug: print "here"
+            if debug: print("here")
             #if debug: print debugging.printAsHex(data["__streamdata__"])
             e = readNonWhitespace(stream)
             ndstream = stream.read(8)

@@ -16,7 +16,7 @@ def usage():
   '''
   Print usage and exit
   '''
-  print "Usage: ./bool_changer.py <filename.dump>"
+  print("Usage: ./bool_changer.py <filename.dump>")
   sys.exit()
 
 def fix_column_names(first_line):
@@ -169,10 +169,10 @@ if __name__ == '__main__':
   output_filename = filename + '.psql'
   
   if not os.path.isfile(filename):
-    print "FATAL: Not a valid filename"
+    print("FATAL: Not a valid filename")
     usage()
 
-  print sys.argv[0], ': Trying to convert', sys.argv[1]
+  print(sys.argv[0], ': Trying to convert', sys.argv[1])
   try:
     input_file = open(filename,'r')
     output_file = open(output_filename,'w')
@@ -180,5 +180,5 @@ if __name__ == '__main__':
   finally:
     input_file.close()
     output_file.close()
-  print sys.argv[0], ': Converted to', output_filename
-  print
+  print(sys.argv[0], ': Converted to', output_filename)
+  print()

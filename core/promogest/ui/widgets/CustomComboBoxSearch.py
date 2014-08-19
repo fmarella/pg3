@@ -73,7 +73,7 @@ class CustomComboBoxSearch(Gtk.Entry):
         self.__rebuildList = False
 
     def on_icon_press(self, entry):
-        print "GENERIC ICON PRESS"
+        print("GENERIC ICON PRESS")
 
     def on_entry_key_press_event(self, widget, event=None):
         """ """

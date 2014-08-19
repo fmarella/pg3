@@ -57,9 +57,9 @@ class ParametriFrame(GladeWidget):
             current_column = 2
             for module in self.modules.iteritems():
                 if current_row > rows:
-                    print "Impossibile aggiungere altri bottoni al frame."
-                    print "Sono stati inseriti %s bottoni" % str(rows)
-                    print "ne restano %s" % str(len(self.modules) - rows)
+                    print("Impossibile aggiungere altri bottoni al frame.")
+                    print("Sono stati inseriti %s bottoni" % str(rows))
+                    print("ne restano %s" % str(len(self.modules) - rows))
                     break
                 module_button = Gtk.Button()
                 module_butt_image = Gtk.Image()

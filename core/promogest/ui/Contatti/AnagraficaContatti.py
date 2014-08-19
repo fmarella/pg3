@@ -52,7 +52,7 @@ class AnagraficaContatti(Anagrafica):
                                              (ownerKey is not None)):
             self._ownerKey = ownerKey
             self._ownerType = ownerType
-        print " VEDIAMO SE SONO PIENE QUESTE VARIABILI", self._ownerKey,self._ownerType
+        print(" VEDIAMO SE SONO PIENE QUESTE VARIABILI", self._ownerKey,self._ownerType)
 
         Anagrafica.__init__(self,
                             windowTitle='Promogest - Anagrafica contatti',
@@ -843,7 +843,7 @@ class AnagraficaContattiEdit(AnagraficaEdit):
 
 
     def on_radiobutton_toggled(self, widget=None):
-        print " TOGGLEEEEEEEEEEEEEEEEEEEEEEEEED"
+        print(" TOGGLEEEEEEEEEEEEEEEEEEEEEEEEED")
         if self.dao.id is not None:
             if self.dao.tipo_contatto == 'cliente':
                 self.cliente_radiobutton.set_active(True)

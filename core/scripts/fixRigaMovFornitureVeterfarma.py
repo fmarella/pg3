@@ -46,16 +46,16 @@ def fixRigaMovimentoTableVETER(pbar_wid=None):
         righe = f.readlines()
     for r in righe:
         if r[0] == '"':
-            print "primo tipo", r
+            print("primo tipo", r)
             rigl = r.split(";")
-            print rigl
+            print(rigl)
         else:
             r = r.replace("    ", " ")
             r = r.replace("   ", " ")
             r = r.replace("  ", " ")
-            print "secondo tipo", r
+            print("secondo tipo", r)
             rigl = r.split(" ")
-            print rigl
+            print(rigl)
         idArt = rigl[1]
         idForn = rigl[4]
         idRmac = rigl[2]
@@ -75,7 +75,7 @@ def fixRigaMovimentoTableVETER(pbar_wid=None):
         except:
             session.rollback()
             del(a)
-            print "NON ANDATO A BUONFINE"
+            print("NON ANDATO A BUONFINE")
             continue
 
 

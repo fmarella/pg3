@@ -76,7 +76,7 @@ class DettaglioGiacenzaWindow(GladeWidget):
         a = leggiArticolo(self.idArticolo)
         idForni = [ x.id_fornitura for x in rmf if x.id_fornitura]
         idForni = set(idForni)
-        print len (rmf)
+        print(len (rmf))
         for i in idForni:
             rmfv = RigaMovimentoFornitura().select(idArticolo=self.idArticolo, idFornitura=i, batchSize=None)
             quantita_evasa = 0

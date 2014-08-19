@@ -712,7 +712,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
                 self._righe[0]["larghezza"] = mN(larghezza)
                 self._righe[0]["molt_pezzi"] =mN(moltiplicatore_pezzi)
             if gn:
-                print " ISRENT  ",riga.isrent
+                print(" ISRENT  ",riga.isrent)
                 if riga.isrent :
                     self._righe[0]["arco_temporale"] = self.giorni_label.get_text()
                 else:
@@ -855,7 +855,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
     def saveDao(self, tipo=None):
         """ Salvataggio del Dao
         """
-        print "\n\nINIZIO IL SALVATAGGIO DEL DOCUMENTO\n\n"
+        print("\n\nINIZIO IL SALVATAGGIO DEL DOCUMENTO\n\n")
         GN = posso("GN")
         SM = posso("SM")
         if posso("ADR") and tipo==Gtk.ResponseType.OK:
@@ -1085,7 +1085,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
         self.label_numero_righe.set_text(text)
         self.label_numero_righe.show()
         pbar(self.dialog.pbar, stop=True)
-        print " \nFINE DEL SALVATAGGIO DEL DOCUMENTO\n\n"
+        print(" \nFINE DEL SALVATAGGIO DEL DOCUMENTO\n\n")
 
     def on_importo_da_ripartire_entry_changed(self, entry):
         """Fesseria voluta da un cliente ....alla fine non serviva
@@ -1166,7 +1166,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
         try:
             self.quantitaMinima_label.set_text(str(Articolo().getRecord(id=self._righe[0]["idArticolo"]).quantita_minima))
         except:
-            print "QUANTITA MINIMA NON PRESENTE"
+            print("QUANTITA MINIMA NON PRESENTE")
         self.prezzo_lordo_entry.set_text(str(self._righe[0]["prezzoLordo"]))
         self.prezzo_netto_label.set_text(str(self._righe[0]["prezzoNetto"]))
         self.totale_riga_label.set_text(str(self._righe[0]["totale"]))
@@ -1249,16 +1249,16 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
 
         if self.ritenuta_percentuale_entry.get_text():
             self._righe[0]["ritAccPercentuale"] = self.ritenuta_percentuale_entry.get_text()
-            print "RIGA CON RITENUTA"
+            print("RIGA CON RITENUTA")
         if self.rivalsa_percentuale_entry.get_text():
             self._righe[0]["rivalsaPercentuale"] = self.rivalsa_percentuale_entry.get_text()
-            print "RIGA CON RIVALSA"
+            print("RIGA CON RIVALSA")
         if self.inarcassa_entry.get_text():
             self._righe[0]["ritInarCassa"] = self.inarcassa_entry.get_text()
-            print "INARCASSA"
+            print("INARCASSA")
         if self.provvigionale_check.get_active():
             self._righe[0]["ritCaProvvigionale"] = self.provvigionale_check.get_active()
-            print "E' di tipo provvigionale"
+            print("E' di tipo provvigionale")
 
 
         if posso("ADR"):

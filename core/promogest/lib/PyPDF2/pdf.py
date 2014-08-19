@@ -269,7 +269,7 @@ class PdfFileWriter(object):
                 externalReferenceMap[data.pdf][data.generation][data.idnum] = IndirectObject(objIndex + 1, 0, self)
 
         self.stack = []
-        if debug: print "ERM:",externalReferenceMap,"root:",self._root
+        if debug: print("ERM:",externalReferenceMap,"root:",self._root)
         self._sweepIndirectReferences(externalReferenceMap, self._root)
         del self.stack
 
@@ -319,7 +319,7 @@ class PdfFileWriter(object):
 
     def _sweepIndirectReferences(self, externMap, data):
         debug = False
-        if debug: print data,"TYPE",data.__class__.__name__
+        if debug: print(data,"TYPE",data.__class__.__name__)
         if isinstance(data, DictionaryObject):
             for key, value in data.items():
                 origvalue = value
@@ -437,7 +437,7 @@ class PdfFileWriter(object):
             parent = outlineRef
 
         parent = parent.getObject()
-        print parent.__class__.__name__
+        print(parent.__class__.__name__)
         parent.addChild(destRef, self)
         
         return destRef
@@ -801,11 +801,11 @@ class PdfFileReader(object):
 
     def getObject(self, indirectReference):
         debug = False
-        if debug: print "looking at:",indirectReference.idnum,indirectReference.generation
+        if debug: print("looking at:",indirectReference.idnum,indirectReference.generation)
         retval = self.resolvedObjects.get(indirectReference.generation, {}).get(indirectReference.idnum, None)
         if retval != None:
             return retval
-        if debug: print self.xref_objStm
+        if debug: print(self.xref_objStm)
         if not indirectReference.idnum in self.xref[indirectReference.generation]:
             #TODO: how to avoid problems if bad object is never actually used?
             warnings.warn("Object %d %d not defined." % \
@@ -816,9 +816,9 @@ class PdfFileReader(object):
             # indirect reference to object in object stream
             # read the entire object stream into memory
             stmnum,idx = self.xref_objStm[indirectReference.idnum]
-            if debug: print "Here1"
+            if debug: print("Here1")
             objStm = IndirectObject(stmnum, 0, self).getObject()
-            if debug: print "Here2"
+            if debug: print("Here2")
             assert objStm['/Type'] == '/ObjStm'
             assert idx < objStm['/N']
             streamData = StringIO(objStm.getData())
@@ -836,15 +836,15 @@ class PdfFileReader(object):
                     streamData.seek(0,0)
                     lines = streamData.readlines()
                     for i in range(0,len(lines)):
-                        print lines[i]
+                        print(lines[i])
                     streamData.seek(pos,0)
                 obj = readObject(streamData, self)
                 self.resolvedObjects[0][objnum] = obj
                 streamData.seek(t, 0)
             return self.resolvedObjects[0][indirectReference.idnum]
-        if debug: print self.xref
+        if debug: print(self.xref)
         start = self.xref[indirectReference.generation][indirectReference.idnum]
-        if debug: print indirectReference.idnum,indirectReference.generation, ":", start
+        if debug: print(indirectReference.idnum,indirectReference.generation, ":", start)
         self.stream.seek(start, 0)
         idnum, generation = self.readObjectHeader(self.stream)
         try:
@@ -918,14 +918,14 @@ class PdfFileReader(object):
 
     def read(self, stream):
         debug = False
-        if debug: print ">>read", stream
+        if debug: print(">>read", stream)
         # start at the end:
         stream.seek(-1, 2)
         line = ''
-        if debug: print "  line:",line
+        if debug: print("  line:",line)
         while not line:
             line = self.readNextEndLine(stream)
-        if debug: print "  line:",line
+        if debug: print("  line:",line)
         if line[:5] != "%%EOF":
             raise utils.PdfReadError, "EOF marker not found"
 
@@ -1105,18 +1105,18 @@ class PdfFileReader(object):
 
     def readNextEndLine(self, stream):
         debug = False
-        if debug: print ">>readNextEndLine"
+        if debug: print(">>readNextEndLine")
         line = ""
         while True:
             x = stream.read(1)
-            if debug: print "  x:",x,"%x"%ord(x)
+            if debug: print("  x:",x,"%x"%ord(x))
             stream.seek(-2, 1)
             if x == '\n' or x == '\r': ## \n = LF; \r = CR
                 crlf = False
                 while x == '\n' or x == '\r':
                     if debug:
-                        if ord(x) == 0x0D: print "  x is CR 0D"
-                        elif ord(x) == 0x0A: print "  x is LF 0A"
+                        if ord(x) == 0x0D: print("  x is CR 0D")
+                        elif ord(x) == 0x0A: print("  x is LF 0A")
                     x = stream.read(1)
                     if x == '\n' or x == '\r': # account for CR+LF
                         stream.seek(-1, 1)
@@ -1125,10 +1125,10 @@ class PdfFileReader(object):
                 stream.seek(2 if crlf else 1, 1) #if using CR+LF, go back 2 bytes, else 1
                 break
             else:
-                if debug: print "  x is neither"
+                if debug: print("  x is neither")
                 line = x + line
-                if debug: print "  RNEL line:",line
-        if debug: print "leaving RNEL"
+                if debug: print("  RNEL line:",line)
+        if debug: print("leaving RNEL")
         return line
 
     ##

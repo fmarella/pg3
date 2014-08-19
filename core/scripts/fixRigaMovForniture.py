@@ -52,7 +52,7 @@ def fixRigaMovimentoTable(pbar_wid=None):
             if pbar:
                 pbar(pbar_wid,parziale=rmfall.index(riga), totale=num, text="MIGRAZIONE TABELLA LOTTI ACQUISTO", noeta=False)
             #print "riga", riga
-            print "RESIDUI DA GESTIRE ACQ", num - rmfall.index(riga)
+            print("RESIDUI DA GESTIRE ACQ", num - rmfall.index(riga))
             rmf = RigaMovimentoFornitura().select(idArticolo=riga[0], idRigaMovimentoAcquisto=riga[2], idFornitura=riga[1], batchSize=None)
             if rmf:
                 for r in rmf:
@@ -71,14 +71,14 @@ def fixRigaMovimentoTable(pbar_wid=None):
                     session.delete(r)
                         #session.add(r)
         session.commit()
-        print " FINITO ACQ"
+        print(" FINITO ACQ")
         rmfall2 = session.query(RigaMovimentoFornitura.id_riga_movimento_vendita).distinct().all()
         #print rmfall2
         num2 = len(rmfall2)
         for riga2 in rmfall2:
             if pbar_wid:
                 pbar(pbar_wid,parziale=rmfall2.index(riga2), totale=num2, text="MIGRAZIONE TABELLA LOTTI VENDITA", noeta=False)
-            print "RESIDUI DA GESTIRE VEN", num2 - rmfall2.index(riga2)
+            print("RESIDUI DA GESTIRE VEN", num2 - rmfall2.index(riga2))
             if riga2[0] is not None:
                 rmf2 = RigaMovimentoFornitura().select(idRigaMovimentoVendita=riga2[0], batchSize=None)
                 #print "RMFFFFFFFFFFFFFFFFFFF", rmf2
@@ -94,9 +94,9 @@ def fixRigaMovimentoTable(pbar_wid=None):
         session.commit()
         if pbar_wid:
             pbar_wid.set_property("visible",False)
-        print "FATTO IL FIX"
+        print("FATTO IL FIX")
     else:
-        print "NIENTE DA FIXARE"
+        print("NIENTE DA FIXARE")
 
 if __name__ == '__main__':
     fixRigaMovimentoTable()

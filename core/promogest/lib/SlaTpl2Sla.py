@@ -92,7 +92,7 @@ class SlaTpl2Sla(object):
         self.slaRootTag()
         version=self.scribusVersion()
         if version:
-            print "DICIAMO 1.3.4", "label",self.label,"classic", self._classic
+            print("DICIAMO 1.3.4", "label",self.label,"classic", self._classic)
             from promogest.lib.Sla2Pdf_ng import Sla2Pdf_ng as Sla2Pdf
             self.findTablesAndTags()
             self.findTablesProperties()
@@ -124,7 +124,7 @@ class SlaTpl2Sla(object):
             os.remove(filename)
             return result
         else:
-            print "DICIAMO 1.3.3"
+            print("DICIAMO 1.3.3")
             from promogest.lib.Sla2Pdf_classic import Sla2Pdf_classic
             slatopdf = Sla2Pdf_classic(pdfFolder = self.pdfFolder,
                                 slaFileName = self.slaFileName,
@@ -346,7 +346,7 @@ class SlaTpl2Sla(object):
                                 rowsNumber = tableGroup['rows'] - 1
                             self.pagesNumber = int(math.ceil(float(valuesNumber) / float(rowsNumber)))
         #self.pagesNumber = 2
-        print "questo è il nuovo numero di pagine del template sla:", self.pagesNumber
+        print("questo è il nuovo numero di pagine del template sla:", self.pagesNumber)
 
     def createPageTag(self, pagesNumber=None):
         # Index of first tag 'PAGE'
@@ -536,7 +536,7 @@ class SlaTpl2Sla(object):
                         ((float(self.pageHeight)+float(self.borderTop))*page)+\
                         sumRows*(j-(NumMaxLabelForPageTotal*page)-NumMaxRowLabelForPage)))
                 else:
-                    print "attenzione oggetto che non ha trovato collocazione"
+                    print("attenzione oggetto che non ha trovato collocazione")
                 self.slaDocumentTag().append(app)
                 app = {}
         self.labelSla()
@@ -912,7 +912,7 @@ class SlaTpl2Sla(object):
 
     def scribusVersion(self):
         slaversion = self.root.get('Version')
-        print "VERSIONE FILE SLA", slaversion
+        print("VERSIONE FILE SLA", slaversion)
         if slaversion == "1.3.4" or  "1.3.5" in slaversion:
             version=True
         else:

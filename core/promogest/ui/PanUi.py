@@ -34,7 +34,7 @@ except:
     None
 
 def checkPan(main):
-    print "TIPO PG", Environment.tipo_pg, Environment.modulesList
+    print("TIPO PG", Environment.tipo_pg, Environment.modulesList)
     for a in Environment.modulesList:
         if a:
             if ("FULL" in a) or ("STANDARD" in a) or ("PRO" in a):
@@ -42,7 +42,7 @@ def checkPan(main):
                 main.pan_label_info.set_markup(text)
                 Environment.pg2log.info(text)
                 if "+S" in a:
-                    print "ATTIVARE SHOP"
+                    print("ATTIVARE SHOP")
                     if not setconf("VenditaDettaglio","mod_enable",value="yes"):
                         a = SetConf()
                         a.section = "VenditaDettaglio"

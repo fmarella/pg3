@@ -243,7 +243,7 @@ class ManageLabelsToPrint(GladeWidget):
         return prezzoScontato
 
     def on_search_row_button_clicked(self, button):
-        print "OKOKOK"
+        print("OKOKOK")
 
     def on_add_button_clicked(self, button=None):
         if self.articolo_entry.get_text() =="" and self.selected_articolo_entry=="":

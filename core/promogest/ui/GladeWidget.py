@@ -102,7 +102,7 @@ class GladeWidget(SimpleGladeApp):
         try:
             doc.write(self._defaultWindowAttributesFile)
         except:
-            print "Errore salvando i dati finestra"
+            print("Errore salvando i dati finestra")
 
 
 

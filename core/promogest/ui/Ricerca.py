@@ -92,7 +92,7 @@ class Ricerca(GladeWidget):
         self.ricerca_window.hide()
         if self.ricerca_window in Environment.windowGroup:
             Environment.windowGroup.remove(self.ricerca_window)
-        print " SEI TU"
+        print(" SEI TU")
 
 
     def on_filter_treeview_cursor_changed(self, treeview):
@@ -246,9 +246,9 @@ class RicercaHtml(object):
             # FIXME: add some logging level check here
             import pprint
             pp = pprint.PrettyPrinter(indent=4)
-            print ("\n\n=== DAO object dump ===\n\n"
+            print(("\n\n=== DAO object dump ===\n\n"
                    + pp.pformat(dao.dictionary(complete=True))
-                   + "\n\n")
+                   + "\n\n"))
 
     def refresh(self):
         """ Aggiorna la vista HTML """

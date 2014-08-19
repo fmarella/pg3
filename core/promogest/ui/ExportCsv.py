@@ -181,11 +181,11 @@ class ExportCsv(GladeWidget):
         if self.selezione_modello_combobox.get_active_text() =="":
             obligatoryField(self.getTopLevel(), self.selezione_modello_combobox)
         if self.selezione_radio.get_active():
-            print "SOLO SELEZIONATO"
+            print("SOLO SELEZIONATO")
             record = [self.dao]
-            print "self.dao", self.dao
+            print("self.dao", self.dao)
         elif self.filtrati_radio.get_active():
-            print "SOLO FILTRATI"
+            print("SOLO FILTRATI")
             try:
                 #semplice
                 record = self._mainWindow.runFilter()
@@ -193,7 +193,7 @@ class ExportCsv(GladeWidget):
                 #complessa
                 record = self._mainWindow.filter.runFilter()
         elif self.tutti_radio.get_active():
-            print "TUTTI"
+            print("TUTTI")
             try:
                 #semplice
                 record = self._mainWindow.runFilter(offset=None, batchSize=None)
@@ -236,10 +236,10 @@ class ExportCsv(GladeWidget):
             obligatoryField(self.getTopLevel(), self.stringa_combobox,msg="Separatatore Testo obbligatorio")
         tempFileCsv = Environment.tempDir+"tempCSV"
         separatore = self.separatore_combobox.get_active_text()
-        print("SEPARATORE: ", separatore)
+        print(("SEPARATORE: ", separatore))
         Environment.pg2log.info("SEPARATORE: "+ (separatore or ""))
         stringa = self.stringa_combobox.get_active_text()
-        print("STRINGA: ", stringa)
+        print(("STRINGA: ", stringa))
         Environment.pg2log.info("STRINGA: "+ (stringa or ""))
         spamWriter = csv.writer(open(tempFileCsv, 'wb'), delimiter=separatore or ";",
                                 quotechar=stringa or '"', quoting=csv.QUOTE_MINIMAL)
@@ -260,11 +260,11 @@ class ExportCsv(GladeWidget):
 
     def on_ripristina_button_clicked(self, button):
         """ riporta l'interfaccia al momento dell'aoertura"""
-        print "DA FARE RISPRISTINA"
+        print("DA FARE RISPRISTINA")
 
     def on_elimina_modello_button_clicked(self, button):
         """ cancella il modello pgx dall'hd"""
-        print " elimino"
+        print(" elimino")
 
 
     def on_close_button_clicked(self, button):

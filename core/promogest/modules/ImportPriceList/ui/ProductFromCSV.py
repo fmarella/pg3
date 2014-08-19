@@ -138,13 +138,13 @@ class ProductFromCsv(object):
                 setattr(self, possibleFieldsDict[key], None)
             else:
                 setattr(self, possibleFieldsDict[key], self.product[key])
-        print "SELF CODICE ARTICO", self.codice_articolo
+        print("SELF CODICE ARTICO", self.codice_articolo)
         if self.codice_articolo:
             try:
                 self.daoArticolo = Articolo().select(codiceEM=self.codice_articolo)[0]
-                print "CODICE GIÀ PRESENTE NEL DATABASE"
+                print("CODICE GIÀ PRESENTE NEL DATABASE")
             except:
-                print "CODICE %s NON TROVATO" %self.codice_articolo
+                print("CODICE %s NON TROVATO" %self.codice_articolo)
 
         elif self.codice_barre_articolo:
             daoCodiceABarre = CodiceABarreArticolo().select(codiceEM=self.codice_barre_articolo)
@@ -158,19 +158,19 @@ class ProductFromCsv(object):
         #o cod fornitore ne istanzio uno nuovo
 
         if not self.daoArticolo:
-            print "ISTANZIO UN NUOVO ARTICOLO"
+            print("ISTANZIO UN NUOVO ARTICOLO")
             self.daoArticolo = Articolo()
         if posso("PW"):
             if self.codice_padre and self.codice_articolo:
-                print "ARTICOLO PADRE"
+                print("ARTICOLO PADRE")
                 self.tipoArticolo = "FATHER"
                 self.addTagliaColoreData(tipo = self.tipoArticolo, articolo = self.daoArticolo)
                 self.articoloPadre = None
             elif self.codice_padre and not self.codice_articolo:
-                print "ARTICOLO FIGLIO", self.codice_padre
+                print("ARTICOLO FIGLIO", self.codice_padre)
                 padre = Articolo().select(codiceEM=self.codice_padre)
                 if not padre:
-                    print "ERROREEEEEEEEE  non può essere caricato un figlio senza il padre"
+                    print("ERROREEEEEEEEE  non può essere caricato un figlio senza il padre")
                 else:
                     self.articoloPadre = padre[0]
                     self.tipoArticolo = "SON"
@@ -182,7 +182,7 @@ class ProductFromCsv(object):
                                         articoloPadre=self.articoloPadre,
                                         articolo = self.daoArticolo)
             elif not self.codice_padre and self.codice_articolo:
-                print "ARTICOLO NORMALE"
+                print("ARTICOLO NORMALE")
 
         self.fillDaos()
 
@@ -211,7 +211,7 @@ class ProductFromCsv(object):
             try:
                 artTC.id_modello = articoloPadre.id_modello
             except:
-                print " questo csv non ha modello"
+                print(" questo csv non ha modello")
         #ANNO
         if self.anno:
             anno = AnnoAbbigliamento().select(denominazione = self.anno)

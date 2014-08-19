@@ -83,14 +83,14 @@ class ImportJsonDocumenti(GladeWidget):
         text_buffer = self.importa_json_textview.get_buffer()
         note = text_buffer.get_text(text_buffer.get_start_iter(),
                                             text_buffer.get_end_iter(), True)
-        print "NOTE", note
+        print("NOTE", note)
         try:
             dati = json.JSONDecoder(object_pairs_hook=OrderedDict).decode(note)
         except:
-            print "ERRORE DATI DELLA TEXTVIEW NON JSON"
+            print("ERRORE DATI DELLA TEXTVIEW NON JSON")
             messageError("ERRORE DATI NELLA TEXTVIEW NON JSON")
             return
-        print type(dati["prodotti"]), dati["utente"]
+        print(type(dati["prodotti"]), dati["utente"])
         #data_ordine = dati["data"] # datetime.datetime.now()'Jun 1 2005  1:33PM'
         data_ordine = datetime.strptime(dati["data"], '%Y-%m-%d %H:%M:%S')
         daoCliente = Cliente().getRecord(id=int(dati["promogest_id"]))

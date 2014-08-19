@@ -185,8 +185,8 @@ class Sla2Pdf:
         if not ((squaresOpen == squareOpen/2) and (squareOpen%2 == 0) and
                 (squaresClose == squareClose/2) and (squareClose%2 == 0) and
                 (squaresOpen == squaresClose) and (roundOpen == roundClose)):
-            print 'ERROR: Please check your tags!!'
-            print string
+            print('ERROR: Please check your tags!!')
+            print(string)
             return None
 
         # Better choice to work with RE

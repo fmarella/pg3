@@ -235,10 +235,10 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
 
     def on_duplica_button_clicked(self, button):
         if self.fattura_toggle.get_active():
-            print "DUPLICHIAMO IN FATTURA"
+            print("DUPLICHIAMO IN FATTURA")
             DuplicaInFattura(dao=self.dao, ui = self).checkField(tipo="fattura")
         else:
-            print "DEVO FARE UN MOVIMENTO"
+            print("DEVO FARE UN MOVIMENTO")
             self._operazione = findIdFromCombobox(self.id_operazione_combobox)
             operazione = leggiOperazione(self._operazione)
             DuplicaInFattura(dao=self.dao, ui = self).checkField(tipo="movimento",operazione=self._operazione)
@@ -847,7 +847,7 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
         self._refresh()
 
     def on_generazione_fattura_button_clicked(self, button):
-        print "DUPLICHIAMO IN FATTURA"
+        print("DUPLICHIAMO IN FATTURA")
         DuplicaInFattura(dao=self.dao, ui = self).checkField()
 
     def calcolaTotaleScheda(self):
@@ -1056,12 +1056,12 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
 
 
     def on_email_import_button_clicked(self, button):
-        print "FILL THE DATA FROM EMAIL"
+        print("FILL THE DATA FROM EMAIL")
         if self.dao:
             altriDati= fillSchedaLavorazioneFromEmail(self)
             self.altriDati = altriDati
         else:
-            print "mettici un dialogo che avvisa"
+            print("mettici un dialogo che avvisa")
         self.nome_contatto_entry.set_text("ANTO")
         self.stato_entry.set_text("Italia")
         idColore = ColoreStampa().select(denominazione = altriDati["colore_stampa"])
@@ -1090,7 +1090,7 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
         self.password_user_entry.set_text(str(''.join( Random().sample(string.letters+string.digits, 6))))
         self.password_sito_entry.set_text(str(''.join( Random().sample(string.letters+string.digits, 6))))
         self.password_amici_entry.set_text(str(''.join( Random().sample(string.letters+string.digits, 6))))
-        print "GENERA I DATI PER L'EMAIL"
+        print("GENERA I DATI PER L'EMAIL")
 
     def on_email_send_button_clicked(self, button):
 
@@ -1135,4 +1135,4 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
             t.setDaemon(True) # FIXME: are we sure?
             t.start()
 
-        print "SPEDISCI I DATI PER L?EMAIL"
+        print("SPEDISCI I DATI PER L?EMAIL")

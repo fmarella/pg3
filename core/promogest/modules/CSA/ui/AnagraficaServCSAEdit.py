@@ -100,7 +100,7 @@ class AnagraficaServCSAEdit(AnagraficaEdit):
         """ Questa funzione serve a controllare il dao precedente,
         vedere quale categoria fornitore è abbinata all'installatore
         e proporla preimpostata"""
-        print "DEVO CERCARE LA CATEGORIA DEL PRECEDENTE RECORD E IMPOSTARLO"
+        print("DEVO CERCARE LA CATEGORIA DEL PRECEDENTE RECORD E IMPOSTARLO")
         #self.id_fornitore_customcombobox.presetCategoria = "CICCIO"
 
 

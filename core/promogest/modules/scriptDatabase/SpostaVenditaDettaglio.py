@@ -42,7 +42,7 @@ class SpostaVenditaDettaglio(object):
     """ Finestra di gestione esdportazione variazioni Database
     """
     def __init__(self):
-        print " ACCENDIAMO I MOTORI "
+        print(" ACCENDIAMO I MOTORI ")
         self.runBatch()
 
     def connectDbRemote(self):
@@ -64,7 +64,7 @@ class SpostaVenditaDettaglio(object):
         self.pg_db_server_main_remote.schema = MAINSCHEMA_REMOTO
         SessionRemote = scoped_session(sessionmaker(bind=engine))
         self.sessionRemote = SessionRemote()
-        print ">>>> CONNESSO AL DB REMOTO : %s IP: %s PORTA: %s SCHEMA %s <<<<< " %(DATABASE_REMOTO, HOST_REMOTO, PORT_REMOTO, SCHEMA_REMOTO)
+        print(">>>> CONNESSO AL DB REMOTO : %s IP: %s PORTA: %s SCHEMA %s <<<<< " %(DATABASE_REMOTO, HOST_REMOTO, PORT_REMOTO, SCHEMA_REMOTO))
 
     def connectDbLocale(self):
         """ effettua la connessione al DB locale """
@@ -86,7 +86,7 @@ class SpostaVenditaDettaglio(object):
         SessionLocale = scoped_session(sessionmaker(bind=engineLocale))
         self.engineLocale = engineLocale
         self.sessionLocale = SessionLocale()
-        print ">>>> CONNESSO AL DB LOCALE : %s IP: %s PORTA: %s SCHEMA %s <<<<< " %(DATABASE_LOCALE, HOST_LOCALE, PORT_LOCALE, SCHEMA_LOCALE)
+        print(">>>> CONNESSO AL DB LOCALE : %s IP: %s PORTA: %s SCHEMA %s <<<<< " %(DATABASE_LOCALE, HOST_LOCALE, PORT_LOCALE, SCHEMA_LOCALE))
 
     def dammiSoupLocale(self, dao):
         soupLocale = None
@@ -150,7 +150,7 @@ class SpostaVenditaDettaglio(object):
                     "righe_scontrino" : rr,
                     "sconto_testata_scontrino": stsdict
                         }
-            print scontrino
+            print(scontrino)
             dbl = self.pg_db_server_locale
             tsl = dbl.testata_scontrino.insert()
             tsl.data_inserimento = scontrino["data_inserimento"]
@@ -198,9 +198,9 @@ class SpostaVenditaDettaglio(object):
                 stsl.id_testata_scontrino = tsl.id
                 sqlalchemy.ext.sqlsoup.Session.add(stsl)
                 sqlalchemy.ext.sqlsoup.Session.commit()
-            print "SALVATO  CORRETTAMENTE SCONTRINO"
-        print "<<<<<<< INIZIATO :", self.tempo_inizio, " FINITO:", datetime.datetime.now() , ">>>>>>>>>>>>>"
-        print "SINCRONIZZAZIONE TERMINATA CON SUCCESSO"
+            print("SALVATO  CORRETTAMENTE SCONTRINO")
+        print("<<<<<<< INIZIATO :", self.tempo_inizio, " FINITO:", datetime.datetime.now() , ">>>>>>>>>>>>>")
+        print("SINCRONIZZAZIONE TERMINATA CON SUCCESSO")
 
 
     def runBatch(self):
@@ -208,7 +208,7 @@ class SpostaVenditaDettaglio(object):
         self.connectDbRemote()
         self.connectDbLocale()
         self.tempo_inizio = datetime.datetime.now()
-        print "INIZIO SINCRO",datetime.datetime.now()
+        print("INIZIO SINCRO",datetime.datetime.now())
         self.daosScheme()
         sqlalchemy.ext.sqlsoup.Session.expunge_all()
         sys.exit()

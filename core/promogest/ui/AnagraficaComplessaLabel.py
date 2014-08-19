@@ -78,7 +78,7 @@ class AnagraficaLabel(object):
         else:
             scribusVersion(self._slaTemplate)
         if not Environment.new_print_enjine:
-            print "OLD PRINT ENGINE"
+            print("OLD PRINT ENGINE")
             self._slaTemplateObj = SlaTpl2Sla(slaFileName=self._slaTemplate,
                                         pdfFolder=self._anagrafica._folder,
                                         report=self._anagrafica._reportType,
@@ -89,7 +89,7 @@ class AnagraficaLabel(object):
                                                 template_file=template_file)
             return self._slaTemplateObj
         else:
-            print "NEW PRINT ENGINE"
+            print("NEW PRINT ENGINE")
             if template_file:
                 slafile = Environment.labelTemplatesDir + template_file
             else:

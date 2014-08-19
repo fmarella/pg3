@@ -542,7 +542,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         Confermi la cancellazione ?
         """
         if YesNoDialog(msg=msg, transient=self.getTopLevel()):
-            print "cancello TUTTO IL MOVIMENTO INVENTARIO"
+            print("cancello TUTTO IL MOVIMENTO INVENTARIO")
             idMagazzino = findIdFromCombobox(self.additional_filter.id_magazzino_filter_combobox2)
             sel2 = Environment.params['session']\
                             .query(Inventario)\
@@ -647,7 +647,7 @@ class GestioneInventario(RicercaComplessaArticoli):
                 Environment.params['session'].add(inv)
 
                 #inv.persist()
-            print "RICREA"
+            print("RICREA")
             Environment.params['session'].commit()
             self.refresh()
 
@@ -670,8 +670,8 @@ class GestioneInventario(RicercaComplessaArticoli):
                     Stoccaggio.id_articolo).\
                     filter(Magazzino.id==self.idMagazzino).\
                     order_by(Stoccaggio.id_articolo).all()
-        print "AGGIORNA" , self.idMagazzino
-        print "SEL", sel,sel2
+        print("AGGIORNA" , self.idMagazzino)
+        print("SEL", sel,sel2)
         if sel != sel2:
             for s in sel:
                 if s not in sel2:
@@ -697,7 +697,7 @@ class GestioneInventario(RicercaComplessaArticoli):
         if sel != sel2:
             for s in sel:
                 if s not in sel2:
-                    print "MA QUI CI PASSI"
+                    print("MA QUI CI PASSI")
                     inv = Inventario()
                     inv.anno = self.annoScorso
                     inv.id_magazzino =  self.idMagazzino
@@ -875,7 +875,7 @@ class GestioneInventario(RicercaComplessaArticoli):
                                     prezzoScontato = mN(mN(prezzo) -mN(valoreSconto))
                         s.valore_unitario = prezzoScontato
                 Environment.params['session'].add(s)
-                print "VALORIZZA", valori
+                print("VALORIZZA", valori)
             Environment.params['session'].commit()
         self.refresh()
         self.fineElaborazione()
@@ -930,7 +930,7 @@ class GestioneInventario(RicercaComplessaArticoli):
                 righeArticoloMovimentate.sort(key=lambda x: x[1], reverse=True)
 
                 if righeArticoloMovimentate and righeArticoloMovimentate[0][0]:
-                    print "CHE VALORE HAI", righeArticoloMovimentate[0][0]
+                    print("CHE VALORE HAI", righeArticoloMovimentate[0][0])
                     s.valore_unitario = righeArticoloMovimentate[0][0]
                     Environment.params['session'].add(s)
                 else:
@@ -1112,7 +1112,7 @@ class GestioneInventario(RicercaComplessaArticoli):
                                         filterDict = self.filterDict
                                                     )
 
-            print "NUMERO DEI RECORD PRESENTI:", conteggia
+            print("NUMERO DEI RECORD PRESENTI:", conteggia)
             if conteggia >= blocSize:
                 blocchi = abs(conteggia/blocSize)
                 for j in range(0,blocchi+1):

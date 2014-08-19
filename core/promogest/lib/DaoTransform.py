@@ -252,8 +252,6 @@ from promogest.dao.AccountEmail import AccountEmail
 
 
 class NoAccountEmailFound(Exception): pass
-
-
 class NetworkError(Exception): pass
 
 

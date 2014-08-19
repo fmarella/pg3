@@ -156,7 +156,7 @@ class Main(GladeWidget):
         try:
             self.addNoteBookPage()
         except:
-            print " QUALCOSA NELL'AGGIUNTA DEI TAB NON E? ANDATO A BUON FINE"
+            print(" QUALCOSA NELL'AGGIUNTA DEI TAB NON E? ANDATO A BUON FINE")
         self.updates()
 
     def show(self):
@@ -267,12 +267,12 @@ class Main(GladeWidget):
             from promogest.dao.NumeroLottoTemp import NumeroLottoTemp
             from promogest.dao.RigaMovimentoFornitura import RigaMovimentoFornitura
             from promogest.dao.Fornitura import Fornitura
-            print "Avvio pulizia lotti temp..."
+            print("Avvio pulizia lotti temp...")
             lt = NumeroLottoTemp().select(batchSize=None)
             n = len(lt)
             g = 0
             for l in lt:
-                print "RESIDUI DA ELABORARE", n-lt.index(l)
+                print("RESIDUI DA ELABORARE", n-lt.index(l))
                 rmf =  RigaMovimentoFornitura().select(idRigaMovimentoVendita=l.id_riga_movimento_vendita_temp)
                 if not rmf:
                     #cerchiamo una fornitura precisa
@@ -390,10 +390,10 @@ class Main(GladeWidget):
 
     def on_scegli_iva_radio_toggled(self, radioButton):
         if radioButton.get_active():
-            print "CREA"
+            print("CREA")
             self.iva_upgrade_combobox.set_sensitive(True)
         else:
-            print "SELEZIONA"
+            print("SELEZIONA")
             self.iva_upgrade_combobox.set_sensitive(False)
 
     def on_upgrade_iva_chiudi_button_clicked(self, button):
@@ -434,7 +434,7 @@ class Main(GladeWidget):
                     with open(str(os.path.join(Environment.promogestDir.replace("_",""),meta_pickle.replace("_","")).strip()), 'wb') as f:
                         dump(Environment.meta, f)
             except:
-                print " FALLITA CREAZIONE META"
+                print(" FALLITA CREAZIONE META")
         pickle_meta()
 
 
@@ -999,7 +999,7 @@ class Main(GladeWidget):
                 licenseText += l
         except:
             licenseText = _('Lavori in corso ....')
-            print 'License file not found (LICENSE).'
+            print('License file not found (LICENSE).')
         textBuffer = licenzaDialog.licenza_textview.get_buffer()
         textBuffer.set_text(licenseText)
         licenzaDialog.licenza_textview.set_buffer(textBuffer)

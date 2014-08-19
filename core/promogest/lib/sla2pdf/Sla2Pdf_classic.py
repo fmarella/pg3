@@ -179,8 +179,8 @@ class Sla2Pdf_classic(object):
         if not ((squaresOpen == squareOpen/2) and (squareOpen%2 == 0) and
                 (squaresClose == squareClose/2) and (squareClose%2 == 0) and
                 (squaresOpen == squaresClose) and (roundOpen == roundClose)):
-            print 'ERROR: Please check your tags!!'
-            print string
+            print('ERROR: Please check your tags!!')
+            print(string)
             return None
 
         # Better choice to work with RE
@@ -552,7 +552,7 @@ class Sla2Pdf_classic(object):
                                 # Save itext
                                 itext.set('CH', ch)
                             except:
-                                print "bad tag will be visible on the generated pdf"
+                                print("bad tag will be visible on the generated pdf")
                                 #pass
 
             else:
@@ -925,7 +925,7 @@ class Sla2Pdf_classic(object):
                             # Font size
                             if self.version:
                                 try:
-                                    print "TEEEEE", itext.get('FONTSIZE')
+                                    print("TEEEEE", itext.get('FONTSIZE'))
                                     fontSize = float(itext.get('FONTSIZE'))
                                 except:
                                     fontSize = float(10)
@@ -1045,7 +1045,7 @@ class Sla2Pdf_classic(object):
             self.pageProperties.append([size, num,
                                         borderTop, borderBottom, borderRight, borderLeft,
                                         orientation, pageHeight, pageWidth, pageXPos, pageYPos])
-        print "VEDIAMO CHE FILE CREA", self.pdfFolder + self.pdfFileName + '.pdf'
+        print("VEDIAMO CHE FILE CREA", self.pdfFolder + self.pdfFileName + '.pdf')
         self.canvas = Canvas(filename = self.pdfFolder + self.pdfFileName + '.pdf', pagesize=(pageWidth, pageHeight))
 
         # Analyzing elements

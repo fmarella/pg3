@@ -193,7 +193,7 @@ Es. chiusura a contanti / assegni con calcolo del resto:
 
     def sendToPrint(self, filesToSend):
         """ Mando comando alle casse """
-        print "DEVO INVIARE IL FILE", filesToSend
+        print("DEVO INVIARE IL FILE", filesToSend)
         self.serial_manager(filesToSend)
 
 

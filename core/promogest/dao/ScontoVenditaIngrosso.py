@@ -64,7 +64,7 @@ if tipodb=="sqlite":
     a = session.query(Listino.data_listino).all()
     b = session.query(ScontoVenditaIngrosso.data_listino_articolo).all()
     fixit =  list(set(b)-set(a))
-    print "fixt-sv-ing", fixit
+    print("fixt-sv-ing", fixit)
     for f in fixit:
         if f[0] != "None" and f[0] != None:
             aa = ScontoVenditaIngrosso().select(dataListinoArticolo=f[0], batchSize=None)

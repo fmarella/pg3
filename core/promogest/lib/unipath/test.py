@@ -221,7 +221,7 @@ class FilesystemTest(object):
             if d.exists():
                 raise AssertionError("unable to delete temp dir %s" % d)
         else:
-            print "Not deleting test directory", d
+            print("Not deleting test directory", d)
 
 
 class TestCalculatingPaths(FilesystemTest):

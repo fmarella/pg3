@@ -89,7 +89,7 @@ def alignment(slaAlignment,styleAlignment=None):
             #slaAlignment = styleAlignment.get('ALIGN')
             #pdfAlignment
         #except:
-        print "ATTENTION!!! ARBITRARY ALIGNMENT USED '0'"
+        print("ATTENTION!!! ARBITRARY ALIGNMENT USED '0'")
         #pdfAlignment = 'LEFT'
     return pdfAlignment
 
@@ -176,7 +176,7 @@ def createbarcode(ch):
                 continue
             else:
                 return bcd
-    print " NON SONO RIUSCITO AD ELABORARE IL CODICE A BARRE", data
+    print(" NON SONO RIUSCITO AD ELABORARE IL CODICE A BARRE", data)
     return bcd
 
 
@@ -301,7 +301,7 @@ def findTags(string):
     if not ((squaresOpen == squareOpen/2) and (squareOpen%2 == 0) and
             (squaresClose == squareClose/2) and (squareClose%2 == 0) and
             (squaresOpen == squaresClose) and (roundOpen == roundClose)):
-        print 'ERROR: Please check your tags!!'
+        print('ERROR: Please check your tags!!')
         #print string
         return None
 

@@ -77,7 +77,7 @@ class SlaTpl2Sla(SlaParser):
                         try:
                             log_path = objects[0]["azi_percorso_immagine"]
                             l.set("PFILE", os.path.relpath(log_path,os.path.expanduser('~')))
-                            print os.path.relpath(log_path,os.path.expanduser('~'))
+                            print(os.path.relpath(log_path,os.path.expanduser('~')))
                         except Exception as e:
                             Environment.pg2log.info("ERRORE NELL'INSERIMENTO DEL LOGO"+str(e.args))
         self.pagesNumber = self.getPagesNumber()

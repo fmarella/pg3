@@ -173,7 +173,7 @@ def myparse(metadata_xml, dati, out, test=None, verbose=None):
                             # _value_array[1] = str(_value_array[1])[:int(_decimal)]
                         _value_str = str(_args[0][:int(_len-_decimal)].rjust(int(_len-_decimal), _fill) + _sep + _args[1][:int(_decimal)].rjust(int(_decimal), _fill))
                     except Exception as e:
-                        print(str(e))
+                        print((str(e)))
                         _value_str = ''
                 else:
                     print("Attenzione: nessun valore per il campo float.")
@@ -186,7 +186,7 @@ def myparse(metadata_xml, dati, out, test=None, verbose=None):
                 # Tronca la stringa alla lunghezza specificata
                 _value_str = _value_str[:_len]
             else:
-                print('Attenzione: Tipo \'%s\' non supportato.' % _type)
+                print(('Attenzione: Tipo \'%s\' non supportato.' % _type))
 
         # Traduci align in funzione
         if _align:
@@ -197,7 +197,7 @@ def myparse(metadata_xml, dati, out, test=None, verbose=None):
             elif _align == 'center':
                 _fn = 'center'
             else:
-                print('Attenzione: Valore di allineamento \'%s\' non supportato.' % _align)
+                print(('Attenzione: Valore di allineamento \'%s\' non supportato.' % _align))
 
         # Applica eventuali funzioni
         if _len:
@@ -259,7 +259,7 @@ def myparse(metadata_xml, dati, out, test=None, verbose=None):
                         try:
                             tmp = __process(field, el, baz)
                         except ProcessError as err:
-                            print(str(err))
+                            print((str(err)))
     
                         out.write(tmp)
                     if _fineriga == 'nl':
@@ -274,7 +274,7 @@ def myparse(metadata_xml, dati, out, test=None, verbose=None):
                     try:
                         tmp = __process(field, el, dati_[el])
                     except ProcessError as err:
-                        print(str(err))
+                        print((str(err)))
     
                     out.write(tmp)
                 if _fineriga == 'nl':

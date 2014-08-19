@@ -486,8 +486,8 @@ class ImportPriceListModels(GladeWidget):
         else:
             #FIXME:
             #we have to correct this mess
-            print """non so che sta succedendo.
-    segnalazione errori? per cosa? :D"""
+            print("""non so che sta succedendo.
+    segnalazione errori? per cosa? :D""")
             pass
 
     def on_famiglia_togglebutton_toggled(self, toggleButton):

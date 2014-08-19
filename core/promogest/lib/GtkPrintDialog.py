@@ -90,4 +90,4 @@ class GtkPrintDialog(object):
 
     def _on_print_job_complete(self, job, data, error):
         if error:
-            print 'FIXME, handle error:', error
+            print('FIXME, handle error:', error)

@@ -293,10 +293,10 @@ class AnagraficaDistintaBaseEdit(AnagraficaEdit):
 
             anagWindow.destroy()
             if isNode:
-                print "SEI PADRE"
+                print("SEI PADRE")
                 self.mostraArticoloPadre(anag.dao)
             else:
-                print "SEI FIGLIO"
+                print("SEI FIGLIO")
                 self.mostraArticoloFiglio(anag.dao)
 
         codice = None

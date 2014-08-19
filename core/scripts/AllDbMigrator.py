@@ -64,14 +64,14 @@ for table in tablelist:
     finalFile = table+".sql"
     schemaTable = schemasrc+"."+table
     command = "pg_dump -U %s -h %s -t %s %s > %s" %(utente, host, schemaTable, databasesrc, finalFile)
-    print command
+    print(command)
     stdin, stdouterr = os.popen4(command)
-    print stdouterr.read()
+    print(stdouterr.read())
 
 for table in tablelist:
     finalFile = table+".sql"
     schemaTable = schemasrc+"."+table
-    print "APRO " , finalFile
+    print("APRO " , finalFile)
     #try:
     f = open(finalFile, "r")
     freplaced = table+"rep.sql"
@@ -89,9 +89,9 @@ for table in tablelist:
 for table in tablelist:
     freplaced = table+"rep.sql"
     command = "psql -U %s -h %s %s < %s" %(utente, host,databasedest, freplaced)
-    print command
+    print(command)
     stdin, stdouterr = os.popen4(command)
-    print stdouterr.read()
+    print(stdouterr.read())
 
 
 db = create_engine('postgres://'+utente + ':' + password +'@'+ host +':'+ str(port) +'/'+ databasedest,
@@ -121,7 +121,7 @@ try:
     command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".colore_id_seq",schemadest +".colore")
     session.execute(text(command))
 except:
-    print "ERRORE colore_id_seq"
+    print("ERRORE colore_id_seq")
 command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".contatto_id_seq",schemadest +".contatto")
 session.execute(text(command))
 command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".destinazione_merce_id_seq",schemadest +".destinazione_merce")
@@ -134,7 +134,7 @@ try:
     command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".gruppo_taglia_id_seq",schemadest +".gruppo_taglia")
     session.execute(text(command))
 except:
-    print "ERRORE gruppo_taglia_id_seq"
+    print("ERRORE gruppo_taglia_id_seq")
 command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".image_id_seq",schemadest +".image")
 session.execute(text(command))
 command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".imballaggio_id_seq",schemadest +".imballaggio")
@@ -149,7 +149,7 @@ try:
     command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".modello_id_seq",schemadest +".modello")
     session.execute(text(command))
 except:
-    print "ERRORE modello_id_seq"
+    print("ERRORE modello_id_seq")
 command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".multiplo_id_seq",schemadest +".multiplo")
 session.execute(text(command))
 command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".pagamento_id_seq",schemadest +".pagamento")
@@ -170,7 +170,7 @@ try:
     command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".taglia_id_seq",schemadest +".taglia")
     session.execute(text(command))
 except:
-    print "ERRORE taglia_id_seq"
+    print("ERRORE taglia_id_seq")
 command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".testata_documento_id_seq",schemadest +".testata_documento")
 session.execute(text(command))
 command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".testata_documento_scadenza_id_seq",schemadest +".testata_documento_scadenza")
@@ -181,33 +181,33 @@ try:
     command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".caratteri_stampa_id_seq",schemadest +".caratterie_stampa")
     session.execute(text(command))
 except:
-    print "ERRORE carattere_stampa_id_seq"
+    print("ERRORE carattere_stampa_id_seq")
 try:
     command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".colori_stampa_id_seq",schemadest +".colori_stampa")
     session.execute(text(command))
 except:
-    print "ERRORE colore_stampa_id_seq"
+    print("ERRORE colore_stampa_id_seq")
 try:
     command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".contatti_schede_id_seq",schemadest +".contatti_scheda")
     session.execute(text(command))
 except:
-    print "ERRORE contatto_scheda_id_seq"
+    print("ERRORE contatto_scheda_id_seq")
 try:
     command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".datari_id_seq",schemadest +".datari")
     session.execute(text(command))
 except:
-    print "ERRORE datario_id_seq"
+    print("ERRORE datario_id_seq")
 try:
     command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".schede_ordinazioni_id_seq",schemadest +".schede_ordinazioni")
     session.execute(text(command))
 except:
-    print "ERRORE scheda_ordinazione_id_seq"
+    print("ERRORE scheda_ordinazione_id_seq")
 try:
     command = "SELECT setval( '%s',(SELECT max(id)+1 FROM %s));" %(schemadest+".associazione_articolo_id_seq",schemadest +".associazione_articolo")
     session.execute(text(command))
 except:
-    print "ERRORE associazione_articolo_id_seq"
+    print("ERRORE associazione_articolo_id_seq")
 
 command = "rm *.sql"
 stdin, stdouterr = os.popen4(command)
-print stdouterr.read()
+print(stdouterr.read())

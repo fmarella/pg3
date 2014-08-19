@@ -261,10 +261,9 @@ def restart_program():
     saving data) must be done before calling this function."""
     python = sys.executable
     os.execl(python, python, * sys.argv)
-print " AZIENDAAAA", azienda
+
 def handleEngine():
     engine = None
-    print "TIPO DB",tipodb
     if tipodb == "sqlite":
         azienda = None
         mainSchema = None
@@ -281,7 +280,7 @@ def handleEngine():
         else:
             engine = create_engine("sqlite:///" + startdir() + "db", listeners=[SetTextFactory()], proxy=MyProxy())
     elif tipodb =="postgresql":
-        from promogest.EnvUtils import *
+        from promogest.EnvUtils import pg8000, py_postgresql, psycopg2new, psycopg2old
         mainSchema = "promogest2"
         engine = pg8000()
         if not engine:
@@ -297,14 +296,14 @@ def handleEngine():
             main_conf.Database.database = database
             main_conf.Database.azienda = database
             main_conf.save()
-            print "RICORDATI DI CREARE UN  DB CHE SI CHIAMI", preEnv.buildSchema
+            print(("RICORDATI DI CREARE UN  DB CHE SI CHIAMI", preEnv.buildSchema))
         try:
             engine = create_engine("mysql+mysqlconnector://" + user + ":" + \
                                     password + "@" + host + ":" + preEnv.port +\
                                     "/" + preEnv.database + "?charset=utf8",
                                     poolclass=NullPool)
         except Exception as e:
-            print "NON SONO RIUSCITO A CREARE L'ENGINE, NOME DEL DB NON PRESENTE? ERRORE:", e
+            print(("NON SONO RIUSCITO A CREARE L'ENGINE, NOME DEL DB NON PRESENTE? ERRORE:", e))
 
 
     if not engine:
@@ -321,11 +320,9 @@ if not web:
     Session = sessionmaker(bind=engine)
     session = Session()
 else:
-    print " USI QUESTA SESSIONE SCOPED"
     session = scoped_session(lambda: create_session(engine, autocommit=False))
 
 # Determiniamo il nome del file pickle in base all'azienda e alla ver python.
-print " AZIENDAAAA", azienda
 if azienda:
     meta_pickle = azienda + "-meta.pickle"+sys.version[:1]
     promogestDir = os.path.expanduser('~') + os.sep + "promogest2" + os.sep + azienda + os.sep
@@ -347,28 +344,23 @@ def delete_pickle():
             os.remove(str(os.path.join(promogestDir.replace("_",""),meta_pickle.replace("_","")).strip()))
         if os.path.exists(str(os.path.join(promogestDir_da_conf.replace("_",""),meta_pickle_da_conf.replace("_","")).strip())):
             os.remove(str(os.path.join(promogestDir_da_conf.replace("_",""),meta_pickle_da_conf.replace("_","")).strip()))
-            print "\n\n\n\nHO CANCELLATO IL FILE PICKLE QUASI SICURAMENTE BISOGNA RILANCIARE\n\n\n\n"
+            print ("\n\n\n\nHO CANCELLATO IL FILE PICKLE QUASI SICURAMENTE BISOGNA RILANCIARE\n\n\n\n")
             restart_program()
             #sys.exit()
 
 def usePickleToMeta():
     if azienda and os.path.exists(str(os.path.join(promogestDir.replace("_",""),meta_pickle.replace("_","")).strip())):
-        print " CONTROLLO DELL'ESISTENZA DEL FILE PICKLE", str(os.path.join(promogestDir.replace("_","")))
+        #print CONTROLLO DELL'ESISTENZA DEL FILE PICKLE", str(os.path.join(promogestDir.replace("_","")))
         with open(str(os.path.join(promogestDir.replace("_",""),meta_pickle.replace("_","")).strip()), 'rb') as f:
             try:
                 meta = pickle_load(f)
                 meta.bind = engine
-                #try:
-                    #meta.tables[azienda+".articolo"]
-                #except:
-                    #delete_pickle()
             except:
-                print "DEVO CANCELLARE IL PICKLE PERCHé NON RIESCO A TROVARLO O LEGGERLO"
+                # "DEVO CANCELLARE IL PICKLE PERCHé NON RIESCO A TROVARLO O LEGGERLO"
                 delete_pickle()
-            print "USO META PICKLE FAST"
-            #meta = MetaData(engine)
+            #print "USO META PICKLE FAST"
     else:
-        print "USO META NORMALE"
+        #print "USO META NORMALE"
         meta = MetaData(engine)
     return meta
 meta = usePickleToMeta()
@@ -382,7 +374,6 @@ if tipo_eng=="sqlite" or tipo_eng=="mysql":
 else:
     mainSchema = "promogest2"
     schema = azienda
-    #print "AZIENDAAAAAAAAAAAAAAAAAAAAAAAAA", azienda
 
 params = {'engine': engine,
         'mainSchema': mainSchema,
@@ -421,33 +412,33 @@ def hook(et, ev, eb):
     import traceback
     if "Operation aborted" in str(ev):
         pg2log.info("\n  ".join(["Error occurred: traceback follows"] + list(traceback.format_exception(et, ev, eb))))
-        print "\n  ".join(list(traceback.format_exception(et, ev, eb)))
+        print(("\n  ".join(list(traceback.format_exception(et, ev, eb)))))
         return
     if "ATTENZIONE, TENTATIVO DI SALVATAGGIO SENZA RIGHE?????" in ev:
         return
     if "[Errno 9] Bad file descriptor" in ev:
         return
     if "Handler" in str(ev):
-        print "ATTENZIONE!!! MANCA L'HANDLER", ev
+        print(("ATTENZIONE!!! MANCA L'HANDLER", ev))
         pg2log.info("\n  ".join(["Error occurred: traceback follows"] + list(traceback.format_exception(et, ev, eb))))
-        print "\n  ".join(list(traceback.format_exception(et, ev, eb)))
+        print(("\n  ".join(list(traceback.format_exception(et, ev, eb)))))
         delete_pickle()
         return
     if "ProgrammingError" in str(ev):
         pg2log.info("\n  ".join(["Error occurred: traceback follows"] + list(traceback.format_exception(et, ev, eb))))
-        print "\n  ".join(list(traceback.format_exception(et, ev, eb)))
+        print(("\n  ".join(list(traceback.format_exception(et, ev, eb)))))
         __sendmail()
         delete_pickle()
         return
     if "OperationalError" in str(ev):
         pg2log.info("\n  ".join(["Error occurred: traceback follows"] + list(traceback.format_exception(et, ev, eb))))
-        print "\n  ".join(list(traceback.format_exception(et, ev, eb)))
+        print(("\n  ".join(list(traceback.format_exception(et, ev, eb)))))
         __sendmail()
         delete_pickle()
         return
     if "ArgumentError" in str(ev):
         pg2log.info("\n  ".join(["Error occurred: traceback follows"] + list(traceback.format_exception(et, ev, eb))))
-        print "\n  ".join(list(traceback.format_exception(et, ev, eb)))
+        print(("\n  ".join(list(traceback.format_exception(et, ev, eb)))))
         __sendmail()
         delete_pickle()
         return
@@ -463,13 +454,13 @@ def hook(et, ev, eb):
         pg2log.info("\n  ".join(["Error occurred: traceback follows"] + list(traceback.format_exception(et, ev, eb))))
     except:
         pass
-    print "\n  ".join(list(traceback.format_exception(et, ev, eb)))
+    print(("\n  ".join(list(traceback.format_exception(et, ev, eb)))))
     __sendmail()
 #if not preEnv.web:
 sys.excepthook = hook
 
 # DA SPOSTARE ASSOLUTAMENTE QUANTO PRIMA
-print "SQLALCHEMY VERSION", sqlalchemy.__version__
+print(("SQLALCHEMY VERSION", sqlalchemy.__version__))
 
 
 if os.name=="nt" and sqlalchemy.__version__ < "0.7":

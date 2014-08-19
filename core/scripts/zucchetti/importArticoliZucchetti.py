@@ -88,7 +88,7 @@ class GenericFillData(object):
         if options.fileDB and options.fileDB != "":
             self.file_csv = options.fileDB
         else:
-            print "ERRORE NESSUN FILE DA PARSARE"
+            print("ERRORE NESSUN FILE DA PARSARE")
             raise Exception("ERRORE: usare -f /path/to/file")
         self.connection()
 
@@ -129,16 +129,16 @@ class GenericFillData(object):
     def definisciTabella(self, dati):
         if dati:
             if dati[0] =="gmcodice" and dati[1] == "gmdescri":
-                print "TABELLA GRUPPO MERCEOLOGICO"
+                print("TABELLA GRUPPO MERCEOLOGICO")
                 return "gruppomerceologico"
             elif dati[0] =="arcodart" and dati[1] == "ardesart":
-                print "TABELLA ARTICOLO"
+                print("TABELLA ARTICOLO")
                 return "articolo"
             elif dati[0] == "arcodart" and dati[1] == "lscodlis":
-                print "TABELLA LISTINO ARTICOLO"
+                print("TABELLA LISTINO ARTICOLO")
                 return "listino_articolo"
             else:
-                print "ATTENZIONE TABELLA NON RICONOSCIUTA"
+                print("ATTENZIONE TABELLA NON RICONOSCIUTA")
 
     def fillFamigliaArticolo(self, spamReaderList):
         """ SCHEMA CONVERSIONE gruppo merceologico:
@@ -185,13 +185,13 @@ class GenericFillData(object):
 
             f = self.pg_db_dest.famiglia_articolo.filter_by(codice=row[2]).all()
             if not f:
-                print "FAMIGLIA NON PRESENTE"
+                print("FAMIGLIA NON PRESENTE")
                 del a
                 continue
             a.id_famiglia_articolo = f[0].id
             g = self.pg_db_dest.aliquota_iva.filter_by(percentuale=float(row[6])).one()
             if not g:
-                print "ATTENZIONE AGGIHNGERE IVA AL %s" %row[6]
+                print("ATTENZIONE AGGIHNGERE IVA AL %s" %row[6])
                 raise Exception("ATTENZIONE AGGIHNGERE IVA AL %s") %row[6]
             else:
                 iva = g.id
@@ -222,7 +222,7 @@ class GenericFillData(object):
         for row in spamReaderList:
             a = self.pg_db_dest.articolo.filter_by(codice=row[0]).all()
             if not a:
-                print "ARTICOLO NON PRESENTE"
+                print("ARTICOLO NON PRESENTE")
                 del a
                 continue
             else:
@@ -233,7 +233,7 @@ class GenericFillData(object):
                 b = self.pg_db_dest.listino_articolo()
             else:
                 b = a[0]
-            print row[2][0:-5],row[3].replace(",",".")
+            print(row[2][0:-5],row[3].replace(",","."))
             b.id_listino = int(row[1])
             b.id_articolo = idArticolo
             b.prezzo_ingrosso = float(row[3].replace(",",".") or "0")

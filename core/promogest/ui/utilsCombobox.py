@@ -1222,8 +1222,8 @@ def autocompletamento_entry(par_entry=None, filtro=None):
 def gestione_testo(gest_entry, event, filtro):
     ''' Gestione riempimento liststore su base del numero di elementi'''
     from promogest.dao.Articolo import Articolo
-    print "Gli argomenti saranno filtrati per: " + filtro
-    print "Insert: " + gest_entry.get_text()
+    print("Gli argomenti saranno filtrati per: " + filtro)
+    print("Insert: " + gest_entry.get_text())
     gest_completion = gest_entry.get_completion()
     gest_liststore = gest_completion.get_model()
     gest_filtro = gest_entry.get_text()
@@ -1243,7 +1243,7 @@ def gestione_testo(gest_entry, event, filtro):
     i = 0
     # aggiorna la liststore con gli oggetti in articoli
     for n in articoli:
-        print "Il record " + repr(i) + " contiene: " + n.codice
+        print("Il record " + repr(i) + " contiene: " + n.codice)
         if filtro == "codice":
             gest_liststore.append([n.codice, n])
         elif filtro == "denominazione":
@@ -1254,7 +1254,7 @@ def gestione_testo(gest_entry, event, filtro):
             gest_liststore.append([n.codice_a_barre, n])
         elif filtro == "codiceArticoloFornitore":
             gest_liststore.append([n.codice_articolo_fornitore, n])
-        print gest_liststore[i][0] + " inserita nella liststore"
+        print(gest_liststore[i][0] + " inserita nella liststore")
         i = i + 1
     gest_completion.set_model(gest_liststore)
     gest_entry.set_completion(gest_completion)

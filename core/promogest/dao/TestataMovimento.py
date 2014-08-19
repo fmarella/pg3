@@ -37,7 +37,7 @@ except:
     from data.testataMovimento import t_testata_movimento
 
 if "id_to_magazzino" not in [c.name for c in t_testata_movimento.columns]:
-    print " AGGIUNGI COLONNA TO MAGAZZINO"
+    print(" AGGIUNGI COLONNA TO MAGAZZINO")
     try:
         conn = engine.connect()
         ctx = MigrationContext.configure(conn)
@@ -306,7 +306,7 @@ class TestataMovimento(Dao):
                     arto = Articolo().getRecord(id=riga.id_articolo)
                     #print "KIT", arto.articoli_kit
                     for art in arto.articoli_kit:
-                        print art.id_articolo_filler, art.quantita
+                        print(art.id_articolo_filler, art.quantita)
                         a = leggiArticolo(art.id_articolo_filler)
                         r = RigaMovimento()
                         r.valore_unitario_netto = 0

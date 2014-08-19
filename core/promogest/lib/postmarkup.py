@@ -1227,7 +1227,7 @@ def _tests():
     post_markup = create(use_pygments=True)
 
     tests = []
-    print """<link rel="stylesheet" href="code.css" type="text/css" />\n"""
+    print("""<link rel="stylesheet" href="code.css" type="text/css" />\n""")
 
     tests.append(']')
     tests.append('[')
@@ -1346,10 +1346,10 @@ asdasdasdasdqweqwe
     #tests=["""[b]b[i]i[/b][/i]"""]
 
     for test in tests:
-        print u"<pre>%s</pre>"%str(test.encode("ascii", "xmlcharrefreplace"))
-        print u"<p>%s</p>"%str(post_markup(test).encode("ascii", "xmlcharrefreplace"))
-        print u"<hr/>"
-        print
+        print(u"<pre>%s</pre>"%str(test.encode("ascii", "xmlcharrefreplace")))
+        print(u"<p>%s</p>"%str(post_markup(test).encode("ascii", "xmlcharrefreplace")))
+        print(u"<hr/>")
+        print()
 
     #print repr(post_markup('[url=<script>Attack</script>]Attack[/url]'))
 
@@ -1370,10 +1370,10 @@ This is the footer
 [/section]
 More text"""
 
-    print smarkup(test, paragraphs=True, clean=False)
+    print(smarkup(test, paragraphs=True, clean=False))
     tag_data = {}
-    print smarkup(test, tag_data=tag_data, paragraphs=True, clean=True)
-    print tag_data
+    print(smarkup(test, tag_data=tag_data, paragraphs=True, clean=True))
+    print(tag_data)
 
 def _run_unittests():
 
@@ -1467,13 +1467,13 @@ def _ff_test():
     for n in xrange(REPEAT):
         ff1(text, 0, "a", "b")
     end = time()
-    print end - start
+    print(end - start)
 
     start = time()
     for n in xrange(REPEAT):
         ff2(text, 0, "a", "b")
     end = time()
-    print end - start
+    print(end - start)
 
 
 

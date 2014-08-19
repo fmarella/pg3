@@ -322,16 +322,8 @@ class Login(SimpleGladeApp):
                     mod_enable = True
                     mod_enableyes = "yes"
                 elif hasattr(Environment.conf, m_str):
-                    try:
-                        exec \
-            "mod_enable = getattr(Environment.conf.%s,'mod_enable')" % m_str
-                        try:
-                            exec \
-    "mod_enableyes = getattr(Environment.conf.%s,'mod_enable','yes')" % m_str
-                        except:
-                            pass
-                    except:
-                        pass
+                    exec("mod_enable = getattr(Environment.conf.%s,'mod_enable')" % m_str)
+                    exec("mod_enableyes = getattr(Environment.conf.%s,'mod_enable','yes')" % m_str)
                 if mod_enable and mod_enableyes == "yes":
                     stringa = "%s.%s.module" % (
                                         modules_dir.replace("/", "."), m_str)
@@ -340,7 +332,7 @@ class Login(SimpleGladeApp):
                     if hasattr(m, "TEMPLATES"):
                         HtmlHandler.templates_dir.append(m.TEMPLATES)
                     for class_name in m.MODULES_FOR_EXPORT:
-                        exec 'module = m.' + class_name
+                        exec ('module = m.' + class_name)
                         self.modules[class_name] = {
                                         'module': module(),
                                         'type': module.VIEW_TYPE[0],
@@ -355,7 +347,7 @@ class Login(SimpleGladeApp):
                 if hasattr(m, "TEMPLATES"):
                     HtmlHandler.templates_dir.append(m.TEMPLATES)
                 for class_name in m.MODULES_FOR_EXPORT:
-                    exec 'module = m.' + class_name
+                    exec ('module = m.' + class_name)
                     self.modules[class_name] = {
                                     'module': module(),
                                     'type': module.VIEW_TYPE[0],

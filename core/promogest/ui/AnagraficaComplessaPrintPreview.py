@@ -112,7 +112,7 @@ class AnagraficaPrintPreview(GladeWidget):
             anagWindow.show_all()
             #self.codBar_combo.set_active(0)
         elif self.codBar_combo.get_active() == 1:
-            print "ANTEPRIMA CSV"
+            print("ANTEPRIMA CSV")
         else:
             self.codBar_combo.set_active(-1)
 

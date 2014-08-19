@@ -397,7 +397,7 @@ class Anagrafica(GladeWidget):
                 licenseText += l
         except:
             licenseText = 'Lavori in corso ....'
-            print 'License file not found (LICENSE).'
+            print('License file not found (LICENSE).')
         textBuffer = licenzaDialog.licenza_textview.get_buffer()
         textBuffer.set_text(licenseText)
         licenzaDialog.licenza_textview.set_buffer(textBuffer)

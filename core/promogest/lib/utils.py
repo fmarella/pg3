@@ -42,7 +42,7 @@ try:
     import pysvn
 except:
     pysvn = None
-    print 'Modulo pysvn non trovato: gli aggiornamenti non saranno disponibili!'
+    print('Modulo pysvn non trovato: gli aggiornamenti non saranno disponibili!')
 import xml.etree.ElementTree as ET
 import unicodedata
 import urllib
@@ -2676,7 +2676,7 @@ def removeCodBarorphan():
     bc = CodiceABarreArticolo().select(idArticoloNone=True, batchSize=None)
     if bc:
         for a in bc:
-            print "CODICE A BARRE ORFANO DI ARTICOLO, VERRA' ELIMINATO", a.codice
+            print("CODICE A BARRE ORFANO DI ARTICOLO, VERRA' ELIMINATO", a.codice)
             a.delete()
 
 
@@ -2905,7 +2905,7 @@ def leggiRevisioni():
                     "http://promogest.googlecode.com/svn/trunk",
                             recurse=False)[0][1]["rev"].number
         except pysvn.ClientError as e:
-            print "IMPOSSIBILE VERIFICARE SE IL PG E' AGGIORNATO" ,e
+            print("IMPOSSIBILE VERIFICARE SE IL PG E' AGGIORNATO" ,e)
         Environment.pg2log.info("VERSIONE IN USO LOCALE E REMOTA "+str(Environment.rev_locale)+" "+str(Environment.rev_remota)+" Errore: "+str(e))
     if pysvn:
         thread = threading.Thread(target=fetch)
@@ -2931,7 +2931,7 @@ def messageError(msg="Messaggio generico", transient=None):
                             Gtk.MESSAGE_ERROR,
                             Gtk.BUTTONS_CANCEL)
         dialoggg.set_markup(msg)
-        print "MESSAGGIO", msg
+        print("MESSAGGIO", msg)
         return
         response = dialoggg.run()
         dialoggg.destroy()
@@ -3104,9 +3104,9 @@ def checkInstallation():
         conte = json.loads(content)
         Environment.news = conte["news"]
         if conte == {}:
-            print "CODICE NON PRESENTE DARE UN MESSAGGIO"
+            print("CODICE NON PRESENTE DARE UN MESSAGGIO")
         elif conte and conte["codice"] == None and conte["tipo"] == None:
-            print "CODICE VUOTO RESETTO I DATI"
+            print("CODICE VUOTO RESETTO I DATI")
             confy = SetConf().select(key="install_code",section="Master")
             if confy:
                 con = confy[0]
@@ -3122,7 +3122,7 @@ def checkInstallation():
             con.date = datetime.datetime.now()
             con.persist()
         else:
-            print " CODICE TROVATO",conte
+            print(" CODICE TROVATO",conte)
             confy = SetConf().select(key="tipo",section="Master")
             if confy:
                 if confy[0].value != conte["tipo"]:
@@ -3143,7 +3143,7 @@ def checkInstallation():
             Environment.modulesList.append(str(conte["tipo"]))
             Environment.tipo_pg= str(conte["tipo"])
     except:
-        print "ERRORE NEL COLLEGAMENTO AL CHECK INSTALLAZIONE"
+        print("ERRORE NEL COLLEGAMENTO AL CHECK INSTALLAZIONE")
     return Environment.news
 
 
@@ -3279,7 +3279,7 @@ def scribusVersion(slafile):
         return True
     elif slaversion in ("1.3.5.1", "1.3.5svn"):
 #        messageInfo(msg="ATTENZIONE FORMATO TEMPLATE SLA DA CORREGGERE 1.3.5")
-        print "ATTENZIONE FORMATO TEMPLATE SLA DA CORREGGERE 1.3.5"
+        print("ATTENZIONE FORMATO TEMPLATE SLA DA CORREGGERE 1.3.5")
         Environment.pg2log.info("ATTENZIONE FORMATO TEMPLATE SLA DA CORREGGERE 1.3.5")
         return True
     elif "1.3.4" in slaversion:
@@ -3450,8 +3450,8 @@ def timeit(method):
         ts = time.time()
         result = method(*args, **kw)
         te = time.time()
-        print '%r %r(%r, %r) %2.2f sec' % \
-              (method.__module__,method.__name__, args, kw, te-ts)
+        print('%r %r(%r, %r) %2.2f sec' % \
+              (method.__module__,method.__name__, args, kw, te-ts))
         return result
 
     return timed

@@ -245,7 +245,7 @@ class GestioneScontrini(GladeWidget):
         (model, iterator) = sel.get_selected()
 
         if iterator is None:
-            print 'on_filter_treeview_cursor_changed(): FIXME: iterator is None!'
+            print('on_filter_treeview_cursor_changed(): FIXME: iterator is None!')
             return
 
         self.dao = model.get_value(iterator, 0)
@@ -340,7 +340,7 @@ class GestioneScontrini(GladeWidget):
             fencemsg()
 
     def on_esporta_affluenza_csv_clicked(self, button):
-        print "esport to csv"
+        print("esport to csv")
 
     def on_aggiorna_inve_activate(self, item):
         """ Questa funzione serve a ricalibrare le giacenze di inventario con
@@ -364,7 +364,7 @@ class GestioneScontrini(GladeWidget):
                 if idMagazzinosel:
                     idMagazzino = idMagazzinosel[0].id
                 else:
-                    print "ERRORE NELLA DEFINIZIONE DEL MAGAZZINO"
+                    print("ERRORE NELLA DEFINIZIONE DEL MAGAZZINO")
                     return
                 for scontrino in self.scontrini:
                     for riga in scontrino.righe:
@@ -374,11 +374,11 @@ class GestioneScontrini(GladeWidget):
                                 quantitaprecedente = daoInv[0].quantita or 0
                                 quantitavenduta = riga.quantita
                                 nuovaquantita = quantitaprecedente+quantitavenduta
-                                print "OPERAZIONE DA EFFETTUARE", quantitaprecedente,quantitavenduta, nuovaquantita
+                                print("OPERAZIONE DA EFFETTUARE", quantitaprecedente,quantitavenduta, nuovaquantita)
                                 daoInv[0].quantita= nuovaquantita
                                 daoInv[0].persist()
             else:
-                print "IL MODULO INVENTARIO NON e' ATTIVO "
+                print("IL MODULO INVENTARIO NON e' ATTIVO ")
 
     def on_distinta_button_clicked(self, button):
         gest = Distinta(righe = self.scontrini)

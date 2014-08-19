@@ -243,7 +243,7 @@ class Meta:
 		return stamp
 
 	def parse_start_element(self, name, attrs):
-		if self.debug: print '* Start element:', name
+		if self.debug: print('* Start element:', name)
 		self.parser_element_list.append(name)
 		self.parser_element = self.parser_element_list[-1]
 
@@ -254,14 +254,14 @@ class Meta:
 			self.set_meta("user%dname" % self.parser_count, attrs['meta:name'])
 
 		# Debugging statements
-		if self.debug: print "  List: ", self.parser_element_list
-		if self.debug: print "  Attributes: ", attrs
+		if self.debug: print("  List: ", self.parser_element_list)
+		if self.debug: print("  Attributes: ", attrs)
 
 
 	def parse_end_element(self, name):
-		if self.debug: print '* End element:', name
+		if self.debug: print('* End element:', name)
 		if name != self.parser_element:
-			print "Tag Mismatch: '%s' != '%s'" % (name, self.parser_element)
+			print("Tag Mismatch: '%s' != '%s'" % (name, self.parser_element))
 		self.parser_element_list.pop()
 
 		# Readjust parser_element_list and parser_element
@@ -271,7 +271,7 @@ class Meta:
 			self.parser_element = ""
 
 	def parse_char_data(self, data):
-		if self.debug: print "  Character data: ", repr(data)
+		if self.debug: print("  Character data: ", repr(data))
 
 		# Collect Meta data fields
 		if (self.parser_element == "dc:title"):
@@ -297,8 +297,8 @@ class Meta:
 		# Debugging statements
 		if self.debug:
 			# Sometimes it helps to see the document that was read from
-			print data
-			print "\n\n\n"
+			print(data)
+			print("\n\n\n")
 
 		# Create parser
 		parser = xml.parsers.expat.ParserCreate()
@@ -679,14 +679,14 @@ class CalcSheet:
 		"""
 		# Catch invalid data
 		if type(cell) != type(()) or len(cell) != 2:
-			print "Invalid Cell"
+			print("Invalid Cell")
 			return
 		(col, row) = cell
 		if type(col) != type(1):
-			print "Invalid Cell"
+			print("Invalid Cell")
 			return
 		if type(row) != type(1):
-			print "Invalid Cell"
+			print("Invalid Cell")
 			return
 		# Fix String Data
 		if datatype in ['string', 'annotation']:
@@ -852,7 +852,7 @@ class Calc:
 		# See if we need to read a document
 		if opendoc:
 			# Verify that the document exists
-			if self.debug: print "Opening Document: %s" % opendoc
+			if self.debug: print("Opening Document: %s" % opendoc)
 
 			# Okay, now we load the file
 			self.load(opendoc)
@@ -959,7 +959,7 @@ class Calc:
 		# styles.xml - I do not remember putting anything here
 
 	def parse_content_start_element(self, name, attrs):
-		if self.debug: print '* Start element:', name
+		if self.debug: print('* Start element:', name)
 		self.parser_element_list.append(name)
 		self.parser_element = self.parser_element_list[-1]
 
@@ -1039,14 +1039,14 @@ class Calc:
 				self.parser_cell_string_line = "%s\n" % (self.parser_cell_string_line)
 
 		# Debugging statements
-		if self.debug: print "  List: ", self.parser_element_list
-		if self.debug: print "  Attributes: ", attrs
+		if self.debug: print("  List: ", self.parser_element_list)
+		if self.debug: print("  Attributes: ", attrs)
 
 
 	def parse_content_end_element(self, name):
-		if self.debug: print '* End element:', name
+		if self.debug: print('* End element:', name)
 		if name != self.parser_element:
-			print "Tag Mismatch: '%s' != '%s'" % (name, self.parser_element)
+			print("Tag Mismatch: '%s' != '%s'" % (name, self.parser_element))
 		self.parser_element_list.pop()
 
 		# If the element was text:p and we are in string mode
@@ -1065,7 +1065,7 @@ class Calc:
 			self.parser_element = ""
 
 	def parse_content_char_data(self, data):
-		if self.debug: print "  Character data: ", repr(data)
+		if self.debug: print("  Character data: ", repr(data))
 
 		if (self.parser_element == 'text:p' or self.parser_element == 'text:span'):
 			if (self.parser_cell_string_pending):
@@ -1085,8 +1085,8 @@ class Calc:
 		# Debugging statements
 		if self.debug:
 			# Sometimes it helps to see the document that was read from
-			print data
-			print "\n\n\n"
+			print(data)
+			print("\n\n\n")
 
 		# Create parser
 		parser = xml.parsers.expat.ParserCreate()
@@ -1103,21 +1103,21 @@ class Calc:
 
 		The save function saves the current cells and settings into a document.
 		"""
-		if self.debug: print "Writing %s" % filename
+		if self.debug: print("Writing %s" % filename)
 		self.savefile = zipfile.ZipFile(filename, "w")
-		if self.debug: print "  meta.xml"
+		if self.debug: print("  meta.xml")
 		self._zip_insert(self.savefile, "meta.xml", self.meta.get_meta())
-		if self.debug: print "  mimetype"
+		if self.debug: print("  mimetype")
 		self._zip_insert(self.savefile, "mimetype", "application/vnd.oasis.opendocument.spreadsheet")
-		if self.debug: print "  Configurations2/accelerator/current.xml"
+		if self.debug: print("  Configurations2/accelerator/current.xml")
 		self._zip_insert(self.savefile, "Configurations2/accelerator/current.xml", "")
-		if self.debug: print "  META-INF/manifest.xml"
+		if self.debug: print("  META-INF/manifest.xml")
 		self._zip_insert(self.savefile, "META-INF/manifest.xml", self._ods_manifest())
-		if self.debug: print "  content.xml"
+		if self.debug: print("  content.xml")
 		self._zip_insert(self.savefile, "content.xml", self._ods_content())
-		if self.debug: print "  settings.xml"
+		if self.debug: print("  settings.xml")
 		self._zip_insert(self.savefile, "settings.xml", self._ods_settings())
-		if self.debug: print "  styles.xml"
+		if self.debug: print("  styles.xml")
 		self._zip_insert(self.savefile, "styles.xml", self._ods_styles())
 
 	def _zip_insert(self, file, filename, data):
@@ -1146,7 +1146,7 @@ class Calc:
 		for sheet in self.sheets:
 			if self.debug:
 				sheet_name = sheet.get_name()
-				print "    Creating Sheet '%s'" % sheet_name
+				print("    Creating Sheet '%s'" % sheet_name)
 			sheet_list = sheet.get_lists()
 			self.sheetdata.append(sheet_list)
 		# Automatic Styles
@@ -1738,19 +1738,19 @@ class Writer:
 
 		The save function saves the current .odt document.
 		"""
-		if self.debug: print "Writing %s" % filename
+		if self.debug: print("Writing %s" % filename)
 		self.savefile = zipfile.ZipFile(filename, "w")
-		if self.debug: print "  meta.xml"
+		if self.debug: print("  meta.xml")
 		self._zip_insert(self.savefile, "meta.xml", self.meta.get_meta())
-		if self.debug: print "  mimetype"
+		if self.debug: print("  mimetype")
 		self._zip_insert(self.savefile, "mimetype", "application/vnd.oasis.opendocument.text")
-		if self.debug: print "  META-INF/manifest.xml"
+		if self.debug: print("  META-INF/manifest.xml")
 		self._zip_insert(self.savefile, "META-INF/manifest.xml", self._odt_manifest())
-		if self.debug: print "  content.xml"
+		if self.debug: print("  content.xml")
 		self._zip_insert(self.savefile, "content.xml", self._odt_content())
-		if self.debug: print "  settings.xml"
+		if self.debug: print("  settings.xml")
 		# self._zip_insert(self.savefile, "settings.xml", self._odt_settings())
-		if self.debug: print "  styles.xml"
+		if self.debug: print("  styles.xml")
 		# self._zip_insert(self.savefile, "styles.xml", self._odt_styles())
 
 	def _zip_insert(self, file, filename, data):

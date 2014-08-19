@@ -117,7 +117,7 @@ class FilterWidget(GladeWidget):
                 self._owner._anagrafica.anagrafica_hpaned.set_position(self.position+300)
                 self._owner.altri_filtri_frame.show()
             except:
-                print "NO ALTRI FILTRI PRESENTI"
+                print("NO ALTRI FILTRI PRESENTI")
         else:
             self._owner.altri_filtri_frame.hide()
             self._owner._anagrafica.anagrafica_hpaned.set_position(self.position)

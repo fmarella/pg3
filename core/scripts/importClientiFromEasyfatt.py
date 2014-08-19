@@ -162,7 +162,7 @@ class GenericFillData(object):
 
     def fillDataContact(self,spamReader):
         f = open("scarti.txt", "w")
-        print "NUMERO DANEA", len(spamReader)
+        print("NUMERO DANEA", len(spamReader))
         for cl in self.clientiGiustoPesoReaderList:
             ce = False
             for row in spamReader:
@@ -176,7 +176,7 @@ class GenericFillData(object):
     #                if r[1] == cl[0]:
     #                    f.write("    PESATE: "+ str(r[2].split(" ")[0])+" "+r[3]+" "+r[4] +" "+r[5]+"\n")
                 ce = False
-        print "\n\n INI ZIO", datetime.now(), len(spamReader)
+        print("\n\n INI ZIO", datetime.now(), len(spamReader))
         for row in spamReader:
             ah = self.pg_db_dest.persona_giuridica.filter_by(codice=row[0]).all()
             if ah:
@@ -187,7 +187,7 @@ class GenericFillData(object):
                                 self.pesateGiustoPesoReaderList.remove(p)
                         self.clientiGiustoPesoReaderList.remove(cl)
                 continue
-            print "\n\nDOPO CHECK SE ESISTE CLI", datetime.now()
+            print("\n\nDOPO CHECK SE ESISTE CLI", datetime.now())
             pg = self.pg_db_dest.persona_giuridica()
             pg.codice = row[0]
             pg.ragione_sociale = row[1]
@@ -205,19 +205,19 @@ class GenericFillData(object):
             cli.id = pg.id
             sqlalchemy.ext.sqlsoup.Session.add(cli)
             sqlalchemy.ext.sqlsoup.Session.commit()
-            print "SALVATO CLI", datetime.now()
+            print("SALVATO CLI", datetime.now())
             if self.ip:
 #                clientiGiustoPeso.next() # Skip header line.
 #                pesateGiustoPesoReader.next()
                 trovato = False
-                print "QUANTI CLIENTI", len(self.clientiGiustoPesoReaderList)
+                print("QUANTI CLIENTI", len(self.clientiGiustoPesoReaderList))
                 for cl in self.clientiGiustoPesoReaderList:
                     #CLIENTI GIUSTO PESO:
                     #"id";"cognome";"nome";"sesso";"datanascita";"altezza";"cellulare";"notes";"datanotifica"
                     # PESATE GIUSTO PESO:
                     #"id";"clienteId";"data";"peso";"dieta";"notes";"deltapeso"
                     if cl[1].lower() in row[1].lower() and cl[2].lower() in row[1].lower():
-                        print "AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH", datetime.now(), row[1], cl[1], cl[2], cl[3], cl[4], cl[5], cl[6], cl[7]
+                        print("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH", datetime.now(), row[1], cl[1], cl[2], cl[3], cl[4], cl[5], cl[6], cl[7])
                         tip = self.pg_db_dest.testata_info_peso()
                         tip.id_cliente = cli.id
                         tip.note = cl[7]
@@ -235,7 +235,7 @@ class GenericFillData(object):
                                                       int(cl[4].split(" ")[0].split("/")[0])  )
                         except:
                             clgen.data_nascita = datetime(2011,1,1)
-                            print "ERRORE DATA DI NASCITA", int(cl[4].split(" ")[0].split("/")[2])
+                            print("ERRORE DATA DI NASCITA", int(cl[4].split(" ")[0].split("/")[2]))
                         clgen.altezza = float(cl[5])
                         if cl[3] =="F":
                             genere = "Donna"
@@ -245,7 +245,7 @@ class GenericFillData(object):
                         sqlalchemy.ext.sqlsoup.Session.add(clgen)
                         sqlalchemy.ext.sqlsoup.Session.commit()
                         n = 0
-                        print "QUANTE RIGHE", len(self.pesateGiustoPesoReaderList)
+                        print("QUANTE RIGHE", len(self.pesateGiustoPesoReaderList))
                         for p in self.pesateGiustoPesoReaderList:
 
                             h = self.pg_db_dest.tipo_trattamento.filter_by(denominazione=p[4].upper()).all()
@@ -261,7 +261,7 @@ class GenericFillData(object):
                                                       int(p[2].split(" ")[0].split("/")[0]))
                                     sqlalchemy.ext.sqlsoup.Session.add(tip)
                                     sqlalchemy.ext.sqlsoup.Session.commit()
-                                    print "SALVO LA TESTATA PESATA", datetime.now()
+                                    print("SALVO LA TESTATA PESATA", datetime.now())
                                 rip = self.pg_db_dest.riga_info_peso()
                                 rip.numero = n+1
                                 rip.id_testata_info_peso = tip.id
@@ -277,14 +277,14 @@ class GenericFillData(object):
                             else:
                                 continue
                             sqlalchemy.ext.sqlsoup.Session.commit()
-                        print "DOPO SALVATAGGIO RIGHE PESATA", datetime.now()
+                        print("DOPO SALVATAGGIO RIGHE PESATA", datetime.now())
                         n = 0
 #                        print p[2], p[3], p[4], p[5]
                         trovato = True
                         self.clientiGiustoPesoReaderList.remove(cl)
                         break
                 if not trovato:
-                    print " NIENTE DA FARE",  row[1]
+                    print(" NIENTE DA FARE",  row[1])
                     f.write(row[1]+"\n")
                     trovato = False
             if self.tipo =="sqlite":
@@ -370,7 +370,7 @@ class GenericFillData(object):
                 _recapiti6.id_contatto=cont.id
                 sqlalchemy.ext.sqlsoup.Session.add(_recapiti6)
             sqlalchemy.ext.sqlsoup.Session.commit()
-            print " DOPO SALVATAGGIO RECAPITI", datetime.now()
+            print(" DOPO SALVATAGGIO RECAPITI", datetime.now())
         f.close()
 
 if __name__ == "__main__":

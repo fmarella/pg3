@@ -79,6 +79,6 @@ def articolo_table(soup=None, op=None, dao=None, row=None, all=False):
             g.codice = g.codice+"BIS"
             b = g.persist()
             if not b:
-                print "PROPRIO NON SO COSA FARE HO ANCHE  CAMBIATO IL CODICE"
+                print("PROPRIO NON SO COSA FARE HO ANCHE  CAMBIATO IL CODICE")
             articolo_table(soup=soup, op=op, dao=dao, row=row, all=all)
     return True

@@ -297,7 +297,7 @@ if tipodb=="sqlite":
     a = session.query(Pagamento.id).all()
     b = session.query(Cliente.id_pagamento).all()
     fixit =  list(set(b)-set(a))
-    print "fixt-cliente-pagamento", fixit
+    print("fixt-cliente-pagamento", fixit)
     for f in fixit:
         if f[0] != "None" and f[0] != None:
             aa = Cliente().select(idPagamento=f[0], batchSize=None)
@@ -308,7 +308,7 @@ if tipodb=="sqlite":
     c = session.query(Banca.id).all()
     d = session.query(Cliente.id_banca).all()
     fixit2 =  list(set(d)-set(c))
-    print "fixt-cliente-banca", fixit2
+    print("fixt-cliente-banca", fixit2)
     for f in fixit2:
         if f[0] != "None" and f[0] != None:
             aa = Cliente().select(idBanca=f[0], batchSize=None)

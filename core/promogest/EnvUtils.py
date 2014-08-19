@@ -40,7 +40,7 @@ from sqlalchemy.interfaces import ConnectionProxy
 def check_deps():
     import sqlalchemy
     if sqlalchemy.__version__ < "0.7.4":
-        print "[Error] outdate sqlalchemy version, aggiornare"
+        print("[Error] outdate sqlalchemy version, aggiornare")
     try:
         import jinja2
         import reportlab
@@ -52,15 +52,15 @@ def check_deps():
             disattivando l'antivirus per qualche minuto
 
             {0}""".format(str(e))
-            print msg
+            print(msg)
     try:
         import xhtml2pdf
     except ImportError:
-        print "[Error] missing xhtml2pdf"
+        print("[Error] missing xhtml2pdf")
     try:
         import PyPDF2
     except ImportError:
-        print "[Error] missing PyPDF2"
+        print("[Error] missing PyPDF2")
     try:
         import keyring
     except ImportError:
@@ -245,7 +245,7 @@ def _send(fromaddr=None, total_addrs=None, msg=None):
                         "promogestlogs@gmail.com",
                             msg.as_string())
     except Exception as e:
-        print "ERRORE NELLA SPEDIZIONE EMAIL", str(e)
+        print("ERRORE NELLA SPEDIZIONE EMAIL", str(e))
 
 def pg_log():
 

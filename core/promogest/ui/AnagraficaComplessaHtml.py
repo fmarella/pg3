@@ -54,9 +54,9 @@ class AnagraficaHtml(object):
             #FIXME: add some logging level check here
             import pprint
             pp = pprint.PrettyPrinter(indent=4)
-            print ("\n\n=== DAO object dump ===\n\n"
+            print(("\n\n=== DAO object dump ===\n\n"
                     + pp.pformat(dao.dictionary(complete=True))
-                    + "\n\n")
+                    + "\n\n"))
 
     def refresh(self):
         """ Aggiorna la vista HTML """

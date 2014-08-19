@@ -53,9 +53,9 @@ class Sla2Pdf(object):
 
     def __init__(self, slaFileName=None,pdfFolder=None, report=False,
                         label=False, slafile=None):
-        print "SLAFILENAME" , slaFileName
-        print "PDF_FOLDER", pdfFolder
-        print "SLAFILE", slafile
+        print("SLAFILENAME" , slaFileName)
+        print("PDF_FOLDER", pdfFolder)
+        print("SLAFILE", slafile)
 
         self.slaFileName = slaFileName
         self.pdfFolder = pdfFolder
@@ -83,7 +83,7 @@ class Sla2Pdf(object):
                                     report = self.report).serialize(objects, dao=daos)
                 result = None
                 filename = self.pdfFolder+"_temp.pdf"
-                print "FILENAME FINALEEEEE", filename
+                print("FILENAME FINALEEEEE", filename)
                 f = file(filename, 'rb')
                 result = f.read()
                 f.close()
@@ -101,7 +101,7 @@ class Sla2Pdf(object):
             #os.remove(filename)
             return result
         else:
-            print "QUESTO é SOLO PER LA CONVERSIONE"
+            print("QUESTO é SOLO PER LA CONVERSIONE")
             self.toPdf()
 
     def toPdf(self):
@@ -115,7 +115,7 @@ class Sla2Pdf(object):
     def slaToSla(self, objects=None, daos=None):
 
         """ Model parsing, values substitution and pdf creation """
-        print "QUESTO DEVE PASSARE PER SLATPL2SLA"
+        print("QUESTO DEVE PASSARE PER SLATPL2SLA")
         from SlaTpl2Sla import SlaTpl2Sla
         self.slatpl = SlaTpl2Sla(   slafile = self.slafile,
                                     label =self.label,

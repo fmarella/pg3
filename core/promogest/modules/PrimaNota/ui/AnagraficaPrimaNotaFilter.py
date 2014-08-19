@@ -245,7 +245,7 @@ class AnagraficaPrimaNotaFilter(AnagraficaFilter):
                 tipo = i.righeprimanota[0].tipo
                 banca = i.righeprimanota[0].banca[0:15] or ""
             else:
-                print "ATTENZIONE TESTATA PRIMA NOTA SENZA RIGHE", i, i.note, i.data_inizio
+                print("ATTENZIONE TESTATA PRIMA NOTA SENZA RIGHE", i, i.note, i.data_inizio)
                 denom ="SENZARIGHE"
                 note = i.note
                 banca = ""

@@ -114,7 +114,7 @@ i DAO, i filtri o tutto"""
         if options.web == True:
             preEnv.web = True
         if options.tipoDB and options.schema:
-            print(" DOBBIAMO CREARE UN NUOVO DB CON AZIENDA " ,  options.schema)
+            print((" DOBBIAMO CREARE UN NUOVO DB CON AZIENDA " ,  options.schema))
             preEnv.buildSchema = options.schema
             preEnv.aziendaforce = options.schema
             from createSchemaDb import buildAll

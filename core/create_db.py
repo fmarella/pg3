@@ -186,14 +186,14 @@ class CreateAndDropTable(object):
 
         (options, args) = parser.parse_args()
         self.tipo = options.tipo
-        print self.tipo, options.schema
+        print(self.tipo, options.schema)
         if self.tipo != "web" and self.tipo !="classico" and self.tipo !="all":
-            print "ATTENZIONE!!!, Opzioni possibili per -t (--tipo)  sono 'classico', 'web', 'all'"
+            print("ATTENZIONE!!!, Opzioni possibili per -t (--tipo)  sono 'classico', 'web', 'all'")
             sys.exit()
 
         self.tabella = tabella
         if not options.schema:
-            print " ATTENZIONE !!!!, non e' stato selezionato uno schema con -s schema "
+            print(" ATTENZIONE !!!!, non e' stato selezionato uno schema con -s schema ")
             ok=0
             while ok==0:
                 first = raw_input("Vuoi usare 'azienda_prova'? Si/No: ")
@@ -204,13 +204,13 @@ class CreateAndDropTable(object):
                     ok=1
                     break
                 else:
-                    print "ATTENZIONE, rispondi o Si o no"
+                    print("ATTENZIONE, rispondi o Si o no")
         else:
             self.schema = options.schema
         self.metadata = meta
         self.session_sl = session
         if not options.operazione:
-            print "ATTENZIONE !!! Manca l'operazione da svolgere!, Scegli tra %s " %action
+            print("ATTENZIONE !!! Manca l'operazione da svolgere!, Scegli tra %s " %action)
             sys.exit(2)
         elif options.operazione == "drop_all":
             self.dropAllTable()
@@ -218,38 +218,38 @@ class CreateAndDropTable(object):
             self.createAllTable(lista=tableListPromogest)
         elif options.operazione == "create_azienda" or options.operazione=="setup":
             self.createAziendaSchema(lista=tableListUniversal)
-            print "creata l'azienda"
+            print("creata l'azienda")
         elif options.operazione == "drop_azienda":
             self.dropAziendaSchema()
-            print "cancellata l'azienda"
+            print("cancellata l'azienda")
         elif options.operazione == "update_all":
-            print "e' stata richiesta una operazione di drop della tabella "
+            print("e' stata richiesta una operazione di drop della tabella ")
         elif options.operazione == "alter_all":
-            print "e' stata richiesta una operazione di alterazione delle tabelle "
+            print("e' stata richiesta una operazione di alterazione delle tabelle ")
         elif options.operazione == "data_all":
-            print "e' stata richiesta una operazione di inserimento dati di tutte le tabelle "
+            print("e' stata richiesta una operazione di inserimento dati di tutte le tabelle ")
         elif options.operazione == "drop":
             self.dropTable()
-            print "E' stata rimossa la tabella : %s" %self.tabella
+            print("E' stata rimossa la tabella : %s" %self.tabella)
         elif options.operazione == "create":
             self.createTable(tab=self.tabella)
-            print "E'stata aggiunta la tabella: %s" %self.tabella
+            print("E'stata aggiunta la tabella: %s" %self.tabella)
         elif options.operazione == "update":
-            print "E'stata aggiornata la tabella: %s" %self.tabella
+            print("E'stata aggiornata la tabella: %s" %self.tabella)
         elif options.operazione == "alter":
-            print "E'stata alterata la tabella: %s" %self.tabella
+            print("E'stata alterata la tabella: %s" %self.tabella)
 
     def createAziendaSchema(self, lista=[]):
         try:
             comando= "CREATE SCHEMA %s AUTHORIZATION %s" %(MAINSCHEMA,USER)
             session.execute(text(comando))
         except Exception, e:
-            print "Errore %s " % e
+            print("Errore %s " % e)
         try:
             comando= "CREATE SCHEMA %s AUTHORIZATION %s" %(self.schema, USER)
             session.execute(text(comando))
         except Exception, e:
-            print "Errore %s " % e
+            print("Errore %s " % e)
 
         self.createAllTable(lista=tableListUniversal)
         self.createAllTable(lista=tableListPromogest)
@@ -261,10 +261,10 @@ class CreateAndDropTable(object):
 
     def createTable(self, lista=[], tab=None):
         if tab[0] == "azienda":
-            print "----------------   CREO LA TABELLA           :", tab[1]
+            print("----------------   CREO LA TABELLA           :", tab[1])
             exec "%s(schema=self.schema,mainSchema=MAINSCHEMA,tipo=self.tipo, metadata=self.metadata,session=self.session_sl).create()" %tab[1]
         else:
-            print "++++++++++++++++++CREO LA TABELLA             :", tab[1]
+            print("++++++++++++++++++CREO LA TABELLA             :", tab[1])
             exec "%s(schema=self.schema,mainSchema=MAINSCHEMA,metadata=self.metadata,session=self.session_sl).create()" %tab[1]
 
     def dropTable(self):
@@ -280,7 +280,7 @@ class CreateAndDropTable(object):
                 #self.schema= MAINSCHEMA
             #else:
             self.createTable(lista=lista, tab=table)
-            print "AGGIUNTA LA TABELLA: %s" %table[0]
+            print("AGGIUNTA LA TABELLA: %s" %table[0])
 
 
     def dropAllTable(self):

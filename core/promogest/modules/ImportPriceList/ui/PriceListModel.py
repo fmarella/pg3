@@ -123,5 +123,5 @@ class PriceListModel:
                     try:
                         retVal = self._defaultAttributes.pop(f)
                     except:
-                        print 'ATTENZIONE! si è cercato di rimuovere un campoinesistente da un modello di importazione listini.'
+                        print('ATTENZIONE! si è cercato di rimuovere un campoinesistente da un modello di importazione listini.')
         return self._defaultAttributes.keys()

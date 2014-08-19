@@ -114,7 +114,7 @@ class ElaExecute(object):
         elif daoScontrino.totale_contanti == 0 and daoScontrino.totale_carta_credito != 0 and daoScontrino.totale_assegni == 0:
             f.write("1329 ; ; Carta/Bancomat\n")
         else:
-            print "SITUAZIONE POCO CHIARA METTO UN VALORE SEMPLICE "
+            print("SITUAZIONE POCO CHIARA METTO UN VALORE SEMPLICE ")
             f.write("1329\n")
 
         #questa è la stringa per la gestione dei CF in scontrino olivetti

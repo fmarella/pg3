@@ -95,7 +95,7 @@ class Pg2StatusIcon(Gtk.StatusIcon):
         #from promogest.ui.Main import ConfiguraWindow
         #configuraWindow = ConfiguraWindow(self)
         #showAnagrafica(self.getTopLevel(), configuraWindow)
-        print "clicked on preferences"
+        print("clicked on preferences")
 
 
     def on_about(self, data):

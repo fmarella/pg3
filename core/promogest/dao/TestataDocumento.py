@@ -154,7 +154,7 @@ class TestataDocumento(Dao):
             elif self.TM and len(self.TM) >1:
                 if not Environment.web:
                     Environment.pg2log.info("ATTENZIONE due movimenti fanno riferimento ad una sola testata documento:"+str(self.id))
-                print "ID DEL DOCUMENTO", str(self.id)
+                print("ID DEL DOCUMENTO", str(self.id))
                 raise Exception("Più di un movimento fa riferimento allo stesso documento!")
             self.__dbRigheDocumento = self.__dbRigheDocumentoPart + self.__dbRigheMovimentoPart
             self.__dbRigheDocumento.sort(key=lambda x: x.posizione or x.id)
@@ -1471,7 +1471,7 @@ if tipodb=="sqlite":
     a = session.query(Banca.id).all()
     b = session.query(TestataDocumento.id_banca).all()
     fixit =  list(set(b)-set(a))
-    print "fixt-td-banca", fixit
+    print("fixt-td-banca", fixit)
     for f in fixit:
         if f[0] != "None" and f[0] != None:
             aa = TestataDocumento().select(idBanca=f[0], batchSize=None)
@@ -1481,7 +1481,7 @@ if tipodb=="sqlite":
     c = session.query(Pagamento.id).all()
     d = session.query(TestataDocumento.id_pagamento).all()
     fixit2 =  list(set(d)-set(c))
-    print "fixt-td-pag", fixit2
+    print("fixt-td-pag", fixit2)
     for f in fixit2:
         if f[0] != "None" and f[0] != None:
             aa = TestataDocumento().select(idPagamento=f[0], batchSize=None)
@@ -1492,7 +1492,7 @@ if tipodb=="sqlite":
     e = session.query(TestataDocumento.id).all()
     f = session.query(TestataDocumento.id_primo_riferimento).all()
     fixit3 =  list(set(f)-set(e))
-    print "fixt-td-primo_pag", fixit3
+    print("fixt-td-primo_pag", fixit3)
     for f in fixit3:
         if f[0] != "None" and f[0] != None:
             aa = TestataDocumento().select(idPrimoRiferimento=f[0], batchSize=None)

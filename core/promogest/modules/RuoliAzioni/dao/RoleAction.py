@@ -59,7 +59,7 @@ std_mapper = mapper(RoleAction, t_roleaction, properties={
 
 idAdmin = Role().select(name ="Admin")
 if not idAdmin:
-    print "ATTENZIONE NON e' PRESENTE UN ADMIN"
+    print("ATTENZIONE NON e' PRESENTE UN ADMIN")
 else:
     idadmin = idAdmin[0].id
     idact = params["session"].query(Action.id).all()

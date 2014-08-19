@@ -448,16 +448,16 @@ class StatisticaGenerale(GladeWidget):
         incidenzaVenditaDict = {}
 
         # smisto i dati  secondo categoriaArticolo
-        print " ID CATEGORIE", self.cateArticoloId
+        print(" ID CATEGORIE", self.cateArticoloId)
         for arto in self.cateArticoloId:
             # INIZIO livello categoria
             nomeCategoria = CategoriaArticolo().getRecord(id=arto)
             articoli = Articolo().select(idCategoria = arto,
                                     produttore = produt,  batchSize=None)
-            print "ARTICOLI IN QUELLA CATEGORIA", len(articoli)
+            print("ARTICOLI IN QUELLA CATEGORIA", len(articoli))
             for art in articoli:
                 # INIZIO livello articolo
-                print "INIZIO AD ELABORARE L'ARTICOLO ", art.id
+                print("INIZIO AD ELABORARE L'ARTICOLO ", art.id)
                 quantitaVendutaUNO = 0
                 quantitaVendutaTotaleUNO = 0
                 quantitaAcquistataUNO = 0
@@ -471,7 +471,7 @@ class StatisticaGenerale(GladeWidget):
                     .filter(Riga.id_magazzino.in_(self.magazzinoId))\
                     .filter(Riga.id_articolo == art.id)\
                     .all()
-                print "RIGHE DI MOVIMENTO VENDITA", righeArticoloMovimentate
+                print("RIGHE DI MOVIMENTO VENDITA", righeArticoloMovimentate)
                 for  rig in righeArticoloMovimentate:
                     # Quanti ne ho venduti IN TOTALE
 
@@ -494,7 +494,7 @@ class StatisticaGenerale(GladeWidget):
                         forni=  leggiFornitura(art.id)
                         valoreAcquisto += (forni["prezzoNetto"]*quantitaVendutaUNO)
                         valoreAcquistoTotale += (forni["prezzoNetto"]*quantitaVendutaUNO)
-                        print " PREZZO DA FORNITURA"
+                        print(" PREZZO DA FORNITURA")
                     else:
 #                        for r in rigaArticoloMovimentata:
                             valoreAcquisto += (rigaArticoloMovimentata[0][0].valore_unitario_netto*quantitaVendutaUNO)
@@ -503,7 +503,7 @@ class StatisticaGenerale(GladeWidget):
                             quantitaAcquistataUNO += rigaArticoloMovimentata[0][0].quantita
                             quantitaAcquistataTotaleUNO += rigaArticoloMovimentata[0][0].quantita
     #                        quantitaAcquistataTotale += r[0].quantita
-                    print " VALORE ACQUISTO", valoreAcquisto
+                    print(" VALORE ACQUISTO", valoreAcquisto)
 
                     ope = leggiOperazione(rig[1].operazione)
                     if ope["fonteValore"] =="vendita_iva":
@@ -512,7 +512,7 @@ class StatisticaGenerale(GladeWidget):
                     elif ope["fonteValore"] =="vendita_senza_iva":
                         imponibile = Decimal(str(float(rig[0].valore_unitario_netto)))
                     else:
-                        print "TIPO DI FONTE VALORE PER LA VENDITA NN RICONOSCIUTO"
+                        print("TIPO DI FONTE VALORE PER LA VENDITA NN RICONOSCIUTO")
                     valoreVendita += (imponibile*quantitaVendutaUNO)
                     valoreVenditaTotale += (imponibile*quantitaVendutaUNO)
 
@@ -521,9 +521,9 @@ class StatisticaGenerale(GladeWidget):
                     # QUESTO LIVELLO ARTICOLO
 
                 if quantitaVendutaTotaleUNO <= quantitaAcquistataTotaleUNO:
-                    print "ARTICOLO %s OK", str(art.id), quantitaVendutaTotaleUNO,quantitaAcquistataTotaleUNO
+                    print("ARTICOLO %s OK", str(art.id), quantitaVendutaTotaleUNO,quantitaAcquistataTotaleUNO)
                 else:
-                    print " SERVE TROVARE UN PREZZO ACQUISTO", str(art.id),quantitaVendutaTotaleUNO,quantitaAcquistataTotaleUNO
+                    print(" SERVE TROVARE UN PREZZO ACQUISTO", str(art.id),quantitaVendutaTotaleUNO,quantitaAcquistataTotaleUNO)
 
             # Questo livello categoria
             quantitaVenduta =+quantitaVendutaTotale

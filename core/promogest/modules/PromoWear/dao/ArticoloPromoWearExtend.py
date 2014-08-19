@@ -50,7 +50,7 @@ def getArticoliTagliaColore(self, idGruppoTaglia=None, idTaglia=None, idColore=N
                         offset=None,
                         batchSize=None)
     except:
-        print "FOR DEBUG ONLY getArticoliTagliaColore FAILED"
+        print("FOR DEBUG ONLY getArticoliTagliaColore FAILED")
     return articoli
 articoliTagliaColore = property(getArticoliTagliaColore)
 

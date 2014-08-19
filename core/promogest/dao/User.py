@@ -67,7 +67,7 @@ class User(Dao):
 
     def delete(self):
         if self.username == "admin":
-            print "TENTATIVO DI CANCELLAZIONE ADMIN L'EVENTO VERRA' REGISTRATO "
+            print("TENTATIVO DI CANCELLAZIONE ADMIN L'EVENTO VERRA' REGISTRATO ")
             return False
         else:
             params['session'].delete(self)

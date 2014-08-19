@@ -153,7 +153,7 @@ def orderedImport():
     from promogest.modules.GestioneCommesse.dao.RigaCommessa import t_riga_commessa
 
 def orderedImportVenditaDettaglio():
-    print "| QUANDO VIENI CHIAMATO"
+    print("| QUANDO VIENI CHIAMATO")
     orderedImport()
 #try:
     from promogest.modules.VenditaDettaglio.dao.Pos import t_pos #v
@@ -166,7 +166,7 @@ def orderedImportVenditaDettaglio():
     from promogest.modules.VenditaDettaglio.dao.ChiusuraFiscale import t_chiusura_fiscale #v
     from promogest.modules.VenditaDettaglio.dao.TestataScontrinoCliente import t_testata_scontrino_cliente #v
 
-    print "CARICAMENTO/INSERIMENTO TABELLE VENDITA DETTAGLIO  ANDATO BENE"
+    print("CARICAMENTO/INSERIMENTO TABELLE VENDITA DETTAGLIO  ANDATO BENE")
 #except:
     #print " DETTAGLIO DA SISTEARE"
 
@@ -194,4 +194,4 @@ def orderedImportWeb():
     if "id_cliente" not in colonne_cart:
         col = Column('id_cliente', Integer)
         col.create(t_cart)
-    print "CARICAMENTO/INSERIMENTO TABELLE WEB  ANDATO BENE"
+    print("CARICAMENTO/INSERIMENTO TABELLE WEB  ANDATO BENE")

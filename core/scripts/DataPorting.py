@@ -290,7 +290,7 @@ def redefineColumns(db, schema, table,columns,types,lenghts,defaults=None,forKey
     """modifica i campi di una tabella.... (sempre ammesso che la tabella sia modificabile in  tal senso....)"""
     for c in range(len(columns)):
         str = 'ALTER TABLE %(schema)s.%(table)s ALTER COLUMN  %(column)s TYPE %(type)s(%(lenght)s)'%{'schema':schema,'table':table, 'column':columns[c],'type':types[c], 'lenght':lenghts[c]}
-        print str
+        print(str)
         rp = db.bind.execute(text(str))
 
 #    ALTER TABLE [ ONLY ] name [ * ]

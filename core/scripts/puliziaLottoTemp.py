@@ -40,12 +40,12 @@ def pulizia_lottotemp():
     #ltemp = setconf("Documenti", "lotto_temp")
     #if not ltemp:
         #return
-    print "Avvio pulizia lotti temp..."
+    print("Avvio pulizia lotti temp...")
     lt = NumeroLottoTemp().select(batchSize=None)
     n = len(lt)
     g = 0
     for l in lt:
-        print "RESIDUI DA ELABORARE", n-lt.index(l)
+        print("RESIDUI DA ELABORARE", n-lt.index(l))
         rmf =  RigaMovimentoFornitura().select(idRigaMovimentoVendita=l.id_riga_movimento_vendita_temp)
         if not rmf:
             #cerchiamo una fornitura precisa

@@ -40,7 +40,7 @@ from promogest.ui.PrintDialog import PrintDialogHandler
 try:
     from  xhtml2pdf import pisa
 except:
-    print "ERRORE NELL'IMPORT DI PISA"
+    print("ERRORE NELL'IMPORT DI PISA")
     import pisaLib.ho.pisa as pisa
 
 

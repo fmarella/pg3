@@ -148,7 +148,7 @@ class SlaParser(object):
                 rows = len(sorted(list(set(righe))))
                 n_cells = columns*rows
                 if len(cells) != n_cells:
-                   print "ERRORE INTERPRETAZIONE LETTURA TABELLA", "COLONNE", colonne, "RIGHE", righe,"NCOL", columns,"NRIG", rows, "TOTCELL", columns*rows ,"GRUPPO", table, cells
+                   print("ERRORE INTERPRETAZIONE LETTURA TABELLA", "COLONNE", colonne, "RIGHE", righe,"NCOL", columns,"NRIG", rows, "TOTCELL", columns*rows ,"GRUPPO", table, cells)
                 groupDict[str(table).strip()] = {
                             'GROUPS': table,
                             'n_cells': n_cells,

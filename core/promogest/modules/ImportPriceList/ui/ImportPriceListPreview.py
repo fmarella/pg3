@@ -89,14 +89,14 @@ class ImportPreview(GladeWidget):
         csvErrorFile = csv.DictWriter(file(Environment.documentsDir+\
                             '/import_error_list.csv', 'wb'),
                              fieldnames=self.PLModel._fields, dialect='excel')
-        print "ISTANZIO LA CLASSE E PREPARO L'AMBIENTE "
+        print("ISTANZIO LA CLASSE E PREPARO L'AMBIENTE ")
         productFromCsv = ProductFromCsv(listaRighe=self.productList,
                                 PLModel=self.PLModel,
                                 promoPriceList=self.promoPriceList,
                                 idfornitore=self.fornitore,
                                 dataListino=self.data_listino,
                                 createData= True)
-        print "PRONTO A CICLARE RIGA PER RIGA"
+        print("PRONTO A CICLARE RIGA PER RIGA")
         for product in self.productList: #andiamo a salvare il dato ....
             pbar(self.pbar,parziale=self.productList.index(product), totale=len(self.productList), text="IMPORTO CSV")
             ProductFromCsv(PLModel=self.PLModel,
@@ -111,10 +111,10 @@ class ImportPreview(GladeWidget):
 Verificare gli errori nel file e ritentare l'importazione"""
             messageError(msg=msg, transient=self.getTopLevel())
             savedlines = savedlines - err_count
-        print u'Import Procedure completed.'
-        print u'Articoli salvati: '+str(savedlines)
-        print u'Articoli di cui è fallito l\'import (completamente): '+\
-                                                            str(err_count)
+        print(u'Import Procedure completed.')
+        print(u'Articoli salvati: '+str(savedlines))
+        print(u'Articoli di cui è fallito l\'import (completamente): '+\
+                                                            str(err_count))
         if savedlines > 0:
             msg = u'Operazione completata.\nsono stati importati/aggiornati '+\
                                                 str(savedlines)+' articoli.'

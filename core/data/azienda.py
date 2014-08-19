@@ -64,4 +64,4 @@ try:
     else:
         company.execute(schemaa = params["schema"] or params["nomedb"] or "aziendaPRO")
 except:
-    print"AZIENDA PRESENTE NELLO SCHEMA"
+    print("AZIENDA PRESENTE NELLO SCHEMA")

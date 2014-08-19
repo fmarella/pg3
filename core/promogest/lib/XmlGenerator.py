@@ -380,7 +380,7 @@ class XlsXmlGenerator:
                 elif cols[n][1] == 'l':
                     single_col = {'ss:StyleID':'ce9', 'ss:Width':cols[n][0]}
             else:
-                print "WARNING!! unknown column style! Is this normal??"
+                print("WARNING!! unknown column style! Is this normal??")
                 single_col={}
             col.append(single_col)
 

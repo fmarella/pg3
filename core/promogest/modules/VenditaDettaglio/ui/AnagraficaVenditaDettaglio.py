@@ -76,14 +76,14 @@ if hasattr(Environment.conf, "VenditaDettaglio"):
     elif Environment.conf.VenditaDettaglio.disabilita_stampa == 'yes':
         DRIVER = None
     else:
-        print "ERRORE NELLA DEFINIZIONE DEL BACKEND"
+        print("ERRORE NELLA DEFINIZIONE DEL BACKEND")
         from promogest.modules.VenditaDettaglio.lib.ditron import Ditron
         DRIVER = "D"
 elif setconf("VenditaDettaglio","disabilita_stampa"):
     DRIVER = None
 
 
-print "DRIVER", DRIVER
+print("DRIVER", DRIVER)
 
 class AnagraficaVenditaDettaglio(GladeWidget):
     """ Frame per la gestione delle vendite a dettaglio """
@@ -1071,15 +1071,15 @@ class AnagraficaVenditaDettaglio(GladeWidget):
 
     def createFileToPos(self, dao):
         if DRIVER == "E":
-            print "DRIVER OLIVETTI"
+            print("DRIVER OLIVETTI")
             filescontrino = ElaExecute().create_export_file(daoScontrino=dao)
         elif DRIVER =="D":
-            print "DRIVER DITRON"
+            print("DRIVER DITRON")
             filescontrino = Ditron().create_export_file(daoScontrino=dao)
             Ditron().sendToPrint(filescontrino)
             return True
         elif DRIVER == "C":
-            print "DRIVER CUSTOM"
+            print("DRIVER CUSTOM")
             filescontrino = Custom(anag=self).create_export_file(daoScontrino=dao)
 
     def on_chiusura_fiscale_activate(self, widget):

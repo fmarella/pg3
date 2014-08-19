@@ -276,7 +276,7 @@ class AnagraficaArticoliEdit(AnagraficaEdit):
             self.dao.articoloTagliaColore = articoloTagliaColore
             articoloTagliaColore = None
         elif posso("PW") and (articleType(self.dao) == "father" or self.con_taglie_colori_radiobutton.get_active()):
-            print "SALVATAGGIO ARTICOLO PADRE"
+            print("SALVATAGGIO ARTICOLO PADRE")
             if self.dao.denominazione != self.denominazione_entry.get_text():
                 msg = """ATTENZIONE La descrizione di un articolo padre è cambiata, vuoi riportare la modifica anche ai suoi figli?"""
                 if YesNoDialog(msg=msg, transient=None):
