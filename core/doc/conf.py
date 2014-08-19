@@ -40,8 +40,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'PromoGest'
-copyright = u'2009 2010 2011, PromoTux'
+project = 'PromoGest'
+copyright = '2009 2010 2011, PromoTux'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -200,8 +200,8 @@ latex_paper_size = 'a4'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'PromoGest.tex', u'PromoGest Documentation',
-   u'PromoTux', 'manual'),
+  ('index', 'PromoGest.tex', 'PromoGest Documentation',
+   'PromoTux', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -233,6 +233,6 @@ latex_logo = "logo_promogest.png"
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'promogest', u'PromoGest Documentation',
-     [u'PromoTux'], 1)
+    ('index', 'promogest', 'PromoGest Documentation',
+     ['PromoTux'], 1)
 ]

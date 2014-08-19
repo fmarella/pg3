@@ -72,15 +72,15 @@ class Setting(Dao):
 
 def addregistriDiretti():
     s= select([t_setting.c.key]).execute().fetchall()
-    if (u'registro_ordine_da_cliente_diretto.rotazione',) not in s or s==[]:
+    if ('registro_ordine_da_cliente_diretto.rotazione',) not in s or s==[]:
         t_settingg  = t_setting.insert()
         t_settingg.execute(key = "Ordine da cliente diretto.registro", description = "ordine da cliente diretto", value= "registro_ordine_da_cliente_diretto")
         t_settingg.execute(key = "registro_ordine_da_cliente_diretto.rotazione", description = "registro_ordine_da_cliente_diretto.rotazione ", value= "annuale")
-    if (u'registro_ddt_vendita_diretto.rotazione',) not in s or s==[]:
+    if ('registro_ddt_vendita_diretto.rotazione',) not in s or s==[]:
         t_settingg  = t_setting.insert()
         t_settingg.execute(key = "DDT vendita diretto.registro", description = "DDT vendita diretto", value= "registro_ddt_vendita_diretto")
         t_settingg.execute(key = "registro_ddt_vendita_diretto.rotazione", description = "registro_ddt_vendita_diretto.rotazione ", value= "annuale")
-    if (u'registro_fattura_vendita_diretta.rotazione',) not in s or s==[]:
+    if ('registro_fattura_vendita_diretta.rotazione',) not in s or s==[]:
         t_settingg  = t_setting.insert()
         t_settingg.execute(key = "Fattura vendita diretta.registro", description = "Fattura vendita diretta", value= "registro_fattura_vendita_diretta")
         t_settingg.execute(key = "registro_fattura_vendita_diretta.rotazione", description = "registro_fattura_vendita_diretta.rotazione ", value= "annuale")

@@ -272,7 +272,7 @@ class Main(GladeWidget):
             n = len(lt)
             g = 0
             for l in lt:
-                print("RESIDUI DA ELABORARE", n-lt.index(l))
+                print(("RESIDUI DA ELABORARE", n-lt.index(l)))
                 rmf =  RigaMovimentoFornitura().select(idRigaMovimentoVendita=l.id_riga_movimento_vendita_temp)
                 if not rmf:
                     #cerchiamo una fornitura precisa
@@ -520,7 +520,7 @@ class Main(GladeWidget):
         self._refresh()
 
     def setModulesButtons(self):
-        for module in self.anagrafiche_modules.iteritems():
+        for module in self.anagrafiche_modules.items():
             module_button = Gtk.Button()
             module_butt_image = Gtk.Image()
             module_butt_image.set_from_file(module[1]['guiDir']+'/'+module[1]['module'].VIEW_TYPE[2])
@@ -531,7 +531,7 @@ class Main(GladeWidget):
 
     def on_module_button_clicked(self, button):
         label = button.get_label()
-        for mk in self.anagrafiche_modules.iteritems():
+        for mk in self.anagrafiche_modules.items():
             module = mk[1]['module']
             if label == module.VIEW_TYPE[1]:
                 #chiave di tutto il richiamo di passaggio alla classe in module.py che poi fa la vera istanza"

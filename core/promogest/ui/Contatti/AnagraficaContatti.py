@@ -52,7 +52,7 @@ class AnagraficaContatti(Anagrafica):
                                              (ownerKey is not None)):
             self._ownerKey = ownerKey
             self._ownerType = ownerType
-        print(" VEDIAMO SE SONO PIENE QUESTE VARIABILI", self._ownerKey,self._ownerType)
+        print((" VEDIAMO SE SONO PIENE QUESTE VARIABILI", self._ownerKey,self._ownerType))
 
         Anagrafica.__init__(self,
                             windowTitle='Promogest - Anagrafica contatti',

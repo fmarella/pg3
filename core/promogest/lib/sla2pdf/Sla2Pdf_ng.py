@@ -271,9 +271,9 @@ class Sla2Pdf_ng(SlaParser):
         self.pdfPage = 0
         tablepropertys = self.findTablesProperties()
         iteratable = self.getIteratableGroups(tablepropertys)
-        for self.pdfPage in xrange(0, self.numPages):
+        for self.pdfPage in range(0, self.numPages):
             for tableproperty in tablepropertys:
-                for group in tableproperty.keys():
+                for group in list(tableproperty.keys()):
                     if self.pbar:
                         pbar(self.pbar,pulse=True,text="GEN STAMPA ATTENDERE 2 di 2")
                     tabpro = tableproperty[group]

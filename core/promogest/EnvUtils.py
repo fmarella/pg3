@@ -27,14 +27,14 @@ import logging
 import logging.handlers
 import smtplib
 import datetime
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
-from sqlalchemy import *
-from sqlalchemy.orm import *
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from sqlalchemy import create_engine, MetaData
+#from sqlalchemy.orm import *
 from sqlalchemy.interfaces import PoolListener
-from sqlalchemy.exc import *
+#from sqlalchemy.exc import *
 from sqlalchemy.interfaces import ConnectionProxy
-#from promogest.preEnv import *
+from promogest.preEnv import web
 
 
 def check_deps():
@@ -45,7 +45,7 @@ def check_deps():
         import jinja2
         import reportlab
     except Exception as e:
-        if not preEnv.web:
+        if not web:
             msg = """ Manca la libreria python indicata qui in basso,
             Su linux installarla singolarmente usando il software manager o yum o apt-get
             Su windows provare a disinstallare e reinstallare il PromoGest
@@ -100,7 +100,7 @@ def connect():
 
     a=None
     try:
-        from promogest.preEnv import *
+        from promogest.preEnv import user, host, port, password, database
         a = psycopg2.connect(user=user, host=host, port=port,
                             password=password, database=database)
         cursor = a.cursor()
@@ -108,7 +108,7 @@ def connect():
         records = cursor.fetchall()
         st = "CI SONO  ----- {0} ------- CONNESSIONI ATTIVE AL MOMENTO".format(len(records))
         #print st
-    except Exception, e:
+    except Exception as e:
         a = "CONNESSIONE AL DATABASE PRO NON RIUSCITA.\n DETTAGLIO ERRORE: [%s]" % str(e)
         messageInfo(msg=a)
         sys.exit()
@@ -140,7 +140,7 @@ def psycopg2new():
 
 def psycopg2old():
     try:
-        from promogest.preEnv import *
+        from promogest.preEnv import user, password, host, port, database
         engine = create_engine('postgres:' + '//'
                     + user + ':'
                     + password + '@'
@@ -157,7 +157,7 @@ def psycopg2old():
 
 def pg8000():
     try:
-        from promogest.preEnv import *
+        from promogest.preEnv import user, password, host, port, database
         engine = create_engine('postgresql+pg8000:' + '//'
                     + user + ':'
                     + password + '@'
@@ -174,7 +174,7 @@ def pg8000():
 
 def py_postgresql():
     try:
-        from promogest.preEnv import *
+        from promogest.preEnv import user, password, host, port, database
         engine = create_engine('postgresql+pypostgresql:' + '//'
                     + user + ':'
                     + password + '@'
@@ -245,7 +245,7 @@ def _send(fromaddr=None, total_addrs=None, msg=None):
                         "promogestlogs@gmail.com",
                             msg.as_string())
     except Exception as e:
-        print("ERRORE NELLA SPEDIZIONE EMAIL", str(e))
+        print(("ERRORE NELLA SPEDIZIONE EMAIL", str(e)))
 
 def pg_log():
 

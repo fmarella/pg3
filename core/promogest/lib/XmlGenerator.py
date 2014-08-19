@@ -360,7 +360,7 @@ class XlsXmlGenerator:
 
         #let's define the columns styles for the table we are generating
         cols= self.cols
-        col_num = range(len(cols))
+        col_num = list(range(len(cols)))
         col = []
         for n in col_num:
             if n == 0: #first field has always centered text-style
@@ -388,7 +388,7 @@ class XlsXmlGenerator:
         self.filename.start('Table', tab_attr)
 
         head = self.head
-        li = range(len(cols))
+        li = list(range(len(cols)))
         for i in li:
             self.filename.start('Column', col[i])
             self.filename.end('Column')

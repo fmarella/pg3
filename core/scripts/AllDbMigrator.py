@@ -66,12 +66,12 @@ for table in tablelist:
     command = "pg_dump -U %s -h %s -t %s %s > %s" %(utente, host, schemaTable, databasesrc, finalFile)
     print(command)
     stdin, stdouterr = os.popen4(command)
-    print(stdouterr.read())
+    print((stdouterr.read()))
 
 for table in tablelist:
     finalFile = table+".sql"
     schemaTable = schemasrc+"."+table
-    print("APRO " , finalFile)
+    print(("APRO " , finalFile))
     #try:
     f = open(finalFile, "r")
     freplaced = table+"rep.sql"
@@ -91,7 +91,7 @@ for table in tablelist:
     command = "psql -U %s -h %s %s < %s" %(utente, host,databasedest, freplaced)
     print(command)
     stdin, stdouterr = os.popen4(command)
-    print(stdouterr.read())
+    print((stdouterr.read()))
 
 
 db = create_engine('postgres://'+utente + ':' + password +'@'+ host +':'+ str(port) +'/'+ databasedest,
@@ -210,4 +210,4 @@ except:
 
 command = "rm *.sql"
 stdin, stdouterr = os.popen4(command)
-print(stdouterr.read())
+print((stdouterr.read()))

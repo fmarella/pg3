@@ -45,8 +45,8 @@ except:
     print('Modulo pysvn non trovato: gli aggiornamenti non saranno disponibili!')
 import xml.etree.ElementTree as ET
 import unicodedata
-import urllib
-import urllib2
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 import json
 
 
@@ -1016,12 +1016,12 @@ def calcolaTotaliBanche(dao, banche_entrate, banche_uscite):
         idx = str(r.id_banca)
 
         if r.segno == "uscita":
-            if idx in banche_uscite.keys():
+            if idx in list(banche_uscite.keys()):
                 banche_uscite[idx] += -1*Decimal(r.valore)
             else:
                 banche_uscite[idx] = -1*Decimal(r.valore)
         elif r.segno == 'entrata':
-            if idx in banche_entrate.keys():
+            if idx in list(banche_entrate.keys()):
                 banche_entrate[idx] += Decimal(r.valore)
             else:
                 banche_entrate[idx] = Decimal(r.valore)
@@ -1987,7 +1987,7 @@ def getDynamicStrListStore(length):
     string2 = ', str' * (length -1)
     string3 = ')'
     string4 = string1+string2+string3
-    exec string4
+    exec(string4)
     return list
 
 
@@ -2063,7 +2063,7 @@ def obligatoryField(window, widget=None, msg=None):
     if widget is not None:
         if widget.get_property("can-focus"):
             widget.grab_focus()
-    raise Exception, 'Operation aborted campo obbligatorio'
+    raise Exception('Operation aborted campo obbligatorio')
 
 
 def showComplexQuestion(parentWindow, message):
@@ -2275,7 +2275,7 @@ def multilinedirtywork(param):
                     for d in desc[1:]:
                         p = desc.index(d)
                         c = x.copy()
-                        for k,v in c.iteritems():
+                        for k,v in c.items():
                             c[k] = ""
                         c["descrizione"] = str(d).strip()
                         lista.insert(o+p,c)
@@ -2530,7 +2530,7 @@ def mNLC(value,decimal=None, curr="€ "):
         dp="."
         sep=","
     elif curr =="€":
-        curr = u"€"
+        curr = "€"
         dp=","
         sep="."
     return italianizza(value, decimal=decimal,curr=curr+" ", dp=dp, sep=sep)
@@ -2590,7 +2590,7 @@ def italianizza(value, decimal=0, curr='', sep='.', dp=',',
     precisione = int(decimal) or int(setconf(key="decimals", section="Numbers"))
     sign, digits, exp = Decimal(value).as_tuple()
     result = []
-    digits = map(str, digits)
+    digits = list(map(str, digits))
     build, next = result.append, digits.pop
     if sign:
         build(trailneg)
@@ -2632,7 +2632,7 @@ def generateRandomBarCode(ean=13):
         """
         code = [8, 0]
         if ean == 13:
-            for a in xrange(10):
+            for a in range(10):
                 code.append(random.sample(
                                     [1, 2, 3, 4, 5, 6, 7, 8, 9, 0], 1)[0])
             dispari = (code[1] \
@@ -2643,7 +2643,7 @@ def generateRandomBarCode(ean=13):
                         + code[11]) * 3
             pari = code[0] + code[2] + code[4] + code[6] + code[8] + code[10]
         elif ean == 8:
-            for a in xrange(5):
+            for a in range(5):
                 code.append(random.sample(
                                     [1, 2, 3, 4, 5, 6, 7, 8, 9, 0], 1)[0])
             dispari = (code[0] + code[2] + code[4] + code[6]) * 3
@@ -2676,7 +2676,7 @@ def removeCodBarorphan():
     bc = CodiceABarreArticolo().select(idArticoloNone=True, batchSize=None)
     if bc:
         for a in bc:
-            print("CODICE A BARRE ORFANO DI ARTICOLO, VERRA' ELIMINATO", a.codice)
+            print(("CODICE A BARRE ORFANO DI ARTICOLO, VERRA' ELIMINATO", a.codice))
             a.delete()
 
 
@@ -2905,7 +2905,7 @@ def leggiRevisioni():
                     "http://promogest.googlecode.com/svn/trunk",
                             recurse=False)[0][1]["rev"].number
         except pysvn.ClientError as e:
-            print("IMPOSSIBILE VERIFICARE SE IL PG E' AGGIORNATO" ,e)
+            print(("IMPOSSIBILE VERIFICARE SE IL PG E' AGGIORNATO" ,e))
         Environment.pg2log.info("VERSIONE IN USO LOCALE E REMOTA "+str(Environment.rev_locale)+" "+str(Environment.rev_remota)+" Errore: "+str(e))
     if pysvn:
         thread = threading.Thread(target=fetch)
@@ -2931,7 +2931,7 @@ def messageError(msg="Messaggio generico", transient=None):
                             Gtk.MESSAGE_ERROR,
                             Gtk.BUTTONS_CANCEL)
         dialoggg.set_markup(msg)
-        print("MESSAGGIO", msg)
+        print(("MESSAGGIO", msg))
         return
         response = dialoggg.run()
         dialoggg.destroy()
@@ -3017,7 +3017,7 @@ def notebook_tab_show(notebook, page):
 
 def deaccenta(riga=None):
     """ questa funzione elimina gli accenti magari non graditi in alcuni casi"""
-    nkfd_form = unicodedata.normalize('NFKD', unicode(riga))
+    nkfd_form = unicodedata.normalize('NFKD', str(riga))
     only_ascii = nkfd_form.encode('ASCII', 'ignore')
     return only_ascii
 
@@ -3095,9 +3095,9 @@ def checkInstallation():
                                             section="Master")[0].value,
                 "icode":SetConf().select(key="icode",
                                             section="Master")[0].value}
-        values = urllib.urlencode(data)
-        req = urllib2.Request(url, values)
-        response = urllib2.urlopen(req)
+        values = urllib.parse.urlencode(data)
+        req = urllib.request.Request(url, values)
+        response = urllib.request.urlopen(req)
         #t = Timer(5.0, response.close)
         #t.start()
         content = response.read()
@@ -3122,7 +3122,7 @@ def checkInstallation():
             con.date = datetime.datetime.now()
             con.persist()
         else:
-            print(" CODICE TROVATO",conte)
+            print((" CODICE TROVATO",conte))
             confy = SetConf().select(key="tipo",section="Master")
             if confy:
                 if confy[0].value != conte["tipo"]:
@@ -3450,8 +3450,8 @@ def timeit(method):
         ts = time.time()
         result = method(*args, **kw)
         te = time.time()
-        print('%r %r(%r, %r) %2.2f sec' % \
-              (method.__module__,method.__name__, args, kw, te-ts))
+        print(('%r %r(%r, %r) %2.2f sec' % \
+              (method.__module__,method.__name__, args, kw, te-ts)))
         return result
 
     return timed

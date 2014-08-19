@@ -52,6 +52,6 @@ std_mapper = mapper(StatoArticolo, t_stato_articolo, order_by=t_stato_articolo.c
 
 s= select([t_stato_articolo.c.denominazione]).execute().fetchall()
 
-if  (u'Web',) not in s or s==[]:
+if  ('Web',) not in s or s==[]:
     tipo = t_stato_articolo.insert()
     tipo.execute(denominazione='Web')

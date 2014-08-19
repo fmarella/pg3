@@ -33,7 +33,7 @@ t_language = Table('language', params["metadata"],
 t_language.create(checkfirst=True)
 
 s= select([t_language.c.denominazione]).execute().fetchall()
-if (u'Italiano',) not in s or s==[]:
+if ('Italiano',) not in s or s==[]:
     lang = t_language.insert()
     lang.execute(denominazione = 'Italiano', denominazione_breve = 'it')
     lang.execute(denominazione = 'Inglese', denominazione_breve = 'en')

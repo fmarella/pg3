@@ -133,18 +133,18 @@ class ProductFromCsv(object):
         """Gets the existing Dao"""
         self.product = product
 #        print "dissss", self.__dict__
-        for key in possibleFieldsDict.keys():
-            if key not in self.product.keys():
+        for key in list(possibleFieldsDict.keys()):
+            if key not in list(self.product.keys()):
                 setattr(self, possibleFieldsDict[key], None)
             else:
                 setattr(self, possibleFieldsDict[key], self.product[key])
-        print("SELF CODICE ARTICO", self.codice_articolo)
+        print(("SELF CODICE ARTICO", self.codice_articolo))
         if self.codice_articolo:
             try:
                 self.daoArticolo = Articolo().select(codiceEM=self.codice_articolo)[0]
                 print("CODICE GIÀ PRESENTE NEL DATABASE")
             except:
-                print("CODICE %s NON TROVATO" %self.codice_articolo)
+                print(("CODICE %s NON TROVATO" %self.codice_articolo))
 
         elif self.codice_barre_articolo:
             daoCodiceABarre = CodiceABarreArticolo().select(codiceEM=self.codice_barre_articolo)
@@ -167,7 +167,7 @@ class ProductFromCsv(object):
                 self.addTagliaColoreData(tipo = self.tipoArticolo, articolo = self.daoArticolo)
                 self.articoloPadre = None
             elif self.codice_padre and not self.codice_articolo:
-                print("ARTICOLO FIGLIO", self.codice_padre)
+                print(("ARTICOLO FIGLIO", self.codice_padre))
                 padre = Articolo().select(codiceEM=self.codice_padre)
                 if not padre:
                     print("ERROREEEEEEEEE  non può essere caricato un figlio senza il padre")

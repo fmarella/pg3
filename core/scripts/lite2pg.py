@@ -200,7 +200,7 @@ session_dest = db_dest.session
 @timeit
 def pulisciTabelleMain():
     for m in reversed(meta_dest_main.sorted_tables):
-        print("DA PULIRE",meta_dest_main.sorted_tables.index(m),"/",len(meta_dest_main.sorted_tables),  m)
+        print(("DA PULIRE",meta_dest_main.sorted_tables.index(m),"/",len(meta_dest_main.sorted_tables),  m))
         db_dest.schema = "promogest2"
         db_dest.entity(str(m).split(".")[1]).delete()
         db_dest.commit()
@@ -209,7 +209,7 @@ def pulisciTabelleMain():
 @timeit
 def pulisciTabelle():
     for m in reversed(meta_dest.sorted_tables):
-        print("DA PULIRE",meta_dest.sorted_tables.index(m),"/",len(meta_dest.sorted_tables),  m) #, m.columns
+        print(("DA PULIRE",meta_dest.sorted_tables.index(m),"/",len(meta_dest.sorted_tables),  m)) #, m.columns
         try:
             if tipodb_dest =="postgresql":
                 if str(m).split(".")[0] == azienda_dest:
@@ -251,7 +251,7 @@ def pulisciTabelle():
 def spostaDatiMain():
     ritestare = []
     for t in meta_source_main.sorted_tables:
-        print("\nSORGENTE MAIN",meta_source_main.sorted_tables.index(t),"/",len(meta_source_main.sorted_tables), str(t).strip() ,"\n")
+        print(("\nSORGENTE MAIN",meta_source_main.sorted_tables.index(t),"/",len(meta_source_main.sorted_tables), str(t).strip() ,"\n"))
         if str(t).split(".")[1].strip() not in ["anno_abbigliamento", "stagione_abbigliamento","genere_abbigliamento", "provincia", "application_log", "userrole","chiavi_primarie_log"]:
             daos_source_count = db_source_main.entity(str(t).split(".")[1].strip()).count()
             batchSize = 200
@@ -260,7 +260,7 @@ def spostaDatiMain():
             x = 0
             offset = 0
             while offset < daos_source_count+batchSize:
-                print(daos_source_count, daos_source_count-offset)
+                print((daos_source_count, daos_source_count-offset))
                 daos_source = db_source_main.entity(str(t).split(".")[1].strip()).limit(batchSize).offset(offset).all()
                 offset += batchSize
                 for dao_s  in daos_source:
@@ -273,12 +273,12 @@ def spostaDatiMain():
                 try:
                     db_dest.commit()
                 except Exception as e:
-                    print("QUESTO ERRORE:", e)
+                    print(("QUESTO ERRORE:", e))
                     db_dest.rollback()
                     ritestare.append(a)
                     continue
     if ritestare:
-        print("ADESSO RIPROVIAMO I RITESTARE MAIN", len(ritestare))
+        print(("ADESSO RIPROVIAMO I RITESTARE MAIN", len(ritestare)))
         for r in ritestare:
             session_dest.add(r)
             db_dest.commit()
@@ -289,7 +289,7 @@ def spostaDatiMain():
 def spostaDati():
     ritestare = []
     for t in meta_source.sorted_tables:
-        print("\nSORGENTE",meta_source.sorted_tables.index(t),"/",len(meta_source.sorted_tables), str(t).strip() ,"\n")
+        print(("\nSORGENTE",meta_source.sorted_tables.index(t),"/",len(meta_source.sorted_tables), str(t).strip() ,"\n"))
         if tipodb_source=="postgresql":
             if str(t).split(".")[0].strip() not in [azienda_source]:
                 print(" PASSI QUI")
@@ -304,7 +304,7 @@ def spostaDati():
                 else:
                     rows = db_source.entity(str(t)).filter(db_source.testata_documento.id_primo_riferimento !="None").all()
                 for r in rows:
-                    print(r.id, r.id_primo_riferimento)
+                    print((r.id, r.id_primo_riferimento))
                     dao_principale = db_source.entity(str(t)).get(r.id_primo_riferimento)
                     m = db_dest.entity(str(t))()
                     for k in dao_principale.c:
@@ -324,7 +324,7 @@ def spostaDati():
                 else:
                     rowss = db_source.entity(str(t)).filter(db_source.famiglia_articolo.id_padre !="None").all()
                 for r in rowss:
-                    print(r.id, r.id_padre)
+                    print((r.id, r.id_padre))
                     dao_principalee = db_source.entity(str(t)).get(r.id_padre)
                     mm = db_dest.entity(str(t))()
                     for k in dao_principalee.c:
@@ -344,7 +344,7 @@ def spostaDati():
             x = 0
             offset = 0
             while offset < daos_source_count+batchSize:
-                print(daos_source_count, daos_source_count-offset)
+                print((daos_source_count, daos_source_count-offset))
                 daos_source = db_source.entity(str(t)).limit(batchSize).offset(offset).all()
                 offset += batchSize
                 if str(t) in["testata_documento"]:
@@ -378,7 +378,7 @@ def spostaDati():
                     try:
                         db_dest.commit()
                     except Exception as e:
-                        print("QUESTO ERRORE:", e)
+                        print(("QUESTO ERRORE:", e))
                         db_dest.rollback()
                         ritestare.append(a)
                         continue
@@ -390,7 +390,7 @@ def spostaDati():
                 offsett = 0
                 print(" SIAMO IN RIGA PRIMA NOTA")
                 while offsett < daos_source_countt+batchSizee:
-                    print(daos_source_countt, daos_source_countt-offsett)
+                    print((daos_source_countt, daos_source_countt-offsett))
                     daos_sourcee = db_source.riga_prima_nota.limit(batchSizee).offset(offsett).all()
                     offsett += batchSizee
                     for dao_s  in daos_sourcee:
@@ -402,7 +402,7 @@ def spostaDati():
                         session_dest.add(a)
                     db_dest.commit()
     if ritestare:
-        print("ADESSO RIPROVIAMO I RITESTARE", len(ritestare))
+        print(("ADESSO RIPROVIAMO I RITESTARE", len(ritestare)))
         for r in ritestare:
             session_dest.add(r)
             db_dest.commit()
@@ -413,17 +413,17 @@ def spostaDati():
 def syncaSequence():
     for s in tbl:
         try:
-            print("TABELLA SEQUENCE", s)
+            print(("TABELLA SEQUENCE", s))
             daos_source = db_source.entity(str(s)).order_by('-id').first()
             try:
                 nextid = db_dest.connection().execute("select setval("+"'"+azienda_dest+"."+ str(s)+'_id_seq'+"',"+ str(daos_source.id) +')')
             except Exception as r:
                 db_dest.rollback()
         except:
-            print("NON HA UN ID E DI CONSEGUENZA NESSUNA SEQUENCE", s)
+            print(("NON HA UN ID E DI CONSEGUENZA NESSUNA SEQUENCE", s))
     for s in tbl_main:
         try:
-            print("TABELLA SEQUENCE MAIN", s)
+            print(("TABELLA SEQUENCE MAIN", s))
             daos_source = db_source.entity(str(s)).order_by('-id').first()
             try:
                 nextid = db_dest.connection().execute("select setval("+"'"+"promogest2"+"."+ str(s)+'_id_seq'+"',"+ str(daos_source.id) +')')
@@ -431,7 +431,7 @@ def syncaSequence():
                 #print "ERRORE SEQUENCE STD", r
                 db_dest.rollback()
         except:
-            print("NON HA UN ID E DI CONSEGUENZA NESSUNA SEQUENCE", s)
+            print(("NON HA UN ID E DI CONSEGUENZA NESSUNA SEQUENCE", s))
     print(" FINITO TUTTO")
 
 

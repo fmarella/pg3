@@ -862,7 +862,7 @@ if tipodb=="sqlite":
     a = session.query(Articolo.id_aliquota_iva).all()
     b = session.query(AliquotaIva.id).all()
     fixit =  list(set(a)-set(b))
-    print("fixt-articolo", fixit)
+    print(("fixt-articolo", fixit))
     for f in fixit:
         aa = Articolo().select(idAliquotaIva=f[0], batchSize=None)
         for a in aa:

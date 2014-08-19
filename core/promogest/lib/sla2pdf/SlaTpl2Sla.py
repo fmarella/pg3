@@ -28,6 +28,7 @@ from promogest import Environment
 from promogest.lib.utils import setconf
 import Sla2pdfUtils
 from SlaParser import SlaParser
+from functools import reduce
 SHOWZERORIGA = False
 SHOWZEROTOTALI = False
 
@@ -77,7 +78,7 @@ class SlaTpl2Sla(SlaParser):
                         try:
                             log_path = objects[0]["azi_percorso_immagine"]
                             l.set("PFILE", os.path.relpath(log_path,os.path.expanduser('~')))
-                            print(os.path.relpath(log_path,os.path.expanduser('~')))
+                            print((os.path.relpath(log_path,os.path.expanduser('~'))))
                         except Exception as e:
                             Environment.pg2log.info("ERRORE NELL'INSERIMENTO DEL LOGO"+str(e.args))
         self.pagesNumber = self.getPagesNumber()
@@ -108,7 +109,7 @@ class SlaTpl2Sla(SlaParser):
         Dato un gruppo ti dà la sua tabella
         """
         for index in self.tablesProperties:
-            if str(index.keys()[0]).strip() == str(group).strip():
+            if str(list(index.keys())[0]).strip() == str(group).strip():
                 tableGroup = index[str(group)]
                 break
         return tableGroup
@@ -132,7 +133,7 @@ class SlaTpl2Sla(SlaParser):
                 for i in cellsprop:
                     a = [g.get("CH") for g in i if "(n)" in g.get("CH")]
                     for s in a:
-                        arrayName = Sla2pdfUtils.findTags(s).values()[0]["arrayName"]
+                        arrayName = list(Sla2pdfUtils.findTags(s).values())[0]["arrayName"]
                         valuesNumber = len(self.objects[self.cycle][arrayName])
                         pagesNumber = int(math.ceil(float(valuesNumber) / float(rowsNumber)))
                         pags.append(pagesNumber)
@@ -148,7 +149,7 @@ class SlaTpl2Sla(SlaParser):
                 break
         numPages = self.slaPage()
         for i in range(1, pagesNumber):
-            attributes = numPages[0].items()
+            attributes = list(numPages[0].items())
             dictionary =  {}
             for attr in attributes:
                 dictionary[attr[0]] = attr[1]
@@ -180,7 +181,7 @@ class SlaTpl2Sla(SlaParser):
                 if self.pbar:
                     pbar(self.pbar,pulse=True,text="GEN.STAMPA ATTENDERE 1 DI 2")
                 # Creating dictionary attributes pageobject
-                attributes = pageObject.items()
+                attributes = list(pageObject.items())
                 dictionary = {}
                 for attr in attributes:
                     dictionary[attr[0]] = attr[1]
@@ -190,14 +191,14 @@ class SlaTpl2Sla(SlaParser):
                 # Creating dictionary attributes itext of the pageobject
                 itexts = pageObject.findall('ITEXT')
                 for itext in itexts:
-                    attributes = itext.items()
+                    attributes = list(itext.items())
                     dictionary = {}
                     for attrr in attributes:
                         dictionary[attrr[0]] = attrr[1]
                     ElementTree.SubElement(app, 'ITEXT', dictionary)
                 trails = pageObject.findall('trail')
                 for trai in trails:
-                    attributes = trai.items()
+                    attributes = list(trai.items())
                     dictTrai = {}
                     for attrrr in attributes:
                         dictTrai[attrrr[0]] = attrrr[1]
@@ -205,7 +206,7 @@ class SlaTpl2Sla(SlaParser):
 
                 paras = pageObject.findall('para')
                 for para in paras:
-                    attributes = para.items()
+                    attributes = list(para.items())
                     dictPara = {}
                     for attrrr in attributes:
                         dictPara[attrrr[0]] = attrrr[1]
@@ -256,7 +257,7 @@ class SlaTpl2Sla(SlaParser):
         iteranti = self.getIteratableGroups(self.gruppi)
         for group in self.gruppi:
             rigaConItextDict = {}
-            gruppo = group.values()[0]
+            gruppo = list(group.values())[0]
             if "%%%" in gruppo["GROUPS"]:
                 groupname= str(gruppo["GROUPS"].strip().split('%%%')[0])
             else:
@@ -277,19 +278,19 @@ class SlaTpl2Sla(SlaParser):
 #                    print "CELLLLLLLLLLLLLLLLA", cel
                     CH = None
                     tags = {}
-                    rowgg = rows.index(float(cel.values()[0][0].get("gYpos")))
-                    pageNamber = int(cel.values()[0][0].get("OwnPage"))
+                    rowgg = rows.index(float(list(cel.values())[0][0].get("gYpos")))
+                    pageNamber = int(list(cel.values())[0][0].get("OwnPage"))
                     row = (numeroRighe*pageNamber)+rowgg
-                    for ite in cel.values()[0][1]:
+                    for ite in list(cel.values())[0][1]:
                         CH = ite.get("CH")
                         tags = Sla2pdfUtils.findTags(CH)
-                    column = col.index(float(cel.values()[0][0].get("gXpos")))+1
+                    column = col.index(float(list(cel.values())[0][0].get("gXpos")))+1
                     # quelli con tag e CH sono quelli della seconda riga che poi dovrò andare a ciclare
                     # nella prima riga c'è di norma solo un CH ma senza TAG
                     if tags and CH:
                         # build a dict with all second row data with tags and CH
                         rigaConItextDict[str(column)+"%"+groupname] = [CH,tags,ite,cel]
-                        for k in tags.keys():
+                        for k in list(tags.keys()):
                             if k.replace(' ', '') is not '':
                                 if '(n)' in k :
                                     if tags[k]['position'] == 'last':
@@ -297,26 +298,26 @@ class SlaTpl2Sla(SlaParser):
                                     tmp = self.getTagToPrint(CH, column = column,row=row-1, tags=tags,k=k, pageNamber=pageNamber)
                                 ite.set("CH", tmp)
                     else:
-                        colu = int(col.index(float(cel.values()[0][0].get("gXpos")))+1)
+                        colu = int(col.index(float(list(cel.values())[0][0].get("gXpos")))+1)
                         if str(colu)+"%"+groupname in rigaConItextDict:
                             ch = rigaConItextDict[str(colu) +"%" + groupname][0]
                             tags = rigaConItextDict[str(colu) +"%"+ groupname][1]
                             ite = rigaConItextDict[str(colu)+"%"+groupname][2]
                             ricel = rigaConItextDict[str(colu)+"%"+groupname][3]
 
-                            attributes = ite.items()
+                            attributes = list(ite.items())
                             itedict= {}
                             for attrr in attributes:
                                 itedict[attrr[0]] = attrr[1]
                             tmp = ch
-                            for k in tags.keys():
+                            for k in list(tags.keys()):
                                 if k.replace(' ', '') is not '':
                                     if '(n)' in k :
                                         if tags[k]['position'] == 'last':
                                             row = rowgg
                                         tmp = self.getTagToPrint(tmp, column = colu,row=row-1, tags=tags,k=k,pageNamber=pageNamber)
                                 itedict["CH"] = tmp
-                                ElementTree.SubElement(cel.values()[0][0], 'ITEXT', itedict)
+                                ElementTree.SubElement(list(cel.values())[0][0], 'ITEXT', itedict)
 
 #                            origpara = ricel.values()[0][2]
 #                            para = cel.values()[0][2]
@@ -333,21 +334,21 @@ class SlaTpl2Sla(SlaParser):
 #                                        paradict[attrr[0]] = attrr[1]
 #                                    ElementTree.SubElement(cel.values()[0][0], 'para', paradict)
 
-                            trai = ricel.values()[0][3]
-                            origtrai = cel.values()[0][3]
+                            trai = list(ricel.values())[0][3]
+                            origtrai = list(cel.values())[0][3]
                             if origtrai:
                                 origtrai=origtrai[0]
                                 for t in trai:
-                                    attria = t.items()
+                                    attria = list(t.items())
                                     for attrr in attria:
                                         origtrai.set(attrr[0],attrr[1])
                             else:
                                 for t in trai:
                                     traidict = {}
-                                    attria = t.items()
+                                    attria = list(t.items())
                                     for attrr in attria:
                                         traidict[attrr[0]] = attrr[1]
-                                        ElementTree.SubElement(cel.values()[0][0], 'trail', traidict)
+                                        ElementTree.SubElement(list(cel.values())[0][0], 'trail', traidict)
             else:
                 # Qui vengono gestite le tabelle e le celle con tag non iteranti
                 itexts = [x.findall('ITEXT') for x in gruppo["cells"]]
@@ -363,7 +364,7 @@ class SlaTpl2Sla(SlaParser):
                         tags = Sla2pdfUtils.findTags(ch)
                         if tags:
                             tmp = ch
-                            tagsKeys = tags.keys()
+                            tagsKeys = list(tags.keys())
                             for k in tagsKeys:
                                 if k.replace(' ', '') == '':
                                     continue
@@ -408,7 +409,7 @@ class SlaTpl2Sla(SlaParser):
                         tags = Sla2pdfUtils.findTags(ch)
                         #print "Stampo il tag", tags
                         if tags is not None:
-                            tagsKeys = tags.keys()
+                            tagsKeys = list(tags.keys())
                             #print "Dizionario dei tags tagsKeys",  tagsKeys
                             for tagkey in tagsKeys:
                                 if tagkey.replace(' ', '') == '':
@@ -471,7 +472,7 @@ class SlaTpl2Sla(SlaParser):
                             arrayIndex = -1
                         tags = Sla2pdfUtils.findTags(ch)
                         if tags is not None:
-                            for k in tags.keys():
+                            for k in list(tags.keys()):
                                 if k.replace(' ', '') == '':
                                     continue
                                 #try:
@@ -585,14 +586,14 @@ class SlaTpl2Sla(SlaParser):
 
             sym = ''
             if sconto.tipo_sconto == 'valore':
-                sym = u'E' # FIXME: put Euro symbol here
+                sym = 'E' # FIXME: put Euro symbol here
             elif sconto.tipo_sconto == 'percentuale':
                 sym = '%'
             return '%.2f %s' % (sconto.valore, sym)
 
         def _reduceSconto(sconto1, sconto2):
             str1 = ''
-            if type(sconto1) is type('') or type(sconto1) is type(u''):
+            if type(sconto1) is type('') or type(sconto1) is type(''):
                 str1 = sconto1
             else:
                 str1 = _sconto2str(sconto1)
@@ -621,7 +622,7 @@ class SlaTpl2Sla(SlaParser):
         numPages = self.slaPage()
         document = self.slaDocumentTag()
         self.pageProperties = Sla2pdfUtils.pageProFunc(document)
-        group = self.tablesProperties[0].keys()[0]
+        group = list(self.tablesProperties[0].keys())[0]
         self.tablesPropertie = self.tablesProperties[0][group]
 
         widths = [float(x.get("WIDTH")) for x in self.tablesPropertie['cells']]
@@ -657,7 +658,7 @@ class SlaTpl2Sla(SlaParser):
         for j in range(1, NumLabelInDao):
             for pageObject in labelObj:
                 ## Creating dictionary attributes pageobject
-                attributes = pageObject.items()
+                attributes = list(pageObject.items())
                 dictionary = {}
                 for k in range(0, len(attributes)):
                     dictionary[attributes[k][0]] = attributes[k][1]
@@ -666,7 +667,7 @@ class SlaTpl2Sla(SlaParser):
                 ## Creating dictionary attributes itext of the pageobject
                 itexts = pageObject.findall('ITEXT')
                 for itext in itexts:
-                    attributes = itext.items()
+                    attributes = list(itext.items())
                     dictionary = {}
                     for kk in range(0, len(attributes)):
                         dictionary[attributes[kk][0]] = attributes[kk][1]
@@ -675,7 +676,7 @@ class SlaTpl2Sla(SlaParser):
 
                 trails = pageObject.findall('trail')
                 for trai in trails:
-                    attributes = trai.items()
+                    attributes = list(trai.items())
                     dictTrai = {}
                     for attrrr in attributes:
                         dictTrai[attrrr[0]] = attrrr[1]
@@ -683,7 +684,7 @@ class SlaTpl2Sla(SlaParser):
 
                 paras = pageObject.findall('para')
                 for para in paras:
-                    attributes = para.items()
+                    attributes = list(para.items())
                     dictPara = {}
                     for kkk in range(0, len(attributes)):
                         dictPara[attributes[kkk][0]] = attributes[kkk][1]
@@ -729,14 +730,14 @@ class SlaTpl2Sla(SlaParser):
             group = pageObject.get('GROUPS')
             if group in gr:
                 for itext in itexts:
-                    attributes = itext.items()
+                    attributes = list(itext.items())
                     dictionary = {}
                     for kk in range(0, len(attributes)):
                         dictionary[attributes[kk][0]] = attributes[kk][1]
                     ch = dictionary['CH']
                     tags = Sla2pdfUtils.findTags(ch)
                     if tags:
-                        tagsKeys = tags.keys()[0] or []
+                        tagsKeys = list(tags.keys())[0] or []
                         function = tags[tagsKeys]['function']
                         parameter = tags[tagsKeys]['parameter']
                         if function == "bcview":

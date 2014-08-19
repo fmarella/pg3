@@ -32,7 +32,7 @@ t_tipo_recapito.create(checkfirst=True)
 
 
 s= select([t_tipo_recapito.c.denominazione]).execute().fetchall()
-if (u'Telefono',) not in s or s==[]:
+if ('Telefono',) not in s or s==[]:
     tipo = t_tipo_recapito.insert()
     tipo.execute(denominazione='Telefono')
     tipo.execute(denominazione='Cellulare')

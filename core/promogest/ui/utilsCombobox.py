@@ -809,7 +809,7 @@ def fillModelCombobox(combobox):
     model = Gtk.ListStore(str, str)
     model.append((None, None))
     if existingModels:
-        for (m, p) in existingModels.iteritems():
+        for (m, p) in existingModels.items():
             model.append((m, p))
     combobox.clear()
     renderer = Gtk.CellRendererText()
@@ -1002,9 +1002,9 @@ def findComboboxRowFromId(combobox, id):
     """
     evidenzia la riga di una combobox relativa ad un id
     """
-    def findTreeStoreRow(model, path, iter, (combobox, id)):
+    def findTreeStoreRow(model, path, iter, xxx_todo_changeme):
         """evidenzia la riga di una combobox relativa ad un id in un albero"""
-
+        (combobox, id) = xxx_todo_changeme
         r = model.get_value(iter, 1)
         if r == id:
             combobox.set_active_iter(iter)
@@ -1222,8 +1222,8 @@ def autocompletamento_entry(par_entry=None, filtro=None):
 def gestione_testo(gest_entry, event, filtro):
     ''' Gestione riempimento liststore su base del numero di elementi'''
     from promogest.dao.Articolo import Articolo
-    print("Gli argomenti saranno filtrati per: " + filtro)
-    print("Insert: " + gest_entry.get_text())
+    print(("Gli argomenti saranno filtrati per: " + filtro))
+    print(("Insert: " + gest_entry.get_text()))
     gest_completion = gest_entry.get_completion()
     gest_liststore = gest_completion.get_model()
     gest_filtro = gest_entry.get_text()
@@ -1243,7 +1243,7 @@ def gestione_testo(gest_entry, event, filtro):
     i = 0
     # aggiorna la liststore con gli oggetti in articoli
     for n in articoli:
-        print("Il record " + repr(i) + " contiene: " + n.codice)
+        print(("Il record " + repr(i) + " contiene: " + n.codice))
         if filtro == "codice":
             gest_liststore.append([n.codice, n])
         elif filtro == "denominazione":
@@ -1254,7 +1254,7 @@ def gestione_testo(gest_entry, event, filtro):
             gest_liststore.append([n.codice_a_barre, n])
         elif filtro == "codiceArticoloFornitore":
             gest_liststore.append([n.codice_articolo_fornitore, n])
-        print(gest_liststore[i][0] + " inserita nella liststore")
+        print((gest_liststore[i][0] + " inserita nella liststore"))
         i = i + 1
     gest_completion.set_model(gest_liststore)
     gest_entry.set_completion(gest_completion)
@@ -1304,8 +1304,8 @@ Il Team:
 
 I Numeri:   %s
             %s
-""" % (str(random.sample(xrange(90), 6))[1:-1],
-                                str(random.sample(xrange(90), 6))[1:-1])
+""" % (str(random.sample(range(90), 6))[1:-1],
+                                str(random.sample(range(90), 6))[1:-1])
                 dialog = Gtk.MessageDialog(ui.getTopLevel(),
                     Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
                     Gtk.MessageType.INFO,

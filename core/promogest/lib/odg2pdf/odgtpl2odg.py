@@ -33,18 +33,18 @@ class OdgParser(object):
         ostr = self.m_odf.open('content.xml')
         self.doc = ElementTree.parse(ostr)
         #fil = self.filelist["content.xml"].filename
-        print("DOC", self.doc)
+        print(("DOC", self.doc))
 
         #self.namelist = self.m_odf.namelist()
         #print self.namelist ,self.doc
         self.root = self.doc.getroot()
-        print("ROOT", self.root)
+        print(("ROOT", self.root))
         #for child in self.root:
             #print child.tag, child.attrib
         for c  in self.doc.iter(tag='{urn:oasis:names:tc:opendocument:xmlns:table:1.0}table-column'):
-            print(c.tag, c.attrib)
+            print((c.tag, c.attrib))
         self.body = self.root.findall('{urn:oasis:names:tc:opendocument:xmlns:drawing:1.0}page')
-        print(self.body)
+        print((self.body))
 #        print self.root.findall('urn:oasis:names:tc:opendocument:xmlns:office:body:page')
 #        for neighbor in self.body:
 #            print "AAAAAAAAA", neighbor.tag
@@ -56,7 +56,7 @@ class OdgParser(object):
         """
         for s in self.filelist:
             #print s.orig_filename, s.date_time
-            print(s.filename)
+            print((s.filename))
             #print s.orig_filename
 
 

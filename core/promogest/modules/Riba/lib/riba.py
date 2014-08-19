@@ -37,7 +37,7 @@ import unicodedata
 
 def as_string(arg, lenght):
     try:
-        arg = unicode(arg, 'UTF-8')
+        arg = str(arg, 'UTF-8')
     except TypeError:
         pass
     arg = unicodedata.normalize('NFKD', arg).encode('ASCII', 'ignore')

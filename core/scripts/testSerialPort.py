@@ -44,7 +44,7 @@ scons = TestataScontrino().select(batchSize=None, orderBy=desc("data_inserimento
 if scons:
     daoScontrino = scons[0]
 
-print(daoScontrino.righe)
+print((daoScontrino.righe))
 from promogest.modules.VenditaDettaglio.lib.custom import Custom
 
 a = Custom()

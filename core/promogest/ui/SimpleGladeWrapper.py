@@ -22,10 +22,11 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 # USA
 
-from __future__ import division
+
 import os
 import re
 import warnings
+import collections
 
 with warnings.catch_warnings(record=True) as w:
     warnings.simplefilter('ignore')
@@ -104,7 +105,7 @@ class SimpleGladeWrapper:
                 #glade_dir = os.path.dirname( sys.argv[0] )
                 #self.glade_path = os.path.join(glade_dir, path)
 
-        for key, value in kwargs.items():
+        for key, value in list(kwargs.items()):
             try:
                 setattr(self, key, weakref.proxy(value))
             except TypeError:
@@ -250,7 +251,7 @@ class SimpleGladeWrapper:
             except:
                 nt=""
             widget.set_text(str(nt))
-            print(" VALUTATA in ", nt)
+            print((" VALUTATA in ", nt))
 
     def add_prefix_actions(self, prefix_actions_proxy):
         """
@@ -270,14 +271,14 @@ class SimpleGladeWrapper:
         prefix_s = "prefix_"
         prefix_pos = len(prefix_s)
 
-        is_method = lambda t : callable( t[1] )
+        is_method = lambda t : isinstance( t[1], collections.Callable)
         is_prefix_action = lambda t : t[0].startswith(prefix_s)
-        drop_prefix = lambda (k,w): (k[prefix_pos:],w)
+        drop_prefix = lambda k_w: (k_w[0][prefix_pos:],k_w[1])
 
         members_t = inspect.getmembers(prefix_actions_proxy)
-        methods_t = filter(is_method, members_t)
-        prefix_actions_t = filter(is_prefix_action, methods_t)
-        prefix_actions_d = dict( map(drop_prefix, prefix_actions_t) )
+        methods_t = list(filter(is_method, members_t))
+        prefix_actions_t = list(filter(is_prefix_action, methods_t))
+        prefix_actions_d = dict( list(map(drop_prefix, prefix_actions_t)) )
 
         for widget in self.widgets:
             prefixes = widget.prefixes
@@ -306,7 +307,7 @@ class SimpleGladeWrapper:
         method named create_foo is called with str1,str2,int1,int2 as arguments.
         """
         try:
-            print("VEDIAMO UN PO", function_name)
+            print(("VEDIAMO UN PO", function_name))
             handler = getattr(self, function_name)
             return handler(str1, str2, int1, int2)
         except AttributeError:

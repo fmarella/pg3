@@ -199,7 +199,7 @@ if tipodb=="sqlite":
     a = session.query(Multiplo.id).all()
     b = session.query(Riga.id_multiplo).all()
     fixit =  list(set(b)-set(a))
-    print("fixt-riga_multiplo", fixit)
+    print(("fixt-riga_multiplo", fixit))
     for f in fixit:
         if f[0] != "None" and f[0] != None:
             aa = Riga().select(idMultiplo=f[0], batchSize=None)

@@ -13,6 +13,7 @@ from promogest.lib.utils import setconf
 import xml.etree.cElementTree as ElementTree
 from promogest import Environment
 from promogest.lib import Sla2pdfUtils
+from functools import reduce
 
 # KNOWN BUGS
 # ****************************************************************
@@ -76,7 +77,7 @@ class SlaTpl2Sla(object):
         """ Dato un gruppo ti dà la sua tabella
         """
         for index in self.tablesProperties:
-            if str(index.keys()[0]).strip() == str(group).strip():
+            if str(list(index.keys())[0]).strip() == str(group).strip():
                 tableGroup = index[str(group)]
                 break
         return tableGroup
@@ -92,7 +93,7 @@ class SlaTpl2Sla(object):
         self.slaRootTag()
         version=self.scribusVersion()
         if version:
-            print("DICIAMO 1.3.4", "label",self.label,"classic", self._classic)
+            print(("DICIAMO 1.3.4", "label",self.label,"classic", self._classic))
             from promogest.lib.Sla2Pdf_ng import Sla2Pdf_ng as Sla2Pdf
             self.findTablesAndTags()
             self.findTablesProperties()
@@ -300,7 +301,7 @@ class SlaTpl2Sla(object):
                     if tags is not None:
                         if tags not in vector:
                             vector.append(tags)
-                        for k in tags.keys():
+                        for k in list(tags.keys()):
                             self.tagsTables[k] = group
                 self.tablesTags[group] = vector
 
@@ -310,9 +311,9 @@ class SlaTpl2Sla(object):
         relativi alle tabelle che iterano ( righe e castelletto iva al momento )
         """
         self.iteratableGroups = []
-        for group in self.tablesTags.keys():
+        for group in list(self.tablesTags.keys()):
             for tagDict in self.tablesTags[group]:
-                for tag in tagDict.keys():
+                for tag in list(tagDict.keys()):
                     indexN = tag.find('(n)')
                     if (indexN != -1):
                         if group.strip() not in self.iteratableGroups:
@@ -332,7 +333,7 @@ class SlaTpl2Sla(object):
             for group in self.iteratableGroups:
                 tableGroup = self.indexGroupTableFromListDict(group)
                 for tagDict in self.tablesTags[group]:
-                    for tag in tagDict.keys():
+                    for tag in list(tagDict.keys()):
                         indexN = tag.find('(n)')
                         if (indexN != -1):
                             indexNP = tag.find('(n).')
@@ -346,7 +347,7 @@ class SlaTpl2Sla(object):
                                 rowsNumber = tableGroup['rows'] - 1
                             self.pagesNumber = int(math.ceil(float(valuesNumber) / float(rowsNumber)))
         #self.pagesNumber = 2
-        print("questo è il nuovo numero di pagine del template sla:", self.pagesNumber)
+        print(("questo è il nuovo numero di pagine del template sla:", self.pagesNumber))
 
     def createPageTag(self, pagesNumber=None):
         # Index of first tag 'PAGE'
@@ -360,7 +361,7 @@ class SlaTpl2Sla(object):
                 break
         numPages = self.slaPage()
         for i in range(1, self.pagesNumber):
-            attributes = numPages[0].items()
+            attributes = list(numPages[0].items())
             dictionary =  {}
             for attr in attributes:
                 dictionary[attr[0]] = attr[1]
@@ -396,7 +397,7 @@ class SlaTpl2Sla(object):
         for j in range(1,pages):
             for pageObject in adesso:
                 # Creating dictionary attributes pageobject
-                attributes = pageObject.items()
+                attributes = list(pageObject.items())
                 dictionary = {}
                 for attr in attributes:
                     dictionary[attr[0]] = attr[1]
@@ -406,7 +407,7 @@ class SlaTpl2Sla(object):
                 # Creating dictionary attributes itext of the pageobject
                 itexts = pageObject.findall('ITEXT')
                 for itext in itexts:
-                    attributes = itext.items()
+                    attributes = list(itext.items())
                     dictionary = {}
                     for attrr in attributes:
                         dictionary[attrr[0]] = attrr[1]
@@ -414,7 +415,7 @@ class SlaTpl2Sla(object):
                     ElementTree.SubElement(app, 'ITEXT', dictionary)
                 paras = pageObject.findall('para')
                 for para in paras:
-                    attributes = para.items()
+                    attributes = list(para.items())
                     dictPara = {}
                     for attrrr in attributes:
                         dictPara[attrrr[0]] = attrrr[1]
@@ -445,7 +446,7 @@ class SlaTpl2Sla(object):
         numPages = self.slaPage()
         document = self.slaDocumentTag()
         self.pageProperties = Sla2pdfUtils.pageProFunc(document)
-        group = self.tablesProperties[0].keys()[0]
+        group = list(self.tablesProperties[0].keys())[0]
         self.tablesPropertie = self.tablesProperties[0][group]
         widths = self.tablesPropertie['widths']
         heights = self.tablesPropertie['heights']
@@ -482,7 +483,7 @@ class SlaTpl2Sla(object):
             p=r=c = 1
             for pageObject in self.labelObj:
                 ## Creating dictionary attributes pageobject
-                attributes = pageObject.items()
+                attributes = list(pageObject.items())
                 dictionary = {}
                 for k in range(0, len(attributes)):
                     dictionary[attributes[k][0]] = attributes[k][1]
@@ -491,7 +492,7 @@ class SlaTpl2Sla(object):
                 ## Creating dictionary attributes itext of the pageobject
                 itexts = pageObject.findall('ITEXT')
                 for itext in itexts:
-                    attributes = itext.items()
+                    attributes = list(itext.items())
                     dictionary = {}
                     for kk in range(0, len(attributes)):
                         dictionary[attributes[kk][0]] = attributes[kk][1]
@@ -500,7 +501,7 @@ class SlaTpl2Sla(object):
 
                 paras = pageObject.findall('para')
                 for para in paras:
-                    attributes = para.items()
+                    attributes = list(para.items())
                     dictPara = {}
                     for kkk in range(0, len(attributes)):
                         dictPara[attributes[kkk][0]] = attributes[kkk][1]
@@ -555,7 +556,7 @@ class SlaTpl2Sla(object):
             group = pageObject.get('GROUPS')
             if group in gr:
                 for itext in itexts:
-                    attributes = itext.items()
+                    attributes = list(itext.items())
                     dictionary = {}
                     for kk in range(0, len(attributes)):
                         dictionary[attributes[kk][0]] = attributes[kk][1]
@@ -563,7 +564,7 @@ class SlaTpl2Sla(object):
                     tags = Sla2pdfUtils.findTags(ch)
                     #print "tagsssss", ch, tags
                     if tags:
-                        tagsKeys = tags.keys()[0] or []
+                        tagsKeys = list(tags.keys())[0] or []
                         function = tags[tagsKeys]['function']
                         parameter = tags[tagsKeys]['parameter']
                         if function == "bcview":
@@ -653,7 +654,7 @@ class SlaTpl2Sla(object):
                         if tags is None:
                             continue
                         tmp = ch
-                        tagsKeys = tags.keys()
+                        tagsKeys = list(tags.keys())
                         increment = True
                         for k in tagsKeys:
                             if k.replace(' ', '') == '':
@@ -671,14 +672,14 @@ class SlaTpl2Sla(object):
                         tags = Sla2pdfUtils.findTags(ch)
                         if tags is not None:
                             tmp = ch
-                            tagsKeys = tags.keys()
+                            tagsKeys = list(tags.keys())
                             increment = True
                             for k in tagsKeys:
                                 if k.replace(' ', '') == '':
                                     continue
                                 if k.find('(n)') > -1:
                                     if self.tableGroup['itexts'][column - 1] == {}:
-                                        self.tableGroup['itexts'][column - 1] = dict([attribute[0], attribute[1]] for attribute in itext.items())
+                                        self.tableGroup['itexts'][column - 1] = dict([attribute[0], attribute[1]] for attribute in list(itext.items()))
                                     tmp = self.getTagToPrint(tmp,column = column, increment=increment, tags=tags,k=k)
                                     increment = False
                             itext.set('CH', tmp)
@@ -693,7 +694,7 @@ class SlaTpl2Sla(object):
                             tmp = ch
                             if "€" in ch or "Euro" in ch:
                                 mettilo = True
-                            tagsKeys = tags.keys()
+                            tagsKeys = list(tags.keys())
                             increment = True
                             for k in tagsKeys:
                                 if k.replace(' ', '') == '':
@@ -736,7 +737,7 @@ class SlaTpl2Sla(object):
                         tags = Sla2pdfUtils.findTags(ch)
                         #print "Stampo il tag", tags
                         if tags is not None:
-                            tagsKeys = tags.keys()
+                            tagsKeys = list(tags.keys())
                             #print "Dizionario dei tags tagsKeys",  tagsKeys
                             for tagkey in tagsKeys:
                                 if tagkey.replace(' ', '') == '':
@@ -785,7 +786,7 @@ class SlaTpl2Sla(object):
                             arrayIndex = -1
                         tags = Sla2pdfUtils.findTags(ch)
                         if tags is not None:
-                            tagsKeys = tags.keys()
+                            tagsKeys = list(tags.keys())
                             for k in tagsKeys:
                                 if k.replace(' ', '') == '':
                                     continue
@@ -886,14 +887,14 @@ class SlaTpl2Sla(object):
 
             sym = ''
             if sconto.tipo_sconto == 'valore':
-                sym = u'E' # FIXME: put Euro symbol here
+                sym = 'E' # FIXME: put Euro symbol here
             elif sconto.tipo_sconto == 'percentuale':
                 sym = '%'
             return '%.2f %s' % (sconto.valore, sym)
 
         def _reduceSconto(sconto1, sconto2):
             str1 = ''
-            if type(sconto1) is type('') or type(sconto1) is type(u''):
+            if type(sconto1) is type('') or type(sconto1) is type(''):
                 str1 = sconto1
             else:
                 str1 = _sconto2str(sconto1)
@@ -912,7 +913,7 @@ class SlaTpl2Sla(object):
 
     def scribusVersion(self):
         slaversion = self.root.get('Version')
-        print("VERSIONE FILE SLA", slaversion)
+        print(("VERSIONE FILE SLA", slaversion))
         if slaversion == "1.3.4" or  "1.3.5" in slaversion:
             version=True
         else:

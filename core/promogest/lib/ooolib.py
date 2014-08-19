@@ -35,7 +35,7 @@ def version():
 def clean_string(data):
 	"Returns an XML friendly copy of the data string"
 
-	data = unicode(data) # This line thanks to Chris Ender
+	data = str(data) # This line thanks to Chris Ender
 
 	data = data.replace('&', '&amp;')
 	data = data.replace("'", '&apos;')
@@ -243,7 +243,7 @@ class Meta:
 		return stamp
 
 	def parse_start_element(self, name, attrs):
-		if self.debug: print('* Start element:', name)
+		if self.debug: print(('* Start element:', name))
 		self.parser_element_list.append(name)
 		self.parser_element = self.parser_element_list[-1]
 
@@ -254,14 +254,14 @@ class Meta:
 			self.set_meta("user%dname" % self.parser_count, attrs['meta:name'])
 
 		# Debugging statements
-		if self.debug: print("  List: ", self.parser_element_list)
-		if self.debug: print("  Attributes: ", attrs)
+		if self.debug: print(("  List: ", self.parser_element_list))
+		if self.debug: print(("  Attributes: ", attrs))
 
 
 	def parse_end_element(self, name):
-		if self.debug: print('* End element:', name)
+		if self.debug: print(('* End element:', name))
 		if name != self.parser_element:
-			print("Tag Mismatch: '%s' != '%s'" % (name, self.parser_element))
+			print(("Tag Mismatch: '%s' != '%s'" % (name, self.parser_element)))
 		self.parser_element_list.pop()
 
 		# Readjust parser_element_list and parser_element
@@ -271,7 +271,7 @@ class Meta:
 			self.parser_element = ""
 
 	def parse_char_data(self, data):
-		if self.debug: print("  Character data: ", repr(data))
+		if self.debug: print(("  Character data: ", repr(data)))
 
 		# Collect Meta data fields
 		if (self.parser_element == "dc:title"):
@@ -852,7 +852,7 @@ class Calc:
 		# See if we need to read a document
 		if opendoc:
 			# Verify that the document exists
-			if self.debug: print("Opening Document: %s" % opendoc)
+			if self.debug: print(("Opening Document: %s" % opendoc))
 
 			# Okay, now we load the file
 			self.load(opendoc)
@@ -959,7 +959,7 @@ class Calc:
 		# styles.xml - I do not remember putting anything here
 
 	def parse_content_start_element(self, name, attrs):
-		if self.debug: print('* Start element:', name)
+		if self.debug: print(('* Start element:', name))
 		self.parser_element_list.append(name)
 		self.parser_element = self.parser_element_list[-1]
 
@@ -1039,14 +1039,14 @@ class Calc:
 				self.parser_cell_string_line = "%s\n" % (self.parser_cell_string_line)
 
 		# Debugging statements
-		if self.debug: print("  List: ", self.parser_element_list)
-		if self.debug: print("  Attributes: ", attrs)
+		if self.debug: print(("  List: ", self.parser_element_list))
+		if self.debug: print(("  Attributes: ", attrs))
 
 
 	def parse_content_end_element(self, name):
-		if self.debug: print('* End element:', name)
+		if self.debug: print(('* End element:', name))
 		if name != self.parser_element:
-			print("Tag Mismatch: '%s' != '%s'" % (name, self.parser_element))
+			print(("Tag Mismatch: '%s' != '%s'" % (name, self.parser_element)))
 		self.parser_element_list.pop()
 
 		# If the element was text:p and we are in string mode
@@ -1065,7 +1065,7 @@ class Calc:
 			self.parser_element = ""
 
 	def parse_content_char_data(self, data):
-		if self.debug: print("  Character data: ", repr(data))
+		if self.debug: print(("  Character data: ", repr(data)))
 
 		if (self.parser_element == 'text:p' or self.parser_element == 'text:span'):
 			if (self.parser_cell_string_pending):
@@ -1103,7 +1103,7 @@ class Calc:
 
 		The save function saves the current cells and settings into a document.
 		"""
-		if self.debug: print("Writing %s" % filename)
+		if self.debug: print(("Writing %s" % filename))
 		self.savefile = zipfile.ZipFile(filename, "w")
 		if self.debug: print("  meta.xml")
 		self._zip_insert(self.savefile, "meta.xml", self.meta.get_meta())
@@ -1146,7 +1146,7 @@ class Calc:
 		for sheet in self.sheets:
 			if self.debug:
 				sheet_name = sheet.get_name()
-				print("    Creating Sheet '%s'" % sheet_name)
+				print(("    Creating Sheet '%s'" % sheet_name))
 			sheet_list = sheet.get_lists()
 			self.sheetdata.append(sheet_list)
 		# Automatic Styles
@@ -1738,7 +1738,7 @@ class Writer:
 
 		The save function saves the current .odt document.
 		"""
-		if self.debug: print("Writing %s" % filename)
+		if self.debug: print(("Writing %s" % filename))
 		self.savefile = zipfile.ZipFile(filename, "w")
 		if self.debug: print("  meta.xml")
 		self._zip_insert(self.savefile, "meta.xml", self.meta.get_meta())

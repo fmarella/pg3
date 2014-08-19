@@ -66,9 +66,10 @@ except:
     pass
 
 import sqlalchemy
-from sqlalchemy.orm import *
-#from sqlalchemy.interfaces import PoolListener
-from sqlalchemy.exc import *
+from sqlalchemy import create_engine
+from sqlalchemy.orm.session import sessionmaker
+from sqlalchemy.interfaces import PoolListener
+#from sqlalchemy.exc import *
 
 from promogest.EnvUtils import *
 
@@ -457,7 +458,7 @@ def hook(et, ev, eb):
     print(("\n  ".join(list(traceback.format_exception(et, ev, eb)))))
     __sendmail()
 #if not preEnv.web:
-sys.excepthook = hook
+#sys.excepthook = hook
 
 # DA SPOSTARE ASSOLUTAMENTE QUANTO PRIMA
 print(("SQLALCHEMY VERSION", sqlalchemy.__version__))

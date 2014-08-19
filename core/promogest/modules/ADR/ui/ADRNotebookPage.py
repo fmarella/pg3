@@ -77,15 +77,15 @@ class ADRNotebookPage(GladeWidget):
 
     def adrSetDao(self, dao):
         """ Estensione del SetDao principale"""
-        print(" DAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", dao.id)
+        print((" DAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", dao.id))
         if not dao.id:
             self.dao_articolo_adr = ArticoloADR()
         else:
-            print(" OP LA",dao.APADR, dao.__init__)
+            print((" OP LA",dao.APADR, dao.__init__))
             if dao.APADR is None:
                 dao.APADR = ArticoloADR()
             self.dao_articolo_adr = dao.APADR
-        print(" SE SEI QUI HAI", self.dao_articolo_adr)
+        print((" SE SEI QUI HAI", self.dao_articolo_adr))
 
     def adr_refresh(self):
         if self.dao_articolo_adr:

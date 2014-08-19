@@ -63,4 +63,4 @@ if posso("PW"):
     possibleFieldsValues.append("modello")
     possibleFieldsValues.append("codice_padre")
 # possibleFieldsDict is a global module dictionary containing all fields that is possible to import from a price list
-possibleFieldsDict = dict(zip(possibleFieldsKeys, possibleFieldsValues))
+possibleFieldsDict = dict(list(zip(possibleFieldsKeys, possibleFieldsValues)))

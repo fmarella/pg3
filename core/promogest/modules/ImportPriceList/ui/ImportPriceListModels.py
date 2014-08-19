@@ -179,7 +179,7 @@ class ImportPriceListModels(GladeWidget):
         self.default_aliquotaiva_combobox.set_sensitive(False)
         self.aliquota_iva_togglebutton.set_sensitive(False)
 
-        for k, val in defaults.iteritems():
+        for k, val in defaults.items():
             v =int(val or 0)
             if k == 'Unita base':
                 self.default_unita_base_combobox.set_sensitive(True)
@@ -406,7 +406,7 @@ class ImportPriceListModels(GladeWidget):
                             self.decimalSymbol_combobox,
                             'Selezionare il simbolo decimale')
 
-        for d in self.priceListModel._defaultAttributes.keys():
+        for d in list(self.priceListModel._defaultAttributes.keys()):
             if d == 'Aliquota Iva':
                 if not findStrFromCombobox(self.default_aliquotaiva_combobox, 2):
                     obligatoryField(self.getTopLevel(),
@@ -459,26 +459,26 @@ class ImportPriceListModels(GladeWidget):
 
         if len(str(value)) > 0:
             if comboboxName == 'default_categoria_combobox':
-                if  'Categoria' in self.priceListModel._defaultAttributes.keys():
+                if  'Categoria' in list(self.priceListModel._defaultAttributes.keys()):
                     if value == self.priceListModel._defaultAttributes['Categoria']:
                         return
                     else:
                         self.priceListModel._defaultAttributes['Categoria'] = value
             elif comboboxName == 'default_famiglia_combobox':
-                if 'Famiglia' in self.priceListModel._defaultAttributes.keys():
+                if 'Famiglia' in list(self.priceListModel._defaultAttributes.keys()):
                     if value == self.priceListModel._defaultAttributes['Famiglia']:
                         return
                     else:
                         self.priceListModel._defaultAttributes['Famiglia'] = value
             elif comboboxName == 'default_aliquotaiva_combobox':
-                if 'Aliquota iva' in self.priceListModel._defaultAttributes.keys():
+                if 'Aliquota iva' in list(self.priceListModel._defaultAttributes.keys()):
                     if value == self.priceListModel._defaultAttributes['Aliquota iva']:
                         return
                     else:
                         self.priceListModel._defaultAttributes['Aliquota iva'] = value
             elif comboboxName == 'default_unita_base_combobox':
                 value = findStrFromCombobox(combobox, 1)
-                if 'Unita base' in self.priceListModel._defaultAttributes.keys():
+                if 'Unita base' in list(self.priceListModel._defaultAttributes.keys()):
                     if value == self.priceListModel._defaultAttributes['Unita base']:
                         return
                     else:

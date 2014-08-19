@@ -200,7 +200,7 @@ class AnagraficaAziende(GladeWidget):
                 im5.save(p + "/" + newname)
                 return p + "/" + newname
             except:
-                print("ERRORE NEL LOGO", filename)
+                print(("ERRORE NEL LOGO", filename))
         return ""
 
     def on_apply_button_clicked(self, button):

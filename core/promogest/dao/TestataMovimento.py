@@ -306,7 +306,7 @@ class TestataMovimento(Dao):
                     arto = Articolo().getRecord(id=riga.id_articolo)
                     #print "KIT", arto.articoli_kit
                     for art in arto.articoli_kit:
-                        print(art.id_articolo_filler, art.quantita)
+                        print((art.id_articolo_filler, art.quantita))
                         a = leggiArticolo(art.id_articolo_filler)
                         r = RigaMovimento()
                         r.valore_unitario_netto = 0

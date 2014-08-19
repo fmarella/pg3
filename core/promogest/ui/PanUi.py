@@ -27,14 +27,14 @@ from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget
 import webbrowser
 import datetime
-import urllib, urllib2
+import urllib.request, urllib.parse, urllib.error, urllib.request, urllib.error, urllib.parse
 try:
     import json
 except:
     None
 
 def checkPan(main):
-    print("TIPO PG", Environment.tipo_pg, Environment.modulesList)
+    print(("TIPO PG", Environment.tipo_pg, Environment.modulesList))
     for a in Environment.modulesList:
         if a:
             if ("FULL" in a) or ("STANDARD" in a) or ("PRO" in a):

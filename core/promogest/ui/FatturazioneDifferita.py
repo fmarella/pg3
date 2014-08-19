@@ -294,7 +294,7 @@ def do_fatt_diff(lista_documenti, data_documento,
                             sconti.append(daoSconto)
                         daoRiga.scontiRigaDocumento = sconti
                         righe.insert(0, daoRiga)
-                    for k,v in righeDict.iteritems():
+                    for k,v in righeDict.items():
                         if len(v) ==1:
                             r = v[0]
                             daoRiga = RigaDocumento()

@@ -125,7 +125,7 @@ def italianizza(value, decimal=0, curr='', sep='.', dp=',',
     precisione = int(decimal)
     sign, digits, exp = Decimal(value).as_tuple()
     result = []
-    digits = map(str, digits)
+    digits = list(map(str, digits))
     build, next = result.append, digits.pop
     if sign:
         build(trailneg)
@@ -176,7 +176,7 @@ def createbarcode(ch):
                 continue
             else:
                 return bcd
-    print(" NON SONO RIUSCITO AD ELABORARE IL CODICE A BARRE", data)
+    print((" NON SONO RIUSCITO AD ELABORARE IL CODICE A BARRE", data))
     return bcd
 
 

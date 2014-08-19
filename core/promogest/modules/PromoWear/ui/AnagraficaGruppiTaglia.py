@@ -144,7 +144,7 @@ class AnagraficaGruppoTagliaDetail(AnagraficaDetail):
             self.dao = GruppoTaglia().getRecord(id=self.dao.id)
             self._refresh()
         else:
-            raise Exception, 'Update not possible'
+            raise Exception('Update not possible')
 
     def _refresh(self):
         sel = self._anagrafica.anagrafica_treeview.get_selection()

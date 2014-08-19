@@ -118,7 +118,8 @@ def analyze_treeview_key_press_event(treeview, keyname, insertCall, deleteCall, 
 
 def parseModel(model, operation, index):
     """ Esegue una operazione sugli elementi di un model qualunque """
-    def analyzeTreeStoreRow(model, path, iter, (operation, index)):
+    def analyzeTreeStoreRow(model, path, iter, xxx_todo_changeme):
+        (operation, index) = xxx_todo_changeme
         row = model[iter]
         operation(row, index)
 

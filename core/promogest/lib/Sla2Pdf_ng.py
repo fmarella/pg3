@@ -45,11 +45,11 @@ class Sla2Pdf_ng(object):
         # Page's table
         reiter = False
         self.pdfPage = 0
-        for e in xrange(0, self.numPages):
+        for e in range(0, self.numPages):
             self.pdfPage = e
             for group in self.tablesProperties:
-                self.group = group.keys()[0]
-                self.tablesPropertie = group.values()[0]
+                self.group = list(group.keys())[0]
+                self.tablesPropertie = list(group.values())[0]
                 try:
                     self.group= self.group.strip().split('%%%')[0]
                 except:
@@ -120,7 +120,7 @@ class Sla2Pdf_ng(object):
             cells = 1
             columns=1
             rows = 1
-        for v in xrange(0,cells):
+        for v in range(0,cells):
             if v == 0:
                 contRows = 0
                 contColumns = 0

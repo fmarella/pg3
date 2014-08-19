@@ -20,8 +20,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-import ConfigParser
-from ConfigParser import ConfigParser
+import configparser
 from datetime import datetime
 import re
 
@@ -68,7 +67,7 @@ class Config(object):
 
     def save(self):
         for section in self._configDict:
-            for entry, entryValue in self._configDict[section].iteritems():
+            for entry, entryValue in self._configDict[section].items():
                 self._ini.set(section, entry, entryValue)
         f = file(self._source,'w')
         self._ini.write(f)
@@ -99,17 +98,17 @@ class Config(object):
         m = reg.match(isoDate)
         if m is not None:
             params = m.groups()
-            params = map(lambda x: int(x), params)
+            params = [int(x) for x in params]
             return datetime(params[0],params[1],params[2],params[3],params[4],params[5])
         else:
             return None
 
 
-class OrderedConfigParser(ConfigParser):
+class OrderedConfigParser(configparser.ConfigParser):
     """ Adds the feature of load/save sections from the config file in the exact order """
 
     def __init__(self):
-        ConfigParser.__init__(self)
+        configparser.ConfigParser.__init__(self)
 
         self._orderedSectionNames = []
 
@@ -138,7 +137,7 @@ class OrderedConfigParser(ConfigParser):
         # It is useful only if some section was added-removed
         # New sections are added to the end
         orderedSections = self._orderedSectionNames
-        sections = self._sections.keys()
+        sections = list(self._sections.keys())
         for s in orderedSections:
             if s not in sections:
                 orderedSections.pop(s)
@@ -149,7 +148,7 @@ class OrderedConfigParser(ConfigParser):
 
     def read(self, filenames):
         # Overloads the base class method and create initial order list of sections names
-        value = ConfigParser.read(self, filenames)
+        value = configparser.ConfigParser.read(self, filenames)
         self.initOrderedSectionNames(filenames)
         return value
 
@@ -157,13 +156,13 @@ class OrderedConfigParser(ConfigParser):
         """Write an .ini-format representation of the configuration state."""
         if self._defaults:
             fp.write("[%s]\n" % DEFAULTSECT)
-            for (key, value) in self._defaults.items():
+            for (key, value) in list(self._defaults.items()):
                 fp.write("%s = %s\n" % (key, str(value).replace('\n', '\n\t')))
             fp.write("\n")
         # Overloads the base class method: the only difference is how sections are inspected
         for section in self.sections():
             fp.write("[%s]\n" % section)
-            for (key, value) in self._sections[section].items():
+            for (key, value) in list(self._sections[section].items()):
                 if key != "__name__":
                     fp.write("%s = %s\n" %
                              (key, str(value).replace('\n', '\n\t')))

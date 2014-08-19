@@ -298,7 +298,7 @@ def redefineColumns(db, schema, table,columns,types,lenghts,defaults=None,forKey
 
 
 def deleteData(data):
-    for k,v in data.items():
+    for k,v in list(data.items()):
         for rec in v:
             pg_db_dest.delete(rec)
             sqlalchemy.ext.sqlsoup.Session.commit()

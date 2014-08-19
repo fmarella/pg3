@@ -138,7 +138,7 @@ class GestioneChiusuraFiscale(GladeWidget):
                     dictRigheProv[cri] = daoss
 
         listRighe = []
-        for k,v in dictRigheProv.iteritems():
+        for k,v in dictRigheProv.items():
             if len(v) ==1:
                 listRighe.append(v[0])
                 #print " QUESTO é SOLO", v[0].quantita

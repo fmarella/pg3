@@ -37,7 +37,7 @@ class AnagraficaMultipli(Anagrafica):
     """ Anagrafica multipli unita di misura """
 
     def __init__(self, idArticolo = None):
-        self._articoloFissato = (idArticolo <> None)
+        self._articoloFissato = (idArticolo != None)
         self._idArticolo = idArticolo
         if self._idArticolo is not None:
             articolo = leggiArticolo(self._idArticolo)

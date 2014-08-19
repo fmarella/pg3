@@ -51,13 +51,13 @@ class Operazione(Dao):
 
 def addOpDirette():
     s= select([t_operazione.c.denominazione]).execute().fetchall()
-    if (u'Ordine da cliente diretto',) not in s or s==[]:
+    if ('Ordine da cliente diretto',) not in s or s==[]:
         ope = operazione.insert()
         ope.execute(denominazione='Ordine da cliente diretto', fonte_valore='vendita_senza_iva', tipo_persona_giuridica='cliente',tipo_operazione="documento" )
-    if (u'DDT vendita diretto',) not in s or s==[]:
+    if ('DDT vendita diretto',) not in s or s==[]:
         ope = operazione.insert()
         ope.execute(denominazione='DDT vendita diretto', fonte_valore='vendita_senza_iva', tipo_persona_giuridica='fornitore',tipo_operazione="documento" )
-    if (u'Fattura vendita diretta',) not in s or s==[]:
+    if ('Fattura vendita diretta',) not in s or s==[]:
         ope = operazione.insert()
         ope.execute(denominazione='Fattura vendita diretta', fonte_valore='vendita_senza_iva', tipo_persona_giuridica='cliente',tipo_operazione="documento" )
 

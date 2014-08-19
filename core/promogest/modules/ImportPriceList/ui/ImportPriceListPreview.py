@@ -111,18 +111,18 @@ class ImportPreview(GladeWidget):
 Verificare gli errori nel file e ritentare l'importazione"""
             messageError(msg=msg, transient=self.getTopLevel())
             savedlines = savedlines - err_count
-        print(u'Import Procedure completed.')
-        print(u'Articoli salvati: '+str(savedlines))
-        print(u'Articoli di cui è fallito l\'import (completamente): '+\
-                                                            str(err_count))
+        print('Import Procedure completed.')
+        print(('Articoli salvati: '+str(savedlines)))
+        print(('Articoli di cui è fallito l\'import (completamente): '+\
+                                                            str(err_count)))
         if savedlines > 0:
-            msg = u'Operazione completata.\nsono stati importati/aggiornati '+\
+            msg = 'Operazione completata.\nsono stati importati/aggiornati '+\
                                                 str(savedlines)+' articoli.'
             messageInfo(msg=msg, transient=self.getTopLevel())
             self.window.destroy()
             self._mainWindow.show_all()
         else:
-            msg = u'Nessun articolo aggiornato/importato.'
+            msg = 'Nessun articolo aggiornato/importato.'
             messageInfo(msg=msg, transient=self.getTopLevel())
             self.window.destroy()
             self._mainWindow.show_all()

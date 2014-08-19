@@ -125,11 +125,11 @@ def calcolaLimiteTrasportoADR(anagrafica, artADR, **kwargs):
     tt2=0
     _buf = T_SUM_ADR.center(70)
     _buf += "\n %-5s %-15s %-20s %-20s" % (T_PG, T_CODICE_UN, T_QTA, T_QTA_VIRT)
-    for k,o in anagrafica.dati_adr.iteritems():
+    for k,o in anagrafica.dati_adr.items():
         t1=0
         t2=0
         for j in o:
-            for kk,z in j.iteritems():
+            for kk,z in j.items():
                 _buf += "\n %-8s %-17s %-18s %-20s" % (str(k), str(kk), str(z[0]), str(z[1]))
                 t1+=z[0]
                 t2+=z[1]

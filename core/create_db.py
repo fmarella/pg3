@@ -28,7 +28,7 @@ from sqlalchemy import *
 import sqlalchemy
 if sqlalchemy.__version__ < "0.5":
     msg= "VERSIONE DI SQLALCHEMY NON AGGIORNATA, E' RICHIESTA LA VERSIONE 0.5"
-    raise Exception,msg
+    raise Exception(msg)
 
 from sqlalchemy.orm import *
 #from core.promogest import Environment
@@ -186,7 +186,7 @@ class CreateAndDropTable(object):
 
         (options, args) = parser.parse_args()
         self.tipo = options.tipo
-        print(self.tipo, options.schema)
+        print((self.tipo, options.schema))
         if self.tipo != "web" and self.tipo !="classico" and self.tipo !="all":
             print("ATTENZIONE!!!, Opzioni possibili per -t (--tipo)  sono 'classico', 'web', 'all'")
             sys.exit()
@@ -196,7 +196,7 @@ class CreateAndDropTable(object):
             print(" ATTENZIONE !!!!, non e' stato selezionato uno schema con -s schema ")
             ok=0
             while ok==0:
-                first = raw_input("Vuoi usare 'azienda_prova'? Si/No: ")
+                first = input("Vuoi usare 'azienda_prova'? Si/No: ")
                 if first == "No" or "N" == first:
                     sys.exit()
                 elif first=="Si" or first=="S" or first=="Y" or first=="Yes":
@@ -210,7 +210,7 @@ class CreateAndDropTable(object):
         self.metadata = meta
         self.session_sl = session
         if not options.operazione:
-            print("ATTENZIONE !!! Manca l'operazione da svolgere!, Scegli tra %s " %action)
+            print(("ATTENZIONE !!! Manca l'operazione da svolgere!, Scegli tra %s " %action))
             sys.exit(2)
         elif options.operazione == "drop_all":
             self.dropAllTable()
@@ -230,26 +230,26 @@ class CreateAndDropTable(object):
             print("e' stata richiesta una operazione di inserimento dati di tutte le tabelle ")
         elif options.operazione == "drop":
             self.dropTable()
-            print("E' stata rimossa la tabella : %s" %self.tabella)
+            print(("E' stata rimossa la tabella : %s" %self.tabella))
         elif options.operazione == "create":
             self.createTable(tab=self.tabella)
-            print("E'stata aggiunta la tabella: %s" %self.tabella)
+            print(("E'stata aggiunta la tabella: %s" %self.tabella))
         elif options.operazione == "update":
-            print("E'stata aggiornata la tabella: %s" %self.tabella)
+            print(("E'stata aggiornata la tabella: %s" %self.tabella))
         elif options.operazione == "alter":
-            print("E'stata alterata la tabella: %s" %self.tabella)
+            print(("E'stata alterata la tabella: %s" %self.tabella))
 
     def createAziendaSchema(self, lista=[]):
         try:
             comando= "CREATE SCHEMA %s AUTHORIZATION %s" %(MAINSCHEMA,USER)
             session.execute(text(comando))
-        except Exception, e:
-            print("Errore %s " % e)
+        except Exception as e:
+            print(("Errore %s " % e))
         try:
             comando= "CREATE SCHEMA %s AUTHORIZATION %s" %(self.schema, USER)
             session.execute(text(comando))
-        except Exception, e:
-            print("Errore %s " % e)
+        except Exception as e:
+            print(("Errore %s " % e))
 
         self.createAllTable(lista=tableListUniversal)
         self.createAllTable(lista=tableListPromogest)
@@ -261,11 +261,11 @@ class CreateAndDropTable(object):
 
     def createTable(self, lista=[], tab=None):
         if tab[0] == "azienda":
-            print("----------------   CREO LA TABELLA           :", tab[1])
-            exec "%s(schema=self.schema,mainSchema=MAINSCHEMA,tipo=self.tipo, metadata=self.metadata,session=self.session_sl).create()" %tab[1]
+            print(("----------------   CREO LA TABELLA           :", tab[1]))
+            exec("%s(schema=self.schema,mainSchema=MAINSCHEMA,tipo=self.tipo, metadata=self.metadata,session=self.session_sl).create()" %tab[1])
         else:
-            print("++++++++++++++++++CREO LA TABELLA             :", tab[1])
-            exec "%s(schema=self.schema,mainSchema=MAINSCHEMA,metadata=self.metadata,session=self.session_sl).create()" %tab[1]
+            print(("++++++++++++++++++CREO LA TABELLA             :", tab[1]))
+            exec("%s(schema=self.schema,mainSchema=MAINSCHEMA,metadata=self.metadata,session=self.session_sl).create()" %tab[1])
 
     def dropTable(self):
         table = Table(self.tabella, self.metadata, autoload=True,schema=self.schema)
@@ -280,7 +280,7 @@ class CreateAndDropTable(object):
                 #self.schema= MAINSCHEMA
             #else:
             self.createTable(lista=lista, tab=table)
-            print("AGGIUNTA LA TABELLA: %s" %table[0])
+            print(("AGGIUNTA LA TABELLA: %s" %table[0]))
 
 
     def dropAllTable(self):

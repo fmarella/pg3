@@ -244,7 +244,7 @@ def create_schede_ordinazioni(data):
         dao.prima_email = prima_email
         dao.telefono = telefono
         dao.cellulare = cellulare
-        art = articoli_scheda.iteritems()[0]
+        art = iter(articoli_scheda.items())[0]
         associazione = AssociazioneArticoli().select(nodo=True,
                                                     codice=art[0],
                                                     offset=None,
@@ -256,7 +256,7 @@ def create_schede_ordinazioni(data):
         else:
             dao.bomba_in_cliche = False
         for ass in associazione:
-            for art in articoli_scheda.iteritems():
+            for art in articoli_scheda.items():
                 if ass.codice == int(art[0]):
                     quantita.append(art[1])
                     continue
@@ -346,7 +346,7 @@ def fillSchedaLavorazioneFromEmail(ui):
         #valore = lista[1].strip()
         if campo == "Subject":
             if lista[1].strip() != "Form ordine partecipazioni":
-                raise Exception,"errore email di tipo errato"
+                raise Exception("errore email di tipo errato")
         if campo == "From":
             ui.prima_email_entry.set_text(lista[1].strip())
         elif campo == "Date":
@@ -387,7 +387,7 @@ def fillSchedaLavorazioneFromEmail(ui):
         elif campo == "Citta_matrimonio":
             ui.provenienza_entry.set_text(lista[1].strip().upper())
         elif campo == "orderdate":
-            print(lista[1].strip())
+            print((lista[1].strip()))
             datamat=lista[1].strip()
             datamat=datamat.replace("-","/")
             #datamat=datamat[0:-2]+"20"+datamat[-2:]
@@ -470,26 +470,26 @@ def fillSchedaLavorazioneFromEmail(ui):
         elif campo == "CODICE PARTECIPAZIONE":
             codParte = lista[1].strip().split("(")[0].strip()[1:-1].replace("Art.",'')[1:-1]
             quantitaParte = lista[2].strip().split("-")[0].strip()[2:-2]
-            print("CODICE PARTECIPAZIONE", codParte, quantitaParte)
+            print(("CODICE PARTECIPAZIONE", codParte, quantitaParte))
             if not codParte:
                 messageInfo(msg="ATTENZIONE! CODICE PARTECIPAZIONE NON PRESENTE????")
         elif campo == "CODICE INVITO":
             codInvito = lista[1].strip().split("(")[0].strip()[1:-1].replace("Art.",'')[1:-1]
             quantitaInvito = lista[2].strip().split("-")[0].strip()[2:-2]
-            print("CODICE INVITO", codInvito, quantitaInvito)
+            print(("CODICE INVITO", codInvito, quantitaInvito))
         elif campo == "CODICE BOMBONIERA":
             codBombo = lista[1].strip().split("(")[0].strip()[1:-1].replace("Art.",'')[1:-1]
             quantitaBombo = lista[2].strip().split("-")[0].strip()[2:-2]
-            print("CODICE BOMBONIERA", codBombo, quantitaBombo)
+            print(("CODICE BOMBONIERA", codBombo, quantitaBombo))
         elif campo == "PERCENTUALE DI SCONTO APPLICATO":
             percentualeSconto = lista[1].strip()[0:-1]
-            print("PERCENTUALE DI SCONTO APPLICATO", percentualeSconto)
+            print(("PERCENTUALE DI SCONTO APPLICATO", percentualeSconto))
         elif campo == "COSTO STAMPA APPLICATO":
             costoStampa = lista[1].strip()
-            print("COSTO STAMPA APPLICATO", costoStampa)
+            print(("COSTO STAMPA APPLICATO", costoStampa))
         elif campo == "TOTALE":
             totale = lista[1].strip()[1:].strip()
-            print("TOTALE", totale)
+            print(("TOTALE", totale))
 
     ordine = {"colore_stampa":colore_stampa,
                 "carattere_stampa":carattere_stampa,

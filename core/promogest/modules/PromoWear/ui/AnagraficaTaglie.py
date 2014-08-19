@@ -266,7 +266,7 @@ class AnagraficaTaglieEdit(AnagraficaEdit):
                 msg = ('La taglia e\' collegata a diversi gruppi taglia:\n' +
                        'la modifica sara\' visibile su tutti i gruppi taglia ai quali la taglia e\' legata.\n\nContinuare ?')
                 if YesNoDialog(msg=msg, transient=self.dialogTopLevel):
-                    raise Exception, 'Operation aborted: Errore in taglie'
+                    raise Exception('Operation aborted: Errore in taglie')
 
         # Controllo se esiste gia' la taglia
         self.taglia.denominazione = self.denominazione_entry.get_text()

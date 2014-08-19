@@ -61,7 +61,7 @@ docus = testate_ddt+testate_fat
 num = len(docus)
 #docus = []
 for tt in docus:
-    print("\n\nDOCUMENTI MANCANTI                            ", num - docus.index(tt))
+    print(("\n\nDOCUMENTI MANCANTI                            ", num - docus.index(tt)))
     # Cerco il movimento collegato al documento
     t = tt.TM[0]
     #ciclo nelle righe
@@ -99,7 +99,7 @@ for tt in docus:
                     sconti.append(daoSconto)
 
                 daoFornitura.sconti = sconti
-                print("FORNITURA", daoFornitura, v)
+                print(("FORNITURA", daoFornitura, v))
 
                 params["session"].add(daoFornitura)
                 params["session"].commit()
@@ -121,22 +121,22 @@ lt = NumeroLottoTemp().select(batchSize=None)
 n = len(lt)
 g = 0
 for l in lt:
-    print("\n\nLOTTI TEMPORANEI MANCANTI",  n-lt.index(l))
+    print(("\n\nLOTTI TEMPORANEI MANCANTI",  n-lt.index(l)))
     rmf =  RigaMovimentoFornitura().select(idRigaMovimentoVendita=l.id_riga_movimento_vendita_temp)
-    print("ESISTE UNA RIGA IN RIGAMOV FORNI", rmf)
+    print(("ESISTE UNA RIGA IN RIGAMOV FORNI", rmf))
     if not rmf:
-        print(" ABBIAMO GIA QUESTI DATI DA METTERE", l.rigamovventemp.id_articolo, l.id_riga_movimento_vendita_temp)
+        print((" ABBIAMO GIA QUESTI DATI DA METTERE", l.rigamovventemp.id_articolo, l.id_riga_movimento_vendita_temp))
         #cerchiamo una fornitura precisa
         daoForn = Fornitura().select(idArticolo=l.rigamovventemp.id_articolo,
                                 numeroLotto = l.lotto_temp,
                                 batchSize = None)
         if daoForn:
-            print("HAI BECCATO IL DATO", daoForn[0])
+            print(("HAI BECCATO IL DATO", daoForn[0]))
         if not daoForn:
             daoForn = Fornitura().select(idArticolo=l.rigamovventemp.id_articolo,
                                 noLotto =True,
                                 batchSize = None)
-            print("DAO FORN", daoForn)
+            print(("DAO FORN", daoForn))
             if daoForn:
                 daoForn[0].numero_lotto = l.lotto_temp
                 params["session"].add(daoForn[0])
@@ -147,10 +147,10 @@ for l in lt:
             a.id_articolo = l.rigamovventemp.id_articolo
             a.id_riga_movimento_vendita = l.id_riga_movimento_vendita_temp
             a.id_fornitura = daoForn[0].id
-            print("RIGA MOV FORNI DA AGGIUNGERE", a)
+            print(("RIGA MOV FORNI DA AGGIUNGERE", a))
             params["session"].add(a)
             #params["session"].commit()
-            print(" RIMUOVO 1", l)
+            print((" RIMUOVO 1", l))
             params["session"].delete(l)
             g += 1
             #params["session"].commit()
@@ -159,7 +159,7 @@ for l in lt:
                 g = 0
                 print("\n\n ------------------------------------- SALVATO E AZZERO -----------------------------------\n\n")
     else:
-        print(" RIMUOVO 2", l)
+        print((" RIMUOVO 2", l))
         params["session"].delete(l)
 params["session"].commit()
 

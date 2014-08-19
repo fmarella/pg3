@@ -15,7 +15,7 @@ def tipo_aliquota_iva_table(soup=None,soupLocale=None, op=None,dao=None,rowLocal
     if op =="DELETE":
         soupLocale.delete(rowLocale)
     elif op == "INSERT":
-        exec ( "rowLocale = soupLocale.%s.insert()" ) %dao
+        exec(( "rowLocale = soupLocale.%s.insert()" ) %dao)
         for i in rowLocale.c:
             t = str(i).split(".")[1] #mi serve solo il nome tabella
             setattr(rowLocale, t, getattr(row, t))

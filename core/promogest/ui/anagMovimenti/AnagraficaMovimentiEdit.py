@@ -1272,7 +1272,7 @@ class AnagraficaMovimentiEdit(AnagraficaEdit):
             totaleImponibile += totaleImponibileRiga
             totaleImposta += totaleImpostaRiga
 
-            if percentualeIvaRiga not in castellettoIva.keys():
+            if percentualeIvaRiga not in list(castellettoIva.keys()):
                 castellettoIva[percentualeIvaRiga] = {'imponibile': totaleImponibileRiga, 'imposta': totaleImpostaRiga, 'totale': totaleRiga}
             else:
                 castellettoIva[percentualeIvaRiga]['imponibile'] += totaleImponibileRiga
@@ -1288,7 +1288,7 @@ class AnagraficaMovimentiEdit(AnagraficaEdit):
 
         model = self.riepiloghi_iva_treeview.get_model()
         model.clear()
-        for k in castellettoIva.keys():
+        for k in list(castellettoIva.keys()):
             model.append((str(mN(k,2)),
                          str(mN(castellettoIva[k]['imponibile'],2)),
                          str(mN(castellettoIva[k]['imposta'],2))))

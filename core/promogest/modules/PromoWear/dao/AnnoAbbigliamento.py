@@ -43,7 +43,7 @@ annoabbigliamento=Table('anno_abbigliamento',
     autoload=True)
 
 s= select([annoabbigliamento.c.denominazione]).execute().fetchall()
-if (u'2014', ) not in s or s==[]:
+if ('2014', ) not in s or s==[]:
     tipo = annoabbigliamento.insert()
     tipo.execute(denominazione='2014')
     tipo.execute(denominazione='2015')

@@ -145,7 +145,7 @@ class AnagraficaModelliDetail(AnagraficaDetail):
             self.dao = Modello().getRecord(id=self.dao.id)
             self._refresh()
         else:
-            raise Exception, 'Update not possible dao is none'
+            raise Exception('Update not possible dao is none')
 
     def _refresh(self):
         sel = self._anagrafica.anagrafica_treeview.get_selection()

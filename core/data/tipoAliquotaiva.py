@@ -33,7 +33,7 @@ t_tipo_aliquota_iva.create(checkfirst=True)
 
 
 s= select([t_tipo_aliquota_iva.c.denominazione]).execute().fetchall()
-if (u'Ordinaria',) not in s or s==[]:
+if ('Ordinaria',) not in s or s==[]:
     tipo = t_tipo_aliquota_iva.insert()
     tipo.execute(denominazione='Ordinaria')
     tipo.execute(denominazione='Non imponibile')

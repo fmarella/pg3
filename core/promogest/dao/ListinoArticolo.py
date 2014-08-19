@@ -299,7 +299,7 @@ class ListinoArticolo(Dao):
                                     idArticolo=self.id_articolo,
                                     dataListinoArticolo=self.data_listino_articolo)
         if sconti:
-            for key,value in sconti.items():
+            for key,value in list(sconti.items()):
                 if (key=="dettaglio") and (value):
                     for v in value:
                         v.id_listino = self.id_listino

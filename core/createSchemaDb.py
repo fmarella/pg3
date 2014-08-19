@@ -32,7 +32,7 @@ def buildAll():
         try:
             engine.execute(CreateSchema(buildSchema))
         except:
-            print("CREAZIONE SCHEMA", buildSchema, "NON RIUSCITO O GIA ESISTENTE")
+            print(("CREAZIONE SCHEMA", buildSchema, "NON RIUSCITO O GIA ESISTENTE"))
 
     if tipo_eng == "postgresql":
         try:
@@ -143,7 +143,7 @@ def buildAll():
         from data.rigaPrimaNotaTestataDocumentoScadenza import t_riga_primanota_testata_documento_scadenza
         print(" FINITA L'AGGIUNTA DELLE TABELLE")
     except Exception as e:
-        print("DELLA CREAZIONE TABELLE QUALCOSA NON E' ANDATO BENE", e)
+        print(("DELLA CREAZIONE TABELLE QUALCOSA NON E' ANDATO BENE", e))
 
 def buildWeb():
     from data.staticPages import t_static_page

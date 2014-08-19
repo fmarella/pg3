@@ -172,7 +172,7 @@ if __name__ == '__main__':
     print("FATAL: Not a valid filename")
     usage()
 
-  print(sys.argv[0], ': Trying to convert', sys.argv[1])
+  print((sys.argv[0], ': Trying to convert', sys.argv[1]))
   try:
     input_file = open(filename,'r')
     output_file = open(output_filename,'w')
@@ -180,5 +180,5 @@ if __name__ == '__main__':
   finally:
     input_file.close()
     output_file.close()
-  print(sys.argv[0], ': Converted to', output_filename)
+  print((sys.argv[0], ': Converted to', output_filename))
   print()

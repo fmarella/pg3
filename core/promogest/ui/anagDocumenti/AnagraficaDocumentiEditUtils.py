@@ -280,7 +280,7 @@ def calcolaTotalePart(anaedit, dao=None):
             denominazione = ""
             denominazione_breve = ""
 
-        if idAliquotaIva not in castellettoIva.keys():
+        if idAliquotaIva not in list(castellettoIva.keys()):
             castellettoIva[idAliquotaIva] = {
                 'percentuale': percentualeIvaRiga,
                 'imponibile': totaleImponibileRiga,
@@ -311,7 +311,7 @@ def calcolaTotalePart(anaedit, dao=None):
                 elif applicazioneSconti == 'non scalare':
                     totaleImponibileScontato = totaleImponibileScontato - totaleImponibile * Decimal(s["valore"]) / 100
                 else:
-                    raise Exception, (_('BUG! Tipo di applicazione sconto '
+                    raise Exception(_('BUG! Tipo di applicazione sconto '
                                         'sconosciuto: %s') % s['tipo'])
             elif s["tipo"] == 'valore':
                 totaleImponibileScontato = totaleImponibileScontato - Decimal(s["valore"])
@@ -335,7 +335,7 @@ def calcolaTotalePart(anaedit, dao=None):
 #        totaleScontato = 0
         # riproporzione del totale, dell'imponibile e dell'imposta
 
-        for k in castellettoIva.keys():
+        for k in list(castellettoIva.keys()):
             castellettoIva[k]['totale'] = Decimal(castellettoIva[k]['totale']) * (1 - Decimal(percentualeScontoGlobale) / 100)
             castellettoIva[k]['imponibile'] = Decimal(castellettoIva[k]['imponibile']) * (1 - Decimal(percentualeScontoGlobale) / 100)
             castellettoIva[k]['imposta'] = castellettoIva[k]['totale'] - castellettoIva[k]['imponibile']
@@ -366,7 +366,7 @@ def calcolaTotalePart(anaedit, dao=None):
         anaedit.pagamenti_page.metodo_pagamento_label.set_markup('<b><span foreground="black" size="16000">'+str(_("NESSUNO?"))+'</span></b>')
 
     anaedit.liststore_iva.clear()
-    for k in castellettoIva.keys():
+    for k in list(castellettoIva.keys()):
         if k !=0:
             anaedit.liststore_iva.append(((str(mN(castellettoIva[k]['percentuale'],1))),
                             (str(mN(castellettoIva[k]['imponibile'],2))),

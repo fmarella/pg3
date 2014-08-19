@@ -168,7 +168,7 @@ if tipodb=="sqlite":
     a = session.query(Pagamento.id).all()
     b = session.query(Fornitore.id_pagamento).all()
     fixit =  list(set(b)-set(a))
-    print("fixt-fornitore", fixit)
+    print(("fixt-fornitore", fixit))
     for f in fixit:
         if f[0] != "None" and f[0] != None:
             aa = Fornitore().select(idPagamento=f[0], batchSize=None)

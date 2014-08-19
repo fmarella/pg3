@@ -49,7 +49,7 @@ class AnagrafichePrincipaliFrame(GladeWidget):
 
     def setModulesButtons(self):
         if self.modules is not None:
-            for module in self.modules.iteritems():
+            for module in self.modules.items():
                 module_button = Gtk.Button()
                 module_butt_image = Gtk.Image()
                 module_butt_image.set_from_file(module[1]['guiDir']+'/'+module[1]['module'].VIEW_TYPE[2])
@@ -63,7 +63,7 @@ class AnagrafichePrincipaliFrame(GladeWidget):
 
     def on_module_button_clicked(self, button):
         label = button.get_label()
-        for mk in self.modules.iteritems():
+        for mk in self.modules.items():
             module = mk[1]['module']
             if label == module.VIEW_TYPE[1]:
                 #chiave di tutto il richiamo di passaggio alla classe in module.py che poi fa la vera istanza"

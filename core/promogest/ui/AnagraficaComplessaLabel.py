@@ -67,7 +67,7 @@ class AnagraficaLabel(object):
 #        multilinedirtywork(param)
         if azienda:
             azidict = azienda.dictionary(complete=True)
-            for a, b in azidict.items():
+            for a, b in list(azidict.items()):
                 k = "azi_" + a
                 azidict[k] = b
                 del azidict[a]

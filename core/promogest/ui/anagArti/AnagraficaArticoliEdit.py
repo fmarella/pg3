@@ -313,7 +313,7 @@ class AnagraficaArticoliEdit(AnagraficaEdit):
         self.dao.codice = omogeneousCode(section="Articoli", string=self.dao.codice )
         cod=checkCodiceDuplicato(codice=self.dao.codice,id=self.dao.id, tipo="Articolo")
         if not cod:
-            raise Exception, 'Operation aborted campo obbligatorio'
+            raise Exception('Operation aborted campo obbligatorio')
         #else:
             #raise Exception, 'Operation aborted codice articolo duplicato'
         self.dao.denominazione = self.denominazione_entry.get_text()

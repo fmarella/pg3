@@ -287,7 +287,7 @@ class Login(SimpleGladeApp):
         self.anagrafiche_dirette_modules = {}
         self.frame_modules = {}
         self.permanent_frames = {}
-        for module_name in self.modules.keys():
+        for module_name in list(self.modules.keys()):
             if self.modules[module_name]['type'] == 'anagrafica':
                 self.anagrafiche_modules[module_name] =\
                                              self.modules[module_name]

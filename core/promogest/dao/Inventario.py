@@ -232,7 +232,7 @@ if tipodb=="sqlite":
     a = session.query(Articolo.id).all()
     b = session.query(Inventario.id_articolo).all()
     fixit =  list(set(b)-set(a))
-    print("fixt-inventario", fixit)
+    print(("fixt-inventario", fixit))
     for f in fixit:
         aa = Inventario().select(idArticolo=f[0], batchSize=None)
         for a in aa:

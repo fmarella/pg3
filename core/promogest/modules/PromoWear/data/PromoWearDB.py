@@ -38,7 +38,7 @@ if hasattr(conf, 'PromoWear'):
                             schema=params['mainSchema'])
         annoAbbigliamentoTable.create(checkfirst=True)
         s= select([annoAbbigliamentoTable.c.denominazione]).execute().fetchall()
-        if (u'2008', ) not in s or s==[]:
+        if ('2008', ) not in s or s==[]:
             tipo = annoAbbigliamentoTable.insert()
             tipo.execute(denominazione='2008')
             tipo.execute(denominazione='2009')
@@ -59,7 +59,7 @@ if hasattr(conf, 'PromoWear'):
                             schema=params['mainSchema'])
         genereAbbigliamentoTable.create(checkfirst=True)
         s= select([genereAbbigliamentoTable.c.denominazione]).execute().fetchall()
-        if (u'Unisex', ) not in s or s==[]:
+        if ('Unisex', ) not in s or s==[]:
             tipo = genereAbbigliamentoTable.insert()
             tipo.execute(denominazione='Unisex')
             tipo.execute(denominazione='Uomo')
@@ -72,7 +72,7 @@ if hasattr(conf, 'PromoWear'):
                             schema=params['mainSchema'])
         stagioneAbbigliamentoTable.create(checkfirst=True)
         s= select([stagioneAbbigliamentoTable.c.denominazione]).execute().fetchall()
-        if (u'Primavera - Estate',) not in s or s==[]:
+        if ('Primavera - Estate',) not in s or s==[]:
             tipo = stagioneAbbigliamentoTable.insert()
             tipo.execute(denominazione='Primavera - Estate')
             tipo.execute(denominazione='Autunno - Inverno')

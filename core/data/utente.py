@@ -49,7 +49,7 @@ t_utente = Table('utente', params["metadata"],
 t_utente.create(checkfirst=True)
 
 s= select([t_utente.c.username]).execute().fetchall()
-if (u'admin',) not in s or s==[]:
+if ('admin',) not in s or s==[]:
     user = t_utente.insert()
     username ='admin'
     password = 'admin'

@@ -191,7 +191,7 @@ class GenericFillData(object):
             a.id_famiglia_articolo = f[0].id
             g = self.pg_db_dest.aliquota_iva.filter_by(percentuale=float(row[6])).one()
             if not g:
-                print("ATTENZIONE AGGIHNGERE IVA AL %s" %row[6])
+                print(("ATTENZIONE AGGIHNGERE IVA AL %s" %row[6]))
                 raise Exception("ATTENZIONE AGGIHNGERE IVA AL %s") %row[6]
             else:
                 iva = g.id
@@ -233,7 +233,7 @@ class GenericFillData(object):
                 b = self.pg_db_dest.listino_articolo()
             else:
                 b = a[0]
-            print(row[2][0:-5],row[3].replace(",","."))
+            print((row[2][0:-5],row[3].replace(",",".")))
             b.id_listino = int(row[1])
             b.id_articolo = idArticolo
             b.prezzo_ingrosso = float(row[3].replace(",",".") or "0")

@@ -604,7 +604,7 @@ class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
                     if target[0] == 'data_spedizione' and  self.dao.data_spedizione is not None:
                         allarme = PromemoriaSchedaOrdinazione()
                         allarme.data_scadenza = self.dao.data_spedizione
-                        allarme.descrizione = u'Scheda Lavorazione numero '+str(rif_num_scheda)+u' per promemoria impostato sulla data spedizione'
+                        allarme.descrizione = 'Scheda Lavorazione numero '+str(rif_num_scheda)+' per promemoria impostato sulla data spedizione'
                         allarme.oggetto = 'Spedizione'
                         allarme.giorni_preavviso = int(target[1])
                         setPromemoriaSchedaData()

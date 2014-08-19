@@ -117,17 +117,17 @@ class ExportCsv(GladeWidget):
         dic = self.dao.dictionary(complete=True)
 
         if not diz:
-            for k,v in dic.items():
+            for k,v in list(dic.items()):
                 if "_" != k[0]:
                     if k !="session" and k !="metadata" and k !="DaoModule" :
                         model.append((False,k))
             return True
         else:
             cic=[]
-            for k,v in diz.items():
+            for k,v in list(diz.items()):
                 if k == "CSVSCHEMA":
                     for a in v:
-                        for m,n in a.items():
+                        for m,n in list(a.items()):
                             if m =="campo":
                                 model.append((True,n))
                                 cic.append(n)
@@ -146,7 +146,7 @@ class ExportCsv(GladeWidget):
                     if v == "True": g = 1
                     else: g = 0
                     self.primariga_check.set_active(g)
-            for o,p in dic.items():
+            for o,p in list(dic.items()):
 
                 if "_" != o[0]:
                     if o !="session" and o !="metadata" and o !="DaoModule" and o != "campi":
@@ -183,7 +183,7 @@ class ExportCsv(GladeWidget):
         if self.selezione_radio.get_active():
             print("SOLO SELEZIONATO")
             record = [self.dao]
-            print("self.dao", self.dao)
+            print(("self.dao", self.dao))
         elif self.filtrati_radio.get_active():
             print("SOLO FILTRATI")
             try:

@@ -25,6 +25,7 @@
 import os
 import sys
 from optparse import OptionParser
+import imp
 
 
 class BigBang(object):
@@ -83,7 +84,7 @@ i DAO, i filtri o tutto"""
             import imp
             imp.reload(sys)
         except:
-            reload(sys)
+            imp.reload(sys)
             sys.setdefaultencoding('utf-8')
         if options.configFile:
             from promogest.lib.config import Config

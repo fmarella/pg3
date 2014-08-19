@@ -134,7 +134,7 @@ class AnagraficaArticoliSemplice(GladeWidget):
         if len(arts) > 0:
             messageInfo(msg="Codice articolo gia' assegnato: !")
             self.codice_entry.grab_focus()
-            raise Exception, 'Operation aborted'
+            raise Exception('Operation aborted')
 
         # controllo esistenza codice a barre su altro articolo
         bars = CodiceABarreArticolo().select(idArticolo=None,
@@ -146,7 +146,7 @@ class AnagraficaArticoliSemplice(GladeWidget):
             msg = "Codice a barre gia' assegnato all'articolo: \n\nCod. " + articolo["codice"] + " (" + articolo["denominazione"] + ")"
             messageInfo(msg=msg)
             self.codice_a_barre_entry.grab_focus()
-            raise Exception, 'Operation aborted'
+            raise Exception('Operation aborted')
 
         self.save()
         self.quit()

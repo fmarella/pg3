@@ -83,14 +83,14 @@ class ImportJsonDocumenti(GladeWidget):
         text_buffer = self.importa_json_textview.get_buffer()
         note = text_buffer.get_text(text_buffer.get_start_iter(),
                                             text_buffer.get_end_iter(), True)
-        print("NOTE", note)
+        print(("NOTE", note))
         try:
             dati = json.JSONDecoder(object_pairs_hook=OrderedDict).decode(note)
         except:
             print("ERRORE DATI DELLA TEXTVIEW NON JSON")
             messageError("ERRORE DATI NELLA TEXTVIEW NON JSON")
             return
-        print(type(dati["prodotti"]), dati["utente"])
+        print((type(dati["prodotti"]), dati["utente"]))
         #data_ordine = dati["data"] # datetime.datetime.now()'Jun 1 2005  1:33PM'
         data_ordine = datetime.strptime(dati["data"], '%Y-%m-%d %H:%M:%S')
         daoCliente = Cliente().getRecord(id=int(dati["promogest_id"]))
@@ -127,7 +127,7 @@ class ImportJsonDocumenti(GladeWidget):
         righeDocumento=[]
         totale = 0
         #print " LORO ORDINE", OrderedDict(dati["prodotti"]).items()
-        for k,v in OrderedDict(dati["prodotti"]).items():
+        for k,v in list(OrderedDict(dati["prodotti"]).items()):
             #print " ERRREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE", k,v,int(dati["prodotti"].items().index((k,v)))+1
             quantita = int(v["qty"])
             prezzo = float(v["price"])
@@ -152,7 +152,7 @@ class ImportJsonDocumenti(GladeWidget):
             daoRiga.quantita = quantita
             daoRiga.id_multiplo = None
             daoRiga.moltiplicatore = 1
-            daoRiga.posizione =  int(dati["prodotti"].items().index((k,v)))+1
+            daoRiga.posizione =  int(list(dati["prodotti"].items()).index((k,v)))+1
             daoRiga.scontiRigaDocumento = []
             righeDocumento.append(daoRiga)
             parziale = float(quantita) * float(leggiListino(pricelist[0].id, idArticolo, tiny=True)["prezzoDettaglio"])

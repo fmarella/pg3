@@ -148,7 +148,7 @@ class SlaParser(object):
                 rows = len(sorted(list(set(righe))))
                 n_cells = columns*rows
                 if len(cells) != n_cells:
-                   print("ERRORE INTERPRETAZIONE LETTURA TABELLA", "COLONNE", colonne, "RIGHE", righe,"NCOL", columns,"NRIG", rows, "TOTCELL", columns*rows ,"GRUPPO", table, cells)
+                   print(("ERRORE INTERPRETAZIONE LETTURA TABELLA", "COLONNE", colonne, "RIGHE", righe,"NCOL", columns,"NRIG", rows, "TOTCELL", columns*rows ,"GRUPPO", table, cells))
                 groupDict[str(table).strip()] = {
                             'GROUPS': table,
                             'n_cells': n_cells,
@@ -174,14 +174,14 @@ class SlaParser(object):
         """
         iteratableGroups = []
         for group in tablepropertys:
-            itexts = [z for z in [y for y in [x.findall('ITEXT') for x in group.values()[0]["cells"]]]]
+            itexts = [z for z in [y for y in [x.findall('ITEXT') for x in list(group.values())[0]["cells"]]]]
             for i in itexts:
                 for a in i:
                     if '(n).' in a.get("CH"):
-                        if "%%%" in group.values()[0]["GROUPS"]:
-                            groupname= str(group.values()[0]["GROUPS"].strip().split('%%%')[0])
+                        if "%%%" in list(group.values())[0]["GROUPS"]:
+                            groupname= str(list(group.values())[0]["GROUPS"].strip().split('%%%')[0])
                         else:
-                            groupname = str(group.values()[0]["GROUPS"].strip())
+                            groupname = str(list(group.values())[0]["GROUPS"].strip())
                         if groupname not in iteratableGroups:
                             iteratableGroups.append(str(groupname))
 #            print "GRUPPI ITERANTI", iteratableGroups

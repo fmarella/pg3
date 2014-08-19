@@ -268,7 +268,7 @@ class AnagraficaPrimaNotaEdit(AnagraficaEdit):
             righe_.append(m[0])
         if (len(righe_)==0):
             messageInfo(msg="L'INSERIMENTO DI UNA OPERAZIONE È OBBLIGATORIO")
-            raise Exception, 'Operation aborted campo obbligatorio'
+            raise Exception('Operation aborted campo obbligatorio')
         self.dao.note = self.note_entry.get_text()
         self.dao.righeprimanota = righe_
         self.dao.persist()

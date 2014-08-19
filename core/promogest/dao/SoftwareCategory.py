@@ -17,7 +17,7 @@ software_categoryTable  = Table('software_category', params["metadata"],
 
 software_categoryTable.create(checkfirst=True)
 s= select([software_categoryTable.c.denominazione]).execute().fetchall()
-if (u'Gestionale',) not in s or s ==[]:
+if ('Gestionale',) not in s or s ==[]:
     tipo = software_categoryTable.insert()
     tipo.execute(denominazione="Gestionale")
     tipo.execute(denominazione="Statistico")
@@ -38,7 +38,7 @@ if (u'Gestionale',) not in s or s ==[]:
     tipo.execute(denominazione="Education")
     tipo.execute(denominazione="Development")
     tipo.execute(denominazione="Database")
-    tipo.execute(denominazione=u"Utilità")
+    tipo.execute(denominazione="Utilità")
 
 class SoftwareCategory(Dao):
 

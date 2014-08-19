@@ -45,7 +45,7 @@ def pulizia_lottotemp():
     n = len(lt)
     g = 0
     for l in lt:
-        print("RESIDUI DA ELABORARE", n-lt.index(l))
+        print(("RESIDUI DA ELABORARE", n-lt.index(l)))
         rmf =  RigaMovimentoFornitura().select(idRigaMovimentoVendita=l.id_riga_movimento_vendita_temp)
         if not rmf:
             #cerchiamo una fornitura precisa

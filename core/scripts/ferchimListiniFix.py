@@ -41,7 +41,7 @@ from promogest.dao.ListinoArticolo import ListinoArticolo
 listini = Listino().select(batchSize=None)
 listino5 = Listino().select(idListino=5)
 
-print(listino5[0].__dict__)
+print((listino5[0].__dict__))
 
 arti = ListinoArticolo().select(idListino=5, batchSize=None)
 #print arti

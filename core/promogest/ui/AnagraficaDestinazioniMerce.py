@@ -34,7 +34,7 @@ class AnagraficaDestinazioniMerce(Anagrafica):
     """ Anagrafica destinazioni merce """
 
     def __init__(self, idCliente = None, aziendaStr=None):
-        self._clienteFissato = (idCliente <> None)
+        self._clienteFissato = (idCliente != None)
         self._idCliente=idCliente
         Anagrafica.__init__(self,
                             windowTitle='Promogest - Anagrafica destinazioni merce',

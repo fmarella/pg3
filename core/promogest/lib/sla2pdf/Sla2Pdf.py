@@ -53,9 +53,9 @@ class Sla2Pdf(object):
 
     def __init__(self, slaFileName=None,pdfFolder=None, report=False,
                         label=False, slafile=None):
-        print("SLAFILENAME" , slaFileName)
-        print("PDF_FOLDER", pdfFolder)
-        print("SLAFILE", slafile)
+        print(("SLAFILENAME" , slaFileName))
+        print(("PDF_FOLDER", pdfFolder))
+        print(("SLAFILE", slafile))
 
         self.slaFileName = slaFileName
         self.pdfFolder = pdfFolder
@@ -83,7 +83,7 @@ class Sla2Pdf(object):
                                     report = self.report).serialize(objects, dao=daos)
                 result = None
                 filename = self.pdfFolder+"_temp.pdf"
-                print("FILENAME FINALEEEEE", filename)
+                print(("FILENAME FINALEEEEE", filename))
                 f = file(filename, 'rb')
                 result = f.read()
                 f.close()

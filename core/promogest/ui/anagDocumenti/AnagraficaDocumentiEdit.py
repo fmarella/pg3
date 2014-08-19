@@ -712,7 +712,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
                 self._righe[0]["larghezza"] = mN(larghezza)
                 self._righe[0]["molt_pezzi"] =mN(moltiplicatore_pezzi)
             if gn:
-                print(" ISRENT  ",riga.isrent)
+                print((" ISRENT  ",riga.isrent))
                 if riga.isrent :
                     self._righe[0]["arco_temporale"] = self.giorni_label.get_text()
                 else:
@@ -863,7 +863,7 @@ class AnagraficaDocumentiEdit(AnagraficaEdit):
         scontiRigaDocumentoList = {}
         if not(len(self._righe) > 1):
             messageInfo(msg=_("TENTATIVO DI SALVATAGGIO DOCUMENTO SENZA RIGHE???"))
-            raise Exception, "ATTENZIONE, TENTATIVO DI SALVATAGGIO SENZA RIGHE?????"
+            raise Exception("ATTENZIONE, TENTATIVO DI SALVATAGGIO SENZA RIGHE?????")
 
         if (self.data_documento_entry.get_text() == ''):
             obligatoryField(self.dialogTopLevel,

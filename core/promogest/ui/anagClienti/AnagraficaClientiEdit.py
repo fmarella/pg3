@@ -389,8 +389,7 @@ class AnagraficaClientiEdit(AnagraficaEdit, AnagraficaPGEdit):
             msg = """Il codice è obbligatorio.
     Inserire anche ragione sociale / cognome e nome """
             messageInfo(msg=msg)
-            raise Exception,\
-                'Operation aborted Campo minimo cliente non inserito'
+            raise Exception('Operation aborted Campo minimo cliente non inserito')
         self.dao.sede_operativa_indirizzo = \
                 self.indirizzo_sede_operativa_entry.get_text()
         self.dao.sede_operativa_cap = self.cap_sede_operativa_entry.get_text()
@@ -646,8 +645,8 @@ class AnagraficaClientiEdit(AnagraficaEdit, AnagraficaPGEdit):
         #contents = output.getvalue()
         #output.close()
 
-        print("LA FOTO SELEZIONATA", filechooser.get_file().get_path(), \
-            filechooser.get_file())
+        print(("LA FOTO SELEZIONATA", filechooser.get_file().get_path(), \
+            filechooser.get_file()))
         self.photo_src = filechooser.get_filename()
         self.userlogo_image.set_from_file(self.photo_src)
         #im1 = Image.fromstring(self.photo_src)

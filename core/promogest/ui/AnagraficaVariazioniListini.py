@@ -302,12 +302,12 @@ class AnagraficaVariazioniListiniEdit(AnagraficaEdit):
 
         if self.dao.data_inizio > self.dao.data_fine:
             messageInfo(msg="La data di inizio dev'essere successiva alla data di fine ...valore impossibile!!!")
-            raise Exception, 'Operation aborted:La data di inizio dev essere successiva alla data di fine'
+            raise Exception('Operation aborted:La data di inizio dev essere successiva alla data di fine')
 
 
         if str(self.dao.data_fine - self.dao.data_inizio) == "0:00:00":
             messageInfo(msg="La durata della variazione è pari a zero ...valore impossibile!!!")
-            raise Exception, 'Operation aborted: La durata della variazione è pari a zero ...valore impossibile'
+            raise Exception('Operation aborted: La durata della variazione è pari a zero ...valore impossibile')
 
         #check1 = VariazioneListino().select(aDataFine = emptyStringToNone(self.dao.data_inizio))
         #if check1:

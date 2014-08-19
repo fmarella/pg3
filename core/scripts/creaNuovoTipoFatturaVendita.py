@@ -47,14 +47,14 @@ es: python creaNuovoTipoDocumento -- nome "Fattura vendita A"
                                 type="string",
                                 dest="do")
         (options, args) = parser.parse_args()
-        print("AAAAAAAAAAAAAA", options)
+        print(("AAAAAAAAAAAAAA", options))
         if options.do:
             self.do(options.do)
 
     def do(self, nome=False):
         """        "Vendita dettaglio";"-";"vendita_iva";"cliente";
         """
-        print("NOME", nome)
+        print(("NOME", nome))
         lettere = ["A","B","C","D","E","F","G","H"]
         for l in lettere:
             ce = Operazione().getRecord(id="Fattura vendita "+l)
@@ -66,9 +66,9 @@ es: python creaNuovoTipoDocumento -- nome "Fattura vendita A"
                 a.tipo_persona_giuridica = "cliente"
                 #a.tipo_operazione =
                 a.persist()
-                print("NON CE", ce)
+                print(("NON CE", ce))
             else:
-                print("OK","Fattura vendita "+l)
+                print(("OK","Fattura vendita "+l))
             cc = Setting().getRecord(id="Fattura vendita "+l+".registro")
             # "Fattura vendita.registro";"Registro associato alle fatture vendita";"registro_fattura_vendita"
             if not cc:
@@ -77,9 +77,9 @@ es: python creaNuovoTipoDocumento -- nome "Fattura vendita A"
                 a.description = "Registro associato alle fatture vendita "+l
                 a.value = "registro_fattura_vendita_"+l.lower()
                 a.persist()
-                print("NON CE", cc)
+                print(("NON CE", cc))
             else:
-                print("OK","Registro Fattura vendita "+l)
+                print(("OK","Registro Fattura vendita "+l))
 
             cc = Setting().getRecord(id="registro_fattura_vendita_"+l.lower() + ".rotazione")
             # "registro_fattura_vendita.rotazione";"Tipologia di rotazione del registro_fattura_vendita";"annuale"
@@ -89,9 +89,9 @@ es: python creaNuovoTipoDocumento -- nome "Fattura vendita A"
                 a.description = "Tipologia di rotazione del registro_fattura_vendita "+l
                 a.value = "annuale"
                 a.persist()
-                print("NON CE", cc)
+                print(("NON CE", cc))
             else:
-                print("OK","Rotazione Fattura vendita "+l)
+                print(("OK","Rotazione Fattura vendita "+l))
 
 
 

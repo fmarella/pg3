@@ -104,7 +104,7 @@ class AcquistoMedioCliente(GladeWidget):
         totnum = 0
         tot_sconti = 0
         partz_def = []
-        for k,v in parziali.iteritems():
+        for k,v in parziali.items():
             if v:
                 for p in v:
                     if p.sconti:

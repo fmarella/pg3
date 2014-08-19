@@ -41,8 +41,8 @@ class AnagraficaForniture(Anagrafica):
     """ Anagrafica forniture articoli """
 
     def __init__(self, idArticolo=None, idFornitore=None, aziendaStr=None):
-        self._articoloFissato = (idArticolo <> None)
-        self._fornitoreFissato = (idFornitore <> None)
+        self._articoloFissato = (idArticolo != None)
+        self._fornitoreFissato = (idFornitore != None)
         self._idArticolo=idArticolo
         self._idFornitore=idFornitore
         if posso("PW"):

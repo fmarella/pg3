@@ -39,7 +39,7 @@ class AnagraficaMovimenti(Anagrafica):
     def __init__(self, idMagazzino=None, aziendaStr=None):
         """
         """
-        self._magazzinoFissato = (idMagazzino <> None)
+        self._magazzinoFissato = (idMagazzino != None)
         self._idMagazzino=idMagazzino
         Anagrafica.__init__(self,
                             windowTitle='Promogest - Registrazione movimenti',

@@ -64,7 +64,7 @@ class SpostaVenditaDettaglio(object):
         self.pg_db_server_main_remote.schema = MAINSCHEMA_REMOTO
         SessionRemote = scoped_session(sessionmaker(bind=engine))
         self.sessionRemote = SessionRemote()
-        print(">>>> CONNESSO AL DB REMOTO : %s IP: %s PORTA: %s SCHEMA %s <<<<< " %(DATABASE_REMOTO, HOST_REMOTO, PORT_REMOTO, SCHEMA_REMOTO))
+        print((">>>> CONNESSO AL DB REMOTO : %s IP: %s PORTA: %s SCHEMA %s <<<<< " %(DATABASE_REMOTO, HOST_REMOTO, PORT_REMOTO, SCHEMA_REMOTO)))
 
     def connectDbLocale(self):
         """ effettua la connessione al DB locale """
@@ -86,7 +86,7 @@ class SpostaVenditaDettaglio(object):
         SessionLocale = scoped_session(sessionmaker(bind=engineLocale))
         self.engineLocale = engineLocale
         self.sessionLocale = SessionLocale()
-        print(">>>> CONNESSO AL DB LOCALE : %s IP: %s PORTA: %s SCHEMA %s <<<<< " %(DATABASE_LOCALE, HOST_LOCALE, PORT_LOCALE, SCHEMA_LOCALE))
+        print((">>>> CONNESSO AL DB LOCALE : %s IP: %s PORTA: %s SCHEMA %s <<<<< " %(DATABASE_LOCALE, HOST_LOCALE, PORT_LOCALE, SCHEMA_LOCALE)))
 
     def dammiSoupLocale(self, dao):
         soupLocale = None
@@ -199,7 +199,7 @@ class SpostaVenditaDettaglio(object):
                 sqlalchemy.ext.sqlsoup.Session.add(stsl)
                 sqlalchemy.ext.sqlsoup.Session.commit()
             print("SALVATO  CORRETTAMENTE SCONTRINO")
-        print("<<<<<<< INIZIATO :", self.tempo_inizio, " FINITO:", datetime.datetime.now() , ">>>>>>>>>>>>>")
+        print(("<<<<<<< INIZIATO :", self.tempo_inizio, " FINITO:", datetime.datetime.now() , ">>>>>>>>>>>>>"))
         print("SINCRONIZZAZIONE TERMINATA CON SUCCESSO")
 
 
@@ -208,7 +208,7 @@ class SpostaVenditaDettaglio(object):
         self.connectDbRemote()
         self.connectDbLocale()
         self.tempo_inizio = datetime.datetime.now()
-        print("INIZIO SINCRO",datetime.datetime.now())
+        print(("INIZIO SINCRO",datetime.datetime.now()))
         self.daosScheme()
         sqlalchemy.ext.sqlsoup.Session.expunge_all()
         sys.exit()

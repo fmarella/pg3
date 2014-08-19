@@ -154,7 +154,7 @@ class TestataDocumento(Dao):
             elif self.TM and len(self.TM) >1:
                 if not Environment.web:
                     Environment.pg2log.info("ATTENZIONE due movimenti fanno riferimento ad una sola testata documento:"+str(self.id))
-                print("ID DEL DOCUMENTO", str(self.id))
+                print(("ID DEL DOCUMENTO", str(self.id)))
                 raise Exception("Più di un movimento fa riferimento allo stesso documento!")
             self.__dbRigheDocumento = self.__dbRigheDocumentoPart + self.__dbRigheMovimentoPart
             self.__dbRigheDocumento.sort(key=lambda x: x.posizione or x.id)
@@ -357,7 +357,7 @@ class TestataDocumento(Dao):
             else:
                 denominazione = ""
                 denominazione_breve = ""
-            if idAliquotaIva not in castellettoIva.keys():
+            if idAliquotaIva not in list(castellettoIva.keys()):
                 castellettoIva[idAliquotaIva] = {
                     'percentuale': percentualeIvaRiga,
                     'imponibile': totaleImponibileRiga,
@@ -385,7 +385,7 @@ class TestataDocumento(Dao):
                     elif applicazioneSconti == 'non scalare':
                         totaleImponibileScontato = totaleImponibileScontato - totaleNonScontato * totaleImponibileScontato * Decimal(s.valore) / 100
                     else:
-                        raise Exception, ('BUG! Tipo di applicazione sconto '
+                        raise Exception('BUG! Tipo di applicazione sconto '
                                           'sconosciuto: %s' % s.tipo_sconto)
                 elif s.tipo_sconto == 'valore':
                     totaleImponibileScontato = totaleImponibileScontato - Decimal(s.valore)
@@ -402,7 +402,7 @@ class TestataDocumento(Dao):
             totaleImpostaScontata = 0
             totaleImponibileScontato = 0
             # riproporzione del totale, dell'imponibile e dell'imposta
-            for k in castellettoIva.keys():
+            for k in list(castellettoIva.keys()):
                 castellettoIva[k]['totale'] = mN(castellettoIva[k]['totale'] * (1 - Decimal(percentualeScontoGlobale) / 100), 2)
                 castellettoIva[k]['imponibile'] = mN(castellettoIva[k]['imponibile'] * (1 - Decimal(percentualeScontoGlobale) / 100),2)
                 castellettoIva[k]['imposta'] = mN(castellettoIva[k]['totale'] - castellettoIva[k]['imponibile'],2)
@@ -441,7 +441,7 @@ class TestataDocumento(Dao):
         self._totaleImpostaScontata = mN(totaleImpostaScontata,2) + mN(imposta_spese,2)
         self._totaleImpostaScontataIT = mNLC(self._totaleImpostaScontata,2)
         self._castellettoIva = []
-        for k in castellettoIva.keys():
+        for k in list(castellettoIva.keys()):
             dictCastellettoIva = castellettoIva[k]
             dictCastellettoIva['aliquota'] = castellettoIva[k]["percentuale"]
             dictCastellettoIva["imponibile"] = mN(dictCastellettoIva["imponibile"],2)
@@ -738,7 +738,7 @@ class TestataDocumento(Dao):
         elif self.TM and len(self.TM) > 1:
             # ci sono piu' movimenti collegati al documento
             # FIXME: che fare ?
-            raise Exception, "ATTENZIONE CI SONO PIU' MOVIMENTI LEGATI AD UN DOCUMENTO"
+            raise Exception("ATTENZIONE CI SONO PIU' MOVIMENTI LEGATI AD UN DOCUMENTO")
 
         if (DaoTestataMovimento is not None):
             if self.righeDocumento:
@@ -1471,7 +1471,7 @@ if tipodb=="sqlite":
     a = session.query(Banca.id).all()
     b = session.query(TestataDocumento.id_banca).all()
     fixit =  list(set(b)-set(a))
-    print("fixt-td-banca", fixit)
+    print(("fixt-td-banca", fixit))
     for f in fixit:
         if f[0] != "None" and f[0] != None:
             aa = TestataDocumento().select(idBanca=f[0], batchSize=None)
@@ -1481,7 +1481,7 @@ if tipodb=="sqlite":
     c = session.query(Pagamento.id).all()
     d = session.query(TestataDocumento.id_pagamento).all()
     fixit2 =  list(set(d)-set(c))
-    print("fixt-td-pag", fixit2)
+    print(("fixt-td-pag", fixit2))
     for f in fixit2:
         if f[0] != "None" and f[0] != None:
             aa = TestataDocumento().select(idPagamento=f[0], batchSize=None)
@@ -1492,7 +1492,7 @@ if tipodb=="sqlite":
     e = session.query(TestataDocumento.id).all()
     f = session.query(TestataDocumento.id_primo_riferimento).all()
     fixit3 =  list(set(f)-set(e))
-    print("fixt-td-primo_pag", fixit3)
+    print(("fixt-td-primo_pag", fixit3))
     for f in fixit3:
         if f[0] != "None" and f[0] != None:
             aa = TestataDocumento().select(idPrimoRiferimento=f[0], batchSize=None)

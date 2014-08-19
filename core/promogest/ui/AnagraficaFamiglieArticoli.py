@@ -166,8 +166,9 @@ class AnagraficaFamiglieArticoliFilter(AnagraficaFilter):
             self.filter_listore.foreach(self.selectFilter, (denominazione, codice))
 
 
-    def selectFilter(self, model, path, iter, (denominazione, codice)):
+    def selectFilter(self, model, path, iter, xxx_todo_changeme):
         #Seleziona elementi che concordano con il filtro
+        (denominazione, codice) = xxx_todo_changeme
         c = self.filter_listore.get_value(iter, 0)
         found = False
         if denominazione is not None:

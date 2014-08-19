@@ -83,7 +83,7 @@ elif setconf("VenditaDettaglio","disabilita_stampa"):
     DRIVER = None
 
 
-print("DRIVER", DRIVER)
+print(("DRIVER", DRIVER))
 
 class AnagraficaVenditaDettaglio(GladeWidget):
     """ Frame per la gestione delle vendite a dettaglio """

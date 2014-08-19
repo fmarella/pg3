@@ -36,7 +36,7 @@ t_role = Table('role', params["metadata"],
 t_role.create(checkfirst=True)
 
 s= select([t_role.c.name]).execute().fetchall()
-if (u'Admin',) not in s or s ==[]:
+if ('Admin',) not in s or s ==[]:
     ruoli = t_role.insert()
     ruoli.execute(name = "Admin", descrizione = "Gestore del promogest", active = True)
     ruoli.execute(name = "Magazzino", descrizione = "Gestione magazzino", active = True)

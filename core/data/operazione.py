@@ -37,7 +37,7 @@ t_operazione.create(checkfirst=True)
 
 
 s = select([t_operazione.c.denominazione]).execute().fetchall()
-if (u'Fattura vendita',) not in s or s == []:
+if ('Fattura vendita',) not in s or s == []:
     tipo = t_operazione.insert()
     tipo.execute(denominazione='Fattura vendita', segno='-', fonte_valore='vendita_senza_iva', tipo_persona_giuridica='cliente' )
     tipo.execute(denominazione='Fattura acquisto', segno='+', fonte_valore='acquisto_senza_iva', tipo_persona_giuridica='fornitore' )

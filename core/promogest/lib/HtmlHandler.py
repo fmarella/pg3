@@ -27,7 +27,7 @@ from gi.repository.WebKit import WebView, WebSettings
 from gi.repository import GLib
 from threading import Timer
 from promogest.lib import feedparser
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import webbrowser
 from promogest import Environment
 from  promogest.lib import utils
@@ -251,8 +251,8 @@ def _on_html_request_url(document, url, stream):
             f.close()
             stream.close()
         except:
-            req = urllib2.Request(url)
-            response = urllib2.urlopen(req)
+            req = urllib.request.Request(url)
+            response = urllib.request.urlopen(req)
             t = Timer(5.0, response.close)
             t.start()
             html = response.read()

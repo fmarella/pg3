@@ -142,7 +142,7 @@ class Dao(object):
             if __numRecords > 0:
                 self._numRecords = __numRecords
             return self._numRecords
-        except Exception, e:
+        except Exception as e:
             self.raiseException(e)
 
     def preSave(self):
@@ -191,7 +191,7 @@ class Dao(object):
         try:
             params["session"].commit()
             return 1
-        except Exception,e:
+        except Exception as e:
             from promogest.lib.utils import messageError
             msg = """ATTENZIONE ERRORE NEL SALVATAGGIO
     Qui sotto viene riportato l'errore di sistema:
@@ -209,7 +209,7 @@ class Dao(object):
                 messageError(msg=msg)
                 pg2log.info("ERRORE IN DAO COMMIT  "+str(e))
             except:
-                print("ERRORE in dao commit", str(e))
+                print(("ERRORE in dao commit", str(e)))
             params["session"].rollback()
             return 0
 
@@ -226,7 +226,7 @@ class Dao(object):
             message = "DELETE;"+ self.__class__.__name__
         else:
             message = "UNKNOWN ACTION;"
-        print("AZIONE SUL RECORD:", message)
+        print(("AZIONE SUL RECORD:", message))
         return self.commit()
 
     def _resetId(self):
@@ -247,7 +247,7 @@ class Dao(object):
 
         import json
         d = self.dictionary(complete=True)
-        for k,v in d.iteritems():
+        for k,v in d.items():
             #print type(v), v
             if type(v) == decimal.Decimal:
                 v = float(v)
@@ -273,14 +273,14 @@ class Dao(object):
         not SQL-related
         """
         sqlDict = {}
-        for k in self.__dict__.keys():
+        for k in list(self.__dict__.keys()):
             sqlDict[k] = getattr(self, k)
 
         if not complete:
             return sqlDict
 
         props = {}
-        for att in self.__class__.__dict__.keys():
+        for att in list(self.__class__.__dict__.keys()):
             if isinstance(getattr(self.__class__, att), property):
                 value = getattr(self.__class__, att).__get__(self)
                 if isinstance(value, list):
@@ -289,13 +289,13 @@ class Dao(object):
                              if isinstance(d, Dao)]
                     #if isinstance(value, Dao):
                     for xx in value:
-                        for k,v in xx.items():
+                        for k,v in list(xx.items()):
                             if isinstance(v.__class__, Dao):
                                 xx[k] = v
                 props[att] = value
 
         attrs = {}
-        for att in (x for x in self.__dict__.keys() if x not in sqlDict.keys()):
+        for att in (x for x in list(self.__dict__.keys()) if x not in list(sqlDict.keys())):
             # Let's filter boring stuff
             if '__' in att: # Private data
                 continue
@@ -340,9 +340,9 @@ class Dao(object):
         dictionary for the filter
         """
         filter_parameters = []
-        for key,value in kwargs.items():
+        for key,value in list(kwargs.items()):
             if str(key).upper() == "filterDict".upper():
-                for k,v in value.items():
+                for k,v in list(value.items()):
                     if v is not None:
                         if type(v) == list:
                             filter_parameters.append((v, k, "Lista"))
@@ -357,7 +357,7 @@ class Dao(object):
                     filter_parameters.append((value, key, "s"))
         if filter_parameters != []:
             if debugFilter:
-                print("FILTER PARAM:",self._DaoModule.__name__, filter_parameters)
+                print(("FILTER PARAM:",self._DaoModule.__name__, filter_parameters))
             __filter__ = self.getFilter(filter_parameters)
             return __filter__
 

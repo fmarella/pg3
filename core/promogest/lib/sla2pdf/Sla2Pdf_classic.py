@@ -33,6 +33,7 @@ from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
 from reportlab.pdfgen.canvas import Canvas
 import xml.etree.cElementTree as ElementTree
 from promogest import Environment
+from functools import reduce
 
 
 # KNOWN BUGS
@@ -150,7 +151,7 @@ class Sla2Pdf_classic(object):
                     if tags not in vector:
                         vector.append(tags)
 
-                    for k in tags.keys():
+                    for k in list(tags.keys()):
                         self.tagsTables[k] = group
 
             self.tablesTags[group] = vector
@@ -302,9 +303,9 @@ class Sla2Pdf_classic(object):
     def getIteratableGroups(self):
         """ Gets tables where we have to iterate """
         self.iteratableGroups = []
-        for group in self.tablesTags.keys():
+        for group in list(self.tablesTags.keys()):
             for tagDict in self.tablesTags[group]:
-                for tag in tagDict.keys():
+                for tag in list(tagDict.keys()):
                     indexN = tag.find('(n)')
                     if (indexN != -1):
                         if group not in self.iteratableGroups:
@@ -314,9 +315,9 @@ class Sla2Pdf_classic(object):
     def getPagesNumber(self):
         """ Gets number of pages to build """
         self.pagesNumber = pages = 1
-        for group in self.tablesTags.keys():
+        for group in list(self.tablesTags.keys()):
             for tagDict in self.tablesTags[group]:
-                for tag in tagDict.keys():
+                for tag in list(tagDict.keys()):
                     indexN = tag.find('(n)')
                     if (indexN != -1):
                         indexNP = tag.find('(n).')
@@ -376,7 +377,7 @@ class Sla2Pdf_classic(object):
         # Duplicate page's information
         numPages = self.document.findall('PAGE')
         for i in range(0, self.pagesNumber - 1):
-            attributes = numPages[0].items()
+            attributes = list(numPages[0].items())
             dictionary =  {}
             for j in range(0, len(attributes)):
                 dictionary[attributes[j][0]] = attributes[j][1]
@@ -398,7 +399,7 @@ class Sla2Pdf_classic(object):
         for j in range(1, len(numPages)):
             for pageObject in self.pageObjects:
                 # Creating dictionary attributes pageobject
-                attributes = pageObject.items()
+                attributes = list(pageObject.items())
                 dictionary = {}
                 for k in range(0, len(attributes)):
                     dictionary[attributes[k][0]] = attributes[k][1]
@@ -409,7 +410,7 @@ class Sla2Pdf_classic(object):
                 # Creating dictionary attributes itext of the pageobject
                 itexts = pageObject.findall('ITEXT')
                 for itext in itexts:
-                    attributes = itext.items()
+                    attributes = list(itext.items())
                     dictionary = {}
                     for kk in range(0, len(attributes)):
                         dictionary[attributes[kk][0]] = attributes[kk][1]
@@ -445,7 +446,7 @@ class Sla2Pdf_classic(object):
                     if tags is None:
                         continue
                     tmp = ch
-                    tagsKeys = tags.keys()
+                    tagsKeys = list(tags.keys())
                     increment = True
                     for k in tagsKeys:
                         if k.replace(' ', '') == '':
@@ -462,14 +463,14 @@ class Sla2Pdf_classic(object):
                     tags = self.findTags(ch)
                     if tags is not None:
                         tmp = ch
-                        tagsKeys = tags.keys()
+                        tagsKeys = list(tags.keys())
                         increment = True
                         for k in tagsKeys:
                             if k.replace(' ', '') == '':
                                 continue
                             if k.find('(n)') > -1:
                                 if self.tablesProperties[group]['itexts'][column - 1] == {}:
-                                    self.tablesProperties[group]['itexts'][column - 1] = dict([attribute[0], attribute[1]] for attribute in itext.items())
+                                    self.tablesProperties[group]['itexts'][column - 1] = dict([attribute[0], attribute[1]] for attribute in list(itext.items()))
                                 tmp = getTagToPrint(tmp, increment)
                                 increment = False
                         itext.set('CH', tmp)
@@ -482,7 +483,7 @@ class Sla2Pdf_classic(object):
                     tags = self.findTags(ch)
                     if tags is not None:
                         tmp = ch
-                        tagsKeys = tags.keys()
+                        tagsKeys = list(tags.keys())
                         increment = True
                         for k in tagsKeys:
                             if k.replace(' ', '') == '':
@@ -517,7 +518,7 @@ class Sla2Pdf_classic(object):
                     ch = str(itext.get('CH'))
                     tags = self.findTags(ch)
                     if tags is not None:
-                        tagsKeys = tags.keys()
+                        tagsKeys = list(tags.keys())
                         for k in tagsKeys:
                             if k.replace(' ', '') == '':
                                 continue
@@ -571,7 +572,7 @@ class Sla2Pdf_classic(object):
                         arrayIndex = -1
                     tags = self.findTags(ch)
                     if tags is not None:
-                        tagsKeys = tags.keys()
+                        tagsKeys = list(tags.keys())
                         for k in tagsKeys:
                             if k.replace(' ', '') == '':
                                 continue
@@ -925,7 +926,7 @@ class Sla2Pdf_classic(object):
                             # Font size
                             if self.version:
                                 try:
-                                    print("TEEEEE", itext.get('FONTSIZE'))
+                                    print(("TEEEEE", itext.get('FONTSIZE')))
                                     fontSize = float(itext.get('FONTSIZE'))
                                 except:
                                     fontSize = float(10)
@@ -1045,7 +1046,7 @@ class Sla2Pdf_classic(object):
             self.pageProperties.append([size, num,
                                         borderTop, borderBottom, borderRight, borderLeft,
                                         orientation, pageHeight, pageWidth, pageXPos, pageYPos])
-        print("VEDIAMO CHE FILE CREA", self.pdfFolder + self.pdfFileName + '.pdf')
+        print(("VEDIAMO CHE FILE CREA", self.pdfFolder + self.pdfFileName + '.pdf'))
         self.canvas = Canvas(filename = self.pdfFolder + self.pdfFileName + '.pdf', pagesize=(pageWidth, pageHeight))
 
         # Analyzing elements
@@ -1185,14 +1186,14 @@ class Sla2Pdf_classic(object):
 
             sym = ''
             if sconto.tipo_sconto == 'valore':
-                sym = u'E' # FIXME: put Euro symbol here
+                sym = 'E' # FIXME: put Euro symbol here
             elif sconto.tipo_sconto == 'percentuale':
                 sym = '%'
             return '%.2f %s' % (sconto.valore, sym)
 
         def _reduceSconto(sconto1, sconto2):
             str1 = ''
-            if type(sconto1) is type('') or type(sconto1) is type(u''):
+            if type(sconto1) is type('') or type(sconto1) is type(''):
                 str1 = sconto1
             else:
                 str1 = _sconto2str(sconto1)

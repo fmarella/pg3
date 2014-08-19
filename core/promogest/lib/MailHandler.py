@@ -246,7 +246,7 @@ Grazie per aver scelto %s
             else:
                 break
         msg = MIMEMultipart('alternative')
-        msg['Subject'] = Header(unicode(subject), header_charset)
+        msg['Subject'] = Header(str(subject), header_charset)
         msg['From'] = self._from
         msg['To'] = self.s_toaddrs
 #        msg["Bcc"] = self.s_bccaddrs

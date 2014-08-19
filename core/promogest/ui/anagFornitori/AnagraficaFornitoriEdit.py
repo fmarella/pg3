@@ -118,7 +118,7 @@ class AnagraficaFornitoriEdit(AnagraficaEdit, AnagraficaPGEdit):
     Inserire almeno un campo a scelta tra:
     ragione sociale, insegna, cognome o nome """
             messageInfo(msg=msg)
-            raise Exception, 'Operation aborted: Codice Fornitore obbligatorio'
+            raise Exception('Operation aborted: Codice Fornitore obbligatorio')
         self.dao.sede_operativa_indirizzo = self.indirizzo_sede_operativa_entry.get_text()
         self.dao.sede_operativa_cap = self.cap_sede_operativa_entry.get_text()
         self.dao.sede_operativa_localita = self.localita_sede_operativa_entry.get_text()

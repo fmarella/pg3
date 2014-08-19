@@ -53,7 +53,7 @@ from promogest.modules.Statistiche.ui.StatisticheFatturatoUtils import ricerca_f
     CONTROLLO_FATT_CLIENTI,
     CONTROLLO_FATT_FORNITORI,
     CONTROLLO_FATT_FORNITORI_LOTTI
-) = range(4)
+) = list(range(4))
 
 tipo_statistica_dict = {
     RIC_MEDIO_INFL_VEND: 'Calcolo ricarico medio e influenza sulle vendite',
@@ -81,7 +81,7 @@ class StatisticaGenerale(GladeWidget):
         self.da_data_entry.show_all()
         self.a_data_entry.show_all()
 
-        for k, v in tipo_statistica_dict.iteritems():
+        for k, v in tipo_statistica_dict.items():
             self.tipo_statistica_listore.append([k, v])
 
         self.tipo_statistica_combo.set_active(CONTROLLO_FATT_CLIENTI)
@@ -448,16 +448,16 @@ class StatisticaGenerale(GladeWidget):
         incidenzaVenditaDict = {}
 
         # smisto i dati  secondo categoriaArticolo
-        print(" ID CATEGORIE", self.cateArticoloId)
+        print((" ID CATEGORIE", self.cateArticoloId))
         for arto in self.cateArticoloId:
             # INIZIO livello categoria
             nomeCategoria = CategoriaArticolo().getRecord(id=arto)
             articoli = Articolo().select(idCategoria = arto,
                                     produttore = produt,  batchSize=None)
-            print("ARTICOLI IN QUELLA CATEGORIA", len(articoli))
+            print(("ARTICOLI IN QUELLA CATEGORIA", len(articoli)))
             for art in articoli:
                 # INIZIO livello articolo
-                print("INIZIO AD ELABORARE L'ARTICOLO ", art.id)
+                print(("INIZIO AD ELABORARE L'ARTICOLO ", art.id))
                 quantitaVendutaUNO = 0
                 quantitaVendutaTotaleUNO = 0
                 quantitaAcquistataUNO = 0
@@ -471,7 +471,7 @@ class StatisticaGenerale(GladeWidget):
                     .filter(Riga.id_magazzino.in_(self.magazzinoId))\
                     .filter(Riga.id_articolo == art.id)\
                     .all()
-                print("RIGHE DI MOVIMENTO VENDITA", righeArticoloMovimentate)
+                print(("RIGHE DI MOVIMENTO VENDITA", righeArticoloMovimentate))
                 for  rig in righeArticoloMovimentate:
                     # Quanti ne ho venduti IN TOTALE
 
@@ -503,7 +503,7 @@ class StatisticaGenerale(GladeWidget):
                             quantitaAcquistataUNO += rigaArticoloMovimentata[0][0].quantita
                             quantitaAcquistataTotaleUNO += rigaArticoloMovimentata[0][0].quantita
     #                        quantitaAcquistataTotale += r[0].quantita
-                    print(" VALORE ACQUISTO", valoreAcquisto)
+                    print((" VALORE ACQUISTO", valoreAcquisto))
 
                     ope = leggiOperazione(rig[1].operazione)
                     if ope["fonteValore"] =="vendita_iva":
@@ -521,9 +521,9 @@ class StatisticaGenerale(GladeWidget):
                     # QUESTO LIVELLO ARTICOLO
 
                 if quantitaVendutaTotaleUNO <= quantitaAcquistataTotaleUNO:
-                    print("ARTICOLO %s OK", str(art.id), quantitaVendutaTotaleUNO,quantitaAcquistataTotaleUNO)
+                    print(("ARTICOLO %s OK", str(art.id), quantitaVendutaTotaleUNO,quantitaAcquistataTotaleUNO))
                 else:
-                    print(" SERVE TROVARE UN PREZZO ACQUISTO", str(art.id),quantitaVendutaTotaleUNO,quantitaAcquistataTotaleUNO)
+                    print((" SERVE TROVARE UN PREZZO ACQUISTO", str(art.id),quantitaVendutaTotaleUNO,quantitaAcquistataTotaleUNO))
 
             # Questo livello categoria
             quantitaVenduta =+quantitaVendutaTotale
@@ -538,12 +538,12 @@ class StatisticaGenerale(GladeWidget):
             valoreAcquisto = 0
             valoreVendita = 0
         # Questo livello fuori da tutto
-        for k,v in valoreVenditaDict.items():
+        for k,v in list(valoreVenditaDict.items()):
             if v:
                 incidenzaVenditaDict[k] = v*100 / valoreVenditaTotale
             else:
                 incidenzaVenditaDict[k]  = 0
-        for k,v in valoreAcquistoDict.items():
+        for k,v in list(valoreAcquistoDict.items()):
             if v:
                 incidenzaAcquistoDict[k] = v*100 / valoreAcquistoTotale
             else:

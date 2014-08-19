@@ -107,7 +107,7 @@ class Distinta(GladeWidget):
         totnum = 0
         tot_sconti = 0
         partz_def = []
-        for k,v in parziali.iteritems():
+        for k,v in parziali.items():
             if v:
                 for p in v:
                     if p.sconti:
@@ -165,7 +165,7 @@ class Distinta(GladeWidget):
                     prezzo_scontato = r.prezzo_scontato * r.quantita
                     imponibile = float(prezzo_scontato)/(1+float(ali)/100)
                     iva = float(prezzo_scontato) - imponibile
-                    if ali not in castellettoIva.keys():
+                    if ali not in list(castellettoIva.keys()):
                         castellettoIva[ali] = {'percentuale': ali,
                                                'imponibile': imponibile,
                                                 'imposta': iva,

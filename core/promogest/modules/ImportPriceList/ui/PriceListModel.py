@@ -52,7 +52,7 @@ class PriceListModel:
                     myFieldsDict[p.attrib['position']] = p.attrib['name']
                 elif p.tag == 'default':
                     self._defaultAttributes[p.attrib['name']] = p.attrib['value']
-            field_order = range(0, len(myFieldsDict.keys()))
+            field_order = list(range(0, len(list(myFieldsDict.keys()))))
             for p in field_order:
                 self._fields.append(myFieldsDict[str(p)])
 
@@ -94,7 +94,7 @@ class PriceListModel:
         skipFirstColumnTag = SubElement(model_tag, "skipFirstColumn")
         skipFirstColumnTag.attrib["value"] = str(self._skipFirstColumn)
 
-        for d in self._defaultAttributes.keys():
+        for d in list(self._defaultAttributes.keys()):
             oneDefault = SubElement(model_tag, 'default')
             oneDefault.attrib["name"] = str(d)
             oneDefault.attrib["value"] = str(self._defaultAttributes[d])
@@ -116,12 +116,12 @@ class PriceListModel:
                                                                 'Unita base']
         for f in obbligatoryFields:
             if f not in self._fields:
-                if f not in self._defaultAttributes.keys():
+                if f not in list(self._defaultAttributes.keys()):
                     self._defaultAttributes[f] = None
             else:
-                if f in self._defaultAttributes.keys():
+                if f in list(self._defaultAttributes.keys()):
                     try:
                         retVal = self._defaultAttributes.pop(f)
                     except:
                         print('ATTENZIONE! si è cercato di rimuovere un campoinesistente da un modello di importazione listini.')
-        return self._defaultAttributes.keys()
+        return list(self._defaultAttributes.keys())

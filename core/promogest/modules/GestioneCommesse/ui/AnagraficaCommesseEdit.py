@@ -72,7 +72,7 @@ class AnagraficaCommesseEdit(AnagraficaEdit):
                 "MAGAZZINO":"Magazzino",
                 "CLIENTE":"Cliente",
                 "AGENTE":"Agente"}
-        for t in self.tipiDict.keys():
+        for t in list(self.tipiDict.keys()):
             model.append((t,))
         self.open_button.set_sensitive(False)
         self.trova_button.set_sensitive(False)
