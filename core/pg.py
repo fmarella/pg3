@@ -88,7 +88,6 @@ i DAO, i filtri o tutto"""
         if options.configFile:
             from promogest.lib.config import Config
             conf = Config(options.configFile)
-            print conf.__dict__
             preEnv.user = preEnv.userforce = conf.Database.user
             preEnv.database = preEnv.dbforce = conf.Database.database
             preEnv.password = preEnv.pwdforce= conf.Database.password
@@ -115,10 +114,10 @@ i DAO, i filtri o tutto"""
         if options.web == True:
             preEnv.web = True
         if options.tipoDB and options.schema:
-            print " DOBBIAMO CREARE UN NUOVO DB CON AZIENDA " ,  options.schema
+            print(" DOBBIAMO CREARE UN NUOVO DB CON AZIENDA " ,  options.schema)
             preEnv.buildSchema = options.schema
             preEnv.aziendaforce = options.schema
-            from createSchemaDb import *
+            from createSchemaDb import buildAll
             buildAll()
             sys.exit()
         preEnv.table_to_load = ["promogest2.azienda", "promogest2.role" , "promogest2.action", "promogest2.roleaction","promogest2.utente"]
