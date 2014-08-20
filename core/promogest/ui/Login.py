@@ -38,7 +38,10 @@ from promogest.lib.utils import leggiRevisioni, hasAction, checkInstallation, \
     installId, messageInfo
 from promogest.ui.utilsCombobox import findComboboxRowFromStr,findStrFromCombobox
 
-from promogest.lib import feedparser
+try:
+    import feedparser
+except ImportError:
+    feedparser = None
 from promogest.lib import HtmlHandler
 
 
@@ -147,8 +150,9 @@ class Login(SimpleGladeApp):
         """Carica il feed RSS
         WARNING: attualmente non in uso
         """
-        d = feedparser.parse("http://www.promogest.me/newsfeed")
-        Environment.feedAll = d
+        if feedparser:
+            d = feedparser.parse("http://www.promogest.me/newsfeed")
+            Environment.feedAll = d
         return
 
     def on_azienda_comboboxentry_changed(self, combo):
@@ -185,7 +189,7 @@ class Login(SimpleGladeApp):
 
         #superati i check di login
         users = User().select(username=username,
-                    password=hashlib.md5(username + password).hexdigest())
+                    password=hashlib.md5(username.encode('utf-8') + password.encode('utf-8')).hexdigest())
         if len(users) == 1:
             if users[0].active == False:
                 messageInfo(msg=_('Utente Presente Ma non ATTIVO'))
@@ -204,7 +208,7 @@ class Login(SimpleGladeApp):
                 if Environment.tipodb == "postgresql":
                     Environment.params["schema"] = self.azienda
                     Environment.fk_prefix = Environment.params["schema"] + '.'
-                if hashlib.md5(self.azienda).hexdigest() == \
+                if hashlib.md5(self.azienda.encode('utf-8')).hexdigest() == \
                                 "46d3e603f127254cdc30e5a397413fc7":
                     raise Exception(":P")
                     return
@@ -252,7 +256,7 @@ class Login(SimpleGladeApp):
                     from promogest.dao.DaoOrderedImport import orderedImport
                     orderedImport()
                     def mainmain():
-                        from Main import Main
+                        from .Main import Main
                         main = Main(self.azienda,
                                     self.anagrafiche_modules,
                                     self.parametri_modules,
@@ -327,7 +331,7 @@ class Login(SimpleGladeApp):
                 if mod_enable and mod_enableyes == "yes":
                     stringa = "%s.%s.module" % (
                                         modules_dir.replace("/", "."), m_str)
-                    m = __import__(stringa, globals(), locals(), ["m"], -1)
+                    m = __import__(stringa, globals(), locals(), ["m"], 0)
                     Environment.modulesList.append(str(m.MODULES_NAME))
                     if hasattr(m, "TEMPLATES"):
                         HtmlHandler.templates_dir.append(m.TEMPLATES)

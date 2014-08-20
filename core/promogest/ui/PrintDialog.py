@@ -27,7 +27,7 @@ import os, sys, threading, os.path
 from gi.repository import Gtk
 
 from promogest.lib.utils import *
-from utilsCombobox import *
+from .utilsCombobox import *
 from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget
 

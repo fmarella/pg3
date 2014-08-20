@@ -20,7 +20,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from AnagraficaSemplice import Anagrafica, AnagraficaDetail, AnagraficaFilter
+from .AnagraficaSemplice import Anagrafica, AnagraficaDetail, AnagraficaFilter
 from promogest import Environment
 from promogest.dao.Imballaggio import Imballaggio
 from promogest.lib.utils import *

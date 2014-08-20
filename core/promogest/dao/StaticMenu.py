@@ -23,9 +23,9 @@
 from sqlalchemy import *
 from sqlalchemy.orm import *
 from promoCMS.Environment import *
-from Dao import Dao
-from Language import Language
-from StaticPages import StaticPages
+from .Dao import Dao
+from .Language import Language
+from .StaticPages import StaticPages
 
 class StaticMenu(Dao):
 

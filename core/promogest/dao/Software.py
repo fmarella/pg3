@@ -9,7 +9,7 @@ from sqlalchemy import *
 from sqlalchemy.orm import *
 from core.Environment import *
 from core.dao.Language import Language
-from Dao import Dao
+from .Dao import Dao
 from core.dao.SoftwareCategory import SoftwareCategory
 from core.dao.User import User
 

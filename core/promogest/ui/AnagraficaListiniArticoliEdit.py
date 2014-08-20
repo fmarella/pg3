@@ -29,7 +29,7 @@ from promogest.dao.ListinoArticolo import ListinoArticolo
 from promogest.dao.ScontoVenditaDettaglio import ScontoVenditaDettaglio
 from promogest.dao.ScontoVenditaIngrosso import ScontoVenditaIngrosso
 from promogest.lib.utils import *
-from utilsCombobox import fillComboboxListini,findIdFromCombobox,findComboboxRowFromId
+from .utilsCombobox import fillComboboxListini,findIdFromCombobox,findComboboxRowFromId
 
 if posso("PW"):
     from promogest.modules.PromoWear.ui.AnagraficaListinoArticoliExpand import *

@@ -22,7 +22,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from UnsignedIntegerEntryField import UnsignedIntegerEntryField
+from promogest.ui.widgets.UnsignedIntegerEntryField import UnsignedIntegerEntryField
 
 class SignedIntegerEntryField(UnsignedIntegerEntryField):
 # Effettua la validazione per interi con segno

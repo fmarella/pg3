@@ -30,7 +30,7 @@ from promogest import Environment
 from promogest.dao.Multiplo import Multiplo
 
 from promogest.lib.utils import *
-from utilsCombobox import fillComboboxUnitaBase, findIdFromCombobox
+from .utilsCombobox import fillComboboxUnitaBase, findIdFromCombobox
 
 
 class AnagraficaMultipli(Anagrafica):

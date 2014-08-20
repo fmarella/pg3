@@ -31,7 +31,7 @@ try:
 except:
     from data.scontoTestataDocumento import t_sconto_testata_documento
 
-from Dao import Dao
+from .Dao import Dao
 from promogest.dao.Sconto import t_sconto
 
 class ScontoTestataDocumento(Dao):

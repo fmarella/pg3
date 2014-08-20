@@ -69,7 +69,7 @@ class Config(object):
         for section in self._configDict:
             for entry, entryValue in self._configDict[section].items():
                 self._ini.set(section, entry, entryValue)
-        f = file(self._source,'w')
+        f = open(self._source,'w')
         self._ini.write(f)
         f.close()
 

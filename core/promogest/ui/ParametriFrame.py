@@ -35,7 +35,7 @@ from promogest.ui.VistaPrincipale import VistaPrincipale
 from promogest.ui.SendEmail import SendEmail
 from promogest.lib.utils import hasAction, fenceDialog
 from promogest.ui.utilsCombobox import *
-import Login
+from . import Login
 
 
 class ParametriFrame(GladeWidget):
@@ -89,7 +89,7 @@ class ParametriFrame(GladeWidget):
         if toggleButton.get_property('active') is False:
             return
 
-        from AnagraficaAliquoteIva import AnagraficaAliquoteIva
+        from .AnagraficaAliquoteIva import AnagraficaAliquoteIva
         anag = AnagraficaAliquoteIva()
 
         showAnagrafica(self.mainWindow, anag, toggleButton, self.mainClass)
@@ -98,7 +98,7 @@ class ParametriFrame(GladeWidget):
         if toggleButton.get_property('active') is False:
             return
 
-        from AnagraficaImballaggi import AnagraficaImballaggi
+        from .AnagraficaImballaggi import AnagraficaImballaggi
         anag = AnagraficaImballaggi()
 
         showAnagrafica(self.mainWindow, anag, toggleButton, self.mainClass)
@@ -144,7 +144,7 @@ class ParametriFrame(GladeWidget):
         if toggleButton.get_property('active') is False:
             return
 
-        from AnagraficaMultipli import AnagraficaMultipli
+        from .AnagraficaMultipli import AnagraficaMultipli
         anag = AnagraficaMultipli()
 
         showAnagrafica(self.mainWindow, anag, toggleButton, self.mainClass)
@@ -154,7 +154,7 @@ class ParametriFrame(GladeWidget):
         if toggleButton.get_property('active') is False:
             return
 
-        from AnagraficaCategorieArticoli import AnagraficaCategorieArticoli
+        from .AnagraficaCategorieArticoli import AnagraficaCategorieArticoli
         anag = AnagraficaCategorieArticoli()
 
         showAnagrafica(self.mainWindow, anag, toggleButton, self.mainClass)
@@ -163,14 +163,14 @@ class ParametriFrame(GladeWidget):
     def on_famiglie_articoli_button_clicked(self, toggleButton):
         if toggleButton.get_property('active') is False:
             return
-        from AnagraficaFamiglieArticoli import AnagraficaFamiglieArticoli
+        from .AnagraficaFamiglieArticoli import AnagraficaFamiglieArticoli
         anag = AnagraficaFamiglieArticoli()
         showAnagrafica(self.mainWindow, anag, toggleButton, self.mainClass)
 
     def on_categorie_clienti_button_clicked(self, toggleButton):
         if toggleButton.get_property('active') is False:
             return
-        from AnagraficaCategorieClienti import AnagraficaCategorieClienti
+        from .AnagraficaCategorieClienti import AnagraficaCategorieClienti
         anag = AnagraficaCategorieClienti()
         showAnagrafica(self.mainWindow, anag, toggleButton, self.mainClass)
 
@@ -178,7 +178,7 @@ class ParametriFrame(GladeWidget):
     def on_categorie_fornitori_button_clicked(self, toggleButton):
         if toggleButton.get_property('active') is False:
             return
-        from AnagraficaCategorieFornitori import AnagraficaCategorieFornitori
+        from .AnagraficaCategorieFornitori import AnagraficaCategorieFornitori
         anag = AnagraficaCategorieFornitori()
         showAnagrafica(self.mainWindow, anag, toggleButton, self.mainClass)
 
@@ -194,7 +194,7 @@ class ParametriFrame(GladeWidget):
         if toggleButton.get_property('active') is False:
             return
 
-        from AnagraficaPagamenti import AnagraficaPagamenti
+        from .AnagraficaPagamenti import AnagraficaPagamenti
         anag = AnagraficaPagamenti()
 
         showAnagrafica(self.mainWindow, anag, toggleButton, self.mainClass)
@@ -204,7 +204,7 @@ class ParametriFrame(GladeWidget):
         if toggleButton.get_property('active') is False:
             return
 
-        from AnagraficaBanche import AnagraficaBanche
+        from .AnagraficaBanche import AnagraficaBanche
         anag = AnagraficaBanche()
 
         showAnagrafica(self.mainWindow, anag, toggleButton, self.mainClass)

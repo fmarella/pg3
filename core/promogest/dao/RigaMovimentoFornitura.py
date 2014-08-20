@@ -32,7 +32,7 @@ try:
 except:
     from data.rigaMovimentoFornitura import t_riga_movimento_fornitura
 
-from Dao import Dao
+from .Dao import Dao
 from promogest.dao.Fornitura import Fornitura
 from promogest.dao.RigaMovimento import RigaMovimento, t_riga_movimento
 

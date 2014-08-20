@@ -525,7 +525,7 @@ def on_id_gruppo_taglia_customcombobox_clicked(widget, button):
     if widget.button.get_property('active') is False:
         return
 
-    from AnagraficaGruppiTaglia import AnagraficaGruppiTaglia
+    from .AnagraficaGruppiTaglia import AnagraficaGruppiTaglia
     anag = AnagraficaGruppiTaglia()
 
     anagWindow = anag.getTopLevel()
@@ -549,7 +549,7 @@ def on_id_modello_customcombobox_clicked(widget, button):
     if widget.button.get_property('active') is False:
         return
 
-    from AnagraficaModelli import AnagraficaModelli
+    from .AnagraficaModelli import AnagraficaModelli
     anag = AnagraficaModelli()
 
     anagWindow = anag.getTopLevel()
@@ -573,7 +573,7 @@ def on_id_taglia_customcombobox_clicked(widget, button, idGruppoTaglia=None, ign
     if widget.button.get_property('active') is False:
         return
 
-    from AnagraficaTaglie import AnagraficaTaglie
+    from .AnagraficaTaglie import AnagraficaTaglie
     anag = AnagraficaTaglie()
 
     anagWindow = anag.getTopLevel()
@@ -597,7 +597,7 @@ def on_id_colore_customcombobox_clicked(widget, button, ignore=None):
     if widget.button.get_property('active') is False:
         return
 
-    from AnagraficaColori import AnagraficaColori
+    from .AnagraficaColori import AnagraficaColori
     anag = AnagraficaColori()
 
     anagWindow = anag.getTopLevel()

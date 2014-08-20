@@ -34,8 +34,8 @@ try:
 except:
     from data.scontiVenditaIngrosso import t_sconti_vendita_ingrosso
 
-from Dao import Dao
-from Sconto import t_sconto
+from .Dao import Dao
+from .Sconto import t_sconto
 
 
 class ScontoVenditaIngrosso(Dao):

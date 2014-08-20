@@ -23,9 +23,9 @@
 from sqlalchemy import *
 from sqlalchemy.orm import *
 from core.Environment import *
-from Dao import Dao
-from User import User
-from Modulo import Modulo
+from .Dao import Dao
+from .User import User
+from .Modulo import Modulo
 
 userTable = Table('utente', params['metadata'], autoload=True, schema=params['mainSchema'])
 modulo=Table('modulo', params['metadata'],schema = params['schema'],autoload=True)

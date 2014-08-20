@@ -19,7 +19,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from AnagraficaComplessa import Anagrafica
+from .AnagraficaComplessa import Anagrafica
 from promogest.ui.AnagraficaComplessaEdit import AnagraficaEdit
 from promogest.ui.AnagraficaComplessaReport import AnagraficaReport
 from promogest.ui.AnagraficaComplessaHtml import AnagraficaHtml
@@ -28,7 +28,7 @@ from promogest.dao.Listino import Listino
 from promogest.dao.VariazioneListino import VariazioneListino
 from promogest.lib.relativedelta import relativedelta
 from promogest.lib.utils import *
-from utilsCombobox import *
+from .utilsCombobox import *
 
 
 class AnagraficaVariazioniListini(Anagrafica):

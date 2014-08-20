@@ -72,7 +72,7 @@ class ElencoMagazzini(GladeWidget):
         denominazione = None
         if self._currentDao is not None:
             denominazione = self._currentDao.denominazione
-        from AnagraficaMagazzini import AnagraficaMagazzini
+        from .AnagraficaMagazzini import AnagraficaMagazzini
         anag = AnagraficaMagazzini(denominazione, self.aziendaStr)
         anagWindow = anag.getTopLevel()
         returnWindow = self.getTopLevel().get_toplevel()

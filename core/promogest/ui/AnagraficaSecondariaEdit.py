@@ -353,7 +353,7 @@ class AnagraficaSecondariaEdit(AnagraficaEdit, AnagraficaPGEdit):
             else:
                 toggleButton.set_active(False)
                 return
-        from AbbinamentoPersonaGiuridica import AbbinamentoPersonaGiuridica
+        from .AbbinamentoPersonaGiuridica import AbbinamentoPersonaGiuridica
         anag = AbbinamentoPersonaGiuridica(self.dao.id)
         anagWindow = anag.getTopLevel()
 

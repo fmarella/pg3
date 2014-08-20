@@ -38,7 +38,7 @@ from promogest.dao.Pagamento import Pagamento
 from promogest.dao.Magazzino import Magazzino
 #import promogest.dao.Listino
 from promogest.dao.Listino import Listino
-import Login
+from . import Login
 from promogest.ui.GladeWidget import GladeWidget
 
 from promogest.lib.utils import prepareFilterString, showAnagraficaRichiamata

@@ -23,7 +23,7 @@ from sqlalchemy import *
 from sqlalchemy.orm import *
 from promogest.Environment import params
 
-from Dao import Dao
+from .Dao import Dao
 
 class AppLog(Dao):
 

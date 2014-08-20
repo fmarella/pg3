@@ -8,8 +8,8 @@
 
 from sqlalchemy import *
 from sqlalchemy.orm import *
-from promogest.Environment import *
-from promogest.dao.Dao import Dao
+from .promogest.Environment import *
+from .promogest.dao.Dao import Dao
 
 """ATTENZIONE questo script va spostato dalla cartella data del modulo RuoleAzioni
     alla cartella radice dei sorgenti ( dove si trova il create_db per capirci

@@ -29,7 +29,7 @@ import promogest.dao.Fornitore
 from promogest.dao.AnagraficaSecondaria import AnagraficaSecondaria_ as AnagraficaSecondaria
 from promogest.dao.DaoUtils import *
 from promogest.lib.utils import *
-from utilsCombobox import *
+from .utilsCombobox import *
 
 
 class AnagraficaSecondariaFilter(AnagraficaFilter):

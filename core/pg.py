@@ -118,7 +118,7 @@ i DAO, i filtri o tutto"""
             print((" DOBBIAMO CREARE UN NUOVO DB CON AZIENDA " ,  options.schema))
             preEnv.buildSchema = options.schema
             preEnv.aziendaforce = options.schema
-            from createSchemaDb import buildAll
+            from .createSchemaDb import buildAll
             buildAll()
             sys.exit()
         preEnv.table_to_load = ["promogest2.azienda", "promogest2.role" , "promogest2.action", "promogest2.roleaction","promogest2.utente"]

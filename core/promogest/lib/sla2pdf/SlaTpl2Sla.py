@@ -26,8 +26,8 @@ import operator
 import xml.etree.cElementTree as ElementTree
 from promogest import Environment
 from promogest.lib.utils import setconf
-import Sla2pdfUtils
-from SlaParser import SlaParser
+from . import Sla2pdfUtils
+from .SlaParser import SlaParser
 from functools import reduce
 SHOWZERORIGA = False
 SHOWZEROTOTALI = False

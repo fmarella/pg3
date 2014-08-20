@@ -24,8 +24,8 @@ from promogest.ui.AnagraficaComplessa import Anagrafica
 from promogest.ui.AnagraficaComplessaReport import AnagraficaReport
 from promogest.ui.AnagraficaComplessaHtml import AnagraficaHtml
 
-from AnagraficaCommesseFilter import AnagraficaCommesseFilter
-from AnagraficaCommesseEdit import AnagraficaCommesseEdit
+from .AnagraficaCommesseFilter import AnagraficaCommesseFilter
+from .AnagraficaCommesseEdit import AnagraficaCommesseEdit
 from promogest.modules.GestioneCommesse.dao.StadioCommessa import StadioCommessa
 from promogest.modules.GestioneCommesse.dao.TestataCommessa import TestataCommessa
 from promogest.modules.GestioneCommesse.dao.RigaCommessa import RigaCommessa

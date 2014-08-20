@@ -38,22 +38,22 @@ except:
     from data.testataDocumento import t_testata_documento
 
 
-from Dao import Dao
-from Operazione import Operazione
-from ScontoTestataDocumento import ScontoTestataDocumento
-from DestinazioneMerce import DestinazioneMerce
-from TestataMovimento import TestataMovimento, t_testata_movimento
-from Pagamento import Pagamento, t_pagamento
-from Vettore import Vettore, t_vettore
+from .Dao import Dao
+from .Operazione import Operazione
+from .ScontoTestataDocumento import ScontoTestataDocumento
+from .DestinazioneMerce import DestinazioneMerce
+from .TestataMovimento import TestataMovimento, t_testata_movimento
+from .Pagamento import Pagamento, t_pagamento
+from .Vettore import Vettore, t_vettore
 from promogest.dao.daoAgenti.Agente import Agente, t_agente
-from Fornitore import Fornitore, t_fornitore
-from Cliente import Cliente, t_cliente
-from RigaDocumento import RigaDocumento
-from RigaDocumento import *
-from AliquotaIva import AliquotaIva
-from RigaMovimento import RigaMovimento
-from Banca import Banca, t_banca
-from Riga import Riga, t_riga
+from .Fornitore import Fornitore, t_fornitore
+from .Cliente import Cliente, t_cliente
+from .RigaDocumento import RigaDocumento
+from .RigaDocumento import *
+from .AliquotaIva import AliquotaIva
+from .RigaMovimento import RigaMovimento
+from .Banca import Banca, t_banca
+from .Riga import Riga, t_riga
 from promogest.dao.NumeroLottoTemp import NumeroLottoTemp
 from promogest.modules.PrimaNota.dao.TestataPrimaNota import TestataPrimaNota
 from promogest.modules.PrimaNota.dao.RigaPrimaNota import RigaPrimaNota

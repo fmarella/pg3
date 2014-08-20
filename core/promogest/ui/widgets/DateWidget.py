@@ -24,7 +24,7 @@
 
 from gi.repository import Gtk, Gdk, GdkPixbuf
 import time, datetime
-from DateEntryField import DateEntryField
+from promogest.ui.widgets.DateEntryField import DateEntryField
 from promogest import Environment
 
 

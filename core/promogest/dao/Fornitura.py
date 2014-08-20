@@ -36,9 +36,9 @@ except:
     from data.fornitura import t_fornitura
 
 from promogest.dao.Dao import Dao
-from Multiplo import Multiplo, t_multiplo
-from ScontoFornitura import ScontoFornitura
-from Fornitore import Fornitore, t_fornitore
+from .Multiplo import Multiplo, t_multiplo
+from .ScontoFornitura import ScontoFornitura
+from .Fornitore import Fornitore, t_fornitore
 
 
 class Fornitura(Dao):

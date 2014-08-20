@@ -34,8 +34,8 @@ from promogest import Environment
 from promogest.modules.SchedaLavorazione.dao.SchedaOrdinazione import SchedaOrdinazione
 from promogest.modules.SchedaLavorazione.dao.Datario import Datario
 from promogest.lib.utils import *
-from SchedaLavorazioneUtils import fillComboboxColoreStampa, fillComboboxCarattereStampa, fillComboboxAssociazioneArticoli, fetch_date, get_nomi_sposi, create_schede_ordinazioni, getPrezzoNetto
-from AnagraficaSchedeOrdinazioniEdit import AnagraficaSchedeOrdinazioniEdit
+from .SchedaLavorazioneUtils import fillComboboxColoreStampa, fillComboboxCarattereStampa, fillComboboxAssociazioneArticoli, fetch_date, get_nomi_sposi, create_schede_ordinazioni, getPrezzoNetto
+from .AnagraficaSchedeOrdinazioniEdit import AnagraficaSchedeOrdinazioniEdit
 
 class AnagraficaSchedeOrdinazioni(Anagrafica):
     """ Anagrafica Schede Ordinazione (Modulo SchedaLavorazione) """

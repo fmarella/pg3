@@ -23,9 +23,9 @@ from reportlab.pdfgen.canvas import Canvas
 from PIL import Image
 import xml.etree.cElementTree as ElementTree
 
-import Sla2pdfUtils
+from . import Sla2pdfUtils
 
-from SlaParser import SlaParser
+from .SlaParser import SlaParser
 from optparse import OptionParser
 
 
@@ -77,7 +77,7 @@ class Sla2Pdf(object):
                                     pdfFolder=self.pdfFolder,
                                     slafile=self.slafile).scribusVersion()
             if not version:
-                from Sla2Pdf_classic import Sla2Pdf_classic
+                from .Sla2Pdf_classic import Sla2Pdf_classic
                 slatopdf = Sla2Pdf_classic(pdfFolder = self.pdfFolder,
                                     slaFileName = self.slaFileName,
                                     report = self.report).serialize(objects, dao=daos)
@@ -106,7 +106,7 @@ class Sla2Pdf(object):
 
     def toPdf(self):
         #if version ==True:
-        from Sla2Pdf_ng import Sla2Pdf_ng
+        from .Sla2Pdf_ng import Sla2Pdf_ng
         slatopdf = Sla2Pdf_ng(slafile=self.slafile).translate()
         return slatopdf
         #else:
@@ -116,7 +116,7 @@ class Sla2Pdf(object):
 
         """ Model parsing, values substitution and pdf creation """
         print("QUESTO DEVE PASSARE PER SLATPL2SLA")
-        from SlaTpl2Sla import SlaTpl2Sla
+        from .SlaTpl2Sla import SlaTpl2Sla
         self.slatpl = SlaTpl2Sla(   slafile = self.slafile,
                                     label =self.label,
                                     objects = objects,

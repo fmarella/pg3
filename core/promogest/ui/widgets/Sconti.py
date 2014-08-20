@@ -26,7 +26,7 @@ from gi.repository import Gtk
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.lib.utils import *
 from promogest import Environment
-from SignedDecimalEntryField import SignedDecimalEntryField
+from promogest.ui.widgets.SignedDecimalEntryField import SignedDecimalEntryField
 
 
 class Sconti(GladeWidget):

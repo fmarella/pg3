@@ -41,9 +41,9 @@ try:
 except:
     pass
 
-import Sla2pdfUtils
-import ColorDicTFull
-from SlaParser import SlaParser
+from . import Sla2pdfUtils
+from . import ColorDicTFull
+from .SlaParser import SlaParser
 
 class Sla2Pdf_ng(SlaParser):
     """ sla to pdf format translation """

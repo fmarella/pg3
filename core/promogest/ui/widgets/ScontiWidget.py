@@ -22,7 +22,7 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from gi.repository import GObject, Gtk, GdkPixbuf
-from CustomLabel import CustomLabel
+from promogest.ui.widgets.CustomLabel import CustomLabel
 from promogest import Environment
 from promogest.lib.utils import mN, setconf
 
@@ -63,7 +63,7 @@ class ScontiWidget(CustomLabel):
         if self.button.get_property('active') is False:
             return
 
-        from Sconti import Sconti
+        from .Sconti import Sconti
         anag = Sconti(windowTitle, self.getSconti(),
                                    self.getApplicazione(),
                                    self._scontiPercentuali,

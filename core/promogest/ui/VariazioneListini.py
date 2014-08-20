@@ -300,7 +300,7 @@ class VariazioneListini(GladeWidget):
         riga = model[iterator]
 
         returnWindow = self.getTopLevel()
-        from AnagraficaListiniArticoli import AnagraficaListiniArticoli
+        from .AnagraficaListiniArticoli import AnagraficaListiniArticoli
         anag = AnagraficaListiniArticoli(self._idArticolo, riga[0].id_listino)
         anagWindow = anag.getTopLevel()
 
@@ -315,7 +315,7 @@ class VariazioneListini(GladeWidget):
 
     def on_inserimento_button_clicked(self, button=None):
         returnWindow = self.getTopLevel()
-        from AnagraficaListiniArticoli import AnagraficaListiniArticoli
+        from .AnagraficaListiniArticoli import AnagraficaListiniArticoli
         anag = AnagraficaListiniArticoli(self._idArticolo)
         anagWindow = anag.getTopLevel()
 

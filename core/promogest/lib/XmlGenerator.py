@@ -21,10 +21,10 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 import os
-import SimpleXMLWriter
+from . import SimpleXMLWriter
 from promogest.lib.utils import *
 
-from SimpleXMLWriter import XMLWriter
+from .SimpleXMLWriter import XMLWriter
 
 class XlsXmlGenerator:
     """Convert a database query result into an xml spreadsheet file"""

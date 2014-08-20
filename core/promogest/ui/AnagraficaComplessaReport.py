@@ -22,11 +22,16 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
+import sys
 import os
 import os.path
 from promogest.lib.utils import *
 from promogest import Environment
-from promogest.lib.SlaTpl2Sla import SlaTpl2Sla
+try:
+    from promogest.lib.SlaTpl2Sla import SlaTpl2Sla
+except ImportError:
+    print("La libreria 'reportlab' non è stata trovata nel sistema, installarla e riprovare.")
+    sys.exit(1)
 from promogest.ui.AnagraficaComplessaPrintPreview import AnagraficaPrintPreview
 
 from promogest.dao.Azienda import Azienda

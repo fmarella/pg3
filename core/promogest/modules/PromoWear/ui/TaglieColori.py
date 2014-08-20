@@ -350,7 +350,7 @@ class GestioneTaglieColori(GladeWidget):
         if toggleButton.get_property('active') is False:
             return
 
-        from AnagraficaColori import AnagraficaColori
+        from .AnagraficaColori import AnagraficaColori
         anag = AnagraficaColori()
 
         showAnagraficaRichiamata(self.getTopLevel(), anag.getTopLevel(), toggleButton, self.__refresh)
@@ -359,7 +359,7 @@ class GestioneTaglieColori(GladeWidget):
         if toggleButton.get_property('active') is False:
             return
 
-        from AnagraficaTaglie import AnagraficaTaglie
+        from .AnagraficaTaglie import AnagraficaTaglie
         anag = AnagraficaTaglie()
 
         showAnagraficaRichiamata(self.getTopLevel(), anag.getTopLevel(), toggleButton, self.__refresh)

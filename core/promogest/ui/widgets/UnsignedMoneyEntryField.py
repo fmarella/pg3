@@ -23,7 +23,7 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from gi.repository import Gtk, Gdk
-from CustomEntryField import CustomEntryField
+from promogest.ui.widgets.CustomEntryField import CustomEntryField
 from promogest import Environment
 from promogest.lib.utils import mN, setconf
 

@@ -3,7 +3,7 @@
 # Hello, this program is written in Python - http://python.org
 programname = 'html2csv - version 2002-09-20 - http://sebsauvage.net'
 
-import sys, getopt, os.path, glob, HTMLParser, re
+import sys, getopt, os.path, glob, html.parser, re
 
 try:    import psyco ; psyco.jit()  # If present, use psyco to accelerate the program
 except: pass
@@ -30,7 +30,7 @@ Author : Sebastien SAUVAGE <sebsauvage at sebsauvage dot net>
          http://sebsauvage.net
 ''' % (programname, progname, progname, progname)
 
-class html2csv(HTMLParser.HTMLParser):
+class html2csv(html.parser.HTMLParser):
     ''' A basic parser which converts HTML tables into CSV.
         Feed HTML with feed(). Get CSV with getCSV(). (See example below.)
         All tables in HTML will be converted to CSV (in the order they occur
@@ -56,7 +56,7 @@ class html2csv(HTMLParser.HTMLParser):
             - convert html entities (&name; and &#ref;) to Ascii.
             '''
     def __init__(self):
-        HTMLParser.HTMLParser.__init__(self)
+        html.parser.HTMLParser.__init__(self)
         self.CSV = ''      # The CSV data
         self.CSVrow = ''   # The current CSV row beeing constructed from HTML
         self.inTD = 0      # Used to track if we are inside or outside a <TD>...</TD> tag.

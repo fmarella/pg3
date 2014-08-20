@@ -32,16 +32,16 @@ try:
 except:
     from data.rigaMovimento import t_riga_movimento
 
-from Dao import Dao
-from Magazzino import Magazzino
-from ScontoRigaMovimento import ScontoRigaMovimento
-from ScontoRigaDocumento import ScontoRigaDocumento
-from Articolo import Articolo
-from UnitaBase import UnitaBase
-from Listino import Listino
-from Multiplo import Multiplo
-from Stoccaggio import Stoccaggio
-from Riga import Riga, t_riga
+from .Dao import Dao
+from .Magazzino import Magazzino
+from .ScontoRigaMovimento import ScontoRigaMovimento
+from .ScontoRigaDocumento import ScontoRigaDocumento
+from .Articolo import Articolo
+from .UnitaBase import UnitaBase
+from .Listino import Listino
+from .Multiplo import Multiplo
+from .Stoccaggio import Stoccaggio
+from .Riga import Riga, t_riga
 from promogest.lib.utils import getScontiFromDao, getStringaSconti, posso
 
 if hasattr(conf, "SuMisura") and getattr(conf.SuMisura,'mod_enable') == "yes":

@@ -57,9 +57,9 @@ from promogest.dao.TestataDocumento import TestataDocumento
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
-from SchedaLavorazioneUtils import *
+from .SchedaLavorazioneUtils import *
 #from widgets.SchedeOrdinazioniEditWidget import SchedeOrdinazioniEditWidget
-from DuplicaInFattura import DuplicaInFattura
+from .DuplicaInFattura import DuplicaInFattura
 
 class AnagraficaSchedeOrdinazioniEdit(AnagraficaEdit):
     """

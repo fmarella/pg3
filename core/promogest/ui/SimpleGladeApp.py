@@ -24,7 +24,7 @@
 
 from gi.repository import Gtk, Gdk
 from promogest import Environment
-from SimpleGladeWrapper import SimpleGladeWrapper
+from promogest.ui.SimpleGladeWrapper import SimpleGladeWrapper
 
 __version__ = "1.0"
 __author__ = 'Sandino "tigrux" Flores-Moreno'

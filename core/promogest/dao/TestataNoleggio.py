@@ -9,11 +9,11 @@
 from sqlalchemy import *
 from sqlalchemy.orm import *
 from promogest.Environment import *
-from Dao import Dao
-from RigaMovimento import RigaMovimento
-from Fornitore import Fornitore
-from Cliente import Cliente
-from Fornitura import Fornitura
+from .Dao import Dao
+from .RigaMovimento import RigaMovimento
+from .Fornitore import Fornitore
+from .Cliente import Cliente
+from .Fornitura import Fornitura
 
 class TestataNoleggio(Dao):
 

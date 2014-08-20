@@ -21,13 +21,13 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from ErrorDialog import ErrorDialog
-from FatalErrorDialog import FatalErrorDialog
+from .ErrorDialog import ErrorDialog
+from .FatalErrorDialog import FatalErrorDialog
 
 from promogest.lib.ExceptionHandler import ExceptionHandler
 
 from promogest.dao.DataIntegrityException import DataIntegrityException
-from ApplicationException import ApplicationException as DBApplicationException
+from .ApplicationException import ApplicationException as DBApplicationException
 
 
 from sqlalchemy.exc  import IntegrityError as pgIntegrityError

@@ -21,7 +21,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from CustomComboBoxSearch import CustomComboBoxSearch
+from promogest.ui.widgets.CustomComboBoxSearch import CustomComboBoxSearch
 from promogest.lib.utils import leggiCliente, leggiFornitore
 
 

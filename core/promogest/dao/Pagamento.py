@@ -34,7 +34,7 @@ except:
     from data.pagamento import t_pagamento
 
 
-from Dao import Dao
+from .Dao import Dao
 from promogest.dao.DaoUtils import get_columns
 
 

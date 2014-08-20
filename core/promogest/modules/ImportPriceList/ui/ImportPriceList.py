@@ -35,7 +35,7 @@ from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import fillModelCombobox, fillComboboxListini
 import promogest.ui.Login
 from promogest.modules.ImportPriceList.ui.ImportPriceListPreview import ImportPreview
-from fieldsDict import *
+from .fieldsDict import *
 from promogest.modules.ImportPriceList.ui.ImportPriceListModels import ImportPriceListModels
 from promogest.modules.ImportPriceList.ui.PriceListModel import PriceListModel
 

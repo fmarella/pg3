@@ -21,7 +21,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from AnagraficaComplessa import Anagrafica
+from .AnagraficaComplessa import Anagrafica
 from promogest.ui.AnagraficaComplessaEdit import AnagraficaEdit
 from promogest.ui.AnagraficaComplessaReport import AnagraficaReport
 from promogest.ui.AnagraficaComplessaHtml import AnagraficaHtml
@@ -446,7 +446,7 @@ class AnagraficaListiniEdit(AnagraficaEdit):
                 toggleButton.set_active(False)
                 return
 
-        from AnagraficaListiniArticoli import AnagraficaListiniArticoli
+        from .AnagraficaListiniArticoli import AnagraficaListiniArticoli
         anag = AnagraficaListiniArticoli(idListino=self.dao.id)
         anagWindow = anag.getTopLevel()
         showAnagraficaRichiamata(self.dialogTopLevel, anagWindow, toggleButton)
@@ -474,7 +474,7 @@ class AnagraficaListiniEdit(AnagraficaEdit):
                 toggleButton.set_active(False)
                 return
 
-        from CrossFilterPriceList import CrossFilterPriceList
+        from .CrossFilterPriceList import CrossFilterPriceList
         anag = CrossFilterPriceList(listino=self.dao)
         anagWindow = anag.getTopLevel()
 

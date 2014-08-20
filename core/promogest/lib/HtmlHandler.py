@@ -26,7 +26,10 @@ from datetime import datetime
 from gi.repository.WebKit import WebView, WebSettings
 from gi.repository import GLib
 from threading import Timer
-from promogest.lib import feedparser
+try:
+    import feedparser
+except ImportError:
+    feedparser = None
 import urllib.request, urllib.error, urllib.parse
 import webbrowser
 from promogest import Environment
@@ -152,6 +155,8 @@ def renderPage(feedToHtml):
 
 def getfeedFromSite():
     string = ""
+    if not feedparser:
+        return
     if Environment.feedAll == "":
         d = feedparser.parse("http://www.promogest.me/newsfeed")
     else:

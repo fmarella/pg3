@@ -38,10 +38,10 @@ from promogest.dao.Listino import Listino
 from promogest.dao.Setconf import SetConf
 from promogest.dao.ListinoArticolo import ListinoArticolo
 from promogest.dao.DaoUtils import giacenzaArticolo
-from GestioneScontrini import GestioneScontrini
-from GestioneChiusuraFiscale import GestioneChiusuraFiscale
-from venditaDettaglioUiPart import drawPart
-from VenditaDettaglioUtils import fillComboboxPos
+from .GestioneScontrini import GestioneScontrini
+from .GestioneChiusuraFiscale import GestioneChiusuraFiscale
+from .venditaDettaglioUiPart import drawPart
+from .VenditaDettaglioUtils import fillComboboxPos
 from promogest.ui.PrintDialog import PrintDialogHandler
 from promogest.lib.HtmlHandler import createHtmlObj, renderTemplate, renderHTML
 
@@ -204,7 +204,7 @@ class AnagraficaVenditaDettaglio(GladeWidget):
 
 
     def on_anagrafica_punti_cassa_activate_item(self, item):
-        from AnagraficaPOS import AnagraficaPos
+        from .AnagraficaPOS import AnagraficaPos
         anag = AnagraficaPos()
 
         showAnagrafica(self.getTopLevel(), anag, item, self)

@@ -33,17 +33,17 @@ except:
     from data.rigaDocumento import t_riga_documento
 
 
-from Dao import Dao
-from UnitaBase import UnitaBase
-from ScontoRigaDocumento import ScontoRigaDocumento
-from ScontoRigaMovimento import ScontoRigaMovimento
-from Articolo import Articolo
-from AliquotaIva import AliquotaIva
-from Magazzino import Magazzino
-from Listino import Listino
-from Multiplo import Multiplo
-from DaoUtils import scontiRigaDocumentoDel
-from Riga import Riga, t_riga
+from .Dao import Dao
+from .UnitaBase import UnitaBase
+from .ScontoRigaDocumento import ScontoRigaDocumento
+from .ScontoRigaMovimento import ScontoRigaMovimento
+from .Articolo import Articolo
+from .AliquotaIva import AliquotaIva
+from .Magazzino import Magazzino
+from .Listino import Listino
+from .Multiplo import Multiplo
+from .DaoUtils import scontiRigaDocumentoDel
+from .Riga import Riga, t_riga
 from promogest.lib.utils import *
 if posso("SM"):
     from promogest.modules.SuMisura.dao.MisuraPezzo import MisuraPezzo

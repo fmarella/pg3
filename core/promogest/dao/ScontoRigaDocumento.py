@@ -33,7 +33,7 @@ except:
     from data.rigaDocumento import t_riga_documento
     from data.scontoRigaDocumento import t_sconto_riga_documento
 
-from Dao import Dao
+from .Dao import Dao
 from promogest.dao.Sconto import t_sconto
 
 class ScontoRigaDocumento(Dao):

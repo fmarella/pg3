@@ -147,7 +147,7 @@ class Anagrafica(GladeWidget):
         else:
             self.detail.setDao(None)
         if self._windowName == 'AnagraficaBanche':
-            from AnagraficaBancheEdit import AnagraficaBancheEdit
+            from .AnagraficaBancheEdit import AnagraficaBancheEdit
             anag = AnagraficaBancheEdit(self, codice=codice)
             return
         self.filterTopLevel.set_sensitive(False)
@@ -290,7 +290,7 @@ class Anagrafica(GladeWidget):
 
     def on_export_csv_button_clicked(self, button):
         dao = self.detail.setDao(None)
-        from ExportCsv import ExportCsv
+        from .ExportCsv import ExportCsv
         anag = ExportCsv(self, dao=dao)
         dao=None
         return
@@ -345,7 +345,7 @@ class Anagrafica(GladeWidget):
         """ Modifica record """
         self.detail.updateDao()
         if self._windowName == 'AnagraficaBanche':
-            from AnagraficaBancheEdit import AnagraficaBancheEdit
+            from .AnagraficaBancheEdit import AnagraficaBancheEdit
             anag = AnagraficaBancheEdit(self, dao=self.detail.dao)
             return
         self.filterTopLevel.set_sensitive(False)

@@ -33,7 +33,7 @@ except:
 
 
 
-from Dao import Dao
+from .Dao import Dao
 from promogest.dao.PersonaGiuridica import t_persona_giuridica
 from promogest.dao.DaoUtils import codeIncrement, getRecapitiAnagraficaSecondaria
 

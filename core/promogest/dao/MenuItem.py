@@ -8,9 +8,9 @@
 from sqlalchemy import *
 from sqlalchemy.orm import *
 from promogest.Environment import *
-from Dao import Dao
-from Language import Language
-from Menu import Menu
+from .Dao import Dao
+from .Language import Language
+from .Menu import Menu
 #from StaticPages import StaticPages
 
 languageTable = Table('language', params['metadata'], autoload=True, schema=params['mainSchema'])

@@ -183,11 +183,11 @@ class Inventario(Dao):
             msg = ("Non e' presente nessun caricamento di inventario nell'anno di lavoro:\n\n" +
                 "si desidera generarne uno ?")
             if YesNoDialog(msg=msg, transient=window):
-                from TestataMovimento import TestataMovimento
-                from RigaMovimento import RigaMovimento
-                from Riga import Riga
-                from Magazzino import Magazzino
-                from Articolo import Articolo
+                from .TestataMovimento import TestataMovimento
+                from .RigaMovimento import RigaMovimento
+                from .Riga import Riga
+                from .Magazzino import Magazzino
+                from .Articolo import Articolo
                 giacenza = 0
                 #sel2 = Environment.params['session'].query(Inventario.id_magazzino, Inventario.id_articolo).filter(Inventario.anno ==Environment.workingYear).all()
                 sel = Environment.params['session'].query(Magazzino.id, Articolo.id).filter(Articolo.cancellato != True).all()

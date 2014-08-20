@@ -22,7 +22,7 @@
 from werkzeug import script
 
 def make_app():
-    from application import PromoWeb
+    from .application import PromoWeb
     return PromoWeb()
 
 def make_shell():

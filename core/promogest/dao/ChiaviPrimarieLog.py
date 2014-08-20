@@ -8,7 +8,7 @@
 from sqlalchemy import *
 from sqlalchemy.orm import *
 from promogest.Environment import *
-from Dao import Dao
+from .Dao import Dao
 #from CategoriaCliente import CategoriaCliente
 
 class ChiaviPrimarieLog(Dao):

@@ -20,7 +20,7 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 import xml.etree.cElementTree as ElementTree
-import Sla2pdfUtils
+from . import Sla2pdfUtils
 
 class SlaParser(object):
 

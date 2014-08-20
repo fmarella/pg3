@@ -98,7 +98,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<NumeroLinea>{{loop.index}}</NumeroLinea>
 				<Descrizione>{{riga.descrizione|nonone}} {{riga.aggiuntalottoindescrizione}}</Descrizione>
                 <Quantita>{{riga.quantita}}</Quantita>
-                <UnitaMisura></UnitaMisura>
+                <UnitaMisura>{{riga.quantita * riga.moltiplicatore}}</UnitaMisura>
                 <DataInizioPeriodo></DataInizioPeriodo>
                 <DataFinePeriodo></DataFinePeriodo>
 				<PrezzoUnitario>{{utils.mN(riga.valore_unitario_lordo,2)}}</PrezzoUnitario>

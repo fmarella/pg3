@@ -26,8 +26,8 @@ import os
 import xml.etree.cElementTree as ElementTree
 from gi.repository import Gtk, Gdk
 
-from SimpleGladeApp import SimpleGladeApp
-from SimpleGladeWrapper import SimpleGladeWrapper
+from promogest.ui.SimpleGladeApp import SimpleGladeApp
+from promogest.ui.SimpleGladeWrapper import SimpleGladeWrapper
 from promogest import Environment
 import promogest.ui.widgets
 

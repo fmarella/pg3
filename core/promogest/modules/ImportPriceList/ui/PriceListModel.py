@@ -13,7 +13,7 @@ import promogest.ui.Main
 from promogest.ui.Main import *
 from promogest.lib.utils import *
 import promogest.ui.Login
-from fieldsDict import *
+from .fieldsDict import *
 
 
 class PriceListModel:

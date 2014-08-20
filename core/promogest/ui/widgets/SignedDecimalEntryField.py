@@ -22,7 +22,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from UnsignedDecimalEntryField import UnsignedDecimalEntryField
+from promogest.ui.widgets.UnsignedDecimalEntryField import UnsignedDecimalEntryField
 
 class SignedDecimalEntryField(UnsignedDecimalEntryField):
 # Effettua la validazione per decimali con segno

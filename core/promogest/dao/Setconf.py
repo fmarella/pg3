@@ -23,7 +23,7 @@
 import hashlib
 from sqlalchemy import *
 from sqlalchemy.orm import *
-from Dao import Dao
+from .Dao import Dao
 from promogest.Environment import *
 from promogest.lib.utils import orda
 
@@ -333,7 +333,7 @@ if not ("rotazione_primanota", "PrimaNota") in allkey:
 if not ("install_code", "Master") in allkey:
     kmm = SetConf()
     kmm.key = "install_code"
-    kmm.value = str(hashlib.sha224("aziendapromo" + orda("aziendapromo")).hexdigest())
+    kmm.value = str(hashlib.sha224(str("aziendapromo" + orda("aziendapromo")).encode('utf-8')).hexdigest())
     kmm.section = "Master"
     kmm.description = "codice identificativo della propria installazione"
     kmm.tipo_section = "General"

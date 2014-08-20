@@ -37,7 +37,7 @@ from promogest.dao.Magazzino import Magazzino
 from promogest.dao.Fornitura import Fornitura
 from promogest.dao.Riga import Riga
 from promogest.dao.CodiceABarreArticolo import CodiceABarreArticolo
-from DaoUtils import giacenzaDettaglio, giacenzaArticolo
+from .DaoUtils import giacenzaDettaglio, giacenzaArticolo
 from promogest.lib.utils import posso
 
 if posso("PW"):

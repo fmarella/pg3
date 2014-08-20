@@ -26,7 +26,7 @@ from  subprocess import *
 from gi.repository import Gtk, GdkPixbuf
 from promogest import Environment
 from promogest.lib.utils import on_status_activate, checkInstallation, setconf
-from utilsCombobox import findComboboxRowFromStr
+from .utilsCombobox import findComboboxRowFromStr
 from sqlalchemy import *
 from sqlalchemy.orm import *
 

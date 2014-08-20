@@ -30,7 +30,7 @@ from promogest.ui.RicercaComplessa import analyze_treeview_key_press_event
 from promogest.ui.RicercaComplessa import parseModel, onColumnEdited, columnSelectAll
 from promogest.ui.RicercaComplessa import optimizeString, insertTreeViewRow, deleteTreeViewRow, clearWhereString
 from promogest.ui.GladeWidget import GladeWidget
-import Login
+from . import Login
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import *
 from promogest import Environment

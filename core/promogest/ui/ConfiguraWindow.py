@@ -31,7 +31,7 @@ from promogest.ui.anagClienti.AnagraficaClientiSetup import AnagraficaClientiSet
 from promogest.ui.anagFornitori.AnagraficaFornitoriSetup import AnagraficaFornitoriSetup
 from promogest.modules.PrimaNota.ui.AnagraficaPrimaNotaSetup import AnagraficaPrimaNotaSetup
 from promogest.modules.Label.ui.AnagraficaLabelSetup import AnagraficaLabelSetup
-from ParametriFrame import ParametriFrame
+from .ParametriFrame import ParametriFrame
 from promogest.dao.Setconf import SetConf
 from promogest.lib.utils import setconf, messageInfo, posso, findIdFromCombobox
 from promogest.ui.utilsCombobox import findComboboxRowFromId

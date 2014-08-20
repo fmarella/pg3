@@ -22,7 +22,7 @@
 from sqlalchemy import Table
 from sqlalchemy.orm import mapper
 from promogest.Environment import params
-from Dao import Dao
+from .Dao import Dao
 
 class ScontoRigaNoleggio(Dao):
 

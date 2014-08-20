@@ -8,7 +8,7 @@
 from sqlalchemy import *
 from sqlalchemy.orm import *
 from core.Environment import *
-from Dao import Dao
+from .Dao import Dao
 
 moduleTable  = Table('modulo', params["metadata"],
         Column('id',Integer,primary_key=True),

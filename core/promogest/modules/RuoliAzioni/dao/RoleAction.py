@@ -34,8 +34,8 @@ except:
     from data.roleAction import t_roleaction
 
 from promogest.dao.Dao import Dao
-from Role import Role
-from Action import Action
+from .Role import Role
+from .Action import Action
 
 
 

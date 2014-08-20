@@ -19,15 +19,12 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-#from sqlalchemy import *
-#from sqlalchemy.orm import *
-from promogest.Environment import *
+from sqlalchemy import Column, Integer
+#from promogest.Environment import
 from promogest.dao.DaoUtils import get_columns
-from sqlalchemy import *
-from sqlalchemy.orm import *
-from promogest.lib.alembic.migration import MigrationContext
-from promogest.lib.alembic.operations import Operations
-from promogest.lib.alembic import op
+from alembic.migration import MigrationContext
+from alembic.operations import Operations
+from alembic import op
 
 def orderedImport():
     from promogest.dao.Azienda import t_azienda #v
@@ -58,7 +55,7 @@ def orderedImport():
     from promogest.dao.Access import t_access #v
     from promogest.dao.Setting import t_setting #v
     from promogest.dao.Promemoria import t_promemoria #v
-    from promogest.dao.Setconf import * #verificare
+    #from promogest.dao.Setconf import * #verificare
     from promogest.dao.Pagamento import t_pagamento #v
     from promogest.dao.Operazione import t_operazione #v
     from promogest.dao.TipoAliquotaIva import t_tipo_aliquota_iva #v
@@ -175,8 +172,6 @@ def orderedImportVenditaDettaglio():
     #from data.contattoAnagraficaSecondaria import t_contatto_anagraficasecondaria
 def orderedImportWeb():
     from promogest.dao.DaoUtils import get_columns
-    from sqlalchemy import *
-    from sqlalchemy.orm import *
 #try:
     """ RICORDARSI CHE È POSSIBILE CHE CART NON ABBIA ID_CLIENTE E
     STATIC PAGES NON ABBIA PERMALINK, VANNO DROPPATE E RICREATE

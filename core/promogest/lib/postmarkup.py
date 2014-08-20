@@ -9,7 +9,7 @@ __version__ = "1.1.4"
 
 import re
 from urllib.parse import quote, unquote, quote_plus, urlencode
-from urlparse import urlparse, urlunparse
+from urllib.parse import urlparse, urlunparse
 import collections
 
 pygments_available = True

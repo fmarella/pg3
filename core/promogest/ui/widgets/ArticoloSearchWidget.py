@@ -24,7 +24,7 @@
 from gi.repository import GObject
 from promogest import Environment
 
-from CustomComboBoxSearch import CustomComboBoxSearch
+from promogest.ui.widgets.CustomComboBoxSearch import CustomComboBoxSearch
 from promogest.lib.utils import leggiArticolo
 from promogest.ui.utilsCombobox import fillComboboxListini,findIdFromCombobox,findComboboxRowFromId
 #from promogest.ui.RicercaComplessaArticoli import RicercaComplessaArticoli

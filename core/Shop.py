@@ -22,7 +22,7 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from pg import BigBang
+from .pg import BigBang
 
 if __name__ == '__main__':
     BigBang(shop=True)

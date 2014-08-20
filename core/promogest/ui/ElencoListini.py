@@ -103,7 +103,7 @@ class ElencoListini(GladeWidget):
         denominazione = None
         #if self._currentDao:
             #denominazione = self._currentDao.denominazione
-        from AnagraficaListini import AnagraficaListini
+        from .AnagraficaListini import AnagraficaListini
         anag = AnagraficaListini(denominazione, self.aziendaStr)
         anagWindow = anag.getTopLevel()
         returnWindow = self.getTopLevel().get_toplevel()
@@ -119,7 +119,7 @@ class ElencoListini(GladeWidget):
         idListino = None
         if self._currentDao:
             idListino = self._currentDao.id
-            from AnagraficaListiniArticoli import AnagraficaListiniArticoli
+            from .AnagraficaListiniArticoli import AnagraficaListiniArticoli
             anag = AnagraficaListiniArticoli(None, idListino, self.aziendaStr)
             anagWindow = anag.getTopLevel()
             returnWindow = self.getTopLevel().get_toplevel()

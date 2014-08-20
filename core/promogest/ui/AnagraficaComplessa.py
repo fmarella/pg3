@@ -67,7 +67,6 @@ def get_selected_daos(treeview):
         else:
             return []
 
-
 class Anagrafica(GladeWidget):
     """ Classe base per le anagrafiche di Promogest """
 
@@ -285,8 +284,7 @@ class Anagrafica(GladeWidget):
 
     def on_records_file_export_clicked(self, widget):
         dao = self.editElement.setDao(None)
-        from ExportCsv import ExportCsv
-
+        from .ExportCsv import ExportCsv
         ExportCsv(self, dao=dao)
         dao = None
         return

@@ -33,7 +33,7 @@ from promogest.ui.VistaPrincipale import VistaPrincipale
 from promogest.ui.SendEmail import SendEmail
 from promogest.lib.utils import hasAction, fenceDialog
 from promogest.ui.utilsCombobox import *
-import Login
+from . import Login
 
 
 class AnagrafichePrincipaliFrame(GladeWidget):

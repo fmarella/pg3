@@ -23,7 +23,7 @@
 
 
 
-import ConfigParser
+import configparser
 import time
 from datetime import datetime
 import sqlalchemy
@@ -69,7 +69,7 @@ class GenericFillData(object):
                             help="file dei dati in formato csv",
                             type="string",
                             dest="fileDB")
-        config = ConfigParser.RawConfigParser()
+        config = configparser.RawConfigParser()
         config.read('zucchetti.cfg')
         self.azienda =  config.get("PRO","azienda")
         self.db_name = config.get("PRO","db_name")

@@ -46,8 +46,8 @@ if "id_to_magazzino" not in [c.name for c in t_testata_movimento.columns]:
     except:
         delete_pickle()
 
-from Dao import Dao
-from DaoUtils import *
+from .Dao import Dao
+from .DaoUtils import *
 from promogest.dao.Articolo import Articolo
 from promogest.dao.Multiplo import Multiplo
 from promogest.dao.RigaMovimento import RigaMovimento, t_riga_movimento
@@ -56,11 +56,11 @@ from promogest.dao.Riga import Riga
 from promogest.dao.RigaMovimentoFornitura import RigaMovimentoFornitura
 #from promogest.dao.RigaMovFornituraRigaMovVendita import RMovFornituraRMovVendita
 from promogest.dao.NumeroLottoTemp import NumeroLottoTemp
-from Fornitore import Fornitore
-from Cliente import Cliente, t_cliente
-from Fornitura import Fornitura
-from Operazione import Operazione
-from ScontoFornitura import ScontoFornitura
+from .Fornitore import Fornitore
+from .Cliente import Cliente, t_cliente
+from .Fornitura import Fornitura
+from .Operazione import Operazione
+from .ScontoFornitura import ScontoFornitura
 from promogest.dao.Magazzino import Magazzino
 from promogest.lib.utils import *
 if hasattr(conf, "SuMisura") and getattr(conf.SuMisura,'mod_enable') == "yes":

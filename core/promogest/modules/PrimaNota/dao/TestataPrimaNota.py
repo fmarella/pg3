@@ -151,7 +151,7 @@ class TestataPrimaNota(Dao):
     totali = property(__TotalePrimaNota)
 
     def delete(self):
-        from RigaPrimaNotaTestataDocumentoScadenza import RigaPrimaNotaTestataDocumentoScadenza
+        from .RigaPrimaNotaTestataDocumentoScadenza import RigaPrimaNotaTestataDocumentoScadenza
         row = RigaPrimaNota().select(idTestataPrimaNota= self.id,
                                     offset = None,
                                     batchSize = None)

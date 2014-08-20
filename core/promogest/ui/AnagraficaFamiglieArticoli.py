@@ -29,7 +29,7 @@ from promogest.ui.AnagraficaComplessaHtml import AnagraficaHtml
 from promogest.dao.FamigliaArticolo import FamigliaArticolo
 from promogest.dao.Articolo import Articolo
 from promogest.lib.utils import *
-from utilsCombobox import *
+from .utilsCombobox import *
 
 
 class AnagraficaFamiglieArticoli(Anagrafica):

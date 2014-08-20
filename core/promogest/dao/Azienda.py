@@ -22,7 +22,7 @@
 from sqlalchemy import Table
 from sqlalchemy.orm import mapper, deferred
 from promogest.Environment import params
-from Dao import Dao
+from promogest.dao.Dao import Dao
 
 try:
     t_azienda = Table('azienda', params['metadata'], autoload=True,

@@ -21,12 +21,11 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 
-
+import hashlib
 import sys
-import md5
 import datetime
-from sqlalchemy import *
-from promogest.Environment import *
+from sqlalchemy import Table, Column, Integer, String, ColumnDefault, DateTime, Boolean, ForeignKey, select
+from promogest.Environment import params, fk_prefix_main
 
 t_utente = Table('utente', params["metadata"],
         Column('id', Integer, primary_key=True),
@@ -53,5 +52,5 @@ if ('admin',) not in s or s==[]:
     user = t_utente.insert()
     username ='admin'
     password = 'admin'
-    passwd =md5.new(username+password).hexdigest()
+    passwd =hashlib.md5(username.encode('utf-8') + password.encode('utf-8')).hexdigest()
     user.execute(username='admin', password=passwd, email='tes@tes.it', id_role = 1,tipo_user="GTK", active=True)

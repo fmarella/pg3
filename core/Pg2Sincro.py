@@ -1,9 +1,9 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
-from promogest.modules.SincroDB.ui.SincroDB import SincroDB
+from .promogest.modules.SincroDB.ui.SincroDB import SincroDB
 from optparse import OptionParser
-from promogest.lib.config import Config
+from .promogest.lib.config import Config
 
 
 class Pg2Sincro(object):

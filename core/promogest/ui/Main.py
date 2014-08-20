@@ -38,8 +38,8 @@ from promogest.lib.utils import hasAction, fencemsg, setconf,  \
          orda, posso, messageInfo, YesNoDialog, messageError,\
          obligatoryField, leggiRevisioni
 from promogest.ui.utilsCombobox import *
-from ParametriFrame import ParametriFrame
-from AnagraficaPrincipaleFrame import AnagrafichePrincipaliFrame
+from .ParametriFrame import ParametriFrame
+from .AnagraficaPrincipaleFrame import AnagrafichePrincipaliFrame
 Environment.params["schema"] = Environment.params['schema']  if Environment.tipo_eng=="postgresql" else None
 #ATTENZIONE: tenere perchè servono a caricare i dao nel giusto ordine
 from promogest.dao.VariazioneListino import VariazioneListino
@@ -605,7 +605,7 @@ class Main(GladeWidget):
         if not hasAction(actionID=6):
             toggleButton.set_active(False)
             return
-        from AnagraficaCategorieArticoli import AnagraficaCategorieArticoli
+        from .AnagraficaCategorieArticoli import AnagraficaCategorieArticoli
         anag = AnagraficaCategorieArticoli()
         showAnagrafica(self.getTopLevel(), anag, toggleButton, mainClass=self)
 
@@ -615,7 +615,7 @@ class Main(GladeWidget):
         if not hasAction(actionID=6):
             toggleButton.set_active(False)
             return
-        from AnagraficaFamiglieArticoli import AnagraficaFamiglieArticoli
+        from .AnagraficaFamiglieArticoli import AnagraficaFamiglieArticoli
         anag = AnagraficaFamiglieArticoli()
         showAnagrafica(self.getTopLevel(), anag, toggleButton, mainClass=self)
 
@@ -625,7 +625,7 @@ class Main(GladeWidget):
         if not hasAction(actionID=6):
             toggleButton.set_active(False)
             return
-        from AnagraficaCategorieClienti import AnagraficaCategorieClienti
+        from .AnagraficaCategorieClienti import AnagraficaCategorieClienti
         anag = AnagraficaCategorieClienti()
         showAnagrafica(self.getTopLevel(), anag, toggleButton, mainClass=self)
 
@@ -635,7 +635,7 @@ class Main(GladeWidget):
         if not hasAction(actionID=6):
             toggleButton.set_active(False)
             return
-        from AnagraficaCategorieFornitori import AnagraficaCategorieFornitori
+        from .AnagraficaCategorieFornitori import AnagraficaCategorieFornitori
         anag = AnagraficaCategorieFornitori()
         showAnagrafica(self.getTopLevel(), anag, toggleButton, mainClass=self)
 
@@ -687,7 +687,7 @@ class Main(GladeWidget):
         if not hasAction(actionID=6):
             toggleButton.set_active(False)
             return
-        from AnagraficaMultipli import AnagraficaMultipli
+        from .AnagraficaMultipli import AnagraficaMultipli
         anag = AnagraficaMultipli()
         showAnagrafica(self.getTopLevel(), anag, toggleButton, mainClass=self)
 
@@ -697,7 +697,7 @@ class Main(GladeWidget):
         if not hasAction(actionID=6):
             toggleButton.set_active(False)
             return
-        from AnagraficaPagamenti import AnagraficaPagamenti
+        from .AnagraficaPagamenti import AnagraficaPagamenti
         anag = AnagraficaPagamenti()
         showAnagrafica(self.getTopLevel(), anag, toggleButton, mainClass=self)
 
@@ -707,7 +707,7 @@ class Main(GladeWidget):
         if not hasAction(actionID=6):
             toggleButton.set_active(False)
             return
-        from AnagraficaBanche import AnagraficaBanche
+        from .AnagraficaBanche import AnagraficaBanche
         anag = AnagraficaBanche()
         showAnagrafica(self.getTopLevel(), anag, toggleButton, mainClass=self)
 
@@ -727,7 +727,7 @@ class Main(GladeWidget):
         if not hasAction(actionID=6):
             toggleButton.set_active(False)
             return
-        from AnagraficaAliquoteIva import AnagraficaAliquoteIva
+        from .AnagraficaAliquoteIva import AnagraficaAliquoteIva
         anag = AnagraficaAliquoteIva()
         showAnagrafica(self.getTopLevel(), anag, toggleButton, mainClass=self)
 
@@ -737,7 +737,7 @@ class Main(GladeWidget):
         if not hasAction(actionID=6):
             toggleButton.set_active(False)
             return
-        from AnagraficaImballaggi import AnagraficaImballaggi
+        from .AnagraficaImballaggi import AnagraficaImballaggi
         anag = AnagraficaImballaggi()
         showAnagrafica(self.getTopLevel(), anag, toggleButton, mainClass=self)
 
@@ -817,7 +817,7 @@ class Main(GladeWidget):
         showAnagrafica(self.getTopLevel(), configuraWindow)
 
     def on_dati_azienda_activate(self, widget):
-        from AnagraficaAziende import AnagraficaAziende
+        from .AnagraficaAziende import AnagraficaAziende
         anag =AnagraficaAziende(self)
         showAnagrafica(self.getTopLevel(), anag)
 

@@ -24,7 +24,7 @@ import math
 
 from promogest.ui.GladeWidget import GladeWidget
 from promogest.ui.widgets.FilterWidget import FilterWidget
-import Login
+from . import Login
 from promogest.lib.utils import *
 
 class RicercaComplessa(GladeWidget):

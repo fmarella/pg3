@@ -9,7 +9,7 @@ from sqlalchemy import *
 from sqlalchemy.orm import *
 from core.Environment import *
 from core.dao.Modulo import Modulo
-from Dao import Dao
+from .Dao import Dao
 
 moduloTable = Table('modulo', params["metadata"], autoload=True, schema=params["schema"])
 

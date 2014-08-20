@@ -140,4 +140,3 @@ class MultiLineEditor(GladeWidget):
         Environment.mltext = textBuffer.get_text(textBuffer.get_start_iter(),
                                             textBuffer.get_end_iter(),True)
         self.window.destroy()
-

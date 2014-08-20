@@ -38,7 +38,7 @@ from promogest.ui.Main import *
 from promogest.lib.utils import *
 import promogest.ui.Login
 #from ImportPriceListPreview import ImportPreview
-from fieldsDict import *
+from .fieldsDict import *
 if posso("PW"):
     from promogest.modules.PromoWear.dao.AnnoAbbigliamento import AnnoAbbigliamento
     from promogest.modules.PromoWear.dao.Modello import Modello

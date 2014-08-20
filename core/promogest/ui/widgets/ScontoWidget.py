@@ -23,7 +23,7 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from gi.repository import Gtk
-from SignedDecimalEntryField import SignedDecimalEntryField
+from promogest.ui.widgets.SignedDecimalEntryField import SignedDecimalEntryField
 
 
 class ScontoWidget(Gtk.Box):

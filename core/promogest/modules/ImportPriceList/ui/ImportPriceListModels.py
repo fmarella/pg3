@@ -38,8 +38,8 @@ from promogest.ui.AnagraficaFamiglieArticoli import AnagraficaFamiglieArticoli
 from promogest.lib.utils import *
 from promogest.ui.utilsCombobox import fillModelCombobox
 
-from fieldsDict import *
-from PriceListModel import PriceListModel
+from .fieldsDict import *
+from .PriceListModel import PriceListModel
 
 
 class ImportPriceListModels(GladeWidget):

@@ -34,7 +34,7 @@ except:
     from data.cliente import t_cliente
 
 from promogest.dao.Dao import Dao
-from ClienteCategoriaCliente import ClienteCategoriaCliente
+from .ClienteCategoriaCliente import ClienteCategoriaCliente
 from promogest.dao.PersonaGiuridica import t_persona_giuridica
 from promogest.dao.User import User
 from promogest.dao.DestinazioneMerce import DestinazioneMerce

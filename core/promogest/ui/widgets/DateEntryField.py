@@ -25,7 +25,7 @@
 import time, datetime
 import string
 from gi.repository import Gtk, Gdk, GObject
-from CustomEntryField import CustomEntryField
+from promogest.ui.widgets.CustomEntryField import CustomEntryField
 
 
 class DateEntryField(CustomEntryField):

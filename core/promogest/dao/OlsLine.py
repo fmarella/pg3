@@ -23,8 +23,8 @@
 from sqlalchemy import *
 from sqlalchemy.orm import *
 from core.Environment import *
-from Dao import Dao
-from User import User
+from .Dao import Dao
+from .User import User
 
 userTable = Table('utente', params['metadata'], autoload=True, schema=params['mainSchema'])
 

@@ -31,8 +31,8 @@ import promogest.ui.Main
 from promogest.ui.Main import *
 from promogest.lib.utils import *
 import promogest.ui.Login
-from ProductFromCSV import ProductFromCsv
-from fieldsDict import *
+from .ProductFromCSV import ProductFromCsv
+from .fieldsDict import *
 
 
 class ImportPreview(GladeWidget):

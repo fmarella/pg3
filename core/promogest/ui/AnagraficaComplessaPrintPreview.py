@@ -80,7 +80,7 @@ class AnagraficaPrintPreview(GladeWidget):
         #self.refresh()
 
     def on_pdf_button_clicked(self, button):
-        from PrintDialog import PrintDialogHandler
+        from .PrintDialog import PrintDialogHandler
         from xhtml2pdf import pisa
         f = self.html_code.replace("€","&#8364;")
         g = file(Environment.tempDir + ".temp.pdf", "wb")
@@ -99,7 +99,7 @@ class AnagraficaPrintPreview(GladeWidget):
 
     def on_generic_combobox_changed(self, combobox):
         if self.codBar_combo.get_active() == 0:
-            from PrintDialog import PrintDialogHandler
+            from .PrintDialog import PrintDialogHandler
             from  xhtml2pdf import pisa
             f = self.html_code
             g = file(Environment.tempDir + ".temp.pdf", "wb")

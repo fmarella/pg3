@@ -43,7 +43,7 @@ from promogest.modules.GestioneCommesse.dao.StadioCommessa import StadioCommessa
 
 
 
-from RigaCommessa import RigaCommessa
+from .RigaCommessa import RigaCommessa
 
 class TestataCommessa(Dao):
 

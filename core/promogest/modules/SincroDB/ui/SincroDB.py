@@ -31,7 +31,7 @@ from sqlalchemy.orm import *
 from sqlalchemy.ext.sqlsoup import SqlSoup
 from promogest.ui.GladeWidget import GladeWidget
 from promogest import Environment
-from tabelle_to_sincro import tablesMain, tablesSchemeArticolo,\
+from .tabelle_to_sincro import tablesMain, tablesSchemeArticolo,\
                                 tablesSchemeAnagrafiche,\
                                 tablesSchemePromemoria,\
                                 tablesSchemeDocumenti,\

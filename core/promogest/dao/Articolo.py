@@ -591,7 +591,7 @@ class Articolo(Dao):
         # si esegue la cancellazione logica
         from promogest.dao.ListinoArticolo import ListinoArticolo
         from promogest.dao.Inventario import Inventario
-        from Riga import Riga
+        from .Riga import Riga
         res = Riga().select(id_articolo=self.id)
         inv = Inventario().select(idArticolo=self.id)
         sc = None
