@@ -21,7 +21,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-from promogest.lib.PyPDF2 import *
+from PyPDF2 import *
 import os
 import glob
 import tempfile
