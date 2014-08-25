@@ -20,7 +20,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
-import os, popen2
+import os
 from datetime import datetime
 from promogest import Environment
 from promogest.ui.GladeWidget import GladeWidget

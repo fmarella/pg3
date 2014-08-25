@@ -56,7 +56,10 @@ from promogest.modules.GestioneCommesse.dao.RigaCommessa import RigaCommessa
 from promogest.ui.ConfiguraWindow import ConfiguraWindow
 from promogest.ui.PanUi import PanUi, checkPan
 #from promogest.ui.AzioniVelociNotebookPage import AzioniVelociNotebookPage
-from promogest.ui.NewsNotebookPage import NewsNotebookPage
+try:
+    from promogest.ui.NewsNotebookPage import NewsNotebookPage
+except ImportError:
+    NewsNotebookPage = None
 try:
     from promogest.ui.CalendarNotebookPage import CalendarNotebookPage
 except:
@@ -272,7 +275,7 @@ class Main(GladeWidget):
             n = len(lt)
             g = 0
             for l in lt:
-                print(("RESIDUI DA ELABORARE", n-lt.index(l)))
+                print("RESIDUI DA ELABORARE", n-lt.index(l))
                 rmf =  RigaMovimentoFornitura().select(idRigaMovimentoVendita=l.id_riga_movimento_vendita_temp)
                 if not rmf:
                     #cerchiamo una fornitura precisa
@@ -1108,7 +1111,7 @@ Procedo all'installazione del modulo PromoWear? """)
             Environment.conf.save()
         tables = [t.name for t in Environment.params["metadata"].sorted_tables]
         if "colore" not in tables and "taglia" not in tables:
-            from promogest.modules.PromoWear.data.PromoWearDB import *
+            import promogest.modules.PromoWear.data.PromoWearDB
             messageInfo(msg=_(" MODULO ATTIVATO, RIAVVIARE IL PROGRAMMA! "))
             Environment.delete_pickle()
         else:
@@ -1202,11 +1205,12 @@ Procedo all'installazione del modulo PromoWear? """)
         pass
 
     def addNoteBookPage(self):
-        self.nn = NewsNotebookPage(self, self.aziendaStr).draw()
-        n = Gtk.Label()
-        n.set_markup(_("<b>NEWS/A.VEL</b>"))
-        ind = self.main_notebook.append_page(self.nn.notizie_frame, n)
-        self.main_notebook.set_current_page(ind)
+        if NewsNotebookPage:
+            self.nn = NewsNotebookPage(self, self.aziendaStr).draw()
+            n = Gtk.Label()
+            n.set_markup(_("<b>NEWS/A.VEL</b>"))
+            ind = self.main_notebook.append_page(self.nn.notizie_frame, n)
+            self.main_notebook.set_current_page(ind)
 
         self.pp = checkPan(self)
 

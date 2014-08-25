@@ -55,7 +55,7 @@ def orderedImport():
     from promogest.dao.Access import t_access #v
     from promogest.dao.Setting import t_setting #v
     from promogest.dao.Promemoria import t_promemoria #v
-    #from promogest.dao.Setconf import * #verificare
+    from promogest.dao.Setconf import t_setconf #verificare
     from promogest.dao.Pagamento import t_pagamento #v
     from promogest.dao.Operazione import t_operazione #v
     from promogest.dao.TipoAliquotaIva import t_tipo_aliquota_iva #v

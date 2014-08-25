@@ -22,7 +22,7 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from gi.repository import Gtk, Gdk
-from promogest.ui.widgets.CustomComboBoxSearch import CustomComboBoxSearch
+from .CustomComboBoxSearch import CustomComboBoxSearch
 from promogest.lib.utils import leggiFornitore, findIdFromCombobox
 
 

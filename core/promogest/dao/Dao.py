@@ -209,7 +209,7 @@ class Dao(object):
                 messageError(msg=msg)
                 pg2log.info("ERRORE IN DAO COMMIT  "+str(e))
             except:
-                print(("ERRORE in dao commit", str(e)))
+                print(( "ERRORE in dao commit", str(e)))
             params["session"].rollback()
             return 0
 
@@ -226,7 +226,7 @@ class Dao(object):
             message = "DELETE;"+ self.__class__.__name__
         else:
             message = "UNKNOWN ACTION;"
-        print(("AZIONE SUL RECORD:", message))
+        print(( "AZIONE SUL RECORD:", message))
         return self.commit()
 
     def _resetId(self):
@@ -357,7 +357,7 @@ class Dao(object):
                     filter_parameters.append((value, key, "s"))
         if filter_parameters != []:
             if debugFilter:
-                print(("FILTER PARAM:",self._DaoModule.__name__, filter_parameters))
+                print(( "FILTER PARAM:",self._DaoModule.__name__, filter_parameters))
             __filter__ = self.getFilter(filter_parameters)
             return __filter__
 

@@ -43,7 +43,7 @@ try:
 except ImportError:
     feedparser = None
 from promogest.lib import HtmlHandler
-
+import importlib
 
 class Login(SimpleGladeApp):
 
@@ -326,17 +326,24 @@ class Login(SimpleGladeApp):
                     mod_enable = True
                     mod_enableyes = "yes"
                 elif hasattr(Environment.conf, m_str):
-                    exec("mod_enable = getattr(Environment.conf.%s,'mod_enable')" % m_str)
-                    exec("mod_enableyes = getattr(Environment.conf.%s,'mod_enable','yes')" % m_str)
+                    try:
+                        #exec(open("./filename").read())
+                        exec("mod_enable = getattr(Environment.conf.{0},'mod_enable')".format(m_str))
+                        try:
+                            exec("mod_enableyes = getattr(Environment.conf.{0},'mod_enable','yes')".format(m_str))
+                        except:
+                            pass
+                    except:
+                        pass
                 if mod_enable and mod_enableyes == "yes":
                     stringa = "%s.%s.module" % (
                                         modules_dir.replace("/", "."), m_str)
-                    m = __import__(stringa, globals(), locals(), ["m"], 0)
+                    m = importlib.__import__(stringa, globals(), locals(), ["m"],0)
                     Environment.modulesList.append(str(m.MODULES_NAME))
                     if hasattr(m, "TEMPLATES"):
                         HtmlHandler.templates_dir.append(m.TEMPLATES)
                     for class_name in m.MODULES_FOR_EXPORT:
-                        exec ('module = m.' + class_name)
+                        module = eval( "m" + '.' + class_name)
                         self.modules[class_name] = {
                                         'module': module(),
                                         'type': module.VIEW_TYPE[0],
@@ -351,7 +358,8 @@ class Login(SimpleGladeApp):
                 if hasattr(m, "TEMPLATES"):
                     HtmlHandler.templates_dir.append(m.TEMPLATES)
                 for class_name in m.MODULES_FOR_EXPORT:
-                    exec ('module = m.' + class_name)
+                    #exec( 'module = m.' + class_name)
+                    module = eval( "m" + '.' + class_name)
                     self.modules[class_name] = {
                                     'module': module(),
                                     'type': module.VIEW_TYPE[0],

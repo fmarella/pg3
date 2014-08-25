@@ -21,11 +21,10 @@
 #    along with Promogest.  If not, see <http://www.gnu.org/licenses/>.
 
 from sqlalchemy import Table
-from sqlalchemy.orm import mapper
-#from promogest.lib.migrate import *
-from promogest.lib.alembic.migration import MigrationContext
-from promogest.lib.alembic.operations import Operations
-from promogest.lib.alembic import op
+from sqlalchemy.orm import mapper, relation
+from alembic.migration import MigrationContext
+from alembic.operations import Operations
+from alembic import op
 from promogest.Environment import *
 from promogest.dao.Dao import Dao
 from promogest.dao.DaoUtils import get_columns

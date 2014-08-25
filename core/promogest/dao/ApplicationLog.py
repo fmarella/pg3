@@ -55,7 +55,7 @@ Qui sotto viene riportato l'errore di sistema:
 ( normalmente il campo in errore è tra "virgolette")
 """ %e
             messageError(msg=msg, transient=None)
-            print(("ERRORE", e))
+            print("ERRORE", e)
             params["session"].rollback()
             return False
 
@@ -102,17 +102,17 @@ Qui sotto viene riportato l'errore di sistema:
             app.schema = where
             app.message = message
             app.level = how
-            print((dumps(whatstr)))
+            print(dumps(whatstr))
             app.strvalue = dumps(whatstr)
             app.registrazion_date = when
             app.utentedb = utentedb
             app.id_utente = whoID
             app.pkid = dumps(whatstr)
-            print((dumps(self.dao)))
+            print(dumps(self.dao))
             app.object = dumps(self.dao)
             params["session"].add(app)
             self.commit()
-            print(("[LOG] %s id: %s da %s in %s in data %s" %(message, whatstr,utente, where ,when.strftime("%d/%m/%Y"))))
+            print("[LOG] %s id: %s da %s in %s in data %s" %(message, whatstr,utente, where ,when.strftime("%d/%m/%Y")))
 
 
 appLogTable = Table('application_log', params['metadata'], autoload=True, schema=params['mainSchema'])
