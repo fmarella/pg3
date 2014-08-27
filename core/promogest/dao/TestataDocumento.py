@@ -1275,6 +1275,8 @@ class TestataDocumento(Dao):
 
     def delete(self):
         """ Cancelliamo una testata documento con tutti i cascade"""
+        from promogest.dao.StoricoDocumento import rimuoviDaStorico
+        rimuoviDaStorico(self.id)
 
         ifd = InformazioniFatturazioneDocumento().select(id_fattura=self.id, batchSize=None)
         if ifd:
