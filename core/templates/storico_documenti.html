@@ -1,29 +1,22 @@
 {% extends 'index.html' %}
 {% block body %}
-        <table cellpadding="0" cellspacing="3" border="0">
-            <tr>
-                <th>{{ _("Id") }}</th>
-                <th>Padre / Figlio</th>
-            </tr>
-            <tr><td colspan="4"><hr /></td></tr>
+        <div class="storico">
+        <ul>
             {% if pageData['padre'] %}
-            <tr class="row">
-                <td class="detail">{{pageData['padre'].id}}</td>
-                <td class="detail">{{pageData['padre'].operazione}}</td>
-            </tr>
+                <li class="detail">{{pageData['padre'].operazione}} {{pageData['padre'].protocollo}} - {{pageData['padre'].data_documento|dateformat}} Rif.interni N. {{pageData['padre'].numero}}</li>
             {% endif %}
-            {% if pageData['dao'] %}
-            <tr class="row">
-                <td class="detail-red">{{ pageData['dao'].id }}</td>
-                <td class="detail-red">{{ pageData['dao'].operazione }}</td>
-            </tr>
-            {% endif %}
-            <tr><td colspan="4"><hr /></td></tr>
-            {% for figlio in pageData['figli'] %}
-            <tr class="row">
-                <td class="detail">{{figlio.id}}</td>
-                <td class="detail">{{figlio.operazione}}</td>
-            </tr>
-            {% endfor %}
-        </table>
+            <ul>
+                {% if pageData['dao'] %}
+                <li class="detail-red">{{pageData['dao'].operazione}} {{pageData['dao'].protocollo}} - {{pageData['dao'].data_documento|dateformat}} Rif.interni N. {{pageData['dao'].numero}}</li>
+                {% endif %}
+                <ul>
+                    {% for figlio in pageData['figli'] %}
+                        {% if figlio %}
+                        <li class="detail">{{figlio.operazione}} {{figlio.protocollo}} - {{figlio.data_documento|dateformat}} Rif.interni N. {{figlio.numero}}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </ul>
+        </ul>
+        </div>
 {% endblock %}
