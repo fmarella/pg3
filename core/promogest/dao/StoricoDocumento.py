@@ -77,7 +77,13 @@ std_mapper = mapper(StoricoDocumento, t_storico_documento)
     #                                          backref=backref('parent'), remote_side=[t_testata_documento.c.id])
     #                 })
 
-def addRelazione(padre_id, newDao_id):
+def add_relazione(padre_id, figlio_id):
+    '''
+    Aggiunge una relazione tra due documenti nello storico
+    :param padre_id: ID del documento padre
+    :param figlio_id: ID del documento figlio
+    :return: None
+    '''
     storico = None
     try:
         storico = session.query(StoricoDocumento).filter(and_(StoricoDocumento.padre==padre_id, StoricoDocumento.figlio==None)).one()
@@ -88,12 +94,12 @@ def addRelazione(padre_id, newDao_id):
         storico = StoricoDocumento()
         storico.padre = padre_id
         storico.data_creazione = datetime.date.today()
-    storico.figlio = newDao_id
+    storico.figlio = figlio_id
     storico.ultima_modifica = datetime.date.today()
     storico.persist()
     # relazione sul nuovo documento: padre -> nessuno figlio
     storico2 = StoricoDocumento()
-    storico2.padre = newDao_id
+    storico2.padre = figlio_id
     storico2.figlio = None
     storico2.data_creazione = datetime.date.today()
     storico2.ultima_modifica = datetime.date.today()
@@ -101,7 +107,7 @@ def addRelazione(padre_id, newDao_id):
 
 def get_padre(doc_id):
     '''
-    Ritorna un documento padre del documento fornito
+    Ritorna il documento padre del documento fornito
     :param doc_id: ID del documento di cui si vuole conoscere il padre
     :return: il padre del documento
     '''
@@ -114,6 +120,11 @@ def get_padre(doc_id):
 
 
 def get_figli(doc_id):
+    '''
+    Ritorna tutti i documenti figli del documento fornito
+    :param doc_id: ID del documento di cui si vogliono conoscere i figli
+    :return: i documenti figli
+    '''
     if doc_id:
         objs = session.query(StoricoDocumento).filter(StoricoDocumento.padre==doc_id).all()
         docs = []
@@ -121,14 +132,20 @@ def get_figli(doc_id):
             docs.append(TestataDocumento().getRecord(obj.figlio))
         return docs
 
-def rimuoviDaStorico(doc_id):
+def rimuovi_da_storico(doc_id):
+    '''
+    Rimuove il documento dallo storico
+    :param doc_id: ID del documento che si vuole rimuovere dallo storico
+    :return: None
+    '''
     if doc_id:
-        storico_doc = session.query(StoricoDocumento).filter(and_(StoricoDocumento.padre==doc_id, StoricoDocumento.figlio==None)).one()
-        if storico_doc:
-            session.delete(storico_doc)
-        else:
-            return
-        obj = session.query(StoricoDocumento).filter(StoricoDocumento.figlio==doc_id).one()
-        session.delete(obj)
-    else:
-        return
+        try:
+            obj = session.query(StoricoDocumento).filter(and_(StoricoDocumento.padre==doc_id, StoricoDocumento.figlio==None)).one()
+            session.delete(obj)
+        except NoResultFound:
+            pass
+        try:
+            obj = session.query(StoricoDocumento).filter(StoricoDocumento.figlio==doc_id).one()
+            session.delete(obj)
+        except NoResultFound:
+            pass

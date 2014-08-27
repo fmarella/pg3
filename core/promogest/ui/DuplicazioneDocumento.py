@@ -42,7 +42,7 @@ from promogest.lib.utils import *
 from promogest.ui.gtk_compat import *
 
 import datetime
-from promogest.dao.StoricoDocumento import addRelazione
+from promogest.dao.StoricoDocumento import add_relazione
 
 
 class DuplicazioneDocumento(GladeWidget):
@@ -315,7 +315,7 @@ class DuplicazioneDocumento(GladeWidget):
         newDao.persist()
 
         if associa_doc_padre_figlio:
-            addRelazione(self.dao.id, newDao.id)
+            add_relazione(self.dao.id, newDao.id)
 
         if posso("GN"):
             if self.dao.data_inizio_noleggio or self.dao.data_fine_noleggio:

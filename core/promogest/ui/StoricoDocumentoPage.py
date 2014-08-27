@@ -36,12 +36,10 @@ from promogest.lib.HtmlHandler import renderTemplate
 
 if Environment.pg3:
     from gi.repository.WebKit import WebView
-    from gi.repository.WebKit import WebSettings
 else:
     from webkit import WebView
-    from webkit import WebSettings
 
-from promogest.dao.StoricoDocumento import get_padre, get_figli
+from promogest.dao.StoricoDocumento import get_padre, get_figli, add_relazione
 
 class StoricoDocumentoPage(GladeWidget):
     """ Widget di configurazione del codice installazione e dei parametri
@@ -50,6 +48,7 @@ class StoricoDocumentoPage(GladeWidget):
         GladeWidget.__init__(self, root='storico_vbox',
                              path='storico_notebook.glade')
         self.ana = mainnn
+        self.dao_temp = None
         self.draw()
 
     def draw(self):
@@ -74,9 +73,37 @@ class StoricoDocumentoPage(GladeWidget):
             }
 
             html = renderTemplate(pageData=my_page_data)
-
             self.web_view.load_html_string(html, "file:///"+sys.path[0]+os.sep)
 
+    def on_aggiungi_figlio_button_clicked(self, widget):
+        def returnDao(anagWindow):
+            if anag.dao:
+                self.dao_temp = anag.dao
+                # agganciare il documento selezionato al documento padre
+                add_relazione(self.ana.dao.id, self.dao_temp.id)
+            else:
+                self.dao_temp = None
+
+        from promogest.ui.anagDocumenti.AnagraficaDocumentiFilter import RicercaDocumenti
+        anag = RicercaDocumenti()
+        anagWindow = anag.getTopLevel()
+        anagWindow.show_all()
+        anagWindow.connect("hide",returnDao)
+
+    def on_aggiungi_padre_button_clicked(self, widget):
+        def returnDao(anagWindow):
+            if anag.dao:
+                self.dao_temp = anag.dao
+                add_relazione(self.dao_temp.id, self.ana.dao.id)
+            else:
+                self.dao_temp = None
+
+        from promogest.ui.anagDocumenti.AnagraficaDocumentiFilter import RicercaDocumenti
+        anag = RicercaDocumenti()
+        anagWindow = anag.getTopLevel()
+        anagWindow.show_all()
+        anagWindow.connect("hide",returnDao)
 
     def clear(self):
-        pass
+        html = "<html><body></body></html>"
+        self.web_view.load_html_string(html, "file:///"+sys.path[0]+os.sep)

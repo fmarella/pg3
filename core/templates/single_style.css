@@ -13,7 +13,7 @@
 
     td.left {text-align: left;}
 
-    td.detail-red {
+    li.detail-red {
         color: red;
         font-size:11px;
         font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
