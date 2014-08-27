@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+{% block body %}
+        <table cellpadding="0" cellspacing="3" border="0">
+            <tr>
+                <th>{{ _("Id") }}</th>
+                <th>Padre / Figlio</th>
+            </tr>
+            <tr><td colspan="4"><hr /></td></tr>
+            {% if pageData['padre'] %}
+            <tr class="row">
+                <td class="detail">{{pageData['padre'].id}}</td>
+                <td class="detail">{{pageData['padre'].operazione}}</td>
+            </tr>
+            {% endif %}
+            {% if pageData['dao'] %}
+            <tr class="row">
+                <td class="detail-red">{{ pageData['dao'].id }}</td>
+                <td class="detail-red">{{ pageData['dao'].operazione }}</td>
+            </tr>
+            {% endif %}
+            <tr><td colspan="4"><hr /></td></tr>
+            {% for figlio in pageData['figli'] %}
+            <tr class="row">
+                <td class="detail">{{figlio.id}}</td>
+                <td class="detail">{{figlio.operazione}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+{% endblock %}
