@@ -33,7 +33,8 @@ def ricerca_movimenti_spedizione(da_data, al_data, progress=None):
     tipi_ddt_figlio = ['DDT vendita', 'DDT vendita diretta']
     # Tutti i documenti (ordini) non saldati dall'inizio dell'anno
     ordini = session.query(TestataDocumento).filter(TestataDocumento.data_documento >= da_data,
-                                                    TestataDocumento.operazione == 'Ordine da cliente').all()
+                                                    TestataDocumento.operazione == 'Ordine da cliente',
+                                                    TestataDocumento.documento_saldato == False).all()
     res = []
 
     for ordine in ordini:
