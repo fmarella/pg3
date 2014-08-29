@@ -71,7 +71,7 @@ class ReportMovimentiSpedizioniWindow(GladeWidget):
     def draw(self):
         da_data = datetime.datetime(int(workingYear), 1, 1)
         al_data = datetime.date.today()
-        ddt = ricerca_movimenti_spedizione(da_data, al_data)
+        ddt = ricerca_movimenti_spedizione(da_data, al_data, progress=self.html_viewer.progressbar)
 
         pageData = {
             'data_inizio_report': da_data,
