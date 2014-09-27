@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy toplevel-contextual -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkAdjustment" id="adjustment1">
     <property name="lower">2000</property>
     <property name="upper">2050</property>
@@ -29,7 +29,7 @@
   <object class="GtkDialog" id="login_window">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Accesso a PromoGest2 "MentoR" </property>
+    <property name="title" translatable="yes">Accesso a PromoGest "MentoR"</property>
     <property name="resizable">False</property>
     <property name="modal">True</property>
     <property name="window_position">center-always</property>
@@ -37,21 +37,19 @@
     <property name="type_hint">normal</property>
     <property name="urgency_hint">True</property>
     <property name="deletable">False</property>
-    <property name="has_separator">True</property>
     <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog-vbox2">
+      <object class="GtkBox" id="dialog-vbox2">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="spacing">3</property>
         <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="dialog-action_area2">
+          <object class="GtkButtonBox" id="dialog-action_area2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkLinkButton" id="help_button">
                 <property name="label">gtk-help</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -70,7 +68,6 @@
             <child>
               <object class="GtkButton" id="aggiorna_button">
                 <property name="label" translatable="yes">Aggiornato?</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -88,7 +85,6 @@
             <child>
               <object class="GtkButton" id="button_quit">
                 <property name="label">gtk-quit</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="receives_default">False</property>
@@ -106,7 +102,6 @@
             <child>
               <object class="GtkButton" id="button_login">
                 <property name="label">Connetti (F2)</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="can_default">True</property>
@@ -114,8 +109,8 @@
                 <property name="receives_default">False</property>
                 <property name="tooltip_text" translatable="yes">Connessione al promogest</property>
                 <property name="image">image2</property>
-                <accelerator key="F2" signal="clicked"/>
                 <signal name="clicked" handler="on_button_login_clicked" swapped="no"/>
+                <accelerator key="F2" signal="clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -134,7 +129,6 @@
         </child>
         <child>
           <object class="GtkButton" id="logo_button">
-            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -239,13 +233,11 @@
                                 <property name="tooltip_text" translatable="yes">Seleziona l'anno di lavoro </property>
                                 <property name="primary_icon_activatable">False</property>
                                 <property name="secondary_icon_activatable">False</property>
-                                <property name="primary_icon_sensitive">True</property>
-                                <property name="secondary_icon_sensitive">True</property>
                                 <property name="adjustment">adjustment1</property>
                                 <property name="climb_rate">1</property>
                                 <property name="numeric">True</property>
-                                <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
                                 <signal name="focus-in-event" handler="on_focus_in_event" swapped="no"/>
+                                <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
                               </object>
                             </child>
                           </object>
@@ -287,7 +279,7 @@
                         <property name="top_attach">3</property>
                         <property name="bottom_attach">4</property>
                         <property name="x_options">GTK_FILL</property>
-                        <property name="y_options"></property>
+                        <property name="y_options"/>
                       </packing>
                     </child>
                     <child>
@@ -301,7 +293,7 @@
                         <property name="top_attach">2</property>
                         <property name="bottom_attach">3</property>
                         <property name="x_options">GTK_FILL</property>
-                        <property name="y_options"></property>
+                        <property name="y_options"/>
                       </packing>
                     </child>
                     <child>
@@ -315,7 +307,7 @@
                         <property name="top_attach">1</property>
                         <property name="bottom_attach">2</property>
                         <property name="x_options">GTK_FILL</property>
-                        <property name="y_options"></property>
+                        <property name="y_options"/>
                       </packing>
                     </child>
                     <child>
@@ -327,7 +319,7 @@
                       </object>
                       <packing>
                         <property name="x_options">GTK_FILL</property>
-                        <property name="y_options"></property>
+                        <property name="y_options"/>
                       </packing>
                     </child>
                     <child>
@@ -338,8 +330,6 @@
                         <property name="invisible_char">●</property>
                         <property name="primary_icon_activatable">False</property>
                         <property name="secondary_icon_activatable">False</property>
-                        <property name="primary_icon_sensitive">True</property>
-                        <property name="secondary_icon_sensitive">True</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -378,8 +368,6 @@
                         <property name="invisible_char">●</property>
                         <property name="primary_icon_activatable">False</property>
                         <property name="secondary_icon_activatable">False</property>
-                        <property name="primary_icon_sensitive">True</property>
-                        <property name="secondary_icon_sensitive">True</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -415,9 +403,9 @@
     </child>
     <action-widgets>
       <action-widget response="0">help_button</action-widget>
-      <action-widget response="0">button_login</action-widget>
-      <action-widget response="0">button_quit</action-widget>
       <action-widget response="-11">aggiorna_button</action-widget>
+      <action-widget response="0">button_quit</action-widget>
+      <action-widget response="0">button_login</action-widget>
     </action-widgets>
   </object>
   <object class="GtkStatusIcon" id="pg_statusbar">

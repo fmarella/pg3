@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkWindow" id="import_preview_window">
     <property name="width_request">800</property>
     <property name="height_request">600</property>
     <property name="visible">True</property>
+    <property name="can_focus">False</property>
     <property name="border_width">10</property>
     <property name="title" translatable="yes">Anteprima importazione dati listino da csv</property>
     <property name="modal">True</property>
     <property name="destroy_with_parent">True</property>
     <property name="icon">promogest.png</property>
-    <signal name="destroy_event" handler="on_import_preview_window_close"/>
-    <signal name="delete_event" handler="on_import_preview_window_close"/>
+    <signal name="destroy-event" handler="on_import_preview_window_close" swapped="no"/>
+    <signal name="delete-event" handler="on_import_preview_window_close" swapped="no"/>
     <child>
       <object class="GtkVBox" id="vbox3">
         <property name="visible">True</property>
+        <property name="can_focus">False</property>
         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
         <child>
           <object class="GtkHBox" id="hbox4">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
             <child>
               <object class="GtkImage" id="image1">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="xpad">30</property>
                 <property name="ypad">10</property>
@@ -32,6 +36,7 @@
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="padding">10</property>
                 <property name="position">0</property>
               </packing>
@@ -39,6 +44,7 @@
             <child>
               <object class="GtkLabel" id="label4">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="label" translatable="yes">Questa finestra mostra una anteprima di come i dati nel file csv verranno interpretati in base al modello di listino selezionato.
 Verificarne la correttezza e, nel caso confermare l'importazione altrimenti premere Annulla e modificare il modello del listino</property>
@@ -46,12 +52,15 @@ Verificarne la correttezza e, nel caso confermare l'importazione altrimenti prem
                 <property name="wrap">True</property>
               </object>
               <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
                 <property name="position">1</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">0</property>
           </packing>
         </child>
@@ -76,20 +85,26 @@ Verificarne la correttezza e, nel caso confermare l'importazione altrimenti prem
             </child>
           </object>
           <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
         </child>
         <child>
           <object class="GtkHBox" id="hbox2">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
             <property name="border_width">6</property>
             <property name="spacing">10</property>
             <child>
               <object class="GtkProgressBar" id="pbar">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
               </object>
               <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
                 <property name="position">0</property>
               </packing>
             </child>
@@ -104,10 +119,11 @@ Verificarne la correttezza e, nel caso confermare l'importazione altrimenti prem
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_import_preview_confirm_clicked"/>
+                <signal name="clicked" handler="on_import_preview_confirm_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">2</property>
               </packing>
             </child>
@@ -119,16 +135,18 @@ Verificarne la correttezza e, nel caso confermare l'importazione altrimenti prem
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_import_preview_window_close"/>
+                <signal name="clicked" handler="on_import_preview_window_close" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">3</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
         </child>

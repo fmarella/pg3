@@ -146,7 +146,7 @@ class Login(SimpleGladeApp):
                 self.login_tipo_label.set_markup(_("<b>PromoGest 'PRO'</b>"))
                 self.urll = "http://www.promogest.me/promoGest/preventivo_pro"
         if Environment.pg3:
-            self.login_tipo_label.set_markup(_("<span weight='bold' size='larger'>PROMOGEST 3 BETA2</span>"))
+            self.login_tipo_label.set_markup(_("<span weight='bold' size='larger'>PROMOGEST 3.0</span>"))
         #settiamo l'immagine
         self.splash_image.set_from_file(fileSplashImage)
 

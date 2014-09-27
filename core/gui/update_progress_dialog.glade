@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
@@ -29,7 +29,6 @@
             <child>
               <object class="GtkButton" id="cancel_button">
                 <property name="label">gtk-close</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
@@ -49,7 +48,6 @@
             <child>
               <object class="GtkButton" id="update_button">
                 <property name="label">gtk-refresh</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>

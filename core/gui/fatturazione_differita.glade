@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <requires lib="gtk+" version="2.24"/>
   <!-- interface-requires pythonplugin 0.0 -->
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkWindow" id="fatturazione_differita_window">
@@ -112,7 +112,6 @@
                         <child>
                           <object class="GtkCheckButton" id="data_consegna_check">
                             <property name="label" translatable="yes">Inserisci data consegna dei singoli DDT</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
@@ -127,7 +126,6 @@
                         <child>
                           <object class="GtkCheckButton" id="note_check">
                             <property name="label" translatable="yes">Inserisci Note dei singoli DDT</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
@@ -142,7 +140,6 @@
                         <child>
                           <object class="GtkCheckButton" id="no_row_check">
                             <property name="label" translatable="yes">Inserisci dettaglio Righe del singolo DDT</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
@@ -157,7 +154,6 @@
                         <child>
                           <object class="GtkCheckButton" id="insert_row_pointed_check">
                             <property name="label" translatable="yes">Inserisci una riga tratteggiata tra i dettagli righe DDT</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
@@ -172,7 +168,6 @@
                         <child>
                           <object class="GtkCheckButton" id="insert_row_empty_check">
                             <property name="label" translatable="yes">Inserisci una riga vuota tra i dettagli righe DDT</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
@@ -188,7 +183,6 @@
                           <object class="GtkCheckButton" id="no_rif_righe_cumul_check">
                             <property name="label" translatable="yes">No Rif ai DDT, righe composte da sintesi articoli
 cumulati come quantità e valore</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
@@ -281,7 +275,6 @@ cumulati come quantità e valore</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="confirm_button">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>

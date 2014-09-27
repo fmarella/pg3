@@ -31,6 +31,11 @@ anche i dati di connessione che passeranno ad EnvUtils ....per il momento
 non trovo altra soluzione """
 
 pg3_cla = False
+try:
+    from gi.repository import Gtk
+    pg3_cla = True
+except:
+    pass
 shop = False
 web = False
 echo = False

@@ -2915,6 +2915,9 @@ def get_remote_version():
                         recurse=False)[0][1]["rev"].number
         except pysvn.ClientError:
             pass
+        # Ritorniamo 0 se non abbiamo PyGI in modo da bloccare gli aggiornamenti
+        if not check_pygi():
+            return 0
     return version
 
 def get_web_remote_version():
@@ -3629,3 +3632,11 @@ def getCodicePagamento(denominazione):
         codice = None
     return codice
 #end fattura PA
+
+def check_pygi():
+    try:
+        from gi.repository import Gtk
+        return True
+    except:
+        return False
+

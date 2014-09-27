@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy toplevel-contextual -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkAdjustment" id="adjustment1">
     <property name="upper">100</property>
     <property name="step_increment">0.5</property>
@@ -93,6 +93,9 @@
                 <property name="model">dettaglio_giacenza_listore</property>
                 <property name="enable_grid_lines">both</property>
                 <signal name="row-activated" handler="on_dettaglio_giacenza_treeview_row_activated" swapped="no"/>
+                <child internal-child="selection">
+                  <object class="GtkTreeSelection" id="treeview-selection1"/>
+                </child>
                 <child>
                   <object class="GtkTreeViewColumn" id="treeviewcolumn3">
                     <property name="title" translatable="yes">TOTALI VENDUTI RESIDUI</property>
@@ -175,7 +178,6 @@
             <child>
               <object class="GtkButton" id="dg_annulla_button">
                 <property name="label">gtk-cancel</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -191,7 +193,6 @@
             <child>
               <object class="GtkButton" id="dg_ok_button">
                 <property name="label">gtk-ok</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>

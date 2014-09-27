@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <!-- interface-requires pythonplugin 0.0 -->
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy project-wide -->
+  <requires lib="gtk+" version="3.10"/>
+  <requires lib="" version="3.10"/>
+  <requires lib="pythonplugin" version="0.0"/>
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -66,8 +67,8 @@
     <property name="title" translatable="yes">Ricevute bancarie (RI.BA)</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
-    <signal name="destroy-event" handler="on_riba_window_destroy_event" swapped="no"/>
     <signal name="delete-event" handler="on_riba_window_delete_event" swapped="no"/>
+    <signal name="destroy-event" handler="on_riba_window_destroy_event" swapped="no"/>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
@@ -218,8 +219,6 @@
           <object class="GtkScrolledWindow" id="webview_scrolledwindow">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="hscrollbar_policy">automatic</property>
-            <property name="vscrollbar_policy">automatic</property>
             <child>
               <placeholder/>
             </child>

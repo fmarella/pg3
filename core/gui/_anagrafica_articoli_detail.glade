@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-requires pythonplugin 0.0 -->
-  <!-- interface-naming-policy project-wide -->
+  <requires lib="gtk+" version="3.10"/>
+  <requires lib="pythonplugin" version="0.0"/>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-orientation-landscape</property>
+  </object>
+  <object class="GtkImage" id="image3">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-orientation-landscape</property>
+  </object>
+  <object class="GtkImage" id="image5">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-orientation-landscape</property>
+  </object>
+  <object class="GtkImage" id="image6">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-missing-image</property>
+  </object>
   <object class="GtkVBox" id="anagrafica_articoli_detail_table">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -83,13 +103,10 @@
             <property name="invisible_char">•</property>
             <property name="secondary_icon_stock">gtk-clear</property>
             <property name="primary_icon_activatable">False</property>
-            <property name="secondary_icon_activatable">True</property>
-            <property name="primary_icon_sensitive">True</property>
-            <property name="secondary_icon_sensitive">True</property>
             <signal name="button-press-event" handler="on_button_press_event" swapped="no"/>
-            <signal name="icon-press" handler="on_icon_press" swapped="no"/>
-            <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
             <signal name="focus-in-event" handler="on_focus_in_event" swapped="no"/>
+            <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
+            <signal name="icon-press" handler="on_icon_press" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">1</property>
@@ -193,17 +210,13 @@ generare uno dal programma</property>
                     <property name="invisible_char">•</property>
                     <property name="primary_icon_stock">gtk-new</property>
                     <property name="secondary_icon_stock">gtk-clear</property>
-                    <property name="primary_icon_activatable">True</property>
-                    <property name="secondary_icon_activatable">True</property>
-                    <property name="primary_icon_sensitive">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
                     <signal name="button-press-event" handler="on_button_press_event" swapped="no"/>
                     <signal name="changed" handler="on_codice_entry_changed" after="yes" swapped="no"/>
-                    <signal name="key-press-event" handler="on_codice_entry_key_press_event" swapped="no"/>
+                    <signal name="focus-in-event" handler="on_focus_in_event" swapped="no"/>
+                    <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
                     <signal name="icon-press" handler="on_icon_press" swapped="no"/>
                     <signal name="icon-press" handler="on_icon_press_primary" swapped="no"/>
-                    <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
-                    <signal name="focus-in-event" handler="on_focus_in_event" swapped="no"/>
+                    <signal name="key-press-event" handler="on_codice_entry_key_press_event" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -243,12 +256,12 @@ generare uno dal programma</property>
                                 <child>
                                   <object class="GtkRadioButton" id="normale_radiobutton">
                                     <property name="label" translatable="yes">NORMALE</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
                                     <property name="tooltip_text" translatable="yes">Articolo normale senza attributi e senza varianti</property>
                                     <property name="use_underline">True</property>
+                                    <property name="xalign">0.5</property>
                                     <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
                                     <signal name="toggled" handler="on_normale_radiobutton_toggled" swapped="no"/>
@@ -262,7 +275,6 @@ generare uno dal programma</property>
                                 <child>
                                   <object class="GtkRadioButton" id="plus_radiobutton">
                                     <property name="label" translatable="yes">PLUS </property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
@@ -270,6 +282,7 @@ generare uno dal programma</property>
 un articolo con degli attributi come taglia e colore 
 ma senza figli</property>
                                     <property name="use_underline">True</property>
+                                    <property name="xalign">0.5</property>
                                     <property name="draw_indicator">True</property>
                                     <property name="group">normale_radiobutton</property>
                                     <signal name="toggled" handler="on_plus_radiobutton_toggled" swapped="no"/>
@@ -283,13 +296,13 @@ ma senza figli</property>
                                 <child>
                                   <object class="GtkRadioButton" id="con_taglie_colori_radiobutton">
                                     <property name="label" translatable="yes">Con Taglie/Colori</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
                                     <property name="tooltip_text" translatable="yes">Selezionare per creare un articolo PADRE
 che abbia poi figli con variazione di taglia e colore</property>
                                     <property name="use_underline">True</property>
+                                    <property name="xalign">0.5</property>
                                     <property name="draw_indicator">True</property>
                                     <property name="group">normale_radiobutton</property>
                                     <signal name="toggled" handler="on_con_taglie_colori_radiobutton_toggled" swapped="no"/>
@@ -338,7 +351,6 @@ che abbia poi figli con variazione di taglia e colore</property>
                                 </child>
                                 <child>
                                   <object class="GtkToggleButton" id="taglie_colori_togglebutton">
-                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="sensitive">False</property>
                                     <property name="can_focus">True</property>
@@ -485,22 +497,14 @@ sul pulsante di fianco</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkComboBoxEntry" id="produttore_comboboxentry">
+              <object class="GtkComboBox" id="produttore_comboboxentry">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="has_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="receives_default">True</property>
+                <property name="can_focus">False</property>
                 <property name="has_entry">True</property>
+                <property name="entry_text_column">0</property>
                 <child internal-child="entry">
-                  <object class="GtkEntry" id="comboboxentry-entry">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="can_default">True</property>
-                    <property name="primary_icon_activatable">False</property>
-                    <property name="secondary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
+                  <object class="GtkEntry" id="combobox-entry1">
+                    <property name="can_focus">False</property>
                   </object>
                 </child>
               </object>
@@ -512,7 +516,6 @@ sul pulsante di fianco</property>
             </child>
             <child>
               <object class="GtkToggleButton" id="codici_a_barre_togglebutton">
-                <property name="use_action_appearance">False</property>
                 <property name="width_request">150</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -586,7 +589,6 @@ sul pulsante di fianco</property>
             </child>
             <child>
               <object class="GtkToggleButton" id="listini_togglebutton">
-                <property name="use_action_appearance">False</property>
                 <property name="width_request">150</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -636,7 +638,6 @@ sul pulsante di fianco</property>
             </child>
             <child>
               <object class="GtkToggleButton" id="forniture_togglebutton">
-                <property name="use_action_appearance">False</property>
                 <property name="width_request">150</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -690,7 +691,6 @@ sul pulsante di fianco</property>
             </child>
             <child>
               <object class="GtkToggleButton" id="kit_master_togglebutton">
-                <property name="use_action_appearance">False</property>
                 <property name="width_request">150</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -744,7 +744,6 @@ sul pulsante di fianco</property>
             </child>
             <child>
               <object class="GtkToggleButton" id="stoccaggi_togglebutton">
-                <property name="use_action_appearance">False</property>
                 <property name="width_request">180</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -798,7 +797,6 @@ sul pulsante di fianco</property>
             </child>
             <child>
               <object class="GtkToggleButton" id="label_togglebutton">
-                <property name="use_action_appearance">False</property>
                 <property name="width_request">120</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -855,7 +853,6 @@ sul pulsante di fianco</property>
             <child>
               <object class="GtkToggleButton" id="abbina_immagine_togglebutton">
                 <property name="label" translatable="yes">Immagine</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -872,7 +869,6 @@ sul pulsante di fianco</property>
             <child>
               <object class="GtkToggleButton" id="csa_togglebutton">
                 <property name="label" translatable="yes">Serv Csa</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="receives_default">True</property>
@@ -912,7 +908,6 @@ sul pulsante di fianco</property>
         <property name="can_focus">True</property>
         <property name="border_width">5</property>
         <property name="scrollable">True</property>
-        <property name="homogeneous">True</property>
         <child>
           <object class="GtkTable" id="table3">
             <property name="visible">True</property>
@@ -957,7 +952,6 @@ sul pulsante di fianco</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">Unità di misura dimensioni</property>
                 <property name="use_underline">True</property>
-                <property name="mnemonic_widget">unita_dimensioni_comboboxentry</property>
               </object>
               <packing>
                 <property name="top_attach">1</property>
@@ -1124,88 +1118,6 @@ sul pulsante di fianco</property>
               </packing>
             </child>
             <child>
-              <object class="GtkComboBoxEntry" id="unita_dimensioni_comboboxentry">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="tooltip_text" translatable="yes">Unità di misura per le sue dimensioni</property>
-                <signal name="button-press-event" handler="on_button_press_event" swapped="no"/>
-                <signal name="focus-in-event" handler="on_focus_in_event" swapped="no"/>
-                <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
-                <child internal-child="entry">
-                  <object class="GtkEntry" id="comboboxentry-entry2">
-                    <property name="can_focus">False</property>
-                    <property name="primary_icon_activatable">False</property>
-                    <property name="secondary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="right_attach">2</property>
-                <property name="top_attach">1</property>
-                <property name="bottom_attach">2</property>
-                <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                <property name="y_options"/>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxEntry" id="unita_volume_comboboxentry">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="tooltip_text" translatable="yes">Sceglie l'unita di misura del volume</property>
-                <property name="focus_on_click">False</property>
-                <signal name="button-press-event" handler="on_button_press_event" swapped="no"/>
-                <signal name="focus-in-event" handler="on_focus_in_event" swapped="no"/>
-                <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
-                <child internal-child="entry">
-                  <object class="GtkEntry" id="comboboxentry-entry4">
-                    <property name="can_focus">False</property>
-                    <property name="primary_icon_activatable">False</property>
-                    <property name="secondary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="right_attach">2</property>
-                <property name="top_attach">3</property>
-                <property name="bottom_attach">4</property>
-                <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                <property name="y_options"/>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxEntry" id="unita_peso_comboboxentry">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="tooltip_text" translatable="yes">unita di misura peso</property>
-                <signal name="button-press-event" handler="on_button_press_event" swapped="no"/>
-                <signal name="focus-in-event" handler="on_focus_in_event" swapped="no"/>
-                <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
-                <child internal-child="entry">
-                  <object class="GtkEntry" id="comboboxentry-entry6">
-                    <property name="can_focus">False</property>
-                    <property name="primary_icon_activatable">False</property>
-                    <property name="secondary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="right_attach">2</property>
-                <property name="top_attach">4</property>
-                <property name="bottom_attach">5</property>
-                <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                <property name="y_options"/>
-              </packing>
-            </child>
-            <child>
               <object class="GtkComboBox" id="id_unita_base_combobox">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -1234,8 +1146,6 @@ sul pulsante di fianco</property>
                     <property name="text" translatable="yes">0.00      </property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="secondary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
                   </object>
                 </child>
               </object>
@@ -1263,8 +1173,6 @@ sul pulsante di fianco</property>
                     <property name="invisible_char">•</property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="secondary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
                   </object>
                 </child>
               </object>
@@ -1292,8 +1200,6 @@ sul pulsante di fianco</property>
                     <property name="invisible_char">•</property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="secondary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
                   </object>
                 </child>
               </object>
@@ -1321,8 +1227,6 @@ sul pulsante di fianco</property>
                     <property name="invisible_char">•</property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="secondary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
                   </object>
                 </child>
               </object>
@@ -1350,8 +1254,6 @@ sul pulsante di fianco</property>
                     <property name="invisible_char">•</property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="secondary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
                   </object>
                 </child>
               </object>
@@ -1379,8 +1281,6 @@ sul pulsante di fianco</property>
                     <property name="invisible_char">•</property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="secondary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
                   </object>
                 </child>
               </object>
@@ -1403,8 +1303,6 @@ utile quando si vende materiale a metraggio</property>
                 <property name="invisible_char">•</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_activatable">False</property>
-                <property name="primary_icon_sensitive">True</property>
-                <property name="secondary_icon_sensitive">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -1424,11 +1322,11 @@ sul piccolo bottone di fianco</property>
                 <child>
                   <object class="GtkCheckButton" id="sospeso_checkbutton">
                     <property name="label" translatable="yes">Sospeso</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="use_underline">True</property>
+                    <property name="xalign">0.5</property>
                     <property name="draw_indicator">True</property>
                   </object>
                   <packing>
@@ -1458,8 +1356,6 @@ dell'mmortamento </property>
                 <property name="text" translatable="yes">0.00      </property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_activatable">False</property>
-                <property name="primary_icon_sensitive">True</property>
-                <property name="secondary_icon_sensitive">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -1494,6 +1390,63 @@ dell'mmortamento </property>
                 <property name="right_attach">4</property>
                 <property name="x_options">GTK_FILL</property>
                 <property name="y_options"/>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="unita_dimensioni_comboboxentry">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="has_entry">True</property>
+                <property name="entry_text_column">0</property>
+                <child internal-child="entry">
+                  <object class="GtkEntry" id="combobox-entry2">
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+                <property name="top_attach">1</property>
+                <property name="bottom_attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="unita_volume_comboboxentry">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="has_entry">True</property>
+                <property name="entry_text_column">0</property>
+                <child internal-child="entry">
+                  <object class="GtkEntry" id="combobox-entry3">
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+                <property name="top_attach">3</property>
+                <property name="bottom_attach">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="unita_peso_comboboxentry">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="has_entry">True</property>
+                <property name="entry_text_column">0</property>
+                <child internal-child="entry">
+                  <object class="GtkEntry" id="combobox-entry4">
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+                <property name="top_attach">4</property>
+                <property name="bottom_attach">5</property>
               </packing>
             </child>
           </object>
@@ -1590,13 +1543,10 @@ nel listino di vendita</property>
                 <property name="invisible_char">•</property>
                 <property name="secondary_icon_stock">gtk-clear</property>
                 <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_activatable">True</property>
-                <property name="primary_icon_sensitive">True</property>
-                <property name="secondary_icon_sensitive">True</property>
                 <signal name="button-press-event" handler="on_button_press_event" swapped="no"/>
-                <signal name="icon-press" handler="on_icon_press" swapped="no"/>
-                <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
                 <signal name="focus-in-event" handler="on_focus_in_event" swapped="no"/>
+                <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
+                <signal name="icon-press" handler="on_icon_press" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -1608,11 +1558,11 @@ nel listino di vendita</property>
             <child>
               <object class="GtkCheckButton" id="stampa_listino_checkbutton">
                 <property name="label" translatable="yes">Includi nei listini</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
+                <property name="xalign">0.5</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
               </object>
@@ -1631,13 +1581,10 @@ nel listino di vendita</property>
                 <property name="invisible_char">•</property>
                 <property name="secondary_icon_stock">gtk-clear</property>
                 <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_activatable">True</property>
-                <property name="primary_icon_sensitive">True</property>
-                <property name="secondary_icon_sensitive">True</property>
                 <signal name="button-press-event" handler="on_button_press_event" swapped="no"/>
-                <signal name="icon-press" handler="on_icon_press" swapped="no"/>
-                <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
                 <signal name="focus-in-event" handler="on_focus_in_event" swapped="no"/>
+                <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
+                <signal name="icon-press" handler="on_icon_press" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -1651,7 +1598,6 @@ nel listino di vendita</property>
             <child>
               <object class="GtkCheckButton" id="stampa_etichetta_checkbutton">
                 <property name="label" translatable="yes">Stampa etichetta</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1660,6 +1606,7 @@ nel caso serva
 si usi la descrizione ridotta 
 inserita poso sopra</property>
                 <property name="use_underline">True</property>
+                <property name="xalign">0.5</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
               </object>
@@ -1682,13 +1629,10 @@ più corta</property>
                 <property name="invisible_char">•</property>
                 <property name="secondary_icon_stock">gtk-clear</property>
                 <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_activatable">True</property>
-                <property name="primary_icon_sensitive">True</property>
-                <property name="secondary_icon_sensitive">True</property>
                 <signal name="button-press-event" handler="on_button_press_event" swapped="no"/>
-                <signal name="icon-press" handler="on_icon_press" swapped="no"/>
-                <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
                 <signal name="focus-in-event" handler="on_focus_in_event" swapped="no"/>
+                <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
+                <signal name="icon-press" handler="on_icon_press" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -1725,13 +1669,10 @@ articolo</property>
                 <property name="invisible_char">•</property>
                 <property name="secondary_icon_stock">gtk-clear</property>
                 <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_activatable">True</property>
-                <property name="primary_icon_sensitive">True</property>
-                <property name="secondary_icon_sensitive">True</property>
                 <signal name="button-press-event" handler="on_button_press_event" swapped="no"/>
-                <signal name="icon-press" handler="on_icon_press" swapped="no"/>
-                <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
                 <signal name="focus-in-event" handler="on_focus_in_event" swapped="no"/>
+                <signal name="focus-out-event" handler="on_focus_out_event" swapped="no"/>
+                <signal name="icon-press" handler="on_icon_press" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -1763,8 +1704,6 @@ articolo</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="border_width">6</property>
-            <property name="hscrollbar_policy">automatic</property>
-            <property name="vscrollbar_policy">automatic</property>
             <property name="shadow_type">in</property>
             <child>
               <object class="GtkTextView" id="note_textview">
@@ -2301,26 +2240,6 @@ dell'articolo padre</property>
         <property name="position">1</property>
       </packing>
     </child>
-  </object>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-orientation-landscape</property>
-  </object>
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-orientation-landscape</property>
-  </object>
-  <object class="GtkImage" id="image5">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-orientation-landscape</property>
-  </object>
-  <object class="GtkImage" id="image6">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-missing-image</property>
   </object>
   <object class="GtkImage" id="image7">
     <property name="visible">True</property>

@@ -1,98 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkListStore" id="filter_listore">
-    <columns>
-      <!-- column-name PyObject1 -->
-      <column type="PyObject"/>
-      <!-- column-name gchararray1 -->
-      <column type="gchararray"/>
-      <!-- column-name gchararray2 -->
-      <column type="gchararray"/>
-      <!-- column-name gchararray3 -->
-      <column type="gchararray"/>
-      <!-- column-name gchararray4 -->
-      <column type="gchararray"/>
-      <!-- column-name gchararray5 -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkTreeView" id="anagrafica_filter_treeview">
-    <property name="visible">True</property>
-    <property name="can_focus">True</property>
-    <property name="border_width">1</property>
-    <property name="model">filter_listore</property>
-    <property name="headers_clickable">False</property>
-    <property name="reorderable">True</property>
-    <property name="search_column">1</property>
-    <property name="enable_grid_lines">both</property>
-    <child>
-      <object class="GtkTreeViewColumn" id="codice_column">
-        <property name="resizable">True</property>
-        <property name="title" translatable="yes">Codice</property>
-        <property name="expand">True</property>
-        <property name="clickable">True</property>
-        <property name="reorderable">True</property>
-        <property name="sort_indicator">True</property>
-        <child>
-          <object class="GtkCellRendererText" id="cellrenderertext2"/>
-          <attributes>
-            <attribute name="text">1</attribute>
-          </attributes>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkTreeViewColumn" id="ragione_sociale_column">
-        <property name="resizable">True</property>
-        <property name="title" translatable="yes">Ragione Sociale</property>
-        <property name="expand">True</property>
-        <property name="clickable">True</property>
-        <property name="reorderable">True</property>
-        <property name="sort_indicator">True</property>
-        <child>
-          <object class="GtkCellRendererText" id="cellrenderertext3"/>
-          <attributes>
-            <attribute name="text">2</attribute>
-          </attributes>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkTreeViewColumn" id="cognome_nome_column">
-        <property name="title" translatable="yes">Cognome - Nome</property>
-        <child>
-          <object class="GtkCellRendererText" id="cellrenderertext8"/>
-          <attributes>
-            <attribute name="text">3</attribute>
-          </attributes>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkTreeViewColumn" id="localita_column">
-        <property name="title" translatable="yes">Località</property>
-        <child>
-          <object class="GtkCellRendererText" id="cellrenderertext4"/>
-          <attributes>
-            <attribute name="text">4</attribute>
-          </attributes>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkTreeViewColumn" id="partita_iva_column">
-        <property name="title" translatable="yes">Partita IVA / C.F.</property>
-        <child>
-          <object class="GtkCellRendererText" id="cellrenderertext5"/>
-          <attributes>
-            <attribute name="text">5</attribute>
-          </attributes>
-        </child>
-      </object>
-    </child>
-  </object>
   <object class="GtkVBox" id="anagrafica_fornitori_filter_vbox">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -115,7 +24,7 @@
               </object>
               <packing>
                 <property name="x_options">GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
                 <property name="x_padding">10</property>
               </packing>
             </child>
@@ -130,7 +39,7 @@
                 <property name="top_attach">1</property>
                 <property name="bottom_attach">2</property>
                 <property name="x_options">GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
                 <property name="x_padding">10</property>
               </packing>
             </child>
@@ -145,7 +54,7 @@
                 <property name="top_attach">2</property>
                 <property name="bottom_attach">3</property>
                 <property name="x_options">GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
                 <property name="x_padding">10</property>
               </packing>
             </child>
@@ -160,7 +69,7 @@
                 <property name="top_attach">3</property>
                 <property name="bottom_attach">4</property>
                 <property name="x_options">GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
                 <property name="x_padding">10</property>
               </packing>
             </child>
@@ -175,7 +84,7 @@
                 <property name="top_attach">4</property>
                 <property name="bottom_attach">5</property>
                 <property name="x_options">GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
                 <property name="x_padding">10</property>
               </packing>
             </child>
@@ -190,7 +99,7 @@
                 <property name="top_attach">5</property>
                 <property name="bottom_attach">6</property>
                 <property name="x_options">GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
                 <property name="x_padding">10</property>
               </packing>
             </child>
@@ -205,7 +114,7 @@
                 <property name="top_attach">6</property>
                 <property name="bottom_attach">7</property>
                 <property name="x_options">GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
                 <property name="x_padding">10</property>
               </packing>
             </child>
@@ -220,7 +129,7 @@
                 <property name="top_attach">7</property>
                 <property name="bottom_attach">8</property>
                 <property name="x_options">GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
                 <property name="x_padding">10</property>
               </packing>
             </child>
@@ -243,7 +152,7 @@
                 <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
                 <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
               </packing>
             </child>
             <child>
@@ -267,7 +176,7 @@
                 <property name="top_attach">1</property>
                 <property name="bottom_attach">2</property>
                 <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
               </packing>
             </child>
             <child>
@@ -291,7 +200,7 @@
                 <property name="top_attach">2</property>
                 <property name="bottom_attach">3</property>
                 <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
               </packing>
             </child>
             <child>
@@ -315,7 +224,7 @@
                 <property name="top_attach">3</property>
                 <property name="bottom_attach">4</property>
                 <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
               </packing>
             </child>
             <child>
@@ -339,7 +248,7 @@
                 <property name="top_attach">4</property>
                 <property name="bottom_attach">5</property>
                 <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
               </packing>
             </child>
             <child>
@@ -363,7 +272,7 @@
                 <property name="top_attach">5</property>
                 <property name="bottom_attach">6</property>
                 <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
               </packing>
             </child>
             <child>
@@ -387,7 +296,7 @@
                 <property name="top_attach">6</property>
                 <property name="bottom_attach">7</property>
                 <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
               </packing>
             </child>
             <child>
@@ -402,7 +311,7 @@
                 <property name="top_attach">7</property>
                 <property name="bottom_attach">8</property>
                 <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                <property name="y_options"></property>
+                <property name="y_options"/>
               </packing>
             </child>
           </object>
@@ -439,7 +348,6 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_action_appearance">False</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -518,7 +426,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image341">
                                     <property name="visible">True</property>
@@ -539,7 +446,6 @@
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image342">
                                     <property name="visible">True</property>
@@ -625,7 +531,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image343">
                                     <property name="visible">True</property>
@@ -646,7 +551,6 @@
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image344">
                                     <property name="visible">True</property>
@@ -732,7 +636,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image345">
                                     <property name="visible">True</property>
@@ -753,7 +656,6 @@
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image346">
                                     <property name="visible">True</property>
@@ -839,7 +741,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image339">
                                     <property name="visible">True</property>
@@ -860,7 +761,6 @@
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image340">
                                     <property name="visible">True</property>
@@ -946,7 +846,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image353">
                                     <property name="visible">True</property>
@@ -967,7 +866,6 @@
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image354">
                                     <property name="visible">True</property>
@@ -1053,7 +951,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image351">
                                     <property name="visible">True</property>
@@ -1074,7 +971,6 @@
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image352">
                                     <property name="visible">True</property>
@@ -1160,7 +1056,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image347">
                                     <property name="visible">True</property>
@@ -1181,7 +1076,6 @@
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image348">
                                     <property name="visible">True</property>
@@ -1267,7 +1161,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image349">
                                     <property name="visible">True</property>
@@ -1288,7 +1181,6 @@
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <child>
                                   <object class="GtkImage" id="image350">
                                     <property name="visible">True</property>
@@ -1565,7 +1457,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1586,6 +1477,97 @@
         <property name="fill">True</property>
         <property name="position">1</property>
       </packing>
+    </child>
+  </object>
+  <object class="GtkListStore" id="filter_listore">
+    <columns>
+      <!-- column-name PyObject1 -->
+      <column type="PyObject"/>
+      <!-- column-name gchararray1 -->
+      <column type="gchararray"/>
+      <!-- column-name gchararray2 -->
+      <column type="gchararray"/>
+      <!-- column-name gchararray3 -->
+      <column type="gchararray"/>
+      <!-- column-name gchararray4 -->
+      <column type="gchararray"/>
+      <!-- column-name gchararray5 -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkTreeView" id="anagrafica_filter_treeview">
+    <property name="visible">True</property>
+    <property name="can_focus">True</property>
+    <property name="border_width">1</property>
+    <property name="model">filter_listore</property>
+    <property name="headers_clickable">False</property>
+    <property name="reorderable">True</property>
+    <property name="search_column">1</property>
+    <property name="enable_grid_lines">both</property>
+    <child>
+      <object class="GtkTreeViewColumn" id="codice_column">
+        <property name="resizable">True</property>
+        <property name="title" translatable="yes">Codice</property>
+        <property name="expand">True</property>
+        <property name="clickable">True</property>
+        <property name="reorderable">True</property>
+        <property name="sort_indicator">True</property>
+        <child>
+          <object class="GtkCellRendererText" id="cellrenderertext2"/>
+          <attributes>
+            <attribute name="text">1</attribute>
+          </attributes>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkTreeViewColumn" id="ragione_sociale_column">
+        <property name="resizable">True</property>
+        <property name="title" translatable="yes">Ragione Sociale</property>
+        <property name="expand">True</property>
+        <property name="clickable">True</property>
+        <property name="reorderable">True</property>
+        <property name="sort_indicator">True</property>
+        <child>
+          <object class="GtkCellRendererText" id="cellrenderertext3"/>
+          <attributes>
+            <attribute name="text">2</attribute>
+          </attributes>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkTreeViewColumn" id="cognome_nome_column">
+        <property name="title" translatable="yes">Cognome - Nome</property>
+        <child>
+          <object class="GtkCellRendererText" id="cellrenderertext8"/>
+          <attributes>
+            <attribute name="text">3</attribute>
+          </attributes>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkTreeViewColumn" id="localita_column">
+        <property name="title" translatable="yes">Località</property>
+        <child>
+          <object class="GtkCellRendererText" id="cellrenderertext4"/>
+          <attributes>
+            <attribute name="text">4</attribute>
+          </attributes>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkTreeViewColumn" id="partita_iva_column">
+        <property name="title" translatable="yes">Partita IVA / C.F.</property>
+        <child>
+          <object class="GtkCellRendererText" id="cellrenderertext5"/>
+          <attributes>
+            <attribute name="text">5</attribute>
+          </attributes>
+        </child>
+      </object>
     </child>
   </object>
 </interface>

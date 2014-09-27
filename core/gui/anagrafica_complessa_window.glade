@@ -1,11 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy project-wide -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">edit-copy</property>
+  </object>
+  <object class="GtkImage" id="image10">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">calc24x24.png</property>
+  </object>
+  <object class="GtkImage" id="image11">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-copy</property>
+  </object>
+  <object class="GtkImage" id="image12">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-copy</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">document-new</property>
+  </object>
+  <object class="GtkImage" id="image3">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">edit-find-replace</property>
+  </object>
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-delete</property>
+  </object>
+  <object class="GtkImage" id="image5">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="xpad">1</property>
+    <property name="pixbuf">stampa_selezione16x16.png</property>
+  </object>
+  <object class="GtkImage" id="image6">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-print</property>
+  </object>
+  <object class="GtkImage" id="image7">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">report24x24.png</property>
+  </object>
+  <object class="GtkImage" id="image8">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">esporta_24.png</property>
+  </object>
+  <object class="GtkImage" id="image9">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">duplica24x24.png</property>
+  </object>
+  <object class="GtkLabel" id="label2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="tooltip_text" translatable="yes">Chiudere il pagamento di uno o più documenti.</property>
+    <property name="label" translatable="yes">Chiudi pagamento</property>
+  </object>
+  <object class="GtkListStore" id="liststore1">
+    <columns>
+      <!-- column-name gint1 -->
+      <column type="gint"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">10</col>
+      </row>
+      <row>
+        <col id="0">15</col>
+      </row>
+      <row>
+        <col id="0">20</col>
+      </row>
+      <row>
+        <col id="0">30</col>
+      </row>
+      <row>
+        <col id="0">50</col>
+      </row>
+      <row>
+        <col id="0">100</col>
+      </row>
+      <row>
+        <col id="0">200</col>
+      </row>
+      <row>
+        <col id="0">500</col>
+      </row>
+      <row>
+        <col id="0">700</col>
+      </row>
+      <row>
+        <col id="0">1000</col>
+      </row>
+      <row>
+        <col id="0">10000</col>
+      </row>
+    </data>
   </object>
   <object class="GtkWindow" id="anagrafica_complessa_window">
     <property name="can_focus">False</property>
@@ -14,8 +117,8 @@
     <property name="default_width">800</property>
     <property name="default_height">600</property>
     <property name="icon">promogest.png</property>
-    <signal name="destroy-event" handler="on_anagrafica_window_close" swapped="no"/>
     <signal name="delete-event" handler="on_anagrafica_window_close" swapped="no"/>
+    <signal name="destroy-event" handler="on_anagrafica_window_close" swapped="no"/>
     <child>
       <object class="GtkVBox" id="anagrafica_main_vbox">
         <property name="visible">True</property>
@@ -288,15 +391,6 @@ dei farmaci venduti in un determinato arco temporale</property>
                         <signal name="activate" handler="on_genera_fatture_menu_activate" swapped="no"/>
                       </object>
                     </child>
-                    <child>
-                      <object class="GtkMenuItem" id="chiusura_ordini_menuitem">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Chiusura ordini</property>
-                        <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_chiusura_ordini_menuitem_activate" swapped="no"/>
-                      </object>
-                    </child>
                   </object>
                 </child>
               </object>
@@ -394,6 +488,7 @@ dei farmaci venduti in un determinato arco temporale</property>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="homogeneous">False</property>
               </packing>
             </child>
             <child>
@@ -449,6 +544,7 @@ dei farmaci venduti in un determinato arco temporale</property>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="homogeneous">False</property>
               </packing>
             </child>
             <child>
@@ -487,6 +583,7 @@ dei farmaci venduti in un determinato arco temporale</property>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="homogeneous">False</property>
               </packing>
             </child>
             <child>
@@ -545,6 +642,7 @@ dei farmaci venduti in un determinato arco temporale</property>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="homogeneous">False</property>
               </packing>
             </child>
             <child>
@@ -754,8 +852,6 @@ dei farmaci venduti in un determinato arco temporale</property>
                       <object class="GtkScrolledWindow" id="anagrafica_detail_scrolledwindow">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="hscrollbar_policy">automatic</property>
-                        <property name="vscrollbar_policy">automatic</property>
                         <property name="shadow_type">etched-in</property>
                         <child>
                           <placeholder/>
@@ -849,109 +945,6 @@ dei farmaci venduti in un determinato arco temporale</property>
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkImage" id="image10">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">calc24x24.png</property>
-  </object>
-  <object class="GtkImage" id="image11">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-copy</property>
-  </object>
-  <object class="GtkImage" id="image12">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-copy</property>
-  </object>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">document-new</property>
-  </object>
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">edit-find-replace</property>
-  </object>
-  <object class="GtkImage" id="image4">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-delete</property>
-  </object>
-  <object class="GtkImage" id="image5">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="xpad">1</property>
-    <property name="pixbuf">stampa_selezione16x16.png</property>
-  </object>
-  <object class="GtkImage" id="image6">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-print</property>
-  </object>
-  <object class="GtkImage" id="image7">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">report24x24.png</property>
-  </object>
-  <object class="GtkImage" id="image8">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">esporta_24.png</property>
-  </object>
-  <object class="GtkImage" id="image9">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">duplica24x24.png</property>
-  </object>
-  <object class="GtkLabel" id="label2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="tooltip_text" translatable="yes">Chiudere il pagamento di uno o più documenti.</property>
-    <property name="label" translatable="yes">Chiudi pagamento</property>
-  </object>
-  <object class="GtkListStore" id="liststore1">
-    <columns>
-      <!-- column-name gint1 -->
-      <column type="gint"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">10</col>
-      </row>
-      <row>
-        <col id="0">15</col>
-      </row>
-      <row>
-        <col id="0">20</col>
-      </row>
-      <row>
-        <col id="0">30</col>
-      </row>
-      <row>
-        <col id="0">50</col>
-      </row>
-      <row>
-        <col id="0">100</col>
-      </row>
-      <row>
-        <col id="0">200</col>
-      </row>
-      <row>
-        <col id="0">500</col>
-      </row>
-      <row>
-        <col id="0">700</col>
-      </row>
-      <row>
-        <col id="0">1000</col>
-      </row>
-      <row>
-        <col id="0">10000</col>
-      </row>
-    </data>
   </object>
   <object class="GtkMenu" id="menu3">
     <property name="visible">True</property>

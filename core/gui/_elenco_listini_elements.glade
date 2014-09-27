@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkFrame" id="elenco_listini_frame">
     <property name="visible">True</property>
@@ -93,7 +93,6 @@
 Ricordiamo che nella 
 versione lite senza opzioni attivate è possibile avere un solo 
 listino di vendita </property>
-                    <property name="use_action_appearance">False</property>
                     <signal name="clicked" handler="on_listini_togglebutton_clicked" swapped="no"/>
                     <child>
                       <object class="GtkAlignment" id="alignment126">
@@ -151,7 +150,6 @@ listini</property>
                     <property name="tooltip_text" translatable="yes">Composizione dei listini
 con l'inserimento degli 
 articoli presenti in anagrafica</property>
-                    <property name="use_action_appearance">False</property>
                     <signal name="clicked" handler="on_articoli_listino_togglebutton_clicked" swapped="no"/>
                     <child>
                       <object class="GtkAlignment" id="alignment127">
@@ -211,7 +209,6 @@ listino</property>
 di importazione listini e creazione 
 anagrafica articolo.
 Accetta file csv</property>
-                    <property name="use_action_appearance">False</property>
                     <signal name="clicked" handler="on_importazione_listini_togglebutton_clicked" swapped="no"/>
                     <child>
                       <object class="GtkAlignment" id="alignment7">
@@ -271,7 +268,6 @@ listino</property>
 o label per la vendita, con prezzo, iva e 
 codici a barre. Serve un modulo 
 apposito per averne pieno accesso</property>
-                    <property name="use_action_appearance">False</property>
                     <signal name="clicked" handler="on_stampa_frontaline_togglebutton_clicked" swapped="no"/>
                     <child>
                       <object class="GtkAlignment" id="alignment1">
@@ -327,7 +323,6 @@ Etichette</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_stock">True</property>
                     <signal name="clicked" handler="on_aggiorna_listini_button_clicked" swapped="no"/>
                   </object>
@@ -343,7 +338,6 @@ Etichette</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="draw_indicator">True</property>
                   </object>
                   <packing>

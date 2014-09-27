@@ -40,11 +40,6 @@ i DAO, i filtri o tutto"""
                             default="False",
                             type="string",
                             dest="debug")
-        parser.add_option("-3", "--pg3",
-                            action="store_true",
-                            help="Utilizza il modulo gi e le librerie GTK+3",
-                            default="False",
-                            dest="pg3_classi")
         parser.add_option("-t", "--tipoDB",
                             action="store",
                             help="Imposta il backend DB (sqlite, postgresql)",
@@ -84,14 +79,12 @@ i DAO, i filtri o tutto"""
         (options, args) = parser.parse_args()
         from promogest import preEnv, bindtextdomain
         bindtextdomain('promogest', locale_dir='./po/locale')
-        if options.pg3_classi == True:
-            try:
-                import imp
-                imp.reload(sys)
-            except:
-                reload(sys)
-                sys.setdefaultencoding('utf-8')
-            preEnv.pg3_cla = True
+        try:
+            import imp
+            imp.reload(sys)
+        except:
+            reload(sys)
+            sys.setdefaultencoding('utf-8')
         if options.configFile:
             from promogest.lib.config import Config
             conf = Config(options.configFile)

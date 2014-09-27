@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkWindow" id="records_print_dialog">
     <property name="visible">True</property>
@@ -187,7 +187,6 @@
                     <child>
                       <object class="GtkButton" id="open_button">
                         <property name="label">gtk-open</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -204,7 +203,6 @@
                     <child>
                       <object class="GtkButton" id="save_button">
                         <property name="label">gtk-save</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -221,7 +219,6 @@
                     <child>
                       <object class="GtkButton" id="directprint_button">
                         <property name="label">gtk-print</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -322,7 +319,6 @@
                         <child>
                           <object class="GtkButton" id="cerca_contatto_button">
                             <property name="label" translatable="yes">Cerca indirizzo</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
@@ -338,7 +334,6 @@
                         <child>
                           <object class="GtkButton" id="send_email_button">
                             <property name="label" translatable="yes">Invia</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="can_default">True</property>
@@ -400,7 +395,6 @@
                 <child>
                   <object class="GtkButton" id="close_button">
                     <property name="label">gtk-close</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
