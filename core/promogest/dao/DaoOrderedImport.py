@@ -25,9 +25,9 @@ from promogest.Environment import *
 from promogest.dao.DaoUtils import get_columns
 from sqlalchemy import *
 from sqlalchemy.orm import *
-from promogest.lib.alembic.migration import MigrationContext
-from promogest.lib.alembic.operations import Operations
-from promogest.lib.alembic import op
+from alembic.migration import MigrationContext
+from alembic.operations import Operations
+from alembic import op
 
 def orderedImport():
     from promogest.dao.Azienda import t_azienda #v

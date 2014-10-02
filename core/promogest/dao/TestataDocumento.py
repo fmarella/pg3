@@ -25,9 +25,9 @@
 from sqlalchemy import *
 from sqlalchemy.orm import *
 from promogest.Environment import *
-from promogest.lib.alembic.migration import MigrationContext
-from promogest.lib.alembic.operations import Operations
-from promogest.lib.alembic import op
+from alembic.migration import MigrationContext
+from alembic.operations import Operations
+from alembic import op
 
 try:
     t_testata_documento = Table('testata_documento',
