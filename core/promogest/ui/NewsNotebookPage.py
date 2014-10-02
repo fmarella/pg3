@@ -38,7 +38,6 @@ try:
         from webkit import WebView
     WEBKIT = True
 except:
-    import gtkhtml2
     WEBKIT = False
 
 class NewsNotebookPage(GladeWidget):
